@@ -64,11 +64,11 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteDrawer }) => {
 
         <div className={styles.ctaGroup}>
           <button type="button" className="button--red" onClick={onOpenQuoteDrawer}>
-            REQUEST TECHNICAL QUOTE
+            <span style={{ color: 'var(--color-crimson)', marginRight: '0.2rem' }}>↳</span> REQUEST TECHNICAL QUOTE
           </button>
 
-          <a href="#heritage" className={`base-title ${styles.secondaryCta}`}>
-            DISCOVER FACTORY →
+          <a href="#heritage" className={styles.secondaryCta}>
+            <span className={styles.ctaDiamond}>◆</span> DISCOVER FACTORY <span className={styles.ctaArrow}>→</span>
           </a>
         </div>
       </div>

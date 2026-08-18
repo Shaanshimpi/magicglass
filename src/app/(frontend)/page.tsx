@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
+import { Loader } from '@/components/Loader/Loader'
 import { Header } from '@/components/Header/Header'
 import { Hero } from '@/components/Hero/Hero'
 import { Heritage } from '@/components/Heritage/Heritage'
@@ -14,6 +15,7 @@ import { Footer } from '@/components/Footer/Footer'
 
 export default function HomePage() {
   const [isQuoteOpen, setIsQuoteOpen] = useState(false)
+  const [isLoaded, setIsLoaded] = useState(false)
 
   const handleOpenQuote = () => {
     setIsQuoteOpen(true)
@@ -23,9 +25,14 @@ export default function HomePage() {
     setIsQuoteOpen(false)
   }
 
+  const handleLoaderComplete = () => {
+    setIsLoaded(true)
+  }
+
   return (
     <>
-      <Header onOpenQuoteDrawer={handleOpenQuote} />
+      {!isLoaded && <Loader onComplete={handleLoaderComplete} />}
+      <Header onOpenQuoteDrawer={handleOpenQuote} isLoaded={isLoaded} />
       <main>
         <Hero onOpenQuoteDrawer={handleOpenQuote} />
         <Heritage onOpenQuoteDrawer={handleOpenQuote} />

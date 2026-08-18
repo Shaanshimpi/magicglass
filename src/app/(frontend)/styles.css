@@ -112,14 +112,6 @@ a:hover {
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
 }
 
-.btn-black::before {
-  content: "↳";
-  font-family: var(--font-mono), monospace;
-  font-size: 0.85rem;
-  line-height: 1;
-  color: #ffffff;
-}
-
 .btn-black:hover {
   transform: translateY(-2px);
   background-color: #1a2023;
@@ -150,14 +142,6 @@ a:hover {
   cursor: pointer;
   text-decoration: none;
   transition: transform var(--transition-fast), background-color var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
-}
-
-.button--red::before {
-  content: "↳";
-  font-family: var(--font-mono), monospace;
-  font-size: 0.85rem;
-  line-height: 1;
-  color: var(--color-crimson);
 }
 
 .button--red:hover {

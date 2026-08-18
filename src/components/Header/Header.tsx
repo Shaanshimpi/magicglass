@@ -7,13 +7,77 @@ import styles from './Header.module.css'
 
 interface HeaderProps {
   onOpenQuoteDrawer?: () => void
+  isLoaded?: boolean
 }
 
-export const Header: React.FC<HeaderProps> = ({ onOpenQuoteDrawer }) => {
+export const Header: React.FC<HeaderProps> = ({ onOpenQuoteDrawer, isLoaded = false }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const headerRef = useRef<HTMLHeadingElement>(null)
+  const logoLinkRef = useRef<HTMLAnchorElement>(null)
+  const navRef = useRef<HTMLElement>(null)
+  const actionsRef = useRef<HTMLDivElement>(null)
   const menuOverlayRef = useRef<HTMLDivElement>(null)
   const menuLinksRef = useRef<HTMLUListElement>(null)
 
+  // Step 1: Pill in Top Center -> Step 2: Slides Top Center to Top Left -> Step 3: Whole Header Appears
+  useEffect(() => {
+    if (isLoaded && headerRef.current && logoLinkRef.current && navRef.current && actionsRef.current) {
+      const tl = gsap.timeline({ delay: 0.1 })
+
+      // Calculate distance to center: header container center minus logo center
+      const containerWidth = headerRef.current.offsetWidth
+      const logoWidth = logoLinkRef.current.offsetWidth
+      // Offset required to place the logo exactly in the horizontal center of the header container
+      const centerX = (containerWidth / 2) - (logoWidth / 2) - 28
+
+      // Step 1: Logo Pill appears cleanly in TOP CENTER
+      tl.set(logoLinkRef.current, {
+        x: centerX,
+        opacity: 0,
+        scale: 1.12,
+      })
+      .to(logoLinkRef.current, {
+        opacity: 1,
+        scale: 1.05,
+        duration: 0.5,
+        ease: 'power3.out',
+      })
+
+      // Step 2: Logo Pill slides from TOP CENTER -> TOP LEFT
+      .to(logoLinkRef.current, {
+        x: 0,
+        scale: 1,
+        duration: 0.8,
+        ease: 'power3.inOut',
+      }, '+=0.2')
+
+      // Step 3: Rest of Header Elements Appear (Glass dock background + Nav + CTA)
+      .to(
+        headerRef.current,
+        {
+          backgroundColor: 'rgba(14, 19, 21, 0.82)',
+          borderColor: 'rgba(255, 255, 255, 0.14)',
+          boxShadow: 'inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 20px 45px rgba(0, 0, 0, 0.45)',
+          duration: 0.65,
+          ease: 'power2.out',
+        },
+        '-=0.35'
+      )
+      .to(
+        [navRef.current, actionsRef.current],
+        {
+          opacity: 1,
+          x: 0,
+          stagger: 0.12,
+          duration: 0.5,
+          ease: 'power2.out',
+        },
+        '-=0.45'
+      )
+    }
+  }, [isLoaded])
+
+  // Fullscreen Menu Overlay Toggle Animation
   useEffect(() => {
     if (isMenuOpen && menuOverlayRef.current && menuLinksRef.current) {
       gsap.to(menuOverlayRef.current, {
@@ -37,11 +101,16 @@ export const Header: React.FC<HeaderProps> = ({ onOpenQuoteDrawer }) => {
     }
   }, [isMenuOpen])
 
+  const handleCloseMenu = () => {
+    setIsMenuOpen(false)
+  }
+
   return (
     <>
       {/* Top Center Fixed Header */}
-      <header className={styles.headerContainer}>
-        <a href="#" className={styles.logoLink}>
+      <header ref={headerRef} className={styles.headerContainer}>
+        {/* Logo Pill (Top Center -> Top Left target) */}
+        <a ref={logoLinkRef} href="#" className={styles.logoLink}>
           <Image
             src="/images/logo.png"
             alt="Magic Glass Logo"
@@ -52,7 +121,8 @@ export const Header: React.FC<HeaderProps> = ({ onOpenQuoteDrawer }) => {
           />
         </a>
 
-        <nav className={styles.desktopNav}>
+        {/* Desktop Navigation Links */}
+        <nav ref={navRef} className={styles.desktopNav}>
           <ul className={styles.navLinks}>
             <li>
               <a href="#heritage" className={styles.navLink}>
@@ -77,7 +147,8 @@ export const Header: React.FC<HeaderProps> = ({ onOpenQuoteDrawer }) => {
           </ul>
         </nav>
 
-        <div className={styles.headerActions}>
+        {/* Header Actions (CTA & Mobile Button) */}
+        <div ref={actionsRef} className={styles.headerActions}>
           <button
             type="button"
             className="button--red"
@@ -102,26 +173,42 @@ export const Header: React.FC<HeaderProps> = ({ onOpenQuoteDrawer }) => {
       </header>
 
       {/* Expanded Full-Screen Glass Overlay Menu */}
-      <div ref={menuOverlayRef} className={styles.menuOverlay}>
+      <div
+        ref={menuOverlayRef}
+        className={styles.menuOverlay}
+        onClick={(e) => {
+          if (e.target === menuOverlayRef.current) handleCloseMenu()
+        }}
+      >
+        {/* Dedicated Close Button on Top Right */}
+        <button
+          type="button"
+          className={styles.closeOverlayBtn}
+          onClick={handleCloseMenu}
+          aria-label="Close menu"
+        >
+          ✕
+        </button>
+
         <div className={styles.menuContent}>
           <ul ref={menuLinksRef} className={styles.menuList}>
             <li>
-              <a href="#heritage" onClick={() => setIsMenuOpen(false)}>
+              <a href="#heritage" onClick={handleCloseMenu}>
                 Company & Factory
               </a>
             </li>
             <li>
-              <a href="#products" onClick={() => setIsMenuOpen(false)}>
+              <a href="#products" onClick={handleCloseMenu}>
                 Architectural Products
               </a>
             </li>
             <li>
-              <a href="#craftsmanship" onClick={() => setIsMenuOpen(false)}>
+              <a href="#craftsmanship" onClick={handleCloseMenu}>
                 Engineering Craftsmanship
               </a>
             </li>
             <li>
-              <a href="#projects" onClick={() => setIsMenuOpen(false)}>
+              <a href="#projects" onClick={handleCloseMenu}>
                 Featured Projects
               </a>
             </li>
@@ -130,7 +217,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenQuoteDrawer }) => {
                 type="button"
                 className="button--red"
                 onClick={() => {
-                  setIsMenuOpen(false)
+                  handleCloseMenu()
                   onOpenQuoteDrawer?.()
                 }}
                 style={{ marginTop: '1.5rem' }}

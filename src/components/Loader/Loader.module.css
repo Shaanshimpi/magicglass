@@ -1,0 +1,129 @@
+.loaderWrapper {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  overflow: hidden;
+  pointer-events: all;
+}
+
+.svgCurtain {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.loaderContent {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 3rem 4vw;
+  color: #ffffff;
+}
+
+.topMeta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.725rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #7a8084;
+  opacity: 0;
+  will-change: opacity;
+}
+
+.titleBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.brandTitle {
+  font-family: var(--font-outfit), sans-serif;
+  font-size: clamp(2.2rem, 5.5vw, 5.8rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  color: #ffffff;
+  text-align: center;
+  text-transform: uppercase;
+  line-height: 1.05;
+  opacity: 0;
+  transform: translateY(60px);
+  will-change: transform, opacity;
+}
+
+.counterBox {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ringWrapper {
+  position: relative;
+  width: 72px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ringSvg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.ringTrack {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.12);
+  stroke-width: 4;
+}
+
+.ringProgress {
+  fill: none;
+  stroke: var(--color-crimson);
+  stroke-width: 4;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.1s ease-out;
+}
+
+.counterNumber {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #ffffff;
+  z-index: 2;
+}
+
+.loadingStatus {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #6e7377;
+}
+
+@media (max-width: 768px) {
+  .loaderContent {
+    padding: 2rem 1.5rem;
+  }
+  .ringWrapper {
+    width: 56px;
+    height: 56px;
+  }
+  .counterNumber {
+    font-size: 0.8rem;
+  }
+}
