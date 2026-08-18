@@ -22,11 +22,14 @@
 # misc
 .DS_Store
 *.pem
+*.log
+*.tmp
 
-# debug
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+# Markdown & PDF files
+*.md
+*.pdf
+.claude/
+docs/
 
 # local env files
 .env*.local
