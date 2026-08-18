@@ -1,0 +1,118 @@
+.switcherSection {
+  padding: 10rem 2rem;
+  background-color: var(--color-black);
+  color: var(--color-taupe);
+}
+
+.container {
+  max-width: 1040px;
+  margin: 0 auto;
+}
+
+.headerTag {
+  margin-bottom: 3rem;
+}
+
+.pillsRow {
+  display: flex;
+  gap: 0.85rem;
+  margin-bottom: 3.5rem;
+  flex-wrap: wrap;
+}
+
+.pillBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.55rem 1.35rem;
+  border-radius: 9999px;
+  background: var(--color-grey);
+  border: 1px solid rgba(212, 206, 198, 0.12);
+  color: var(--color-taupe);
+  font-family: var(--font-mono), monospace;
+  font-size: 0.775rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s var(--ease-fluid);
+}
+
+.pillBtn:hover {
+  color: var(--color-cream);
+  border-color: rgba(212, 206, 198, 0.3);
+}
+
+.pillActive {
+  background: var(--color-cream);
+  color: var(--color-black);
+  border-color: var(--color-cream);
+}
+
+.pillActive:hover {
+  color: var(--color-black);
+}
+
+.displayCard {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 4rem;
+  align-items: center;
+  background: var(--color-grey);
+  border-radius: 1.5rem;
+  padding: 3rem;
+  border: 1px solid rgba(212, 206, 198, 0.1);
+}
+
+@media (max-width: 900px) {
+  .displayCard {
+    grid-template-columns: 1fr;
+    padding: 2rem;
+    gap: 2.5rem;
+  }
+}
+
+.title {
+  font-size: clamp(1.5rem, 2.5vw, 2.25rem);
+  color: var(--color-cream);
+  line-height: 1.25;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+}
+
+.specsList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.specItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  font-size: 0.925rem;
+  line-height: 1.7;
+  color: var(--color-taupe);
+}
+
+.specItem::before {
+  content: "◆";
+  color: var(--color-crimson);
+  font-size: 0.65rem;
+  margin-top: 0.35rem;
+  flex-shrink: 0;
+}
+
+.imageFrame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.imageFrame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s var(--ease-fluid);
+}

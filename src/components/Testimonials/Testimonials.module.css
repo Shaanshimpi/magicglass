@@ -1,0 +1,143 @@
+.testimonialsSection {
+  padding: 10rem 2rem 12rem 2rem;
+  background-color: #f3f0ec;
+  color: #0b1012;
+  position: relative;
+  overflow: hidden;
+}
+
+.container {
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Top Header & Navigation Controls                                           */
+/* -------------------------------------------------------------------------- */
+.topHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 5rem;
+}
+
+.eyebrow {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.725rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #5d5954;
+}
+
+.navControls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.navBtn {
+  background: rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  color: #0b1012;
+  font-family: var(--font-mono), monospace;
+  font-size: 1.1rem;
+  width: 42px;
+  height: 42px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.navBtn:hover {
+  background: #0b1012;
+  color: #ffffff;
+  border-color: #0b1012;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Testimonial Slide Grid                                                     */
+/* -------------------------------------------------------------------------- */
+.slideGrid {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: 4.5rem;
+  align-items: start;
+}
+
+.portraitWrapper {
+  position: relative;
+  width: 160px;
+  height: 195px;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px -10px rgba(0, 0, 0, 0.15);
+  background-color: #e5e2dd;
+}
+
+.portraitImage {
+  object-fit: cover;
+  filter: grayscale(100%) contrast(1.1) brightness(0.95);
+  transition: filter 0.3s ease;
+}
+
+.portraitWrapper:hover .portraitImage {
+  filter: grayscale(0%) contrast(1.05);
+}
+
+.quoteWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.quoteMark {
+  font-family: var(--font-outfit), sans-serif;
+  font-size: 3.5rem;
+  line-height: 0.8;
+  color: #0b1012;
+  font-weight: 600;
+  opacity: 0.85;
+}
+
+.quoteText {
+  font-family: var(--font-outfit), sans-serif;
+  font-size: clamp(1.7rem, 2.9vw, 2.6rem);
+  line-height: 1.24;
+  font-weight: 400;
+  color: #0b1012;
+  letter-spacing: -0.028em;
+  max-width: 32ch;
+}
+
+.authorMeta {
+  margin-top: 1rem;
+  font-family: var(--font-outfit), sans-serif;
+  font-size: 0.95rem;
+  color: #44413c;
+  letter-spacing: -0.01em;
+}
+
+.authorName {
+  font-weight: 500;
+  color: #0b1012;
+}
+
+.authorTitle {
+  font-weight: 400;
+  color: #635f59;
+}
+
+@media (max-width: 840px) {
+  .slideGrid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+  .portraitWrapper {
+    width: 130px;
+    height: 160px;
+  }
+}

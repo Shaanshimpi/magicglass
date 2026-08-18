@@ -1,0 +1,106 @@
+.footerSection {
+  position: relative;
+  background-color: var(--color-black);
+  color: var(--color-taupe);
+  padding: 8rem 2rem 3.5rem 2rem;
+  overflow: hidden;
+  border-top: 1px solid rgba(212, 206, 198, 0.06);
+}
+
+.container {
+  max-width: 1040px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 10;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 3.5rem;
+  margin-bottom: 5rem;
+}
+
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.colTitle {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.725rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-cream);
+  margin-bottom: 1.25rem;
+}
+
+.addressText {
+  font-size: 0.9rem;
+  line-height: 1.75;
+  color: var(--color-taupe);
+  max-width: 32ch;
+  margin-bottom: 1.25rem;
+}
+
+.contactLink {
+  display: block;
+  font-size: 0.875rem;
+  color: var(--color-cream);
+  margin-bottom: 0.4rem;
+  text-decoration: none;
+}
+
+.linksList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.linksList a {
+  font-size: 0.85rem;
+  color: var(--color-taupe);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.linksList a:hover {
+  color: var(--color-cream);
+}
+
+.bottomRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(212, 206, 198, 0.08);
+  font-size: 0.75rem;
+  color: #555e5c;
+}
+
+.wordmarkWrapper {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  pointer-events: none;
+  opacity: 0.03;
+  user-select: none;
+}
+
+.wordmarkSvg {
+  width: 100%;
+  height: auto;
+  display: block;
+}

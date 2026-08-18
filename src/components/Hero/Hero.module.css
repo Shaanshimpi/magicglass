@@ -1,0 +1,131 @@
+.heroSection {
+  position: relative;
+  min-height: 100dvh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 8rem 2rem;
+  overflow: hidden;
+  background-color: #0b1012;
+}
+
+.bgWrapper {
+  position: absolute;
+  inset: -10% 0;
+  z-index: 1;
+  background-image: url('/images/hero-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.85;
+  filter: contrast(1.04) brightness(0.95);
+  transition: opacity 1s ease-out;
+  will-change: transform;
+}
+
+.vignetteOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  /* Crystal-clear fluid glass light gradient overlay */
+  background: linear-gradient(
+    180deg,
+    rgba(11, 16, 18, 0.45) 0%,
+    rgba(11, 16, 18, 0.15) 45%,
+    rgba(11, 16, 18, 0.55) 100%
+  );
+  pointer-events: none;
+}
+
+.contentContainer {
+  position: relative;
+  z-index: 10;
+  max-width: 900px;
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.tagline {
+  margin-bottom: 2rem;
+  opacity: 0.85;
+}
+
+.heading {
+  font-size: clamp(2.4rem, 5vw, 4.5rem);
+  line-height: 1.1;
+  font-weight: 500;
+  color: #ffffff;
+  letter-spacing: -0.03em;
+  margin-bottom: 2.75rem;
+  max-width: 20ch;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.ctaGroup {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.secondaryCta {
+  font-size: 0.8rem;
+  cursor: pointer;
+  padding: 0.65rem 1rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: var(--color-cream);
+  transition: all 0.2s ease-out;
+}
+
+.secondaryCta:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+.indicatorContainer {
+  position: absolute;
+  bottom: 2.25rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--color-taupe);
+  opacity: 0.7;
+}
+
+.scrollText {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+}
+
+.scrollLine {
+  width: 1px;
+  height: 35px;
+  background: linear-gradient(to bottom, var(--color-taupe), transparent);
+  animation: scrollDown 2s infinite ease-in-out;
+}
+
+@keyframes scrollDown {
+  0% { transform: scaleY(0); transform-origin: top; }
+  50% { transform: scaleY(1); transform-origin: top; }
+  50.1% { transform: scaleY(1); transform-origin: bottom; }
+  100% { transform: scaleY(0); transform-origin: bottom; }
+}

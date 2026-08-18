@@ -1,0 +1,238 @@
+/* Full-Width CTA Banner */
+.bannerSection {
+  padding: 7rem 2rem;
+  background-color: var(--color-crimson);
+  color: var(--color-white);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.bannerContainer {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.25rem;
+}
+
+.bannerTitle {
+  font-size: clamp(1.75rem, 3vw, 2.65rem);
+  line-height: 1.15;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  text-transform: uppercase;
+  color: var(--color-white);
+  max-width: 25ch;
+}
+
+.bannerBtn {
+  background-color: var(--color-black);
+  color: var(--color-white);
+  padding: 0.85rem 2.25rem;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.775rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  transition: transform 0.2s ease-out, background-color 0.2s ease-out;
+}
+
+.bannerBtn:hover {
+  transform: translateY(-2px);
+  background-color: #1a2225;
+}
+
+.bannerBtn:active {
+  transform: scale(0.97);
+}
+
+/* Slide-Out Drawer Backdrop & Panel */
+.drawerOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  background: rgba(11, 16, 18, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  justify-content: flex-end;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.drawerOverlayOpen {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.drawerPanel {
+  width: 100%;
+  max-width: 600px;
+  height: 100dvh;
+  background-color: var(--color-cream);
+  color: var(--color-grey);
+  padding: 3rem 2.25rem;
+  overflow-y: auto;
+  box-shadow: -20px 0 50px rgba(0, 0, 0, 0.4);
+  transform: translateX(100%);
+  transition: transform 0.35s cubic-bezier(0.32, 0.72, 0, 1);
+  display: flex;
+  flex-direction: column;
+}
+
+.drawerPanelOpen {
+  transform: translateX(0);
+}
+
+.drawerHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid rgba(33, 39, 38, 0.12);
+}
+
+.drawerTitle {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--color-grey);
+  letter-spacing: -0.015em;
+}
+
+.closeBtn {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--color-grey);
+  cursor: pointer;
+  padding: 0.5rem;
+  line-height: 1;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+
+.closeBtn:hover {
+  opacity: 1;
+}
+
+.formGroup {
+  margin-bottom: 1.75rem;
+}
+
+.label {
+  display: block;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.725rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #444c4a;
+  margin-bottom: 0.6rem;
+}
+
+.pillsGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.categoryPill {
+  padding: 0.45rem 0.85rem;
+  border-radius: 9999px;
+  background: rgba(33, 39, 38, 0.06);
+  border: 1px solid rgba(33, 39, 38, 0.15);
+  color: var(--color-grey);
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.categoryPillActive {
+  background: var(--color-grey);
+  color: var(--color-cream);
+  border-color: var(--color-grey);
+}
+
+.checkboxesGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem;
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--color-grey);
+  cursor: pointer;
+}
+
+.dropzone {
+  border: 1px dashed rgba(33, 39, 38, 0.25);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+.dropzone:hover {
+  border-color: var(--color-crimson);
+}
+
+.dropzoneText {
+  font-size: 0.8rem;
+  color: #666e6c;
+}
+
+.inputField {
+  width: 100%;
+  padding: 0.75rem 0.85rem;
+  border-radius: 0.4rem;
+  border: 1px solid rgba(33, 39, 38, 0.2);
+  background: var(--color-white);
+  font-family: var(--font-outfit), sans-serif;
+  font-size: 0.9rem;
+  color: var(--color-grey);
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.inputField:focus {
+  border-color: var(--color-crimson);
+}
+
+.submitBtn {
+  width: 100%;
+  padding: 0.85rem;
+  background-color: var(--color-crimson);
+  color: var(--color-white);
+  font-family: var(--font-mono), monospace;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 0.4rem;
+  cursor: pointer;
+  transition: transform 0.16s ease-out, background-color 0.2s ease;
+  margin-top: 1rem;
+}
+
+.submitBtn:hover {
+  background-color: #c90511;
+}
+
+.submitBtn:active {
+  transform: scale(0.98);
+}

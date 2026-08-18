@@ -1,0 +1,83 @@
+.craftSection {
+  padding: 10rem 2rem;
+  background-color: var(--color-grey);
+  color: var(--color-taupe);
+  position: relative;
+  border-top: 1px solid rgba(212, 206, 198, 0.06);
+}
+
+.container {
+  max-width: 1040px;
+  margin: 0 auto;
+}
+
+.headerTag {
+  margin-bottom: 3rem;
+}
+
+.statement {
+  font-size: clamp(1.35rem, 2.2vw, 1.85rem);
+  line-height: 1.55;
+  color: var(--color-cream);
+  max-width: 42ch;
+  margin: 0 auto 6rem auto;
+  text-align: center;
+  font-weight: 300;
+  letter-spacing: -0.015em;
+}
+
+.galleryGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.5rem;
+}
+
+@media (max-width: 900px) {
+  .galleryGrid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+}
+
+.craftCard {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.imageBox {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: 0.85rem;
+  overflow: hidden;
+  border: 1px solid rgba(212, 206, 198, 0.12);
+  background-color: var(--color-black);
+}
+
+.imageBox img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s var(--ease-fluid);
+}
+
+.craftCard:hover .imageBox img {
+  transform: scale(1.05);
+}
+
+.cardTitle {
+  font-family: var(--font-outfit), sans-serif;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--color-cream);
+  letter-spacing: -0.01em;
+  margin-top: 0.25rem;
+}
+
+.cardDesc {
+  font-size: 0.875rem;
+  line-height: 1.7;
+  color: var(--color-taupe);
+  font-weight: 300;
+}

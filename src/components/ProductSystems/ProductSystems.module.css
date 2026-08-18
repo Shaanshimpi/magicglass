@@ -1,0 +1,342 @@
+.productSection {
+  padding: 8rem 0 16rem 0;
+  background-color: #f3f0ec;
+  color: #0b1012;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+
+.container {
+  width: 100%;
+  padding: 0 4vw;
+  max-width: 1360px;
+  margin: 0 auto;
+}
+
+.headerBlock {
+  margin-bottom: 5rem;
+}
+
+.eyebrow {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.725rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #5d5954;
+  margin-bottom: 0.85rem;
+}
+
+.subheading {
+  font-family: var(--font-mono), monospace;
+  font-size: clamp(0.75rem, 1.2vw, 0.925rem);
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-crimson);
+}
+
+/* -------------------------------------------------------------------------- */
+/* ROW 1: Center Image + Right Text Block                                     */
+/* -------------------------------------------------------------------------- */
+.row1Wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8vw;
+  margin-bottom: 14rem;
+  width: 100%;
+}
+
+.row1Card {
+  width: 380px;
+  flex-shrink: 0;
+}
+
+/* Tall Vertical Orientation (540px height) */
+.row1Card .imageWrapper {
+  height: 540px;
+}
+
+.row1TextContent {
+  max-width: 440px;
+  display: flex;
+  flex-direction: column;
+  gap: 2.25rem;
+  will-change: transform;
+}
+
+.topDescription {
+  font-family: var(--font-outfit), sans-serif;
+  font-size: clamp(1.2rem, 1.7vw, 1.45rem);
+  line-height: 1.55;
+  color: #2b2a28;
+  font-weight: 400;
+  letter-spacing: -0.015em;
+}
+
+.topDescription strong {
+  font-weight: 600;
+  color: #0b1012;
+}
+
+.ctaWrapper {
+  margin-top: 0.25rem;
+}
+
+/* -------------------------------------------------------------------------- */
+/* ROW 2: 3 Small/Vertical Images (Up to 40% Size Difference & Y-offsets)     */
+/* -------------------------------------------------------------------------- */
+.row2Grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 5vw;
+  align-items: start;
+  margin-bottom: 14rem;
+  width: 100%;
+}
+
+/* 40% Size Difference & Uneven Y-Alignments */
+.row2Card1 {
+  margin-top: 7rem;
+  width: 90%;
+}
+.row2Card1 .imageWrapper {
+  height: 330px;
+}
+
+.row2Card2 {
+  margin-top: 0rem;
+  width: 100%;
+}
+.row2Card2 .imageWrapper {
+  height: 520px;
+}
+
+.row2Card3 {
+  margin-top: 4.5rem;
+  width: 95%;
+}
+.row2Card3 .imageWrapper {
+  height: 410px;
+}
+
+/* -------------------------------------------------------------------------- */
+/* ROW 3: 2 Large Vertical Images (Up to 40% Size Difference & Y-offsets)     */
+/* -------------------------------------------------------------------------- */
+.row3Grid {
+  display: flex;
+  justify-content: center;
+  gap: 8vw;
+  align-items: start;
+  width: 100%;
+}
+
+.row3Card1 {
+  width: 440px;
+  margin-top: 0rem;
+}
+.row3Card1 .imageWrapper {
+  height: 560px;
+}
+
+.row3Card2 {
+  width: 360px;
+  margin-top: 6.5rem;
+}
+.row3Card2 .imageWrapper {
+  height: 380px;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Base Collection Card & Overlay Styling                                     */
+/* -------------------------------------------------------------------------- */
+.collectionCard {
+  position: relative;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 18px 40px -12px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  will-change: transform;
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.imageWrapper img {
+  object-fit: cover;
+  transition: transform 0.8s var(--ease-fluid);
+}
+
+.collectionCard:hover img {
+  transform: scale(1.06);
+}
+
+.cardOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0.58) 100%);
+  z-index: 2;
+  transition: opacity 0.3s ease;
+}
+
+.cardMainTitle {
+  position: relative;
+  z-index: 5;
+  font-family: var(--font-outfit), sans-serif;
+  font-size: clamp(1.4rem, 2.2vw, 2rem);
+  font-weight: 600;
+  color: #ffffff;
+  letter-spacing: -0.015em;
+  text-shadow: 0 4px 18px rgba(0, 0, 0, 0.7);
+  transition: opacity 0.3s ease;
+  text-align: center;
+  padding: 0 1.5rem;
+}
+
+.viewBadge {
+  position: absolute;
+  right: 1.25rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 5;
+  background: rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  padding: 0.45rem 1.15rem;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  font-family: var(--font-mono), monospace;
+  font-size: 0.675rem;
+  font-weight: 600;
+  color: #ffffff;
+  letter-spacing: 0.14em;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+}
+
+.collectionCard:hover .viewBadge {
+  opacity: 1;
+  transform: translateY(-50%) translateX(-4px);
+}
+
+/* -------------------------------------------------------------------------- */
+/* Hover Text Details Overlay                                                 */
+/* -------------------------------------------------------------------------- */
+.hoverDetailsOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  background: rgba(11, 16, 18, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s var(--ease-fluid);
+}
+
+.hoverContent {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  transform: translateY(12px);
+  transition: transform 0.35s var(--ease-fluid);
+}
+
+.hoverCategory {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-crimson);
+}
+
+.hoverTitle {
+  font-family: var(--font-outfit), sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+}
+
+.hoverSpecs {
+  font-family: var(--font-outfit), sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.55;
+  color: var(--color-taupe);
+  font-weight: 300;
+}
+
+.hoverLink {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.725rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #ffffff;
+  margin-top: 0.5rem;
+}
+
+/* Hover State Trigger */
+.collectionCard:hover .hoverDetailsOverlay {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.collectionCard:hover .hoverContent {
+  transform: translateY(0);
+}
+
+.collectionCard:hover .cardMainTitle {
+  opacity: 0;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Responsive Adjustments                                                     */
+/* -------------------------------------------------------------------------- */
+@media (max-width: 900px) {
+  .row1Wrapper {
+    flex-direction: column;
+    gap: 3rem;
+  }
+  .row1Card {
+    width: 100%;
+  }
+  .row1Card .imageWrapper {
+    height: 420px;
+  }
+  .row2Grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+  .row2Card1, .row2Card2, .row2Card3 {
+    margin-top: 0;
+    width: 100%;
+  }
+  .row2Card1 .imageWrapper, .row2Card2 .imageWrapper, .row2Card3 .imageWrapper {
+    height: 360px;
+  }
+  .row3Grid {
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+  .row3Card1, .row3Card2 {
+    width: 100%;
+    margin-top: 0;
+  }
+  .row3Card1 .imageWrapper, .row3Card2 .imageWrapper {
+    height: 380px;
+  }
+}
