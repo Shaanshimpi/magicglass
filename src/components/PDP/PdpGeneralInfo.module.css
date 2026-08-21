@@ -1,0 +1,123 @@
+.generalSection {
+  background-color: #f3f0ec;
+  color: #0b1012;
+  padding: 6rem 4vw 6rem 4vw;
+  border-top: 1px solid rgba(11, 16, 18, 0.1);
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+}
+
+.topBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 3.5rem;
+}
+
+.introSummary {
+  font-family: var(--font-outfit), sans-serif;
+  font-size: clamp(1.35rem, 2vw, 1.8rem);
+  font-weight: 400;
+  line-height: 1.5;
+  color: #0b1012;
+}
+
+.detailImageFlex {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 100%;
+  position: relative;
+  margin-top: 1rem;
+}
+
+.bottomBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 3.5rem;
+}
+
+.secondaryText {
+  font-family: var(--font-outfit), sans-serif;
+  font-size: clamp(1.15rem, 1.6vw, 1.45rem);
+  font-weight: 400;
+  line-height: 1.6;
+  color: #4a4946;
+}
+
+/* Elevated Specifications Panel on Cream Canvas */
+.characteristicsBox {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  padding: 3.5rem 3rem;
+  background-color: #ffffff;
+  color: #0b1012;
+  border-radius: 10px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(11, 16, 18, 0.1);
+}
+
+.caratteristicheTag {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.725rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-crimson, #e20714);
+}
+
+.specList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+}
+
+.specItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  font-family: var(--font-outfit), sans-serif;
+  font-size: 1.15rem;
+  line-height: 1.5;
+  color: #0b1012;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(11, 16, 18, 0.08);
+}
+
+.specItem:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.specDot {
+  width: 7px;
+  height: 7px;
+  background-color: var(--color-crimson, #e20714);
+  border-radius: 50%;
+  margin-top: 0.5rem;
+  flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+  .detailImageFlex {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .generalSection {
+    padding: 4rem 1.5rem 4rem 1.5rem;
+  }
+
+  .characteristicsBox {
+    padding: 2.25rem 1.5rem;
+  }
+}

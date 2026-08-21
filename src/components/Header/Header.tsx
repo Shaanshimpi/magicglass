@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 import gsap from 'gsap'
 import styles from './Header.module.css'
 
@@ -19,65 +20,26 @@ export const Header: React.FC<HeaderProps> = ({ onOpenQuoteDrawer, isLoaded = fa
   const menuOverlayRef = useRef<HTMLDivElement>(null)
   const menuLinksRef = useRef<HTMLUListElement>(null)
 
-  // Step 1: Pill in Top Center -> Step 2: Slides Top Center to Top Left -> Step 3: Whole Header Appears
   useEffect(() => {
-    if (isLoaded && headerRef.current && logoLinkRef.current && navRef.current && actionsRef.current) {
-      const tl = gsap.timeline({ delay: 0.1 })
-
-      // Calculate distance to center: header container center minus logo center
-      const containerWidth = headerRef.current.offsetWidth
-      const logoWidth = logoLinkRef.current.offsetWidth
-      // Offset required to place the logo exactly in the horizontal center of the header container
-      const centerX = (containerWidth / 2) - (logoWidth / 2) - 28
-
-      // Step 1: Logo Pill appears cleanly in TOP CENTER
-      tl.set(logoLinkRef.current, {
-        x: centerX,
-        opacity: 0,
-        scale: 1.12,
-      })
-      .to(logoLinkRef.current, {
-        opacity: 1,
-        scale: 1.05,
-        duration: 0.5,
-        ease: 'power3.out',
-      })
-
-      // Step 2: Logo Pill slides from TOP CENTER -> TOP LEFT
-      .to(logoLinkRef.current, {
-        x: 0,
-        scale: 1,
-        duration: 0.8,
-        ease: 'power3.inOut',
-      }, '+=0.2')
-
-      // Step 3: Rest of Header Elements Appear (Glass dock background + Nav + CTA)
-      .to(
-        headerRef.current,
-        {
-          backgroundColor: 'rgba(14, 19, 21, 0.82)',
-          borderColor: 'rgba(255, 255, 255, 0.14)',
-          boxShadow: 'inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 20px 45px rgba(0, 0, 0, 0.45)',
-          duration: 0.65,
+    if (headerRef.current && logoLinkRef.current && navRef.current && actionsRef.current) {
+      if (isLoaded) {
+        gsap.to(headerRef.current, {
+          backgroundColor: 'rgba(11, 16, 18, 0.85)',
+          borderColor: 'rgba(255, 255, 255, 0.12)',
+          boxShadow: '0 10px 30px rgba(0, 0, 0, 0.35)',
+          duration: 0.4,
           ease: 'power2.out',
-        },
-        '-=0.35'
-      )
-      .to(
-        [navRef.current, actionsRef.current],
-        {
+        })
+        gsap.to([logoLinkRef.current, navRef.current, actionsRef.current], {
           opacity: 1,
           x: 0,
-          stagger: 0.12,
-          duration: 0.5,
+          duration: 0.4,
           ease: 'power2.out',
-        },
-        '-=0.45'
-      )
+        })
+      }
     }
   }, [isLoaded])
 
-  // Fullscreen Menu Overlay Toggle Animation
   useEffect(() => {
     if (isMenuOpen && menuOverlayRef.current && menuLinksRef.current) {
       gsap.to(menuOverlayRef.current, {
@@ -107,10 +69,8 @@ export const Header: React.FC<HeaderProps> = ({ onOpenQuoteDrawer, isLoaded = fa
 
   return (
     <>
-      {/* Top Center Fixed Header */}
       <header ref={headerRef} className={styles.headerContainer}>
-        {/* Logo Pill (Top Center -> Top Left target) */}
-        <a ref={logoLinkRef} href="#" className={styles.logoLink}>
+        <Link ref={logoLinkRef} href="/" className={styles.logoLink}>
           <Image
             src="/images/logo.png"
             alt="Magic Glass Logo"
@@ -119,35 +79,33 @@ export const Header: React.FC<HeaderProps> = ({ onOpenQuoteDrawer, isLoaded = fa
             className={styles.logoImage}
             priority
           />
-        </a>
+        </Link>
 
-        {/* Desktop Navigation Links */}
         <nav ref={navRef} className={styles.desktopNav}>
           <ul className={styles.navLinks}>
             <li>
-              <a href="#heritage" className={styles.navLink}>
+              <Link href="/" className={styles.navLink}>
                 Company
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#products" className={styles.navLink}>
+              <Link href="/products" className={styles.navLink}>
                 Products
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#craftsmanship" className={styles.navLink}>
+              <Link href="/#craftsmanship" className={styles.navLink}>
                 Craftsmanship
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#projects" className={styles.navLink}>
+              <Link href="/#projects" className={styles.navLink}>
                 Projects
-              </a>
+              </Link>
             </li>
           </ul>
         </nav>
 
-        {/* Header Actions (CTA & Mobile Button) */}
         <div ref={actionsRef} className={styles.headerActions}>
           <button
             type="button"
@@ -172,7 +130,6 @@ export const Header: React.FC<HeaderProps> = ({ onOpenQuoteDrawer, isLoaded = fa
         </div>
       </header>
 
-      {/* Expanded Full-Screen Glass Overlay Menu */}
       <div
         ref={menuOverlayRef}
         className={styles.menuOverlay}
@@ -180,7 +137,6 @@ export const Header: React.FC<HeaderProps> = ({ onOpenQuoteDrawer, isLoaded = fa
           if (e.target === menuOverlayRef.current) handleCloseMenu()
         }}
       >
-        {/* Dedicated Close Button on Top Right */}
         <button
           type="button"
           className={styles.closeOverlayBtn}
@@ -193,24 +149,24 @@ export const Header: React.FC<HeaderProps> = ({ onOpenQuoteDrawer, isLoaded = fa
         <div className={styles.menuContent}>
           <ul ref={menuLinksRef} className={styles.menuList}>
             <li>
-              <a href="#heritage" onClick={handleCloseMenu}>
+              <Link href="/" onClick={handleCloseMenu}>
                 Company & Factory
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#products" onClick={handleCloseMenu}>
+              <Link href="/products" onClick={handleCloseMenu}>
                 Architectural Products
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#craftsmanship" onClick={handleCloseMenu}>
+              <Link href="/#craftsmanship" onClick={handleCloseMenu}>
                 Engineering Craftsmanship
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#projects" onClick={handleCloseMenu}>
+              <Link href="/#projects" onClick={handleCloseMenu}>
                 Featured Projects
-              </a>
+              </Link>
             </li>
             <li>
               <button

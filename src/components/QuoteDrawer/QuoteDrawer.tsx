@@ -35,16 +35,6 @@ export const QuoteDrawer: React.FC<QuoteDrawerProps> = ({ isOpen, onClose }) => 
 
   return (
     <>
-      {/* Full-width CTA Banner */}
-      <section className={styles.bannerSection}>
-        <div className={styles.bannerContainer}>
-          <h2 className={styles.bannerTitle}>READY TO ARCHITECT YOUR GLASS VISION?</h2>
-          <button type="button" className={styles.bannerBtn} onClick={() => onClose()}>
-            REQUEST TECHNICAL QUOTE
-          </button>
-        </div>
-      </section>
-
       {/* Slide-out Drawer Overlay & Panel */}
       <div
         className={`${styles.drawerOverlay} ${isOpen ? styles.drawerOverlayOpen : ''}`}
