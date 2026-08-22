@@ -72,10 +72,10 @@ export const Header: React.FC<HeaderProps> = ({ onOpenQuoteDrawer, isLoaded = fa
       <header ref={headerRef} className={styles.headerContainer}>
         <Link ref={logoLinkRef} href="/" className={styles.logoLink}>
           <Image
-            src="/images/logo.png"
+            src="/images/FINAL_LOGO.svg"
             alt="Magic Glass Logo"
-            width={160}
-            height={36}
+            width={140}
+            height={56}
             className={styles.logoImage}
             priority
           />

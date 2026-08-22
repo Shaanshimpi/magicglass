@@ -4,20 +4,24 @@ import React from 'react'
 import styles from './TrustBanner.module.css'
 
 const PARTNERS = [
-  'Godrej Properties',
-  'Saint-Gobain',
   'Tribeca Developers',
   'Solitaire',
   'Nyati Group',
   'ABIL Group',
   'Amar Builders',
-  'Gera Developments',
-  'VTP Realty',
-  'Kasturi Housing',
+  'ASCII',
+  'Gujarat Guardian',
   'Mantra Properties',
-  'Sleek by Asian Paints',
+  'Ark',
   'Legrand by Nouveaute',
   'Kesseböhmer',
+  'VTP Realty',
+  'Gera Developments',
+  'G Interio',
+  'Godrej Properties',
+  'Kasturi Housing',
+  'Sleek by Asian Paints',
+  'Saint-Gobain',
 ]
 
 export const TrustBanner: React.FC = () => {
@@ -25,7 +29,7 @@ export const TrustBanner: React.FC = () => {
     <section className={styles.trustSection}>
       <div className={styles.container}>
         <div className={styles.eyebrow}>
-          ◆ TRUSTED BY LEADING PARTNERS
+          ◆ WE'RE TRUSTED BY LEADING PARTNERS
         </div>
 
         <div className={styles.marqueeTrack}>

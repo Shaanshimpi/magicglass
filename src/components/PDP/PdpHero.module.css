@@ -1,6 +1,6 @@
 .heroSection {
-  background-color: #f3f0ec;
-  color: #0b1012;
+  background-color: var(--color-black);
+  color: var(--color-cream);
   padding: 5rem 0 0 0;
   text-align: center;
   position: relative;
@@ -22,7 +22,7 @@
   justify-content: center;
   width: 3.5rem;
   height: 3.5rem;
-  background-color: var(--color-crimson, #e20714);
+  background-color: var(--color-crimson);
   color: #ffffff;
   font-family: var(--font-mono), monospace;
   font-size: 1.25rem;
@@ -37,7 +37,7 @@
   font-weight: 500;
   line-height: 1.12;
   letter-spacing: -0.03em;
-  color: #0b1012;
+  color: var(--color-cream);
   max-width: 960px;
   padding: 0 1.5rem;
 }
@@ -48,7 +48,7 @@
   font-weight: 600;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: #5d5954;
+  color: var(--color-crimson);
   margin-bottom: 0.25rem;
 }
 

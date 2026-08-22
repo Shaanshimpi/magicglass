@@ -8,7 +8,7 @@
   align-items: center;
   padding: 8rem 2rem;
   overflow: hidden;
-  background-color: #0b1012;
+  background-color: var(--color-black);
 }
 
 .bgWrapper {
@@ -31,9 +31,9 @@
   /* Crystal-clear fluid glass light gradient overlay */
   background: linear-gradient(
     180deg,
-    rgba(11, 16, 18, 0.45) 0%,
-    rgba(11, 16, 18, 0.15) 45%,
-    rgba(11, 16, 18, 0.55) 100%
+    rgba(0, 0, 0, 0.45) 0%,
+    rgba(0, 0, 0, 0.15) 45%,
+    rgba(0, 0, 0, 0.55) 100%
   );
   pointer-events: none;
 }
@@ -59,7 +59,7 @@
   font-size: clamp(2.4rem, 5vw, 4.5rem);
   line-height: 1.1;
   font-weight: 500;
-  color: #ffffff;
+  color: var(--color-cream);
   letter-spacing: -0.03em;
   margin-bottom: 2.75rem;
   max-width: 20ch;

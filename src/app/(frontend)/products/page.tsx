@@ -21,7 +21,7 @@ export default function ProductsPage() {
   return (
     <>
       <Header onOpenQuoteDrawer={handleOpenQuote} isLoaded={true} />
-      <main style={{ paddingTop: '70px', backgroundColor: '#f3f0ec' }}>
+      <main style={{ paddingTop: '70px', backgroundColor: 'var(--color-black)', color: 'var(--color-taupe)' }}>
         <ProductsCollection />
         <QuoteDrawer isOpen={isQuoteOpen} onClose={handleCloseQuote} />
       </main>

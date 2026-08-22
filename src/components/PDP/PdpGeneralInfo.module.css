@@ -1,8 +1,8 @@
 .generalSection {
-  background-color: #f3f0ec;
-  color: #0b1012;
+  background-color: var(--color-black);
+  color: var(--color-taupe);
   padding: 6rem 4vw 6rem 4vw;
-  border-top: 1px solid rgba(11, 16, 18, 0.1);
+  border-top: 1px solid var(--color-border-subtle);
 }
 
 .container {
@@ -24,7 +24,7 @@
   font-size: clamp(1.35rem, 2vw, 1.8rem);
   font-weight: 400;
   line-height: 1.5;
-  color: #0b1012;
+  color: var(--color-cream);
 }
 
 .detailImageFlex {
@@ -47,20 +47,20 @@
   font-size: clamp(1.15rem, 1.6vw, 1.45rem);
   font-weight: 400;
   line-height: 1.6;
-  color: #4a4946;
+  color: var(--color-taupe);
 }
 
-/* Elevated Specifications Panel on Cream Canvas */
+/* Elevated Specifications Panel */
 .characteristicsBox {
   display: flex;
   flex-direction: column;
   gap: 1.75rem;
   padding: 3.5rem 3rem;
-  background-color: #ffffff;
-  color: #0b1012;
+  background-color: var(--color-grey);
+  color: var(--color-cream);
   border-radius: 10px;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
-  border: 1px solid rgba(11, 16, 18, 0.1);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--color-border-subtle);
 }
 
 .caratteristicheTag {
@@ -69,7 +69,80 @@
   font-weight: 600;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--color-crimson, #e20714);
+  color: var(--color-crimson);
+}
+
+/* Specifications Table */
+.specsTable {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+.specTableRow {
+  display: grid;
+  grid-template-columns: 44px minmax(140px, 1fr) 1.8fr;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.specTableRow:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.specIconCol {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--color-border-subtle);
+  flex-shrink: 0;
+}
+
+.specIconImg {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.06));
+}
+
+.specIconFallback {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--color-crimson);
+}
+
+.specLabelCol {
+  display: flex;
+  align-items: center;
+}
+
+.specLabel {
+  font-family: var(--font-outfit), sans-serif;
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: var(--color-taupe);
+}
+
+.specValueCol {
+  display: flex;
+  align-items: center;
+}
+
+.specValue {
+  font-family: var(--font-outfit), sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-cream);
+  line-height: 1.5;
 }
 
 .specList {
@@ -88,9 +161,9 @@
   font-family: var(--font-outfit), sans-serif;
   font-size: 1.15rem;
   line-height: 1.5;
-  color: #0b1012;
+  color: var(--color-cream);
   padding-bottom: 1rem;
-  border-bottom: 1px solid rgba(11, 16, 18, 0.08);
+  border-bottom: 1px solid var(--color-border-subtle);
 }
 
 .specItem:last-child {
@@ -101,7 +174,7 @@
 .specDot {
   width: 7px;
   height: 7px;
-  background-color: var(--color-crimson, #e20714);
+  background-color: var(--color-crimson);
   border-radius: 50%;
   margin-top: 0.5rem;
   flex-shrink: 0;
@@ -120,4 +193,15 @@
   .characteristicsBox {
     padding: 2.25rem 1.5rem;
   }
+
+  .specTableRow {
+    grid-template-columns: 36px 1fr;
+    gap: 0.75rem 1rem;
+    padding: 1rem 0;
+  }
+
+  .specValueCol {
+    grid-column: 2 / -1;
+  }
 }
+

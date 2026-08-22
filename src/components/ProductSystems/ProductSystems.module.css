@@ -3,8 +3,8 @@
 /* ========================================================================== */
 .desktopProductSection {
   padding: 8rem 0 16rem 0;
-  background-color: #f3f0ec;
-  color: #0b1012;
+  background-color: var(--color-black);
+  color: var(--color-taupe);
   position: relative;
   overflow: hidden;
   width: 100%;
@@ -27,7 +27,7 @@
   font-weight: 600;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: #5d5954;
+  color: var(--color-crimson);
   margin-bottom: 0.85rem;
 }
 
@@ -73,14 +73,14 @@
   font-family: var(--font-outfit), sans-serif;
   font-size: clamp(1.2rem, 1.7vw, 1.45rem);
   line-height: 1.55;
-  color: #2b2a28;
+  color: var(--color-taupe);
   font-weight: 400;
   letter-spacing: -0.015em;
 }
 
 .topDescription strong {
   font-weight: 600;
-  color: #0b1012;
+  color: var(--color-cream);
 }
 
 .ctaWrapper {

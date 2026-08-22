@@ -1,6 +1,8 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import styles from './PdpInquiryForm.module.css'
 
 interface PdpInquiryFormProps {
@@ -12,9 +14,34 @@ export const PdpInquiryForm: React.FC<PdpInquiryFormProps> = ({
   productTitle,
   onOpenQuoteDrawer,
 }) => {
+  const containerRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger)
+
+    const ctx = gsap.context(() => {
+      if (containerRef.current) {
+        gsap.from(containerRef.current.children, {
+          y: 30,
+          opacity: 0,
+          duration: 1.0,
+          stagger: 0.14,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: 'top 82%',
+            toggleActions: 'play none none none',
+          },
+        })
+      }
+    }, containerRef)
+
+    return () => ctx.revert()
+  }, [])
+
   return (
     <section className={styles.formSection}>
-      <div className={styles.container}>
+      <div ref={containerRef} className={styles.container}>
         <div className={styles.eyebrow}>
           ARCHITECTURAL CONSULTATION & INQUIRY
         </div>
@@ -44,3 +71,4 @@ export const PdpInquiryForm: React.FC<PdpInquiryFormProps> = ({
     </section>
   )
 }
+

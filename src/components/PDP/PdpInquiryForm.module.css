@@ -1,8 +1,8 @@
 .formSection {
-  background-color: #f3f0ec;
-  color: #0b1012;
+  background-color: var(--color-black);
+  color: var(--color-taupe);
   padding: 5rem 4vw 7rem 4vw;
-  border-top: 1px solid rgba(11, 16, 18, 0.1);
+  border-top: 1px solid var(--color-border-subtle);
 }
 
 .container {
@@ -14,10 +14,10 @@
   text-align: center;
   gap: 2rem;
   padding: 4rem 3rem;
-  background-color: #ffffff;
+  background-color: var(--color-grey);
   border-radius: 12px;
-  border: 1px solid rgba(11, 16, 18, 0.12);
-  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.08);
+  border: 1px solid var(--color-border-subtle);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.25);
 }
 
 .eyebrow {
@@ -26,7 +26,7 @@
   font-weight: 600;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--color-crimson, #e20714);
+  color: var(--color-crimson);
 }
 
 .heading {
@@ -35,7 +35,7 @@
   font-weight: 500;
   line-height: 1.15;
   letter-spacing: -0.03em;
-  color: #0b1012;
+  color: var(--color-cream);
   max-width: 820px;
 }
 
@@ -43,7 +43,7 @@
   font-family: var(--font-outfit), sans-serif;
   font-size: 1.15rem;
   line-height: 1.6;
-  color: #4a4946;
+  color: var(--color-taupe);
   max-width: 720px;
   font-weight: 400;
 }

@@ -1,8 +1,8 @@
 .relatedSection {
-  background-color: #0b1012;
-  color: #ffffff;
+  background-color: var(--color-black);
+  color: var(--color-cream);
   padding: 6.5rem 4vw 8.5rem 4vw;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid var(--color-border-subtle);
 }
 
 .container {
@@ -19,7 +19,7 @@
   font-weight: 600;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--color-taupe, #c2bbb2);
+  color: var(--color-crimson);
   text-align: center;
 }
 
@@ -30,8 +30,8 @@
 }
 
 .relatedCard {
-  background: #141a1c;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--color-grey);
+  border: 1px solid var(--color-border-subtle);
   border-radius: 10px;
   padding: 2.25rem 2rem 2.5rem 2rem;
   display: flex;
@@ -47,8 +47,8 @@
 
 .relatedCard:hover {
   transform: translateY(-5px);
-  border-color: rgba(226, 7, 20, 0.4);
-  background: #1a2225;
+  border-color: var(--color-crimson);
+  background: var(--color-surface-hover);
 }
 
 .imageWrapper {
@@ -62,7 +62,7 @@
   font-size: 1.6rem;
   font-weight: 500;
   line-height: 1.25;
-  color: #ffffff;
+  color: var(--color-cream);
   letter-spacing: -0.02em;
 }
 

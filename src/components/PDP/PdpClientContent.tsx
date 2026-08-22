@@ -33,7 +33,7 @@ export const PdpClientContent: React.FC<PdpClientContentProps> = ({
   return (
     <>
       <Header onOpenQuoteDrawer={handleOpenQuote} isLoaded={true} />
-      <main style={{ paddingTop: '70px', backgroundColor: '#f3f0ec' }}>
+      <main style={{ paddingTop: '70px', backgroundColor: 'var(--color-black)', color: 'var(--color-taupe)' }}>
         <PdpHero
           indexNumber={product.indexNumber}
           title={product.title}
@@ -45,6 +45,7 @@ export const PdpClientContent: React.FC<PdpClientContentProps> = ({
           secondaryText={product.secondaryText}
           detailImages={product.detailImages}
           characteristics={product.characteristics}
+          specs={product.specs}
         />
         <PdpMasonryGallery images={product.galleryImages} />
         <PdpImageSlider images={product.sliderImages} />

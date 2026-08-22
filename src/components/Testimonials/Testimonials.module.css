@@ -1,9 +1,10 @@
 .testimonialsSection {
   padding: 10rem 2rem 12rem 2rem;
-  background-color: #f3f0ec;
-  color: #0b1012;
+  background-color: var(--color-black);
+  color: var(--color-taupe);
   position: relative;
   overflow: hidden;
+  border-top: 1px solid var(--color-border-subtle);
 }
 
 .container {
@@ -27,7 +28,7 @@
   font-weight: 600;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: #5d5954;
+  color: var(--color-crimson);
 }
 
 .navControls {
@@ -37,9 +38,9 @@
 }
 
 .navBtn {
-  background: rgba(0, 0, 0, 0.04);
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  color: #0b1012;
+  background: var(--color-grey);
+  border: 1px solid var(--color-border-subtle);
+  color: var(--color-cream);
   font-family: var(--font-mono), monospace;
   font-size: 1.1rem;
   width: 42px;
@@ -53,9 +54,9 @@
 }
 
 .navBtn:hover {
-  background: #0b1012;
-  color: #ffffff;
-  border-color: #0b1012;
+  background: var(--color-surface-hover);
+  color: var(--color-cream);
+  border-color: var(--color-crimson);
 }
 
 /* -------------------------------------------------------------------------- */
@@ -74,8 +75,8 @@
   height: 195px;
   border-radius: 4px;
   overflow: hidden;
-  box-shadow: 0 10px 25px -10px rgba(0, 0, 0, 0.15);
-  background-color: #e5e2dd;
+  box-shadow: 0 10px 25px -10px rgba(0, 0, 0, 0.3);
+  background-color: var(--color-grey);
 }
 
 .portraitImage {
@@ -98,7 +99,7 @@
   font-family: var(--font-outfit), sans-serif;
   font-size: 3.5rem;
   line-height: 0.8;
-  color: #0b1012;
+  color: var(--color-crimson);
   font-weight: 600;
   opacity: 0.85;
 }
@@ -108,7 +109,7 @@
   font-size: clamp(1.7rem, 2.9vw, 2.6rem);
   line-height: 1.24;
   font-weight: 400;
-  color: #0b1012;
+  color: var(--color-cream);
   letter-spacing: -0.028em;
   max-width: 32ch;
 }
@@ -117,18 +118,18 @@
   margin-top: 1rem;
   font-family: var(--font-outfit), sans-serif;
   font-size: 0.95rem;
-  color: #44413c;
+  color: var(--color-taupe);
   letter-spacing: -0.01em;
 }
 
 .authorName {
   font-weight: 500;
-  color: #0b1012;
+  color: var(--color-cream);
 }
 
 .authorTitle {
   font-weight: 400;
-  color: #635f59;
+  color: var(--color-taupe);
 }
 
 @media (max-width: 840px) {

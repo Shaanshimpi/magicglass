@@ -22,36 +22,53 @@ export const PdpHero: React.FC<PdpHeroProps> = ({
   heroImage,
 }) => {
   const [src, setSrc] = useState<string>(heroImage || DEFAULT_HERO_FALLBACK)
+  const heroInnerRef = useRef<HTMLDivElement>(null)
   const frameRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    if (!frameRef.current) return
+    if (!heroInnerRef.current) return
 
     const ctx = gsap.context(() => {
-      // Dodi Vetro On-Page-Load Vertical Wipe Reveal:
-      // Keeps top edge intact in position while un-clipping downwards over 1.2s without squeezing the image!
-      gsap.fromTo(
-        frameRef.current,
-        {
-          clipPath: 'inset(0% 0% 90% 0%)',
-          opacity: 0.8,
-        },
-        {
-          clipPath: 'inset(0% 0% 0% 0%)',
-          opacity: 1.0,
-          duration: 1.25,
-          delay: 0.2,
-          ease: 'power3.inOut',
-        }
+      // PDP Hero Text Entrance Animation
+      const textElements = heroInnerRef.current?.querySelectorAll(
+        `.${styles.indexBadge}, .${styles.heroCategoryBadge}, .${styles.heroTitle}`
       )
-    }, frameRef)
+      if (textElements && textElements.length > 0) {
+        gsap.from(textElements, {
+          y: 35,
+          opacity: 0,
+          duration: 1.0,
+          stagger: 0.14,
+          ease: 'power3.out',
+          delay: 0.1,
+        })
+      }
+
+      // Dodi Vetro On-Page-Load Vertical Wipe Reveal
+      if (frameRef.current) {
+        gsap.fromTo(
+          frameRef.current,
+          {
+            clipPath: 'inset(0% 0% 90% 0%)',
+            opacity: 0.8,
+          },
+          {
+            clipPath: 'inset(0% 0% 0% 0%)',
+            opacity: 1.0,
+            duration: 1.25,
+            delay: 0.3,
+            ease: 'power3.inOut',
+          }
+        )
+      }
+    }, heroInnerRef)
 
     return () => ctx.revert()
   }, [])
 
   return (
     <section className={styles.heroSection}>
-      <div className={styles.heroInner}>
+      <div ref={heroInnerRef} className={styles.heroInner}>
         <div className={styles.indexBadge}>{indexNumber}</div>
         <div className={styles.heroCategoryBadge}>{category}</div>
         <h1 className={styles.heroTitle}>{title}</h1>
@@ -70,3 +87,4 @@ export const PdpHero: React.FC<PdpHeroProps> = ({
     </section>
   )
 }
+

@@ -10,14 +10,14 @@ interface HeritageProps {
 }
 
 const STATEMENT_TEXT =
-  'Welcome to the world of Magic Glass. Since our inception in 2006, we have proudly delivered uncompromising quality to over 500 customers across India.'
+  'Welcome to the world of Magic Glass. Since our inception in 2006, we have proudly upheld the promise of delivering uncompromising quality, earning the trust of countless happy customers.'
 const WORDS = STATEMENT_TEXT.split(' ')
 
 const STATS = [
   { value: '600+', label: 'Projects Finished' },
-  { value: '17+', label: 'Years Experience' },
-  { value: '80,000', label: 'Sq Ft Factory Area' },
-  { value: '500+', label: 'Happy Customers' },
+  { value: '17+', label: 'Years of Experience' },
+  { value: '80,000', label: 'Sq ft Factory Area' },
+  { value: '500+', label: 'Customers' },
 ]
 
 export const Heritage: React.FC<HeritageProps> = ({ onOpenQuoteDrawer }) => {

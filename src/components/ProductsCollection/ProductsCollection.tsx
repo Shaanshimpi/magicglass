@@ -1,8 +1,10 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import styles from './ProductsCollection.module.css'
 import {
   ALL_PRODUCTS,
@@ -13,19 +15,135 @@ import {
 
 export const ProductsCollection: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState<string>('all')
+  const containerRef = useRef<HTMLDivElement>(null)
+  const heroRef = useRef<HTMLDivElement>(null)
+  const topFeaturedRef = useRef<HTMLElement>(null)
+  const splitRef = useRef<HTMLElement>(null)
+  const productGridRef = useRef<HTMLDivElement>(null)
 
   const filteredProducts: ProductItem[] =
     activeCategory === 'all'
       ? ALL_PRODUCTS
       : ALL_PRODUCTS.filter((p) => p.category === activeCategory)
 
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger)
+
+    const ctx = gsap.context(() => {
+      // 1. Hero Text Entrance (On Mount)
+      if (heroRef.current) {
+        gsap.from(heroRef.current.children, {
+          y: 35,
+          opacity: 0,
+          duration: 1.1,
+          stagger: 0.15,
+          ease: 'power3.out',
+          delay: 0.1,
+        })
+      }
+
+      // 2. Top 3 Featured Section Text & Cards (On Scroll)
+      if (topFeaturedRef.current) {
+        gsap.from(
+          topFeaturedRef.current.querySelectorAll(
+            '.base-title, .' + styles.categoryCodeTag
+          ),
+          {
+            y: 25,
+            opacity: 0,
+            duration: 0.9,
+            stagger: 0.1,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: topFeaturedRef.current,
+              start: 'top 82%',
+              toggleActions: 'play none none none',
+            },
+          }
+        )
+
+        gsap.fromTo(
+          topFeaturedRef.current.querySelectorAll(
+            '.' + styles.featuredCard
+          ),
+          { y: 40, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.9,
+            stagger: 0.12,
+            ease: 'power3.out',
+            clearProps: 'opacity,transform',
+            scrollTrigger: {
+              trigger: topFeaturedRef.current,
+              start: 'top 90%',
+              toggleActions: 'play none none none',
+            },
+          }
+        )
+      }
+
+      // 3. Split Section Headline Text (On Scroll)
+      if (splitRef.current) {
+        gsap.from(
+          splitRef.current.querySelector('.' + styles.singleLeftHeadline),
+          {
+            y: 35,
+            opacity: 0,
+            duration: 1.1,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: splitRef.current,
+              start: 'top 80%',
+              toggleActions: 'play none none none',
+            },
+          }
+        )
+      }
+
+      // 4. Product Cards Scroll Entrance
+      if (productGridRef.current) {
+        gsap.from(
+          productGridRef.current.querySelectorAll('.' + styles.productCard),
+          {
+            y: 30,
+            opacity: 0,
+            duration: 0.8,
+            stagger: 0.08,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: productGridRef.current,
+              start: 'top 85%',
+              toggleActions: 'play none none none',
+            },
+          }
+        )
+      }
+    }, containerRef)
+
+    return () => ctx.revert()
+  }, [])
+
+  // Animate product grid items when filter category changes
+  useEffect(() => {
+    if (!productGridRef.current) return
+    const cards = productGridRef.current.querySelectorAll(
+      '.' + styles.productCard
+    )
+    gsap.fromTo(
+      cards,
+      { y: 20, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.45, stagger: 0.04, ease: 'power2.out' }
+    )
+  }, [activeCategory])
+
   return (
-    <div className={styles.collectionWrapper}>
+    <div ref={containerRef} className={styles.collectionWrapper}>
       {/* -------------------------------------------------------------------- */}
       {/* SECTION 1: MINIMAL HERO (~50vh Height) - CREAM (#f3f0ec)             */}
       {/* -------------------------------------------------------------------- */}
       <section className={styles.heroSection}>
-        <div className={styles.heroContainer}>
+        <div ref={heroRef} className={styles.heroContainer}>
           <div className={`base-title ${styles.heroTag}`}>
             COLLECTION / ARCHITECTURAL GLASS SYSTEMS
           </div>
@@ -43,7 +161,7 @@ export const ProductsCollection: React.FC = () => {
       {/* -------------------------------------------------------------------- */}
       {/* SECTION 2: TOP 3 FEATURED SYSTEMS - DARK (#0b1012) ONLY              */}
       {/* -------------------------------------------------------------------- */}
-      <section className={styles.topFeaturedSection}>
+      <section ref={topFeaturedRef} className={styles.topFeaturedSection}>
         <div className={styles.topFeaturedInner}>
           <div className={styles.topFeaturedHeader}>
             <div className="base-title" style={{ color: '#c2bbb2' }}>
@@ -95,7 +213,7 @@ export const ProductsCollection: React.FC = () => {
       {/* -------------------------------------------------------------------- */}
       {/* SECTION 3: 2-DIV SPLIT LAYOUT - CREAM (#f3f0ec)                      */}
       {/* -------------------------------------------------------------------- */}
-      <section className={styles.splitSection}>
+      <section ref={splitRef} className={styles.splitSection}>
         <div className={styles.splitSectionInner}>
           {/* LEFT DIV: PINNED STICKY NARRATIVE */}
           <div className={styles.leftPinnedPane}>
@@ -132,7 +250,7 @@ export const ProductsCollection: React.FC = () => {
             </div>
 
             {/* Product Grid */}
-            <div className={styles.productGrid}>
+            <div ref={productGridRef} className={styles.productGrid}>
               {filteredProducts.map((product) => (
                 <Link
                   key={product.id}
@@ -160,3 +278,4 @@ export const ProductsCollection: React.FC = () => {
     </div>
   )
 }
+

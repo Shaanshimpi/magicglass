@@ -2,14 +2,15 @@
   position: relative;
   width: 100%;
   height: 100vh;
-  background-color: #f3f0ec;
-  color: #0b1012;
+  background-color: var(--color-black);
+  color: var(--color-taupe);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 4rem 2rem 2rem 2rem;
   overflow: hidden;
+  border-top: 1px solid var(--color-border-subtle);
 }
 
 .container {
@@ -29,7 +30,7 @@
   font-weight: 600;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: #5d5954;
+  color: var(--color-crimson);
   margin-bottom: 1.75rem;
   display: inline-flex;
   align-items: center;
@@ -41,7 +42,7 @@
   font-size: clamp(2rem, 3.6vw, 3.2rem);
   line-height: 1.22;
   font-weight: 500;
-  color: #0b1012;
+  color: var(--color-cream);
   letter-spacing: -0.03em;
   max-width: 32ch;
   margin-bottom: 2.25rem;
@@ -52,7 +53,7 @@
 .word {
   display: inline-block;
   opacity: 0.5;
-  color: #706b64;
+  color: var(--color-taupe);
   margin-right: 0.25em;
   will-change: opacity, color;
   transition: color 0.15s ease;
@@ -73,7 +74,7 @@
   gap: 2rem;
   width: 100%;
   padding-top: 2.25rem;
-  border-top: 1px solid rgba(11, 16, 18, 0.12);
+  border-top: 1px solid var(--color-border-subtle);
 }
 
 .statItem {
@@ -87,7 +88,7 @@
   font-family: var(--font-outfit), sans-serif;
   font-size: clamp(2.2rem, 3.2vw, 2.8rem);
   font-weight: 500;
-  color: #0b1012;
+  color: var(--color-cream);
   letter-spacing: -0.04em;
 }
 
@@ -97,7 +98,7 @@
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #6e6963;
+  color: var(--color-taupe);
 }
 
 @media (max-width: 850px) {

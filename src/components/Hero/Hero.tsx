@@ -55,11 +55,11 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteDrawer }) => {
 
       <div ref={contentRef} className={styles.contentContainer}>
         <div className={`base-title ${styles.tagline}`}>
-          PRECISION MANUFACTURING • PUNE, MAHARASHTRA
+          PRECISION GLASS MANUFACTURING • YAVAT, PUNE, MAHARASHTRA
         </div>
 
         <h1 className={styles.heading}>
-          Exceptional glazing for those who build with vision.
+          Crafting Exceptional Glass Solutions for a Brighter World.
         </h1>
 
         <div className={styles.ctaGroup}>

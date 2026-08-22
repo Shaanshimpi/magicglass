@@ -1,7 +1,9 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import Link from 'next/link'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import styles from './PdpRelatedProducts.module.css'
 import { PDP_MOCK_DATA, PdpProductDetail } from './pdpData'
 import { PdpScrubbedImage } from './PdpScrubbedImage'
@@ -13,14 +15,54 @@ interface PdpRelatedProductsProps {
 export const PdpRelatedProducts: React.FC<PdpRelatedProductsProps> = ({
   relatedIds,
 }) => {
+  const sectionRef = useRef<HTMLElement>(null)
+
   const relatedProducts: PdpProductDetail[] = relatedIds
     .map((id) => PDP_MOCK_DATA[id])
     .filter(Boolean)
 
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger)
+
+    const ctx = gsap.context(() => {
+      if (sectionRef.current) {
+        gsap.from(sectionRef.current.querySelector('.' + styles.eyebrow), {
+          y: 25,
+          opacity: 0,
+          duration: 0.9,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top 82%',
+            toggleActions: 'play none none none',
+          },
+        })
+
+        gsap.from(
+          sectionRef.current.querySelectorAll('.' + styles.relatedCard),
+          {
+            y: 35,
+            opacity: 0,
+            duration: 1.0,
+            stagger: 0.15,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: 'top 78%',
+              toggleActions: 'play none none none',
+            },
+          }
+        )
+      }
+    }, sectionRef)
+
+    return () => ctx.revert()
+  }, [])
+
   if (!relatedProducts.length) return null
 
   return (
-    <section className={styles.relatedSection}>
+    <section ref={sectionRef} className={styles.relatedSection}>
       <div className={styles.container}>
         <div className={styles.eyebrow}>
           DISCOVER OTHER BESPOKE GLASS SOLUTIONS
@@ -54,3 +96,4 @@ export const PdpRelatedProducts: React.FC<PdpRelatedProductsProps> = ({
     </section>
   )
 }
+

@@ -73,7 +73,7 @@ export const TOP_3_FEATURED: ProductItem[] = [
     description:
       'Ultra-rigid Ionoplast interlayer delivering 5x tear strength and 100x stiffness for structural fins and high-impact facades.',
     features: ['5x Tear Strength', 'Ionoplast Interlayer', 'Zero Delamination Risk', 'Structural Fin Rating'],
-    image: 'https://magicglass.co.in/wp-content/uploads/2024/02/Sentry-Laminated-Glass.png',
+    image: '/images/craft-laminated.jpg',
     isTopFeatured: true,
   },
   {
@@ -86,7 +86,7 @@ export const TOP_3_FEATURED: ProductItem[] = [
     description:
       'Advanced solar control coatings offering ultra-low SHGC (< 0.23) with maximum neutral daylight transmission.',
     features: ['SHGC < 0.23', 'Neutral High Daylight', 'Coated Double-Silver', 'LEED Compliant'],
-    image: 'https://magicglass.co.in/wp-content/uploads/2024/02/magic-product-2.jpg',
+    image: '/images/prod-structural.jpg',
     isTopFeatured: true,
   },
   {
@@ -99,7 +99,7 @@ export const TOP_3_FEATURED: ProductItem[] = [
     description:
       'Dual-sealed argon filled double glazing units delivering superior thermal insulation (U-value < 1.1 W/m²K).',
     features: ['Argon Gas Filled', 'U-value < 1.1 W/m²K', 'Warm-Edge Spacer', 'Dual-Sealed Perimeter'],
-    image: 'https://magicglass.co.in/wp-content/uploads/2024/02/Insulated-Glass-DGU.png',
+    image: '/images/craft-dgu.jpg',
     isTopFeatured: true,
   },
 ]
@@ -115,7 +115,7 @@ export const ALL_PRODUCTS: ProductItem[] = [
     description:
       'High-clarity primary float glass with uniform thickness, excellent light transmission, and superior optical flatness, serving as the foundational substrate for toughening and processing.',
     features: ['High Uniformity', 'Optically Flat', 'Base Processing Substrate'],
-    image: 'https://magicglass.co.in/wp-content/uploads/2024/02/Clear-Glass.png',
+    image: '/images/prod-windows.jpg',
   },
   {
     id: 'extra-clear-glass',
@@ -127,7 +127,7 @@ export const ALL_PRODUCTS: ProductItem[] = [
     description:
       'Ultra-transparent low-iron float glass engineered with minimal ferric oxide content. Completely eliminates the greenish edge tint of standard glass, ensuring maximum light transmission and true-color rendering.',
     features: ['Minimal Iron Content', 'No Green Edge Tint', '>91% Light Transmittance'],
-    image: 'https://magicglass.co.in/wp-content/uploads/2024/02/Extra-Clear-Glass.png',
+    image: '/images/prod-structural.jpg',
   },
   {
     id: 'hs-glass',
@@ -139,7 +139,7 @@ export const ALL_PRODUCTS: ProductItem[] = [
     description:
       'Heat-strengthened glass subjected to controlled heating and slower cooling than fully tempered glass. Offers 2x thermal and mechanical strength of annealed glass while breaking into large interlocked fragments.',
     features: ['2x Strength of Annealed', 'Interlocking Break Pattern', 'Ideal for Spandrel Panels'],
-    image: 'https://magicglass.co.in/wp-content/uploads/2024/02/HS-Glass.png',
+    image: '/images/prod-additional.jpg',
   },
   {
     id: 'heat-soaked-glass',
@@ -151,7 +151,7 @@ export const ALL_PRODUCTS: ProductItem[] = [
     description:
       'Fully tempered glass subjected to a rigorous 290°C heat soak oven hold cycle (DIN EN 14179-1). Destroys any unstable Nickel Sulfide (NiS) inclusions in the factory to guarantee zero spontaneous breakage on high-rise facades.',
     features: ['DIN EN 14179-1 Certified', 'Zero Spontaneous Breakage', 'High-Rise Facade Safety'],
-    image: 'https://magicglass.co.in/wp-content/uploads/2024/02/magic-product-3.jpg',
+    image: '/images/factory-cnc.jpg',
   },
   {
     id: 'sentry-laminated-glass',
@@ -163,7 +163,7 @@ export const ALL_PRODUCTS: ProductItem[] = [
     description:
       'Ultra-rigid Ionoplast interlayer delivering 5x tear strength and 100x stiffness compared to standard PVB. Essential for structural glass fins, spider fit curtains, overhead canopies, and high-impact hurricane facades.',
     features: ['5x Tear Strength', 'Ionoplast Interlayer', 'Zero Delamination Risk', 'Structural Fin Rating'],
-    image: 'https://magicglass.co.in/wp-content/uploads/2024/02/Sentry-Laminated-Glass.png',
+    image: '/images/craft-laminated.jpg',
   },
   {
     id: 'acoustic-lami-glass',
@@ -175,7 +175,7 @@ export const ALL_PRODUCTS: ProductItem[] = [
     description:
       'Specialized acoustic dampening PVB interlayer engineered to absorb airborne noise vibration across critical human speech frequencies, achieving sound reduction indexes up to STC 42dB.',
     features: ['STC 42dB Acoustic Rating', 'Noise Vibration Absorption', 'Speech Privacy Compliant'],
-    image: 'https://magicglass.co.in/wp-content/uploads/2024/02/Acoustic-Lami-Glass.png',
+    image: '/images/prod-partitions.jpg',
   },
   {
     id: 'pvb-laminated-glass',
@@ -187,7 +187,7 @@ export const ALL_PRODUCTS: ProductItem[] = [
     description:
       'Multi-layer safety glass bonded under elevated pressure and heat with tough Polyvinyl Butyral (PVB) interlayers. Ensures fragments adhere to the interlayer upon impact to prevent fall-through injuries.',
     features: ['Impact Fall-Through Protection', '99% UV Ray Rejection', 'Class 1 Safety Rated'],
-    image: 'https://magicglass.co.in/wp-content/uploads/2024/02/PVB-Laminated-Glass.png',
+    image: '/images/apps/railings.png',
   },
   {
     id: 'insulated-glass-dgu',
@@ -199,7 +199,7 @@ export const ALL_PRODUCTS: ProductItem[] = [
     description:
       'Hermetically sealed dual-pane glazing integrated with primary polyisobutylene seals, structural silicone, argon gas fill, and warm-edge spacers for optimal thermal insulation (U-value < 1.1 W/m²K).',
     features: ['Argon Gas Filled', 'U-value < 1.1 W/m²K', 'Warm-Edge Spacer', 'Dual-Sealed Perimeter'],
-    image: 'https://magicglass.co.in/wp-content/uploads/2024/02/Insulated-Glass-DGU.png',
+    image: '/images/craft-dgu.jpg',
   },
   {
     id: 'dgu-laminated-glass',
@@ -211,7 +211,7 @@ export const ALL_PRODUCTS: ProductItem[] = [
     description:
       'Combines an outer solar control laminated pane with an inner low-E pane enclosing an insulated air cavity, delivering maximum structural impact safety, solar protection, and sound insulation in one unit.',
     features: ['Laminated Safety + DGU', 'Maximum Security Facades', 'Enhanced Acoustic & Thermal'],
-    image: 'https://magicglass.co.in/wp-content/uploads/2024/02/IGU-Laminated-Glass.png',
+    image: '/images/apps/windows.png',
   },
   {
     id: 'high-performance-low-e-glass',
@@ -223,7 +223,7 @@ export const ALL_PRODUCTS: ProductItem[] = [
     description:
       'Off-line magnetron sputtered soft-coated glass that reflects long-wave infrared thermal radiation back outside while permitting optimal natural light to penetrate building interiors.',
     features: ['Infrared Heat Reflection', 'Low Emissivity Coating', 'Reduces HVAC Energy Loads'],
-    image: 'https://magicglass.co.in/wp-content/uploads/2024/02/High-Performance-LOW-E-Glass.png',
+    image: '/images/apps/roof.png',
   },
   {
     id: 'skn-ultra-high-performance-glass',
@@ -235,7 +235,7 @@ export const ALL_PRODUCTS: ProductItem[] = [
     description:
       'Triple and double-silver solar control coatings delivering ultra-low Solar Heat Gain Coefficients (SHGC < 0.23) while maintaining exceptional neutral daylight transmittance for modern green building facades.',
     features: ['SHGC < 0.23', 'Neutral High Daylight', 'Coated Double-Silver', 'LEED Compliant'],
-    image: 'https://magicglass.co.in/wp-content/uploads/2024/02/magic-product-2.jpg',
+    image: '/images/prod-structural.jpg',
   },
   {
     id: 'fire-safety-glass',
@@ -247,7 +247,7 @@ export const ALL_PRODUCTS: ProductItem[] = [
     description:
       'Multi-layered intumescent gel interlayers that react to fire temperatures by turning into an opaque thermal insulation shield. Provides certified fire resistance from 30 up to 120 minutes.',
     features: ['30 - 120 Min Fire Protection', 'Intumescent Heat Shield', 'Radiant Heat Reduction'],
-    image: 'https://magicglass.co.in/wp-content/uploads/2024/02/Fire-Safety-Glass.png',
+    image: '/images/apps/glass-lifts.png',
   },
   {
     id: 'ceramic-glass',
@@ -259,7 +259,7 @@ export const ALL_PRODUCTS: ProductItem[] = [
     description:
       'High-temperature ceramic enamel paint fused into the glass surface during tempering. Creates permanent custom geometric patterns, dot matrices, and privacy screens resistant to scratching, UV, and weathering.',
     features: ['Fused Enamel Surface', 'Custom Pattern Graphics', 'Solar Glare Reduction'],
-    image: 'https://magicglass.co.in/wp-content/uploads/2024/02/Ceramic-Glass.png',
+    image: '/images/craft-ceramic.jpg',
   },
   {
     id: 'frosted-glass',
@@ -271,7 +271,7 @@ export const ALL_PRODUCTS: ProductItem[] = [
     description:
       'Uniform acid-etched translucent glass providing soft light diffusion and high privacy without darkening interior rooms. Resists fingerprint smudges and staining far better than sandblasted alternatives.',
     features: ['Acid-Etched Translucency', 'Smudge & Stain Resistant', 'Soft Light Diffusion'],
-    image: 'https://magicglass.co.in/wp-content/uploads/2024/02/FROSTED-Glass.png',
+    image: '/images/apps/partition.png',
   },
   {
     id: 'mirror-glass',
@@ -283,6 +283,30 @@ export const ALL_PRODUCTS: ProductItem[] = [
     description:
       'Copper-free and lead-free environmental silver mirror glass with multi-layer protective paint backing. Delivers exceptional depth of reflection, distortion-free clarity, and high corrosion resistance.',
     features: ['Copper-Free & Lead-Free', 'Distortion-Free Optics', 'High Moisture Resistance'],
-    image: 'https://magicglass.co.in/wp-content/uploads/2024/02/Mirror-Glass.png',
+    image: '/images/prod-partitions.jpg',
+  },
+  {
+    id: 'back-painted-glass',
+    title: 'Back-Painted Glass',
+    category: 'specialty',
+    categoryLabel: 'Specialty & Decorative',
+    badgeText: 'LACQUERED COLOR COATED',
+    thicknessRange: '4mm - 12mm',
+    description:
+      'High-grade opaque colored lacquered glass featuring durable moisture-resistant backing enamel. Perfect for modern kitchen backsplashes, wall paneling, writing boards, and interior accents.',
+    features: ['Opaque High-Gloss Finish', 'Moisture & Heat Resistant', 'Custom RAL Color Matching'],
+    image: '/images/craft-ceramic.jpg',
+  },
+  {
+    id: 'led-lighting-glass',
+    title: 'LED Lighting Glass',
+    category: 'specialty',
+    categoryLabel: 'Specialty & Decorative',
+    badgeText: 'ILLUMINATED ARCHITECTURAL',
+    thicknessRange: '6mm - 19mm',
+    description:
+      'Integrated edge-lit and surface-diffused LED architectural glass panels providing uniform edge-to-edge glow for signages, luxury interior feature displays, and backlit cladding.',
+    features: ['Uniform Edge-to-Edge Diffusion', 'Integrated Low-Voltage LED', 'Custom Architectural Graphics'],
+    image: '/images/apps/overhead-spaces.png',
   },
 ]

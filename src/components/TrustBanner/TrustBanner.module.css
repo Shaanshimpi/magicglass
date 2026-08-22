@@ -1,12 +1,12 @@
 .trustSection {
   padding: 6rem 0;
-  background-color: #0b1012;
-  color: #ffffff;
+  background-color: var(--color-black);
+  color: var(--color-cream);
   overflow: hidden;
   position: relative;
   width: 100%;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid var(--color-border-subtle);
+  border-bottom: 1px solid var(--color-border-subtle);
 }
 
 .container {

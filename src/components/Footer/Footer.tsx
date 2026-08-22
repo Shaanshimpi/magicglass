@@ -15,14 +15,15 @@ export const Footer: React.FC = () => {
             </div>
             <p className={styles.addressText}>
               State-of-the-Art Processing Facility<br />
-              Gurukripa Industrial Estate, Sector 10,<br />
-              Bhosari, Pune, Maharashtra 411026
+              Gurukripa Industrial Estate, Plot No. 813/2A,<br />
+              Pune-Solapur Road, At Post Yavat,<br />
+              Taluka Daund, Pune, Maharashtra 412214
             </p>
-            <a href="tel:+919822000000" className={styles.contactLink}>
-              TEL: +91 98220 00000
-            </a>
             <a href="mailto:sales@magicglass.co.in" className={styles.contactLink}>
               EMAIL: sales@magicglass.co.in
+            </a>
+            <a href="https://magicglass.co.in" target="_blank" rel="noopener noreferrer" className={styles.contactLink}>
+              WEB: www.magicglass.co.in
             </a>
           </div>
 

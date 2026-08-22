@@ -18,9 +18,9 @@ const TESTIMONIALS: Testimonial[] = [
   {
     id: '1',
     quote:
-      "I've used Magic Glass' HS Laminated Glass for my shop fronts for years. Through heat waves and monsoons, it never fails to impress with its strength and clarity. While others have replaced regular glass multiple times, my investment stays protected.",
+      "I've used Magic Glass' HS Laminated Glass for my shop fronts for years. Through heat waves and monsoons, it never fails to impress with its strength and clarity. While others have replaced regular glass multiple times, my investment in HS Laminated Glass stays protected.",
     author: 'Suraj Divate',
-    title: 'Commercial Property Owner, Pune',
+    title: '',
     image: '/images/hero-bg.jpg',
   },
   {
@@ -28,15 +28,15 @@ const TESTIMONIALS: Testimonial[] = [
     quote:
       'I used Mirrored Glass to renovate my car automotive dealership and it transformed the space. Customers are wowed by the depth and glow. 5 years later it still looks new - a perfect high-end finish that enhances my brand and boosts sales.',
     author: 'Shikha Kumari',
-    title: 'Automotive Dealership Owner',
+    title: '',
     image: '/images/craft-dgu.jpg',
   },
   {
     id: '3',
     quote:
-      "As a high-end retailer in a busy area, security is crucial. Sentry Laminated Glass gives me complete peace of mind - it's stopped multiple attempted break-ins without as much as a scratch. Highly recommend for protecting your property.",
+      "As a high-end retailer in a busy area, security is crucial. Sentry Laminated Glass gives me complete peace of mind - it's stopped multiple attempted break-ins without as much as a scratch. Highly recommend for protecting your property and investments.",
     author: 'Rajesh Kumar',
-    title: 'Retail Store Owner',
+    title: '',
     image: '/images/factory-cnc.jpg',
   },
 ]

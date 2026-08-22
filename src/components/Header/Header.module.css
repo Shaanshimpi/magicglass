@@ -9,7 +9,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.65rem 1.75rem;
+  padding: 0.5rem 1.5rem;
   border-radius: 9999px;
   background: transparent;
   backdrop-filter: blur(24px);
@@ -28,27 +28,30 @@
 .logoLink {
   display: flex;
   align-items: center;
+  justify-content: center;
   text-decoration: none;
-  padding: 0.35rem 0.9rem;
-  background: rgba(255, 255, 255, 0.92);
+  padding: 0.25rem 0.65rem;
+  background: rgba(255, 255, 255, 0.96);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-radius: 9999px;
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.2);
-  transition: background 0.25s ease, box-shadow 0.25s ease;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
+  transition: background 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
   opacity: 0;
   will-change: transform, opacity;
 }
 
 .logoLink:hover {
   background: #ffffff;
-  box-shadow: 0 6px 22px rgba(255, 255, 255, 0.35);
+  box-shadow: 0 6px 22px rgba(255, 255, 255, 0.4);
+  transform: scale(1.03);
 }
 
 .logoImage {
-  height: 28px;
+  height: 48px;
   width: auto;
+  max-width: 170px;
   object-fit: contain;
 }
 
@@ -127,7 +130,7 @@
   position: fixed;
   inset: 0;
   z-index: 300;
-  background: rgba(11, 16, 18, 0.96);
+  background: var(--color-glass-bg);
   backdrop-filter: blur(36px);
   -webkit-backdrop-filter: blur(36px);
   opacity: 0;
@@ -201,13 +204,13 @@
   }
   .headerContainer {
     width: 92%;
-    padding: 0.6rem 1.15rem;
+    padding: 0.5rem 1rem;
     top: 1rem;
   }
   .logoLink {
-    padding: 0.25rem 0.65rem;
+    padding: 0.2rem 0.5rem;
   }
   .logoImage {
-    height: 22px;
+    height: 38px;
   }
 }
