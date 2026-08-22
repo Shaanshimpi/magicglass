@@ -24,9 +24,9 @@ export const Header: React.FC<HeaderProps> = ({ onOpenQuoteDrawer, isLoaded = fa
     if (headerRef.current && logoLinkRef.current && navRef.current && actionsRef.current) {
       if (isLoaded) {
         gsap.to(headerRef.current, {
-          backgroundColor: 'var(--color-glass-bg)',
-          borderColor: 'var(--color-border-subtle)',
-          boxShadow: '0 10px 30px rgba(0, 0, 0, 0.08)',
+          backgroundColor: 'rgba(15, 23, 42, 0.94)',
+          borderColor: 'rgba(255, 255, 255, 0.15)',
+          boxShadow: '0 10px 30px rgba(0, 0, 0, 0.25)',
           duration: 0.4,
           ease: 'power2.out',
         })
@@ -84,8 +84,8 @@ export const Header: React.FC<HeaderProps> = ({ onOpenQuoteDrawer, isLoaded = fa
         <nav ref={navRef} className={styles.desktopNav}>
           <ul className={styles.navLinks}>
             <li>
-              <Link href="/" className={styles.navLink}>
-                Company
+              <Link href="/#heritage" className={styles.navLink}>
+                About
               </Link>
             </li>
             <li>
@@ -94,14 +94,29 @@ export const Header: React.FC<HeaderProps> = ({ onOpenQuoteDrawer, isLoaded = fa
               </Link>
             </li>
             <li>
-              <Link href="/#craftsmanship" className={styles.navLink}>
-                Craftsmanship
+              <Link href="/products/clear-glass" className={styles.navLink}>
+                Toughened Glass
+              </Link>
+            </li>
+            <li>
+              <Link href="/products" className={styles.navLink}>
+                Industry Solution
+              </Link>
+            </li>
+            <li>
+              <Link href="/products" className={styles.navLink}>
+                Infrastructure
               </Link>
             </li>
             <li>
               <Link href="/#projects" className={styles.navLink}>
                 Projects
               </Link>
+            </li>
+            <li>
+              <a href="#footer" className={styles.navLink}>
+                Contact Us
+              </a>
             </li>
           </ul>
         </nav>
@@ -149,8 +164,8 @@ export const Header: React.FC<HeaderProps> = ({ onOpenQuoteDrawer, isLoaded = fa
         <div className={styles.menuContent}>
           <ul ref={menuLinksRef} className={styles.menuList}>
             <li>
-              <Link href="/" onClick={handleCloseMenu}>
-                Company & Factory
+              <Link href="/#heritage" onClick={handleCloseMenu}>
+                About Us
               </Link>
             </li>
             <li>
@@ -159,14 +174,29 @@ export const Header: React.FC<HeaderProps> = ({ onOpenQuoteDrawer, isLoaded = fa
               </Link>
             </li>
             <li>
-              <Link href="/#craftsmanship" onClick={handleCloseMenu}>
-                Engineering Craftsmanship
+              <Link href="/products/clear-glass" onClick={handleCloseMenu}>
+                Toughened Glass
+              </Link>
+            </li>
+            <li>
+              <Link href="/products" onClick={handleCloseMenu}>
+                Industry Solutions
+              </Link>
+            </li>
+            <li>
+              <Link href="/products" onClick={handleCloseMenu}>
+                Infrastructure & BOQ
               </Link>
             </li>
             <li>
               <Link href="/#projects" onClick={handleCloseMenu}>
                 Featured Projects
               </Link>
+            </li>
+            <li>
+              <a href="#footer" onClick={handleCloseMenu}>
+                Contact Us
+              </a>
             </li>
             <li>
               <button
@@ -176,7 +206,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenQuoteDrawer, isLoaded = fa
                   handleCloseMenu()
                   onOpenQuoteDrawer?.()
                 }}
-                style={{ marginTop: '1.5rem' }}
+                style={{ marginTop: '1.25rem' }}
               >
                 REQUEST TECHNICAL QUOTE
               </button>
