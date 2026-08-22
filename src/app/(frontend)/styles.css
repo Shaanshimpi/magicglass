@@ -1,18 +1,18 @@
 :root {
-  /* Core Color Palette - Architectural Glassmorphism */
-  --color-black: #0b1012;            /* Base Page Background */
-  --color-grey: #212726;             /* Elevated Card / Panel Surface */
-  --color-surface-hover: #192022;    /* Card Surface Hover */
-  --color-taupe: #c2bbb2;            /* Muted Body Text / Subtitles */
-  --color-cream: #f3f0ec;            /* High Emphasis Heading Text */
+  /* Core Color Palette - Frost Studio Daylight */
+  --color-black: #f4f5f7;            /* Base Page Background (Crisp Light Studio) */
+  --color-grey: #ffffff;             /* Elevated Card / Panel Surface (Pure White) */
+  --color-surface-hover: #e2e8f0;    /* Card Surface Hover (Light Slate) */
+  --color-taupe: #475569;            /* Muted Body Text / Subtitles (Slate-600) */
+  --color-cream: #0f172a;            /* High Emphasis Heading Text (Slate-900 Dark) */
   --color-crimson: #e20714;          /* Primary Brand Accent CTA */
   --color-white: #ffffff;            /* Pure Accent White */
 
   /* Derived System Variables */
-  --color-border-subtle: rgba(255, 255, 255, 0.08);
-  --color-border-strong: rgba(255, 255, 255, 0.2);
-  --color-glass-bg: rgba(11, 16, 18, 0.82);
-  --color-glass-border: rgba(255, 255, 255, 0.12);
+  --color-border-subtle: rgba(15, 23, 42, 0.12);
+  --color-border-strong: rgba(15, 23, 42, 0.25);
+  --color-glass-bg: rgba(244, 245, 247, 0.92);
+  --color-glass-border: rgba(15, 23, 42, 0.15);
 
   /* Typography Variables */
   --font-outfit: 'Outfit', sans-serif;

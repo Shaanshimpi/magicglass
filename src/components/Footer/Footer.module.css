@@ -1,10 +1,10 @@
 .footerSection {
   position: relative;
-  background-color: var(--color-black);
-  color: var(--color-taupe);
+  background-color: #0b1012;
+  color: #94a3b8;
   padding: 8rem 2rem 3.5rem 2rem;
   overflow: hidden;
-  border-top: 1px solid rgba(212, 206, 198, 0.06);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .container {
@@ -40,14 +40,14 @@
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--color-cream);
+  color: #ffffff;
   margin-bottom: 1.25rem;
 }
 
 .addressText {
   font-size: 0.9rem;
   line-height: 1.75;
-  color: var(--color-taupe);
+  color: #94a3b8;
   max-width: 32ch;
   margin-bottom: 1.25rem;
 }
@@ -55,9 +55,14 @@
 .contactLink {
   display: block;
   font-size: 0.875rem;
-  color: var(--color-cream);
+  color: #ffffff;
   margin-bottom: 0.4rem;
   text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.contactLink:hover {
+  color: var(--color-crimson);
 }
 
 .linksList {
@@ -69,13 +74,13 @@
 
 .linksList a {
   font-size: 0.85rem;
-  color: var(--color-taupe);
+  color: #94a3b8;
   text-decoration: none;
   transition: color 0.2s ease;
 }
 
 .linksList a:hover {
-  color: var(--color-cream);
+  color: #ffffff;
 }
 
 .bottomRow {
@@ -83,9 +88,9 @@
   align-items: center;
   justify-content: space-between;
   padding-top: 2rem;
-  border-top: 1px solid rgba(212, 206, 198, 0.08);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
   font-size: 0.75rem;
-  color: #555e5c;
+  color: #64748b;
 }
 
 .wordmarkWrapper {
@@ -95,8 +100,9 @@
   transform: translateX(-50%);
   width: 100%;
   pointer-events: none;
-  opacity: 0.03;
+  opacity: 0.04;
   user-select: none;
+  color: #ffffff;
 }
 
 .wordmarkSvg {

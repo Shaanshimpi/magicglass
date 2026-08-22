@@ -23,7 +23,7 @@
   font-weight: 600;
   letter-spacing: 0.24em;
   text-transform: uppercase;
-  color: #8c9296;
+  color: var(--color-taupe);
   margin-bottom: 2.5rem;
 }
 
@@ -46,7 +46,7 @@
   font-family: var(--font-outfit), sans-serif;
   font-size: clamp(1.4rem, 2.2vw, 2.1rem);
   font-weight: 400;
-  color: rgba(255, 255, 255, 0.88);
+  color: var(--color-cream);
   letter-spacing: -0.02em;
   display: inline-flex;
   align-items: center;

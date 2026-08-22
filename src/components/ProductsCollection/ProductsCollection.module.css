@@ -212,7 +212,7 @@
   font-family: var(--font-outfit), sans-serif;
   font-size: 0.9rem;
   line-height: 1.5;
-  color: var(--color-taupe);
+  color: rgba(255, 255, 255, 0.88);
   font-weight: 300;
 }
 

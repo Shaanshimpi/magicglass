@@ -24,9 +24,9 @@ export const Header: React.FC<HeaderProps> = ({ onOpenQuoteDrawer, isLoaded = fa
     if (headerRef.current && logoLinkRef.current && navRef.current && actionsRef.current) {
       if (isLoaded) {
         gsap.to(headerRef.current, {
-          backgroundColor: 'rgba(11, 16, 18, 0.85)',
-          borderColor: 'rgba(255, 255, 255, 0.12)',
-          boxShadow: '0 10px 30px rgba(0, 0, 0, 0.35)',
+          backgroundColor: 'var(--color-glass-bg)',
+          borderColor: 'var(--color-border-subtle)',
+          boxShadow: '0 10px 30px rgba(0, 0, 0, 0.08)',
           duration: 0.4,
           ease: 'power2.out',
         })

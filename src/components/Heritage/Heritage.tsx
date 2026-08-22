@@ -46,7 +46,7 @@ export const Heritage: React.FC<HeritageProps> = ({ onOpenQuoteDrawer }) => {
         // Step 1: Scrub words opacity from 0.5 to 1.0 sequentially
         tl.to(wordRefs.current, {
           opacity: 1,
-          color: '#0b1012',
+          color: 'var(--color-cream)',
           stagger: 0.08,
           ease: 'none',
         })

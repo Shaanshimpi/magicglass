@@ -32,7 +32,7 @@
 .relatedCard {
   background: var(--color-grey);
   border: 1px solid var(--color-border-subtle);
-  border-radius: 10px;
+  border-radius: 12px;
   padding: 2.25rem 2rem 2.5rem 2rem;
   display: flex;
   flex-direction: column;
@@ -40,15 +40,16 @@
   text-align: center;
   gap: 1.75rem;
   text-decoration: none;
-  transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+  transition: transform 0.3s var(--ease-fluid), border-color 0.3s ease, box-shadow 0.3s ease;
   overflow: hidden;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.06);
 }
 
 .relatedCard:hover {
-  transform: translateY(-5px);
+  transform: translateY(-6px);
   border-color: var(--color-crimson);
-  background: var(--color-surface-hover);
+  background: var(--color-grey);
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.12);
 }
 
 .imageWrapper {

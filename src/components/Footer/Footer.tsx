@@ -10,7 +10,7 @@ export const Footer: React.FC = () => {
         <div className={styles.grid}>
           {/* Col 1: Factory Address */}
           <div>
-            <div className="base-title" style={{ fontSize: '0.75rem', marginBottom: '1rem' }}>
+            <div className="base-title" style={{ fontSize: '0.75rem', marginBottom: '1rem', color: '#cbd5e1' }}>
               MAGIC GLASS PRIVATE LIMITED
             </div>
             <p className={styles.addressText}>

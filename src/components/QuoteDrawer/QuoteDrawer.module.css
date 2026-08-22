@@ -75,11 +75,11 @@
   width: 100%;
   max-width: 600px;
   height: 100dvh;
-  background-color: var(--color-cream);
-  color: var(--color-grey);
+  background-color: var(--color-grey);
+  color: var(--color-cream);
   padding: 3rem 2.25rem;
   overflow-y: auto;
-  box-shadow: -20px 0 50px rgba(0, 0, 0, 0.4);
+  box-shadow: -20px 0 50px rgba(0, 0, 0, 0.2);
   transform: translateX(100%);
   transition: transform 0.35s cubic-bezier(0.32, 0.72, 0, 1);
   display: flex;
@@ -96,13 +96,13 @@
   justify-content: space-between;
   margin-bottom: 2rem;
   padding-bottom: 1.25rem;
-  border-bottom: 1px solid rgba(33, 39, 38, 0.12);
+  border-bottom: 1px solid var(--color-border-subtle);
 }
 
 .drawerTitle {
   font-size: 1.35rem;
   font-weight: 600;
-  color: var(--color-grey);
+  color: var(--color-cream);
   letter-spacing: -0.015em;
 }
 
@@ -110,7 +110,7 @@
   background: none;
   border: none;
   font-size: 1.5rem;
-  color: var(--color-grey);
+  color: var(--color-cream);
   cursor: pointer;
   padding: 0.5rem;
   line-height: 1;
@@ -133,7 +133,7 @@
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #444c4a;
+  color: var(--color-cream);
   margin-bottom: 0.6rem;
 }
 
@@ -146,9 +146,9 @@
 .categoryPill {
   padding: 0.45rem 0.85rem;
   border-radius: 9999px;
-  background: rgba(33, 39, 38, 0.06);
-  border: 1px solid rgba(33, 39, 38, 0.15);
-  color: var(--color-grey);
+  background: var(--color-surface-hover);
+  border: 1px solid var(--color-border-subtle);
+  color: var(--color-cream);
   font-size: 0.8rem;
   font-weight: 500;
   cursor: pointer;
@@ -156,9 +156,9 @@
 }
 
 .categoryPillActive {
-  background: var(--color-grey);
-  color: var(--color-cream);
-  border-color: var(--color-grey);
+  background: var(--color-cream);
+  color: #ffffff;
+  border-color: var(--color-cream);
 }
 
 .checkboxesGrid {
@@ -172,16 +172,16 @@
   align-items: center;
   gap: 0.5rem;
   font-size: 0.85rem;
-  color: var(--color-grey);
+  color: var(--color-cream);
   cursor: pointer;
 }
 
 .dropzone {
-  border: 1px dashed rgba(33, 39, 38, 0.25);
+  border: 1px dashed var(--color-border-strong);
   border-radius: 0.75rem;
   padding: 1.5rem;
   text-align: center;
-  background: rgba(255, 255, 255, 0.6);
+  background: var(--color-surface-hover);
   cursor: pointer;
   transition: border-color 0.2s ease;
 }
@@ -192,18 +192,18 @@
 
 .dropzoneText {
   font-size: 0.8rem;
-  color: #666e6c;
+  color: var(--color-taupe);
 }
 
 .inputField {
   width: 100%;
   padding: 0.75rem 0.85rem;
   border-radius: 0.4rem;
-  border: 1px solid rgba(33, 39, 38, 0.2);
-  background: var(--color-white);
+  border: 1px solid var(--color-border-subtle);
+  background: var(--color-grey);
   font-family: var(--font-outfit), sans-serif;
   font-size: 0.9rem;
-  color: var(--color-grey);
+  color: var(--color-cream);
   outline: none;
   transition: border-color 0.2s ease;
 }

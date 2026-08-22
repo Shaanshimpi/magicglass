@@ -144,7 +144,7 @@ const COLOR_OPTIONS: FullColorTheme[] = [
 type PageTab = 'home' | 'products' | 'pdp'
 
 export default function ColorOptionsPage() {
-  const [activeThemeId, setActiveThemeId] = useState<string>('charcoal-crimson')
+  const [activeThemeId, setActiveThemeId] = useState<string>('frost-light')
   const [activeTab, setActiveTab] = useState<PageTab>('home')
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(true)
   const [isQuoteOpen, setIsQuoteOpen] = useState(false)

@@ -164,7 +164,7 @@ export const ProductsCollection: React.FC = () => {
       <section ref={topFeaturedRef} className={styles.topFeaturedSection}>
         <div className={styles.topFeaturedInner}>
           <div className={styles.topFeaturedHeader}>
-            <div className="base-title" style={{ color: '#c2bbb2' }}>
+            <div className="base-title" style={{ color: 'var(--color-taupe)' }}>
               TOP 3 FEATURED SYSTEMS
             </div>
             <div className={styles.categoryCodeTag}>FLAGSHIP FAÇADES</div>
@@ -218,7 +218,7 @@ export const ProductsCollection: React.FC = () => {
           {/* LEFT DIV: PINNED STICKY NARRATIVE */}
           <div className={styles.leftPinnedPane}>
             <div className={styles.stickyContent}>
-              <div className="base-title" style={{ color: '#5d5954' }}>
+              <div className="base-title" style={{ color: 'var(--color-taupe)' }}>
                 MAGIC GLASS COLLECTION
               </div>
 

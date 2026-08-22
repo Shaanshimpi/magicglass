@@ -61,7 +61,7 @@ export const QuoteDrawer: React.FC<QuoteDrawerProps> = ({ isOpen, onClose }) => 
               <div className="base-title" style={{ color: 'var(--color-crimson)', marginBottom: '1rem' }}>
                 ◆ INQUIRY TRANSMITTED
               </div>
-              <h4 style={{ fontSize: '1.5rem', marginBottom: '1rem', color: 'var(--color-grey)' }}>
+              <h4 style={{ fontSize: '1.5rem', marginBottom: '1rem', color: 'var(--color-cream)' }}>
                 Thank you for your request.
               </h4>
               <p style={{ color: '#666e6c' }}>
