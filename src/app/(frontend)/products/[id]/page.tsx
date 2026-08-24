@@ -7,6 +7,12 @@ interface ProductDetailPageProps {
   params: Promise<{ id: string }> | { id: string }
 }
 
+export async function generateStaticParams() {
+  return Object.keys(PDP_MOCK_DATA).map((id) => ({
+    id,
+  }))
+}
+
 export default async function ProductDetailPage({
   params,
 }: ProductDetailPageProps) {
@@ -19,3 +25,4 @@ export default async function ProductDetailPage({
 
   return <PdpClientContent product={product} />
 }
+

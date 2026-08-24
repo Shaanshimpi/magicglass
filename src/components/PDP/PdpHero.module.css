@@ -42,6 +42,19 @@
   padding: 0 1.5rem;
 }
 
+.heroSubheading {
+  font-family: var(--font-outfit), sans-serif;
+  font-size: clamp(1.1rem, 2vw, 1.45rem);
+  font-weight: 300;
+  line-height: 1.4;
+  letter-spacing: 0.02em;
+  color: var(--color-taupe);
+  opacity: 0.9;
+  max-width: 720px;
+  padding: 0 1.5rem;
+  margin-top: -0.5rem;
+}
+
 .heroCategoryBadge {
   font-family: var(--font-mono), monospace;
   font-size: 0.725rem;

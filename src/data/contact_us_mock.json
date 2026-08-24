@@ -1,0 +1,57 @@
+{
+  "page": {
+    "title": "Contact Us",
+    "redTitle": "Get",
+    "mainTitle": "In Touch",
+    "indexNumber": "06",
+    "category": "Connect With Magic Glass",
+    "heroImage": "https://magicglass.co.in/wp-content/uploads/2023/11/Banner-2.png",
+    "ctaText": "Contact Now",
+    "eyebrow": "◆ GET IN TOUCH",
+    "subheading": "WE'RE HERE TO HELP & DISCUSS YOUR GLAZING REQUIREMENTS",
+    "introDescription": "Have questions about our architectural glazing, toughened glass, or custom processing capabilities? Reach out to our technical team today."
+  },
+  "contactCards": [
+    {
+      "id": "corporate-address",
+      "title": "Corporate Office",
+      "detail": "Boulevard Towers Phase-2, 9th Floor, A1-901 & A1-902, Sadhu Vaswani Chowk, Camp, Pune, Maharashtra – 411001",
+      "icon": "location",
+      "actionText": "CORPORATE DIRECTIONS",
+      "actionUrl": "https://maps.google.com/?q=Boulevard+Towers+Phase-2+Sadhu+Vaswani+Chowk+Camp+Pune+411001"
+    },
+    {
+      "id": "factory-address",
+      "title": "Factory Office",
+      "detail": "Gurukripa Industrial Estate, National Highway No. 9, Gat No.: 813/2a, At-Post Yavat, Tal: Daund, Dist: Pune Pin Code – 412214",
+      "icon": "location",
+      "actionText": "FACTORY DIRECTIONS",
+      "actionUrl": "https://maps.google.com/?q=Gurukripa+Industrial+Estate+Daund+Pune+412214"
+    },
+    {
+      "id": "email",
+      "title": "info@magicglass.co.in",
+      "detail": "Need Support? Drop us an email",
+      "icon": "email",
+      "actionText": "SEND EMAIL",
+      "actionUrl": "mailto:info@magicglass.co.in"
+    },
+    {
+      "id": "phone",
+      "title": "+91-7774017900",
+      "detail": "Have a question? Call us now",
+      "icon": "phone",
+      "actionText": "CALL NOW",
+      "actionUrl": "tel:+917774017900"
+    },
+    {
+      "id": "hours",
+      "title": "Mon – Sat 07:00 – 21:00",
+      "detail": "We are open Monday to Saturday",
+      "icon": "clock",
+      "actionText": "WORKING HOURS",
+      "actionUrl": null
+    }
+  ],
+  "mapEmbedUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3783.195325515286!2d73.8703!3d18.5204!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2c069b17849e7%3A0xb355151524317a3a!2sBoulevard%20Towers!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+}

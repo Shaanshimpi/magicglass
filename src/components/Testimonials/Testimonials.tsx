@@ -55,20 +55,15 @@ export const Testimonials: React.FC = () => {
   }
 
   useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger)
-
-    const ctx = gsap.context(() => {
-      if (slideContentRef.current) {
-        gsap.fromTo(
-          slideContentRef.current,
-          { opacity: 0, y: 20 },
-          { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }
-        )
-      }
-    }, sectionRef)
-
-    return () => ctx.revert()
+    if (slideContentRef.current) {
+      gsap.fromTo(
+        slideContentRef.current,
+        { opacity: 0, y: 15 },
+        { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }
+      )
+    }
   }, [currentIndex])
+
 
   const currentItem = TESTIMONIALS[currentIndex]
 

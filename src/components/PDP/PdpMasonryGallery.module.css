@@ -1,6 +1,6 @@
 .gallerySection {
   background-color: #f3f0ec;
-  padding: 4rem 4vw 8rem 4vw;
+  padding: 5rem 4vw 8rem 4vw;
   border-top: 1px solid rgba(11, 16, 18, 0.1);
 }
 
@@ -9,7 +9,34 @@
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 4rem;
+  gap: 3.5rem;
+}
+
+.headerBox {
+  margin-bottom: 0.5rem;
+}
+
+.sectionBadge {
+  display: inline-block;
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-crimson, #e20714);
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.sectionTitle {
+  font-family: var(--font-outfit), sans-serif;
+  font-size: 2.75rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: #111618;
+  margin: 0;
+}
+
+.redHeading {
+  color: var(--color-crimson, #e20714);
 }
 
 .galleryRow {
@@ -19,9 +46,56 @@
   position: relative;
 }
 
+.imageCard {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.imageCaption {
+  margin-top: 1.2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.captionTag {
+  font-family: var(--font-outfit), sans-serif;
+  font-size: 0.95rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #111618;
+  padding: 0.65rem 1.4rem;
+  background-color: #ffffff;
+  border: 1px solid rgba(17, 22, 24, 0.18);
+  border-radius: 6px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  text-align: center;
+  margin: 0;
+  display: inline-block;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.imageCard:hover .captionTag {
+  transform: translateY(-2px);
+  border-color: var(--color-crimson, #e20714);
+}
+
 @media (max-width: 768px) {
+  .sectionTitle {
+    font-size: 2rem;
+  }
+
   .galleryRow {
     flex-direction: column;
     gap: 2.5rem;
+  }
+
+  .imageCard {
+    width: 100% !important;
+    margin-left: 0 !important;
+    margin-top: 0 !important;
   }
 }

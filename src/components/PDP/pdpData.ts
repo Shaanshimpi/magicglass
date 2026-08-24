@@ -4,23 +4,144 @@ export interface TechnicalSpec {
   value: string
 }
 
+export interface IndustryItem {
+  title: string
+  image: string
+  description: string
+}
+
 export interface PdpProductDetail {
   id: string
   indexNumber: string
   title: string
+  subheading?: string
   category: string
   heroImage: string
   introSummary: string
   secondaryText: string
   detailImages: [string, string]
   characteristics: string[]
-  specs: TechnicalSpec[]
+  specs?: TechnicalSpec[]
+  galleryTitle?: string
+  galleryImageItems?: Array<{ src: string; title?: string }>
   galleryImages: [string, string, string, string]
+  industries?: IndustryItem[]
   sliderImages: string[]
   relatedProductIds: [string, string]
 }
 
+
 export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
+  'toughened-glass': {
+    id: 'toughened-glass',
+    indexNumber: '14',
+    title: 'Toughened Glass',
+    subheading: 'Fortified Safety Glass Quadruple (4x) Strength',
+    category: 'Safety & Processing',
+    heroImage: 'https://magicglass.co.in/wp-content/uploads/2023/11/HIGH-RISE-BUILDINGS.png',
+    introSummary:
+      'Toughened glass, commonly referred to as \'Tempered glass,\' stands as fortified safety glass, its strength amplified through meticulous thermal processes. This involves subjecting annealed glass to temperatures of around 650°C followed by swift cooling, culminating in a glass that possesses fourfold the strength of regular glass.',
+    secondaryText:
+      'This intense heat treatment and rapid cooling induce distinct physical attributes, notably instilling surface compressive stress and enhancing the glass\'s flexural potency. Preceding toughening, the glass is intricately cut to precise dimensions or expertly shaped, setting the stage for its exceptional attributes.',
+    detailImages: [
+      'https://magicglass.co.in/wp-content/uploads/2023/11/SAFETY-DOORS.png',
+      'https://magicglass.co.in/wp-content/uploads/2024/02/automotive.png',
+    ],
+    characteristics: [
+      'Fourfold (4x) mechanical strength compared to annealed float glass',
+      'High surface compressive stress & enhanced flexural resistance',
+      'Precision custom cut & edge preparation before furnace tempering',
+      'Triple heating method harmony (conduction, convection, and radiation)',
+      'Motorized roller hearth ensuring equal heat distribution across surfaces',
+      'Uniform high-pressure air quenching achieving high physical resilience',
+      'Safe small-fragment crumbling pattern upon impact reducing injury risk',
+    ],
+    specs: [
+      {
+        icon: 'https://magicglass.co.in/wp-content/uploads/2023/11/Group-2258.png',
+        label: 'Glass Thickness Range',
+        value: '4mm to 19mm',
+      },
+      {
+        icon: 'https://magicglass.co.in/wp-content/uploads/2023/11/Group-2288.png',
+        label: 'DGU unit thickness',
+        value: '14mm to 48 mm',
+      },
+      {
+        icon: 'https://magicglass.co.in/wp-content/uploads/2023/11/Group-2267.png',
+        label: 'Butyl Make',
+        value: 'Fenzi (Italy)',
+      },
+      {
+        icon: 'https://magicglass.co.in/wp-content/uploads/2023/11/Group-2268.png',
+        label: 'Desiccant Make',
+        value: 'Netragy',
+      },
+      {
+        icon: 'https://magicglass.co.in/wp-content/uploads/2023/11/Group-2269.png',
+        label: 'Silicon Make',
+        value: 'Sealande, Dow(USA)',
+      },
+      {
+        icon: 'https://magicglass.co.in/wp-content/uploads/2023/10/process-type.png',
+        label: 'Process Type',
+        value: 'Vertically fully automated robotic sealing process',
+      },
+    ],
+    galleryTitle: 'Glass Applications',
+    galleryImageItems: [
+      {
+        src: 'https://magicglass.co.in/wp-content/uploads/2023/11/SAFETY-DOORS.png',
+        title: 'BUILDING AND CONSTRUCTION',
+      },
+      {
+        src: 'https://magicglass.co.in/wp-content/uploads/2024/02/automotive.png',
+        title: 'AUTOMOTIVE INDUSTRY',
+      },
+      {
+        src: 'https://magicglass.co.in/wp-content/uploads/2023/11/FURNITURE.png',
+        title: 'FURNITURE AND DECOR',
+      },
+      {
+        src: 'https://magicglass.co.in/wp-content/uploads/2023/11/HIGH-RISE-BUILDINGS.png',
+        title: 'SOLAR ENERGY',
+      },
+    ],
+    galleryImages: [
+      'https://magicglass.co.in/wp-content/uploads/2023/11/SAFETY-DOORS.png',
+      'https://magicglass.co.in/wp-content/uploads/2024/02/automotive.png',
+      'https://magicglass.co.in/wp-content/uploads/2023/11/FURNITURE.png',
+      'https://magicglass.co.in/wp-content/uploads/2023/11/HIGH-RISE-BUILDINGS.png',
+    ],
+    industries: [
+      {
+        title: 'BUILDING & CONSTRUCTION',
+        image: 'https://magicglass.co.in/wp-content/uploads/2023/11/Mask-group-3.png',
+        description:
+          'Toughened glass glides on rollers through our furnace undergoing thermal processing at 650°C. Conduction, convection, and radiation work in harmony to produce high structural strength and resilience.',
+      },
+      {
+        title: 'AUTOMOTIVE & TRANSPORT',
+        image: 'https://magicglass.co.in/wp-content/uploads/2024/02/automotive.png',
+        description:
+          'High mechanical impact resistance and safe fragmentation characteristics engineered for transport, automotive side glazing, and heavy machinery cabins.',
+      },
+      {
+        title: 'INTERIOR & FURNITURE',
+        image: 'https://magicglass.co.in/wp-content/uploads/2023/11/FURNITURE.png',
+        description:
+          'Sleek frameless glass doors, shower enclosures, table tops, and architectural balustrades combining safety with pristine clarity.',
+      },
+    ],
+    sliderImages: [
+      'https://magicglass.co.in/wp-content/uploads/2023/12/Balmoral-by-riverside.jpg',
+      'https://magicglass.co.in/wp-content/uploads/2023/12/the-ark-Tribeca-devlopers.jpg',
+      'https://magicglass.co.in/wp-content/uploads/2023/12/VARDE-ABIL.jpg',
+      'https://magicglass.co.in/wp-content/uploads/2023/12/Ganga-Platino-.jpg',
+    ],
+    relatedProductIds: ['clear-glass', 'hs-glass'],
+  },
+
   'clear-glass': {
     id: 'clear-glass',
     indexNumber: '01',
@@ -331,15 +452,16 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
     id: 'acoustic-lami-glass',
     indexNumber: '06',
     title: 'Acoustic Lami Glass',
+    subheading: 'Experience Exceptional Sound Insulation',
     category: 'Interior & Partitions',
-    heroImage: '/images/prod-partitions.jpg',
+    heroImage: 'https://magicglass.co.in/wp-content/uploads/2024/02/1900-px-890-px.jpg',
     introSummary:
-      'Designed to provide superior acoustic insulation and noise control, Acoustic Lami Glass plays a crucial role in creating quiet and peaceful indoor environments.',
+      'Designed to provide superior acoustic insulation and noise control, Acoustic Lami Glass plays a crucial role in creating a soothing and peaceful environment in both living and working spaces.',
     secondaryText:
-      'Acoustic Lami Glass is a revolution in sound control, consisting of multiple layers of glass bonded together by acoustic interlayers that absorb airborne sound vibrations across human speech frequencies, achieving ratings up to STC 42dB.',
+      'Acoustic Lami Glass is a revolution in sound control, consisting of multiple layers of glass bonded together by acoustic polyvinyl butyral (PVB) interlayers. This configuration acts as a noise dampener, weakening sound waves as they travel through the glass. By incorporating Acoustic Lami Glass, you can significantly reduce exterior noise, ensuring a peaceful atmosphere within your space. Additionally, the laminated glass provides an added safety benefit, as it remains intact even when broken, reducing the risk of injury.',
     detailImages: [
-      '/images/prod-partitions.jpg',
-      '/images/apps/railings.png',
+      'https://magicglass.co.in/wp-content/uploads/2023/11/PARTITIONS-1.png',
+      'https://magicglass.co.in/wp-content/uploads/2023/11/WINDOWS-2.png',
     ],
     characteristics: [
       'Tri-layer acoustic PVB interlayer attenuating sound wave resonance',
@@ -350,42 +472,83 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
     ],
     specs: [
       {
-        
+        icon: 'https://magicglass.co.in/wp-content/uploads/2023/11/Group-2258.png',
         label: 'Glass Thickness Range',
-        value: '4 mm - 19 mm',
+        value: '4 mm – 19 mm',
       },
       {
-        
+        icon: 'https://magicglass.co.in/wp-content/uploads/2023/11/Group-2259.png',
         label: 'Unit Thickness Range',
-        value: '8.38 mm - 80 mm',
+        value: '8.38 mm – 80 mm',
       },
       {
-        
+        icon: 'https://magicglass.co.in/wp-content/uploads/2023/10/standard.png',
         label: 'Standard',
         value: 'EN 12543',
       },
       {
-        
+        icon: 'https://magicglass.co.in/wp-content/uploads/2023/11/Group-2261.png',
         label: 'Glass Type',
-        value: 'Clear, extra clear, ultra clear, tinted, solar-control coated, low - E coated. (Upto Triple Silver)',
+        value: 'Clear, extra clear, ultra clear, tinted, solar-control coated, low – E coated. (Upto Tripple Silver)',
       },
       {
-        
+        icon: 'https://magicglass.co.in/wp-content/uploads/2023/10/process-type.png',
         label: 'Process Type',
         value: 'Horizontal Assembly line with Press Rollers under controlled room conditions followed by autoclaving',
       },
     ],
+    galleryTitle: 'Glass Applications',
+    galleryImageItems: [
+      {
+        src: 'https://magicglass.co.in/wp-content/uploads/2023/11/WINDOWS-2.png',
+        title: 'WINDOWS',
+      },
+      {
+        src: 'https://magicglass.co.in/wp-content/uploads/2023/11/PARTITIONS-1.png',
+        title: 'PARTITIONS',
+      },
+      {
+        src: 'https://magicglass.co.in/wp-content/uploads/2023/11/DOORS-2.png',
+        title: 'DOORS',
+      },
+      {
+        src: 'https://magicglass.co.in/wp-content/uploads/2023/11/ARCHITECTURAL-INTERIOR.png',
+        title: 'ARCHITECTURAL INTERIOR',
+      },
+    ],
     galleryImages: [
-      '/images/prod-partitions.jpg',
-      '/images/apps/railings.png',
-      '/images/craft-laminated.jpg',
-      '/images/apps/partition.png',
+      'https://magicglass.co.in/wp-content/uploads/2023/11/WINDOWS-2.png',
+      'https://magicglass.co.in/wp-content/uploads/2023/11/PARTITIONS-1.png',
+      'https://magicglass.co.in/wp-content/uploads/2023/11/DOORS-2.png',
+      'https://magicglass.co.in/wp-content/uploads/2023/11/ARCHITECTURAL-INTERIOR.png',
+    ],
+    industries: [
+      {
+        title: 'ARCHITECTURAL',
+        image: 'https://magicglass.co.in/wp-content/uploads/2023/09/architecture.png',
+        description:
+          'Acoustic Lami Glass finds its place in architectural projects, providing unrivaled sound insulation for both commercial and residential buildings. Architects and designers can create spaces that prioritize occupant comfort, reducing noise disturbances and promoting tranquility.',
+      },
+      {
+        title: 'AIRPORT',
+        image: 'https://magicglass.co.in/wp-content/uploads/2023/12/industry-banner-1.jpg',
+        description:
+          'The airport industry seeks glass solutions to enhance passenger experience in premium terminals. Façades, partitions and panels elevate visual appeal with luxurious sound dampening aesthetics.',
+      },
+      {
+        title: 'HOSPITALITY',
+        image: 'https://magicglass.co.in/wp-content/uploads/2023/12/Hospitality.jpg',
+        description:
+          'Hotel lobbies and restaurant interiors requiring acoustic isolation and sound damping to offer guests a quiet and peaceful environment under heavy usage over long durations.',
+      },
     ],
     sliderImages: [
-      '/images/prod-partitions.jpg',
-      '/images/apps/railings.png',
+      'https://magicglass.co.in/wp-content/uploads/2023/12/Balmoral-by-riverside.jpg',
+      'https://magicglass.co.in/wp-content/uploads/2023/12/the-ark-Tribeca-devlopers.jpg',
+      'https://magicglass.co.in/wp-content/uploads/2023/12/VARDE-ABIL.jpg',
+      'https://magicglass.co.in/wp-content/uploads/2023/12/Ganga-Platino-.jpg',
     ],
-    relatedProductIds: ['pvb-laminated-glass', 'frosted-glass'],
+    relatedProductIds: ['pvb-laminated-glass', 'sentry-laminated-glass'],
   },
 
   'pvb-laminated-glass': {

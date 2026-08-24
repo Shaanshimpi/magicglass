@@ -11,6 +11,7 @@ const DEFAULT_HERO_FALLBACK =
 interface PdpHeroProps {
   indexNumber: string
   title: string
+  subheading?: string
   category: string
   heroImage: string
 }
@@ -18,6 +19,7 @@ interface PdpHeroProps {
 export const PdpHero: React.FC<PdpHeroProps> = ({
   indexNumber,
   title,
+  subheading,
   category,
   heroImage,
 }) => {
@@ -31,7 +33,7 @@ export const PdpHero: React.FC<PdpHeroProps> = ({
     const ctx = gsap.context(() => {
       // PDP Hero Text Entrance Animation
       const textElements = heroInnerRef.current?.querySelectorAll(
-        `.${styles.indexBadge}, .${styles.heroCategoryBadge}, .${styles.heroTitle}`
+        `.${styles.indexBadge}, .${styles.heroCategoryBadge}, .${styles.heroTitle}, .${styles.heroSubheading}`
       )
       if (textElements && textElements.length > 0) {
         gsap.from(textElements, {
@@ -72,6 +74,7 @@ export const PdpHero: React.FC<PdpHeroProps> = ({
         <div className={styles.indexBadge}>{indexNumber}</div>
         <div className={styles.heroCategoryBadge}>{category}</div>
         <h1 className={styles.heroTitle}>{title}</h1>
+        {subheading && <p className={styles.heroSubheading}>{subheading}</p>}
 
         <div ref={frameRef} className={styles.heroImageFrame}>
           <Image

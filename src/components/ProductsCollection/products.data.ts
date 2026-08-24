@@ -106,6 +106,18 @@ export const TOP_3_FEATURED: ProductItem[] = [
 
 export const ALL_PRODUCTS: ProductItem[] = [
   {
+    id: 'toughened-glass',
+    title: 'Toughened Glass',
+    category: 'safety',
+    categoryLabel: 'Safety & Processing',
+    badgeText: 'TEMPERED SAFETY GLASS',
+    thicknessRange: '4mm - 19mm',
+    description:
+      'Fortified safety glass fourfold (4x) stronger than regular float glass, processed via meticulous thermal heating at 650°C and rapid uniform air blast quenching.',
+    features: ['4x Strength of Annealed', 'High Compressive Surface', 'Thermal Quench Processed'],
+    image: 'https://magicglass.co.in/wp-content/uploads/2023/11/HIGH-RISE-BUILDINGS.png',
+  },
+  {
     id: 'clear-glass',
     title: 'Clear Glass',
     category: 'structural',

@@ -1,8 +1,10 @@
 'use client'
 
 import React, { useEffect, useRef } from 'react'
+import Image from 'next/image'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useLayoutContext } from '@/components/Shell/ClientLayoutShell'
 import styles from './Hero.module.css'
 
 interface HeroProps {
@@ -10,6 +12,9 @@ interface HeroProps {
 }
 
 export const Hero: React.FC<HeroProps> = ({ onOpenQuoteDrawer }) => {
+  const { openQuoteDrawer } = useLayoutContext()
+  const handleQuoteClick = onOpenQuoteDrawer || openQuoteDrawer
+
   const heroRef = useRef<HTMLDivElement>(null)
   const bgRef = useRef<HTMLDivElement>(null)
   const contentRef = useRef<HTMLDivElement>(null)
@@ -50,7 +55,16 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteDrawer }) => {
 
   return (
     <section ref={heroRef} className={styles.heroSection}>
-      <div ref={bgRef} className={styles.bgWrapper} />
+      <div ref={bgRef} className={styles.bgWrapper}>
+        <Image
+          src="/images/hero-bg.jpg"
+          alt="Architectural Glass Processing Factory"
+          fill
+          priority
+          sizes="100vw"
+          className={styles.heroImage}
+        />
+      </div>
       <div className={styles.vignetteOverlay} />
 
       <div ref={contentRef} className={styles.contentContainer}>
@@ -63,7 +77,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteDrawer }) => {
         </h1>
 
         <div className={styles.ctaGroup}>
-          <button type="button" className="button--red" onClick={onOpenQuoteDrawer}>
+          <button type="button" className="button--red" onClick={handleQuoteClick}>
             <span style={{ color: 'var(--color-crimson)', marginRight: '0.2rem' }}>↳</span> REQUEST TECHNICAL QUOTE
           </button>
 
@@ -80,3 +94,4 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteDrawer }) => {
     </section>
   )
 }
+

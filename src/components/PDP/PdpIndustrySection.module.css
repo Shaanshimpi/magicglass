@@ -1,0 +1,117 @@
+.industrySection {
+  padding: 6rem 1.5rem;
+  background-color: var(--color-black);
+  color: var(--color-cream);
+  position: relative;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.container {
+  max-width: 1240px;
+  margin: 0 auto;
+}
+
+.headerBox {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.sectionBadge {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.725rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-crimson);
+  display: inline-block;
+  margin-bottom: 0.75rem;
+}
+
+.sectionTitle {
+  font-family: var(--font-outfit), sans-serif;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--color-cream);
+}
+
+.industryGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+}
+
+.industryCard {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3.5rem;
+  align-items: center;
+  background-color: rgba(20, 26, 28, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 2.5rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(10px);
+  transition: border-color 0.3s ease, transform 0.3s ease;
+}
+
+.industryCard:hover {
+  border-color: rgba(226, 7, 20, 0.35);
+  transform: translateY(-4px);
+}
+
+.imageCol {
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.textCol {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.industryTitle {
+  font-family: var(--font-outfit), sans-serif;
+  font-size: clamp(1.5rem, 2.5vw, 2.2rem);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--color-cream);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.industryTitle::before {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 24px;
+  background-color: var(--color-crimson);
+  border-radius: 2px;
+}
+
+.industryDescription {
+  font-family: var(--font-outfit), sans-serif;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--color-taupe);
+  opacity: 0.9;
+}
+
+@media (max-width: 900px) {
+  .industrySection {
+    padding: 4rem 1.25rem;
+  }
+
+  .industryCard {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: 1.75rem;
+  }
+
+  .headerBox {
+    margin-bottom: 2.5rem;
+  }
+}

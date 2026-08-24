@@ -9,9 +9,14 @@ import styles from './Header.module.css'
 interface HeaderProps {
   onOpenQuoteDrawer?: () => void
   isLoaded?: boolean
+  onNavigatePreview?: (pageTab: string) => void
 }
 
-export const Header: React.FC<HeaderProps> = ({ onOpenQuoteDrawer, isLoaded = false }) => {
+export const Header: React.FC<HeaderProps> = ({
+  onOpenQuoteDrawer,
+  isLoaded = true,
+  onNavigatePreview,
+}) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const headerRef = useRef<HTMLHeadingElement>(null)
   const logoLinkRef = useRef<HTMLAnchorElement>(null)
@@ -67,10 +72,23 @@ export const Header: React.FC<HeaderProps> = ({ onOpenQuoteDrawer, isLoaded = fa
     setIsMenuOpen(false)
   }
 
+  const handleNavClick = (e: React.MouseEvent, pageTab: string) => {
+    if (onNavigatePreview) {
+      e.preventDefault()
+      onNavigatePreview(pageTab)
+      handleCloseMenu()
+    }
+  }
+
   return (
     <>
       <header ref={headerRef} className={styles.headerContainer}>
-        <Link ref={logoLinkRef} href="/" className={styles.logoLink}>
+        <Link
+          ref={logoLinkRef}
+          href="/"
+          className={styles.logoLink}
+          onClick={(e) => handleNavClick(e, 'home')}
+        >
           <Image
             src="/images/FINAL_LOGO.svg"
             alt="Magic Glass Logo"
@@ -84,39 +102,67 @@ export const Header: React.FC<HeaderProps> = ({ onOpenQuoteDrawer, isLoaded = fa
         <nav ref={navRef} className={styles.desktopNav}>
           <ul className={styles.navLinks}>
             <li>
-              <Link href="/#heritage" className={styles.navLink}>
+              <Link
+                href="/about"
+                className={styles.navLink}
+                onClick={(e) => handleNavClick(e, 'about')}
+              >
                 About
               </Link>
             </li>
             <li>
-              <Link href="/products" className={styles.navLink}>
+              <Link
+                href="/products"
+                className={styles.navLink}
+                onClick={(e) => handleNavClick(e, 'products')}
+              >
                 Products
               </Link>
             </li>
             <li>
-              <Link href="/products/clear-glass" className={styles.navLink}>
+              <Link
+                href="/toughened-glass"
+                className={styles.navLink}
+                onClick={(e) => handleNavClick(e, 'toughened-glass')}
+              >
                 Toughened Glass
               </Link>
             </li>
             <li>
-              <Link href="/products" className={styles.navLink}>
+              <Link
+                href="/industry-solution"
+                className={styles.navLink}
+                onClick={(e) => handleNavClick(e, 'industry-solution')}
+              >
                 Industry Solution
               </Link>
             </li>
             <li>
-              <Link href="/products" className={styles.navLink}>
+              <Link
+                href="/infrastructure"
+                className={styles.navLink}
+                onClick={(e) => handleNavClick(e, 'infrastructure')}
+              >
                 Infrastructure
               </Link>
             </li>
             <li>
-              <Link href="/#projects" className={styles.navLink}>
+              <Link
+                href="/projects"
+                className={styles.navLink}
+                onClick={(e) => handleNavClick(e, 'projects')}
+              >
                 Projects
               </Link>
             </li>
             <li>
-              <a href="#footer" className={styles.navLink}>
+              <Link
+                href="/contact-us"
+                className={styles.navLink}
+                onClick={(e) => handleNavClick(e, 'contact-us')}
+              >
                 Contact Us
-              </a>
+              </Link>
             </li>
           </ul>
         </nav>
@@ -164,39 +210,60 @@ export const Header: React.FC<HeaderProps> = ({ onOpenQuoteDrawer, isLoaded = fa
         <div className={styles.menuContent}>
           <ul ref={menuLinksRef} className={styles.menuList}>
             <li>
-              <Link href="/#heritage" onClick={handleCloseMenu}>
+              <Link
+                href="/about"
+                onClick={(e) => handleNavClick(e, 'about')}
+              >
                 About Us
               </Link>
             </li>
             <li>
-              <Link href="/products" onClick={handleCloseMenu}>
+              <Link
+                href="/products"
+                onClick={(e) => handleNavClick(e, 'products')}
+              >
                 Architectural Products
               </Link>
             </li>
             <li>
-              <Link href="/products/clear-glass" onClick={handleCloseMenu}>
+              <Link
+                href="/toughened-glass"
+                onClick={(e) => handleNavClick(e, 'toughened-glass')}
+              >
                 Toughened Glass
               </Link>
             </li>
             <li>
-              <Link href="/products" onClick={handleCloseMenu}>
+              <Link
+                href="/industry-solution"
+                onClick={(e) => handleNavClick(e, 'industry-solution')}
+              >
                 Industry Solutions
               </Link>
             </li>
             <li>
-              <Link href="/products" onClick={handleCloseMenu}>
+              <Link
+                href="/infrastructure"
+                onClick={(e) => handleNavClick(e, 'infrastructure')}
+              >
                 Infrastructure & BOQ
               </Link>
             </li>
             <li>
-              <Link href="/#projects" onClick={handleCloseMenu}>
+              <Link
+                href="/projects"
+                onClick={(e) => handleNavClick(e, 'projects')}
+              >
                 Featured Projects
               </Link>
             </li>
             <li>
-              <a href="#footer" onClick={handleCloseMenu}>
+              <Link
+                href="/contact-us"
+                onClick={(e) => handleNavClick(e, 'contact-us')}
+              >
                 Contact Us
-              </a>
+              </Link>
             </li>
             <li>
               <button

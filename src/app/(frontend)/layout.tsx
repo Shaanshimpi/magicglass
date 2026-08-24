@@ -1,6 +1,7 @@
 import React from 'react'
 import { Outfit, JetBrains_Mono } from 'next/font/google'
 import { SmoothScroll } from '@/components/SmoothScroll/SmoothScroll'
+import { ClientLayoutShell } from '@/components/Shell/ClientLayoutShell'
 import './styles.css'
 
 const outfit = Outfit({
@@ -27,10 +28,11 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
     <html lang="en" className={`${outfit.variable} ${jetbrainsMono.variable}`}>
       <body>
         <SmoothScroll>
-          <main>{children}</main>
+          <ClientLayoutShell>{children}</ClientLayoutShell>
         </SmoothScroll>
       </body>
     </html>
   )
 }
+
 

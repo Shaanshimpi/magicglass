@@ -1,35 +1,23 @@
 'use client'
 
-import React, { useEffect, useRef, useState } from 'react'
+
+import React, { useRef, useState } from 'react'
 import Image from 'next/image'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { ApplicationCard, ApplicationCardItem } from '@/components/Common/ApplicationCard'
+import { useParallaxGridAnimation } from '@/hooks/useParallaxGridAnimation'
 import styles from './ProductSystems.module.css'
 
-interface ProductCategory {
-  id: string
-  num: string
-  title: string
-  subtitle: string
-  specs: string
-  image: string
-}
-
-// Row 1: Center Image (RAILINGS, STAIRCASES AND DOORS)
-const ROW1_ITEM: ProductCategory = {
+const ROW1_ITEM: ApplicationCardItem = {
   id: 'railings',
-  num: '01',
   title: 'RAILINGS, STAIRCASES AND DOORS',
   subtitle: 'Frameless Glass Entrances & Structural Balustrades',
   specs: 'Toughened Laminated Glass Panels, Patch-Fitting Door Glass, Glass Balustrades & Custom Staircase Assemblies.',
   image: '/images/apps/railings.png',
 }
 
-// Row 2: 3 Small Images (WINDOWS, ROOF, OVERHEAD SPACES)
-const ROW2_ITEMS: ProductCategory[] = [
+const ROW2_ITEMS: ApplicationCardItem[] = [
   {
     id: 'windows',
-    num: '02',
     title: 'WINDOWS',
     subtitle: 'High Performance DGU & Low-E Solar Control',
     specs: 'Insulated Double Glazed Units (DGU) & High-Performance Low-E Solar Control Glass Panels.',
@@ -37,7 +25,6 @@ const ROW2_ITEMS: ProductCategory[] = [
   },
   {
     id: 'roof',
-    num: '03',
     title: 'ROOF',
     subtitle: 'Structural Overhead Skylight Glass',
     specs: 'Heat Soaked SentryGlas® & PVB Structural Laminated Glass engineered for overhead safety.',
@@ -45,7 +32,6 @@ const ROW2_ITEMS: ProductCategory[] = [
   },
   {
     id: 'overhead-spaces',
-    num: '04',
     title: 'OVERHEAD SPACES',
     subtitle: 'Spider-Supported Overhead Glass',
     specs: 'Point-Supported Spider Glass Canopies, Atrium Glazing Panels & Heavy Wind Load Safety Systems.',
@@ -53,11 +39,9 @@ const ROW2_ITEMS: ProductCategory[] = [
   },
 ]
 
-// Row 3: 2 Large Images (GLASS LIFTS, PARTITIONS)
-const ROW3_ITEMS: ProductCategory[] = [
+const ROW3_ITEMS: ApplicationCardItem[] = [
   {
     id: 'glass-lifts',
-    num: '05',
     title: 'GLASS LIFTS',
     subtitle: 'Curved & Toughened Shaft Enclosures',
     specs: 'Architectural Curved & Toughened Structural Glass for Panoramic Elevator Enclosures.',
@@ -65,7 +49,6 @@ const ROW3_ITEMS: ProductCategory[] = [
   },
   {
     id: 'partitions',
-    num: '06',
     title: 'PARTITIONS',
     subtitle: 'Soundproof & Privacy Interior Walls',
     specs: 'Acoustic 42dB Soundproof Laminated Glass, Acid-Frosted Privacy & Smart Switchable Glass Panels.',
@@ -73,7 +56,7 @@ const ROW3_ITEMS: ProductCategory[] = [
   },
 ]
 
-const ALL_MOBILE_PRODUCTS: ProductCategory[] = [
+const ALL_MOBILE_PRODUCTS: ApplicationCardItem[] = [
   ROW1_ITEM,
   ...ROW2_ITEMS,
   ...ROW3_ITEMS,
@@ -82,8 +65,7 @@ const ALL_MOBILE_PRODUCTS: ProductCategory[] = [
 export const ProductSystems: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null)
   const mobilePinRef = useRef<HTMLElement>(null)
-  
-  // Desktop Refs
+
   const row1CardRef = useRef<HTMLDivElement>(null)
   const row1TextRef = useRef<HTMLDivElement>(null)
   const row2Card1Ref = useRef<HTMLDivElement>(null)
@@ -92,187 +74,20 @@ export const ProductSystems: React.FC = () => {
   const row3Card1Ref = useRef<HTMLDivElement>(null)
   const row3Card2Ref = useRef<HTMLDivElement>(null)
 
-  // Mobile Tile Refs
-  const mobileTileRefs = useRef<(HTMLDivElement | null)[]>([])
   const [activeTapId, setActiveTapId] = useState<string | null>(null)
 
-  useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger)
-
-    const mm = gsap.matchMedia()
-
-    // -------------------------------------------------------------------------
-    // DESKTOP ANIMATION (> 900px): 3-Row Parallax Grid with Hover Overlays
-    // -------------------------------------------------------------------------
-    mm.add('(min-width: 901px)', () => {
-      if (sectionRef.current) {
-        // Row 1 Parallax
-        if (row1CardRef.current) {
-          gsap.to(row1CardRef.current, {
-            y: -40,
-            ease: 'none',
-            scrollTrigger: {
-              trigger: sectionRef.current,
-              start: 'top bottom',
-              end: 'bottom top',
-              scrub: 1,
-            },
-          })
-        }
-        if (row1TextRef.current) {
-          gsap.to(row1TextRef.current, {
-            y: -20,
-            ease: 'none',
-            scrollTrigger: {
-              trigger: sectionRef.current,
-              start: 'top bottom',
-              end: 'bottom top',
-              scrub: 1.2,
-            },
-          })
-        }
-
-        // Row 2 Parallax (3 Small Images - 3 Speeds & 40% Size/Offset Variance)
-        if (row2Card1Ref.current) {
-          gsap.to(row2Card1Ref.current, {
-            y: -75,
-            ease: 'none',
-            scrollTrigger: {
-              trigger: row2Card1Ref.current,
-              start: 'top bottom',
-              end: 'bottom top',
-              scrub: 1.4,
-            },
-          })
-        }
-        if (row2Card2Ref.current) {
-          gsap.to(row2Card2Ref.current, {
-            y: 35,
-            ease: 'none',
-            scrollTrigger: {
-              trigger: row2Card2Ref.current,
-              start: 'top bottom',
-              end: 'bottom top',
-              scrub: 0.9,
-            },
-          })
-        }
-        if (row2Card3Ref.current) {
-          gsap.to(row2Card3Ref.current, {
-            y: -105,
-            ease: 'none',
-            scrollTrigger: {
-              trigger: row2Card3Ref.current,
-              start: 'top bottom',
-              end: 'bottom top',
-              scrub: 2.1,
-            },
-          })
-        }
-
-        // Row 3 Parallax (2 Large Images - 2 Speeds & 40% Size/Offset Variance)
-        if (row3Card1Ref.current) {
-          gsap.to(row3Card1Ref.current, {
-            y: -85,
-            ease: 'none',
-            scrollTrigger: {
-              trigger: row3Card1Ref.current,
-              start: 'top bottom',
-              end: 'bottom top',
-              scrub: 1.3,
-            },
-          })
-        }
-        if (row3Card2Ref.current) {
-          gsap.to(row3Card2Ref.current, {
-            y: 45,
-            ease: 'none',
-            scrollTrigger: {
-              trigger: row3Card2Ref.current,
-              start: 'top bottom',
-              end: 'bottom top',
-              scrub: 1.7,
-            },
-          })
-        }
-      }
-    })
-
-    // -------------------------------------------------------------------------
-    // MOBILE ANIMATION (<= 900px): Pinned Bottom-Right Diagonal Scale Storytelling
-    // -------------------------------------------------------------------------
-    mm.add('(max-width: 900px)', () => {
-      if (mobilePinRef.current) {
-        const totalCards = ALL_MOBILE_PRODUCTS.length
-
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: mobilePinRef.current,
-            start: 'top top',
-            end: `+=${totalCards * 90}%`,
-            pin: true,
-            scrub: 1,
-          },
-        })
-
-        // Initial setup for mobile cards
-        mobileTileRefs.current.forEach((card, i) => {
-          if (!card) return
-          if (i === 0) {
-            gsap.set(card, {
-              xPercent: 0,
-              yPercent: 0,
-              scale: 1,
-              opacity: 1,
-              transformOrigin: 'bottom right',
-            })
-          } else {
-            gsap.set(card, {
-              xPercent: 75,
-              yPercent: 75,
-              scale: 0.2,
-              opacity: 0,
-              transformOrigin: 'bottom right',
-            })
-          }
-        })
-
-        // Sequential Diagonal Entrance for each card on Mobile (exit opacity = 0 to prevent stacking)
-        for (let i = 0; i < totalCards - 1; i++) {
-          const currentCard = mobileTileRefs.current[i]
-          const nextCard = mobileTileRefs.current[i + 1]
-
-          if (currentCard && nextCard) {
-            tl.to(
-              currentCard,
-              {
-                xPercent: -40,
-                yPercent: -40,
-                scale: 0.75,
-                opacity: 0, // Clean exit: zero opacity prevents card stacking & overlapping text
-                duration: 1,
-                ease: 'power2.inOut',
-              },
-              `step-${i}`
-            ).to(
-              nextCard,
-              {
-                xPercent: 0,
-                yPercent: 0,
-                scale: 1,
-                opacity: 1,
-                duration: 1,
-                ease: 'power2.inOut',
-              },
-              `step-${i}`
-            )
-          }
-        }
-      }
-    })
-
-    return () => mm.revert()
-  }, [])
+  const { setMobileTileRef } = useParallaxGridAnimation({
+    desktopRef: sectionRef,
+    mobilePinRef: mobilePinRef,
+    row1CardRef,
+    row1TextRef,
+    row2Card1Ref,
+    row2Card2Ref,
+    row2Card3Ref,
+    row3Card1Ref,
+    row3Card2Ref,
+    mobileCardCount: ALL_MOBILE_PRODUCTS.length,
+  })
 
   const handleTileTap = (id: string) => {
     setActiveTapId((prev) => (prev === id ? null : id))
@@ -280,12 +95,8 @@ export const ProductSystems: React.FC = () => {
 
   return (
     <>
-      {/* ==================================================================== */}
-      {/* DESKTOP VIEW (> 900px): 3-Row Parallax Grid                          */}
-      {/* ==================================================================== */}
       <section id="products" ref={sectionRef} className={styles.desktopProductSection}>
         <div className={styles.container}>
-          {/* Eyebrow Header & Subheading */}
           <div className={styles.headerBlock}>
             <div className={styles.eyebrow}>
               ◆ GLASS APPLICATIONS
@@ -295,25 +106,16 @@ export const ProductSystems: React.FC = () => {
             </h2>
           </div>
 
-          {/* ROW 1: Center Image + Text Right */}
+          {/* ROW 1 */}
           <div className={styles.row1Wrapper}>
-            <div ref={row1CardRef} className={`${styles.collectionCard} ${styles.row1Card}`}>
-              <div className={styles.imageWrapper}>
-                <Image src={ROW1_ITEM.image} alt={ROW1_ITEM.title} fill sizes="380px" priority />
-                <div className={styles.cardOverlay} />
-                <h3 className={styles.cardMainTitle}>{ROW1_ITEM.title}</h3>
-                <div className={styles.viewBadge}>VIEW</div>
-
-                <div className={styles.hoverDetailsOverlay}>
-                  <div className={styles.hoverContent}>
-                    <span className={styles.hoverCategory}>{ROW1_ITEM.subtitle}</span>
-                    <h4 className={styles.hoverTitle}>{ROW1_ITEM.title}</h4>
-                    <p className={styles.hoverSpecs}>{ROW1_ITEM.specs}</p>
-                    <span className={styles.hoverLink}>EXPLORE SYSTEM →</span>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <ApplicationCard
+              item={ROW1_ITEM}
+              cardRef={row1CardRef}
+              cardClassName={styles.row1Card}
+              sizes="(max-width: 900px) 100vw, 380px"
+              priority
+              stylesObj={styles}
+            />
 
             <div ref={row1TextRef} className={styles.row1TextContent}>
               <p className={styles.topDescription}>
@@ -327,107 +129,52 @@ export const ProductSystems: React.FC = () => {
             </div>
           </div>
 
-          {/* ROW 2: 3 Small Images */}
+          {/* ROW 2 */}
           <div className={styles.row2Grid}>
-            <div ref={row2Card1Ref} className={`${styles.collectionCard} ${styles.row2Card1}`}>
-              <div className={styles.imageWrapper}>
-                <Image src={ROW2_ITEMS[0].image} alt={ROW2_ITEMS[0].title} fill sizes="320px" />
-                <div className={styles.cardOverlay} />
-                <h3 className={styles.cardMainTitle}>{ROW2_ITEMS[0].title}</h3>
-                <div className={styles.viewBadge}>VIEW</div>
-
-                <div className={styles.hoverDetailsOverlay}>
-                  <div className={styles.hoverContent}>
-                    <span className={styles.hoverCategory}>{ROW2_ITEMS[0].subtitle}</span>
-                    <h4 className={styles.hoverTitle}>{ROW2_ITEMS[0].title}</h4>
-                    <p className={styles.hoverSpecs}>{ROW2_ITEMS[0].specs}</p>
-                    <span className={styles.hoverLink}>EXPLORE SYSTEM →</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div ref={row2Card2Ref} className={`${styles.collectionCard} ${styles.row2Card2}`}>
-              <div className={styles.imageWrapper}>
-                <Image src={ROW2_ITEMS[1].image} alt={ROW2_ITEMS[1].title} fill sizes="360px" />
-                <div className={styles.cardOverlay} />
-                <h3 className={styles.cardMainTitle}>{ROW2_ITEMS[1].title}</h3>
-                <div className={styles.viewBadge}>VIEW</div>
-
-                <div className={styles.hoverDetailsOverlay}>
-                  <div className={styles.hoverContent}>
-                    <span className={styles.hoverCategory}>{ROW2_ITEMS[1].subtitle}</span>
-                    <h4 className={styles.hoverTitle}>{ROW2_ITEMS[1].title}</h4>
-                    <p className={styles.hoverSpecs}>{ROW2_ITEMS[1].specs}</p>
-                    <span className={styles.hoverLink}>EXPLORE SYSTEM →</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div ref={row2Card3Ref} className={`${styles.collectionCard} ${styles.row2Card3}`}>
-              <div className={styles.imageWrapper}>
-                <Image src={ROW2_ITEMS[2].image} alt={ROW2_ITEMS[2].title} fill sizes="340px" />
-                <div className={styles.cardOverlay} />
-                <h3 className={styles.cardMainTitle}>{ROW2_ITEMS[2].title}</h3>
-                <div className={styles.viewBadge}>VIEW</div>
-
-                <div className={styles.hoverDetailsOverlay}>
-                  <div className={styles.hoverContent}>
-                    <span className={styles.hoverCategory}>{ROW2_ITEMS[2].subtitle}</span>
-                    <h4 className={styles.hoverTitle}>{ROW2_ITEMS[2].title}</h4>
-                    <p className={styles.hoverSpecs}>{ROW2_ITEMS[2].specs}</p>
-                    <span className={styles.hoverLink}>EXPLORE SYSTEM →</span>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <ApplicationCard
+              item={ROW2_ITEMS[0]}
+              cardRef={row2Card1Ref}
+              cardClassName={styles.row2Card1}
+              sizes="(max-width: 900px) 100vw, 320px"
+              stylesObj={styles}
+            />
+            <ApplicationCard
+              item={ROW2_ITEMS[1]}
+              cardRef={row2Card2Ref}
+              cardClassName={styles.row2Card2}
+              sizes="(max-width: 900px) 100vw, 360px"
+              stylesObj={styles}
+            />
+            <ApplicationCard
+              item={ROW2_ITEMS[2]}
+              cardRef={row2Card3Ref}
+              cardClassName={styles.row2Card3}
+              sizes="(max-width: 900px) 100vw, 340px"
+              stylesObj={styles}
+            />
           </div>
 
-          {/* ROW 3: 2 Large Images */}
+          {/* ROW 3 */}
           <div className={styles.row3Grid}>
-            <div ref={row3Card1Ref} className={`${styles.collectionCard} ${styles.row3Card1}`}>
-              <div className={styles.imageWrapper}>
-                <Image src={ROW3_ITEMS[0].image} alt={ROW3_ITEMS[0].title} fill sizes="440px" />
-                <div className={styles.cardOverlay} />
-                <h3 className={styles.cardMainTitle}>{ROW3_ITEMS[0].title}</h3>
-                <div className={styles.viewBadge}>VIEW</div>
-
-                <div className={styles.hoverDetailsOverlay}>
-                  <div className={styles.hoverContent}>
-                    <span className={styles.hoverCategory}>{ROW3_ITEMS[0].subtitle}</span>
-                    <h4 className={styles.hoverTitle}>{ROW3_ITEMS[0].title}</h4>
-                    <p className={styles.hoverSpecs}>{ROW3_ITEMS[0].specs}</p>
-                    <span className={styles.hoverLink}>EXPLORE SYSTEM →</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div ref={row3Card2Ref} className={`${styles.collectionCard} ${styles.row3Card2}`}>
-              <div className={styles.imageWrapper}>
-                <Image src={ROW3_ITEMS[1].image} alt={ROW3_ITEMS[1].title} fill sizes="410px" />
-                <div className={styles.cardOverlay} />
-                <h3 className={styles.cardMainTitle}>{ROW3_ITEMS[1].title}</h3>
-                <div className={styles.viewBadge}>VIEW</div>
-
-                <div className={styles.hoverDetailsOverlay}>
-                  <div className={styles.hoverContent}>
-                    <span className={styles.hoverCategory}>{ROW3_ITEMS[1].subtitle}</span>
-                    <h4 className={styles.hoverTitle}>{ROW3_ITEMS[1].title}</h4>
-                    <p className={styles.hoverSpecs}>{ROW3_ITEMS[1].specs}</p>
-                    <span className={styles.hoverLink}>EXPLORE SYSTEM →</span>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <ApplicationCard
+              item={ROW3_ITEMS[0]}
+              cardRef={row3Card1Ref}
+              cardClassName={styles.row3Card1}
+              sizes="(max-width: 900px) 100vw, 440px"
+              stylesObj={styles}
+            />
+            <ApplicationCard
+              item={ROW3_ITEMS[1]}
+              cardRef={row3Card2Ref}
+              cardClassName={styles.row3Card2}
+              sizes="(max-width: 900px) 100vw, 410px"
+              stylesObj={styles}
+            />
           </div>
         </div>
       </section>
 
-      {/* ==================================================================== */}
-      {/* MOBILE VIEW (<= 900px): Pinned Bottom-Right Diagonal Scale Scene     */}
-      {/* ==================================================================== */}
+      {/* MOBILE VIEW */}
       <section ref={mobilePinRef} className={styles.mobileProductSection}>
         <div className={styles.mobileContainer}>
           <div className={styles.mobileHeaderBlock}>
@@ -445,7 +192,7 @@ export const ProductSystems: React.FC = () => {
               return (
                 <div
                   key={`mob-${prod.id}`}
-                  ref={(el) => { mobileTileRefs.current[i] = el }}
+                  ref={setMobileTileRef(i)}
                   className={`${styles.mobileTileCard} ${isTapped ? styles.tapped : ''}`}
                   onClick={() => handleTileTap(prod.id)}
                 >
@@ -460,13 +207,11 @@ export const ProductSystems: React.FC = () => {
                     />
                     <div className={styles.cardOverlay} />
                     
-                    {/* Title directly ON the Image Card */}
                     <h3 className={styles.mobileCardMainTitle}>
                       {prod.title}
                     </h3>
                     <div className={styles.mobileTapBadge}>TAP FOR DETAILS</div>
 
-                    {/* Interactive Full Text Details Overlay (Toggles on Tap) */}
                     <div
                       className={`${styles.mobileHoverDetailsOverlay} ${
                         isTapped ? styles.overlayActive : ''
@@ -489,3 +234,4 @@ export const ProductSystems: React.FC = () => {
     </>
   )
 }
+

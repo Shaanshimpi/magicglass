@@ -1,11 +1,13 @@
 'use client'
 
 import React, { useEffect, useRef } from 'react'
+import Image from 'next/image'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import styles from './PdpGeneralInfo.module.css'
 import { PdpScrubbedImage } from './PdpScrubbedImage'
 import { TechnicalSpec } from './pdpData'
+
 
 interface PdpGeneralInfoProps {
   introSummary: string
@@ -149,13 +151,13 @@ export const PdpGeneralInfo: React.FC<PdpGeneralInfoProps> = ({
                   <div key={index} className={styles.specTableRow}>
                     <div className={styles.specIconCol}>
                       {spec.icon ? (
-                        <img
+                        <Image
                           src={spec.icon}
-                          alt=""
+                          alt={spec.label || 'Specification icon'}
+                          width={24}
+                          height={24}
                           className={styles.specIconImg}
-                          onError={(e) => {
-                            e.currentTarget.style.display = 'none'
-                          }}
+                          unoptimized={spec.icon.startsWith('http')}
                         />
                       ) : (
                         <div className={styles.specIconFallback} />

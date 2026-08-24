@@ -1,0 +1,192 @@
+{
+  "product": {
+    "id": "toughened-glass",
+    "indexNumber": "14",
+    "title": "Toughened Glass",
+    "category": "Safety & Processing",
+    "heroImage": "https://magicglass.co.in/wp-content/uploads/2023/11/HIGH-RISE-BUILDINGS.png",
+    "introSummary": "Toughened glass, commonly referred to as 'Tempered glass,' stands as fortified safety glass, its strength amplified through meticulous thermal processes. This involves subjecting annealed glass to temperatures of around 650°C followed by swift cooling, culminating in a glass that possesses fourfold the strength of regular glass.",
+    "secondaryText": "This intense heat treatment and rapid cooling induce distinct physical attributes, notably instilling surface compressive stress and enhancing the glass's flexural potency. Preceding toughening, the glass is intricately cut to precise dimensions or expertly shaped, setting the stage for its exceptional attributes.",
+    "detailImages": [
+      "https://magicglass.co.in/wp-content/uploads/2023/11/SAFETY-DOORS.png",
+      "https://magicglass.co.in/wp-content/uploads/2024/02/automotive.png"
+    ],
+    "characteristics": [
+      "Fourfold (4x) mechanical strength compared to annealed float glass",
+      "High surface compressive stress & enhanced flexural resistance",
+      "Precision custom cut & edge preparation before furnace tempering",
+      "Triple heating method harmony (conduction, convection, and radiation)",
+      "Motorized roller hearth ensuring equal heat distribution across surfaces",
+      "Uniform high-pressure air quenching achieving high physical resilience",
+      "Safe small-fragment crumbling pattern upon impact reducing injury risk"
+    ],
+    "specs": [
+      {
+        "icon": "https://magicglass.co.in/wp-content/uploads/2023/11/Group-2258.png",
+        "label": "Glass Thickness Range",
+        "value": "4mm to 19mm"
+      },
+      {
+        "icon": "https://magicglass.co.in/wp-content/uploads/2023/11/Group-2288.png",
+        "label": "DGU Unit Thickness",
+        "value": "14mm to 48 mm"
+      },
+      {
+        "icon": "https://magicglass.co.in/wp-content/uploads/2023/11/Group-2267.png",
+        "label": "Butyl Make",
+        "value": "Fenzi (Italy)"
+      },
+      {
+        "icon": "https://magicglass.co.in/wp-content/uploads/2023/11/Group-2268.png",
+        "label": "Desiccant Make",
+        "value": "Netragy"
+      },
+      {
+        "icon": "https://magicglass.co.in/wp-content/uploads/2023/11/Group-2269.png",
+        "label": "Silicon Make",
+        "value": "Sealande, Dow(USA)"
+      },
+      {
+        "icon": "https://magicglass.co.in/wp-content/uploads/2023/10/process-type.png",
+        "label": "Process Type",
+        "value": "Vertically fully automated robotic sealing process"
+      },
+      {
+        "label": "Thermal Processing",
+        "value": "Conduction, Convection & Radiation at 650°C with automated air blast quenching"
+      }
+    ],
+    "applications": [
+      {
+        "name": "Building and Construction",
+        "image": "https://magicglass.co.in/wp-content/uploads/2023/11/SAFETY-DOORS.png"
+      },
+      {
+        "name": "Automotive Industry",
+        "image": "https://magicglass.co.in/wp-content/uploads/2024/02/automotive.png"
+      },
+      {
+        "name": "Furniture and Decor",
+        "image": "https://magicglass.co.in/wp-content/uploads/2023/11/FURNITURE.png"
+      },
+      {
+        "name": "Solar Energy",
+        "image": "https://magicglass.co.in/wp-content/uploads/2023/11/HIGH-RISE-BUILDINGS.png"
+      }
+    ],
+    "handlingAndProcessing": "The glass glides on rollers through our furnace, undergoing a remarkable transformation. Three heating methods – conduction, convection, and radiation – work in harmony. Rollers ensure even heat distribution, while coils radiate warmth, leaving no side untouched. A gentle air blast embraces both surfaces, achieving a uniform cooling of the now-heated glass. This meticulous process crafts glass that's consistently strong and resilient.",
+    "galleryImages": [
+      "https://magicglass.co.in/wp-content/uploads/2023/11/SAFETY-DOORS.png",
+      "https://magicglass.co.in/wp-content/uploads/2024/02/automotive.png",
+      "https://magicglass.co.in/wp-content/uploads/2023/11/FURNITURE.png",
+      "https://magicglass.co.in/wp-content/uploads/2023/11/HIGH-RISE-BUILDINGS.png"
+    ],
+    "sliderImages": [
+      "https://magicglass.co.in/wp-content/uploads/2023/12/Balmoral-by-riverside.jpg",
+      "https://magicglass.co.in/wp-content/uploads/2023/12/the-ark-Tribeca-devlopers.jpg",
+      "https://magicglass.co.in/wp-content/uploads/2023/12/VARDE-ABIL.jpg",
+      "https://magicglass.co.in/wp-content/uploads/2023/12/Ganga-Platino-.jpg"
+    ],
+    "relatedProductIds": [
+      "clear-glass",
+      "hs-glass"
+    ]
+  },
+  "projects": [
+    {
+      "id": "balmoral-by-riverside",
+      "title": "Balmoral by riverside",
+      "image": "https://magicglass.co.in/wp-content/uploads/2023/12/Balmoral-by-riverside.jpg"
+    },
+    {
+      "id": "the-ark",
+      "title": "The Ark Tribeca Developers",
+      "image": "https://magicglass.co.in/wp-content/uploads/2023/12/the-ark-Tribeca-devlopers.jpg"
+    },
+    {
+      "id": "verde",
+      "title": "Verde ABIL",
+      "image": "https://magicglass.co.in/wp-content/uploads/2023/12/VARDE-ABIL.jpg"
+    },
+    {
+      "id": "apostrophe",
+      "title": "Apostrophe Kasturi",
+      "image": "https://magicglass.co.in/wp-content/uploads/2023/12/Apostrophe-Kasturi.jpg"
+    },
+    {
+      "id": "ganga-platino",
+      "title": "Ganga Platino",
+      "image": "https://magicglass.co.in/wp-content/uploads/2023/12/Ganga-Platino-.jpg"
+    },
+    {
+      "id": "nyati-elysia",
+      "title": "Nyati Elysia",
+      "image": "https://magicglass.co.in/wp-content/uploads/2023/12/Nyati-Elysia.jpg"
+    },
+    {
+      "id": "eon-homes",
+      "title": "Eon Homes",
+      "image": "https://magicglass.co.in/wp-content/uploads/2023/12/Eon-Homes.jpg"
+    },
+    {
+      "id": "ganga-trueno",
+      "title": "Ganga Trueno",
+      "image": "https://magicglass.co.in/wp-content/uploads/2023/12/Ganga-Trueno.jpg"
+    },
+    {
+      "id": "kushwal-wall-street",
+      "title": "Kushal Wall Street",
+      "image": "https://magicglass.co.in/wp-content/uploads/2023/12/Kushalwall-street.jpg"
+    },
+    {
+      "id": "aradhya-square",
+      "title": "Aaradhya Square Tower",
+      "image": "https://magicglass.co.in/wp-content/uploads/2023/12/Aaradhya-Square-Tower.jpg"
+    },
+    {
+      "id": "gera-imperium-gateway",
+      "title": "Gera Imperium Gateway",
+      "image": "https://magicglass.co.in/wp-content/uploads/2023/12/Gera-simperium-gateway.jpg"
+    },
+    {
+      "id": "nyati-empress",
+      "title": "Nyati Empress",
+      "image": "https://magicglass.co.in/wp-content/uploads/2023/12/Nyati-Empress-Ban-01.jpg"
+    },
+    {
+      "id": "33-keshavkung",
+      "title": "33 Keshavkung",
+      "image": "https://magicglass.co.in/wp-content/uploads/2023/12/MG-Commercial-Project-3.jpg"
+    },
+    {
+      "id": "solitaire-business-hub",
+      "title": "Solitaire Business Hub",
+      "image": "https://magicglass.co.in/wp-content/uploads/2023/12/Solitre.jpg"
+    },
+    {
+      "id": "atrium-mall",
+      "title": "VTP Atrium Mall",
+      "image": "https://magicglass.co.in/wp-content/uploads/2023/12/VTP-Atrium.jpg"
+    },
+    {
+      "id": "pune-airport",
+      "title": "Pune Airport",
+      "image": "https://magicglass.co.in/wp-content/uploads/2023/12/Pune-airport.jpg"
+    },
+    {
+      "id": "srinagar-airport",
+      "title": "Srinagar Airport",
+      "image": "https://magicglass.co.in/wp-content/uploads/2023/12/Airport-3.jpg"
+    },
+    {
+      "id": "aurangabad-airport",
+      "title": "Aurangabad Airport",
+      "image": "https://magicglass.co.in/wp-content/uploads/2023/12/Aurangabad_Airport.jpg"
+    },
+    {
+      "id": "goa-airport",
+      "title": "Goa Airport",
+      "image": "https://magicglass.co.in/wp-content/uploads/2023/12/goa-airport.jpg"
+    }
+  ]
+}

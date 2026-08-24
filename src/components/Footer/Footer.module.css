@@ -8,7 +8,7 @@
 }
 
 .container {
-  max-width: 1040px;
+  max-width: 1200px;
   margin: 0 auto;
   position: relative;
   z-index: 10;
@@ -16,12 +16,12 @@
 
 .grid {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
-  gap: 3.5rem;
+  grid-template-columns: 1.8fr 1fr 1.4fr 1.2fr;
+  gap: 3rem;
   margin-bottom: 5rem;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1024px) {
   .grid {
     grid-template-columns: 1fr 1fr;
     gap: 2.5rem;
@@ -34,6 +34,30 @@
   }
 }
 
+.productsSubGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.productsSubGrid a {
+  font-size: 0.825rem;
+  color: #94a3b8;
+  text-decoration: none;
+  transition: color 0.2s ease;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+}
+
+.productsSubGrid a:hover {
+  color: #ffffff;
+}
+
 .colTitle {
   font-family: var(--font-mono), monospace;
   font-size: 0.725rem;
@@ -44,12 +68,51 @@
   margin-bottom: 1.25rem;
 }
 
+.officeBlock {
+  margin-bottom: 1.15rem;
+}
+
+.officeHeading {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #e2e8f0;
+  margin-bottom: 0.35rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.officeHeading::before {
+  content: '◆';
+  color: #e11d48;
+  font-size: 0.6rem;
+}
+
 .addressText {
-  font-size: 0.9rem;
-  line-height: 1.75;
+  font-size: 0.85rem;
+  line-height: 1.6;
   color: #94a3b8;
-  max-width: 32ch;
-  margin-bottom: 1.25rem;
+  margin-bottom: 0;
+}
+
+.viewAllProductsLink {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 1.25rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #f43f5e;
+  text-decoration: none;
+  transition: color 0.2s ease, transform 0.2s ease;
+  letter-spacing: 0.03em;
+}
+
+.viewAllProductsLink:hover {
+  color: #ffffff;
+  transform: translateX(3px);
 }
 
 .contactLink {
@@ -82,6 +145,7 @@
 .linksList a:hover {
   color: #ffffff;
 }
+
 
 .bottomRow {
   display: flex;

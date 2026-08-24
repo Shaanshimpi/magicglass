@@ -1,0 +1,57 @@
+{
+  "page": {
+    "title": "Infrastructure",
+    "redTitle": "Our",
+    "mainTitle": "Infrastructure",
+    "indexNumber": "05",
+    "category": "Manufacturing & State-of-the-Art Facilities",
+    "heroImage": "/images/infrastructure/banner-1.png",
+    "fullWidthImage": "/images/infrastructure/banner-1.png",
+    "ctaText": "Enquire Now",
+    "eyebrow": "◆ OUR INFRASTRUCTURE",
+    "subheading": "HIGHLIGHTS OF INFRASTRUCTURE & CUTTING-EDGE FACILITIES",
+    "introDescription": "We firmly uphold the pinnacle of quality and efficiency, achieved through the use of exceptional raw materials and unmatched facilities. Since our inception, we have exclusively invested in cutting-edge machinery."
+  },
+  "industries": [
+    {
+      "id": "cutting-processing",
+      "title": "Cutting & Processing",
+      "subtitle": "PRECISION CNC GLASS CUTTING",
+      "image": "/images/infrastructure/infra-banner.jpg",
+      "specs": "Automated CNC Cutting & Precision Edge Handling",
+      "description": "We firmly uphold the pinnacle of quality and efficiency, achieved through the use of exceptional raw materials and unmatched facilities. Since our inception, we have exclusively invested in cutting-edge machinery.\n\nFrom the very inception of our raw materials to the seamless integration of advanced facilities in our assembly line, our dedication to providing you with the best remains steadfast."
+    },
+    {
+      "id": "toughening-plant",
+      "title": "Toughening Plant",
+      "subtitle": "FORCED CONVECTION FURNACE",
+      "image": "/images/infrastructure/infra-banner-1.jpg",
+      "specs": "High-Speed Convection Tempering & Optical Clarity",
+      "description": "We’ve embarked on a comprehensive transformation, adopting state-of-the-art equipment — a clear testament to our unwavering commitment to uncompromising quality.\n\nOur advanced forced-convection tempering furnaces process toughened glass designed for maximum structural safety and flawless optical performance."
+    },
+    {
+      "id": "lamination-cleanroom",
+      "title": "Lamination & Cleanroom",
+      "subtitle": "PVB & SENTRYGLAS® LAMINATING",
+      "image": "/images/infrastructure/infra-banner-3.jpg",
+      "specs": "Climate-Controlled Cleanroom & Autoclave Assembly",
+      "description": "Our dust-free, climate-controlled cleanroom facilities and high-pressure autoclave lines ensure flawless bonding of PVB, EVA, and SentryGlas® interlayers.\n\nThis guarantees high-impact security glass for prestigious architectural facades and high-security structural installations."
+    },
+    {
+      "id": "double-glazing-dgu",
+      "title": "Double Glazing (DGU)",
+      "subtitle": "INSULATED GLASS MANUFACTURING",
+      "image": "/images/infrastructure/infra-banner-2.jpg",
+      "specs": "Automatic Spacer Application & Argon Gas Filling",
+      "description": "Equipped with automated DGU assembly lines, we manufacture double-glazed unit solutions offering optimal thermal insulation, soundproofing, and energy efficiency.\n\nDesigned to withstand harsh environmental conditions while reducing building HVAC energy load."
+    },
+    {
+      "id": "quality-control",
+      "title": "Quality Control Center",
+      "subtitle": "COMPREHENSIVE QUALITY ASSURANCE",
+      "image": "/images/infrastructure/banner-1.png",
+      "specs": "Rigorous End-to-End Testing & International Standards",
+      "description": "From raw material inception to final dispatch, every glass unit undergoes stringent multi-stage inspection.\n\nOur commitment to quality ensures every pane delivered meets international safety and architectural standards."
+    }
+  ]
+}

@@ -10,11 +10,22 @@ import { TrustBanner } from '@/components/TrustBanner/TrustBanner'
 import { Testimonials } from '@/components/Testimonials/Testimonials'
 import { CategorySwitcher } from '@/components/CategorySwitcher/CategorySwitcher'
 import { ProductsCollection } from '@/components/ProductsCollection/ProductsCollection'
+import { AboutContent } from '@/components/About/AboutContent'
+import { IndustrySolutionContent } from '@/components/IndustrySolution/IndustrySolutionContent'
+import { InfrastructureContent } from '@/components/Infrastructure/InfrastructureContent'
+import { ContactUsContent } from '@/components/ContactUs/ContactUsContent'
 import { PdpClientContent } from '@/components/PDP/PdpClientContent'
 import { PDP_MOCK_DATA } from '@/components/PDP/pdpData'
 import { Footer } from '@/components/Footer/Footer'
 import { QuoteDrawer } from '@/components/QuoteDrawer/QuoteDrawer'
 import { FloatingQuoteButton } from '@/components/FloatingQuoteButton/FloatingQuoteButton'
+
+import { ProjectsHero } from '@/components/Projects/ProjectsHero'
+import { ProjectsFilterNav } from '@/components/Projects/ProjectsFilterNav'
+import { ProjectsGrid } from '@/components/Projects/ProjectsGrid'
+import { ProjectSpecModal } from '@/components/Projects/ProjectSpecModal'
+import { ProjectItem, ProjectCategory } from '@/types/projects.types'
+import mockProjectsData from '@/data/projects_mock.json'
 
 interface FullColorTheme {
   id: string
@@ -141,7 +152,69 @@ const COLOR_OPTIONS: FullColorTheme[] = [
   },
 ]
 
-type PageTab = 'home' | 'products' | 'pdp'
+type PageTab =
+  | 'home'
+  | 'about'
+  | 'products'
+  | 'toughened-glass'
+  | 'industry-solution'
+  | 'infrastructure'
+  | 'projects'
+  | 'contact-us'
+  | 'pdp'
+
+const PAGE_TABS: { id: PageTab; label: string; icon: string }[] = [
+  { id: 'home', label: '1. Home Page', icon: '🏠' },
+  { id: 'about', label: '2. About Us', icon: 'ℹ️' },
+  { id: 'products', label: '3. Products Catalog', icon: '📦' },
+  { id: 'toughened-glass', label: '4. Toughened Glass', icon: '🛡️' },
+  { id: 'industry-solution', label: '5. Industry Solutions', icon: '🏭' },
+  { id: 'infrastructure', label: '6. Infrastructure & BOQ', icon: '🏗️' },
+  { id: 'projects', label: '7. Featured Projects', icon: '🏢' },
+  { id: 'contact-us', label: '8. Contact Us', icon: '📞' },
+  { id: 'pdp', label: '9. Product Detail (PDP)', icon: '🔍' },
+]
+
+function ProjectsSectionPreview({ onOpenQuoteDrawer }: { onOpenQuoteDrawer: () => void }) {
+  const [activeCategory, setActiveCategory] = useState<ProjectCategory>('ALL')
+  const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(null)
+  const projects = mockProjectsData as ProjectItem[]
+
+  const filteredProjects =
+    activeCategory === 'ALL'
+      ? projects
+      : projects.filter((p) => p.category.toLowerCase() === activeCategory.toLowerCase())
+
+  const categories: { name: ProjectCategory; count: number }[] = [
+    { name: 'ALL', count: projects.length },
+    { name: 'Residential', count: projects.filter((p) => p.category === 'Residential').length },
+    { name: 'Commercial', count: projects.filter((p) => p.category === 'Commercial').length },
+    { name: 'Airports', count: projects.filter((p) => p.category === 'Airports').length },
+  ]
+
+  return (
+    <div>
+      <ProjectsHero
+        projects={projects}
+        onSelectProject={(project) => setSelectedProject(project)}
+      />
+      <ProjectsFilterNav
+        categories={categories}
+        activeCategory={activeCategory}
+        onSelectCategory={(cat) => setActiveCategory(cat)}
+      />
+      <ProjectsGrid
+        projects={filteredProjects}
+        onSelectProject={(project) => setSelectedProject(project)}
+      />
+      <ProjectSpecModal
+        project={selectedProject}
+        onClose={() => setSelectedProject(null)}
+        onOpenQuoteDrawer={onOpenQuoteDrawer}
+      />
+    </div>
+  )
+}
 
 export default function ColorOptionsPage() {
   const [activeThemeId, setActiveThemeId] = useState<string>('frost-light')
@@ -155,7 +228,6 @@ export default function ColorOptionsPage() {
   const handleCloseQuote = () => setIsQuoteOpen(false)
 
   const sampleProduct = PDP_MOCK_DATA['clear-glass']
-
   const sidebarWidth = isSidebarOpen ? '330px' : '50px'
 
   return (
@@ -294,62 +366,27 @@ export default function ColorOptionsPage() {
                   border: '1px solid rgba(255, 255, 255, 0.08)',
                 }}
               >
-                <button
-                  onClick={() => setActiveTab('home')}
-                  style={{
-                    padding: '0.5rem 0.85rem',
-                    fontSize: '0.78rem',
-                    fontFamily: 'var(--font-mono), monospace',
-                    fontWeight: 600,
-                    borderRadius: '6px',
-                    border: 'none',
-                    cursor: 'pointer',
-                    textAlign: 'left',
-                    transition: 'all 0.2s ease',
-                    background: activeTab === 'home' ? '#ffffff' : 'transparent',
-                    color: activeTab === 'home' ? '#000000' : '#c2bbb2',
-                  }}
-                >
-                  🏠 1. Home Page
-                </button>
-
-                <button
-                  onClick={() => setActiveTab('products')}
-                  style={{
-                    padding: '0.5rem 0.85rem',
-                    fontSize: '0.78rem',
-                    fontFamily: 'var(--font-mono), monospace',
-                    fontWeight: 600,
-                    borderRadius: '6px',
-                    border: 'none',
-                    cursor: 'pointer',
-                    textAlign: 'left',
-                    transition: 'all 0.2s ease',
-                    background: activeTab === 'products' ? '#ffffff' : 'transparent',
-                    color: activeTab === 'products' ? '#000000' : '#c2bbb2',
-                  }}
-                >
-                  📦 2. Products Catalog
-                </button>
-
-                <button
-                  onClick={() => setActiveTab('pdp')}
-                  style={{
-                    padding: '0.5rem 0.85rem',
-                    fontSize: '0.78rem',
-                    fontFamily: 'var(--font-mono), monospace',
-                    fontWeight: 600,
-                    borderRadius: '6px',
-                    border: 'none',
-                    cursor: 'pointer',
-                    textAlign: 'left',
-                    transition: 'all 0.2s ease',
-                    background: activeTab === 'pdp' ? '#ffffff' : 'transparent',
-                    color: activeTab === 'pdp' ? '#000000' : '#c2bbb2',
-                  }}
-                >
-                  🔍 3. Product Detail (PDP)
-                </button>
+                {PAGE_TABS.map((tab) => (
+                  <button
+                    key={tab.id}
+                    onClick={() => setActiveTab(tab.id)}
+                    style={{
+                      padding: '0.45rem 0.75rem',
+                      fontSize: '0.75rem',
+                      fontFamily: 'var(--font-mono), monospace',
+                      fontWeight: 600,
+                      borderRadius: '6px',
+                      border: 'none',
+                      cursor: 'pointer',
+                      textAlign: 'left',
+                      transition: 'all 0.2s ease',
+                      background: activeTab === tab.id ? '#ffffff' : 'transparent',
+                      color: activeTab === tab.id ? '#000000' : '#c2bbb2',
+                    }}
+                  >
+                    {tab.icon} {tab.label}
+                  </button>
+                ))}
               </div>
             </div>
 
@@ -575,38 +612,55 @@ export default function ColorOptionsPage() {
             } as React.CSSProperties
           }
         >
-          {activeTab === 'home' && (
-            <div>
-              <Header onOpenQuoteDrawer={handleOpenQuote} isLoaded={true} />
-              <Hero onOpenQuoteDrawer={handleOpenQuote} />
-              <Heritage onOpenQuoteDrawer={handleOpenQuote} />
-              <ProductSystems />
-              <Craftsmanship />
-              <TrustBanner />
-              <Testimonials />
-              <CategorySwitcher />
-              <Footer />
-              <QuoteDrawer isOpen={isQuoteOpen} onClose={handleCloseQuote} />
-            </div>
-          )}
+          <Header
+            onOpenQuoteDrawer={handleOpenQuote}
+            isLoaded={true}
+            onNavigatePreview={(tab) => setActiveTab(tab as PageTab)}
+          />
 
-          {activeTab === 'products' && (
-            <div>
-              <Header onOpenQuoteDrawer={handleOpenQuote} isLoaded={true} />
-              <div style={{ paddingTop: '70px', backgroundColor: currentTheme.colorBlack }}>
-                <ProductsCollection />
+          <div style={{ paddingTop: activeTab === 'home' ? '0' : '70px', backgroundColor: currentTheme.colorBlack }}>
+            {activeTab === 'home' && (
+              <div>
+                <Hero onOpenQuoteDrawer={handleOpenQuote} />
+                <Heritage onOpenQuoteDrawer={handleOpenQuote} />
+                <ProductSystems />
+                <Craftsmanship />
+                <TrustBanner />
+                <Testimonials />
+                <CategorySwitcher />
               </div>
-              <Footer />
-              <QuoteDrawer isOpen={isQuoteOpen} onClose={handleCloseQuote} />
-              <FloatingQuoteButton onOpenQuoteDrawer={handleOpenQuote} />
-            </div>
-          )}
+            )}
 
-          {activeTab === 'pdp' && (
-            <div>
+            {activeTab === 'about' && <AboutContent />}
+
+            {activeTab === 'products' && (
+              <div>
+                <ProductsCollection />
+                <FloatingQuoteButton onOpenQuoteDrawer={handleOpenQuote} />
+              </div>
+            )}
+
+            {activeTab === 'toughened-glass' && (
+              <PdpClientContent product={PDP_MOCK_DATA['toughened-glass']} />
+            )}
+
+            {activeTab === 'industry-solution' && <IndustrySolutionContent />}
+
+            {activeTab === 'infrastructure' && <InfrastructureContent />}
+
+            {activeTab === 'projects' && (
+              <ProjectsSectionPreview onOpenQuoteDrawer={handleOpenQuote} />
+            )}
+
+            {activeTab === 'contact-us' && <ContactUsContent />}
+
+            {activeTab === 'pdp' && (
               <PdpClientContent product={sampleProduct} />
-            </div>
-          )}
+            )}
+          </div>
+
+          <Footer />
+          <QuoteDrawer isOpen={isQuoteOpen} onClose={handleCloseQuote} />
         </main>
       </div>
     </div>

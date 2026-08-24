@@ -1,0 +1,343 @@
+/* ========================================================================== */
+/* INFRASTRUCTURE PAGE STYLING                                                 */
+/* ========================================================================== */
+
+.pageWrapper {
+  background-color: var(--color-black, #0b1012);
+  color: var(--color-taupe, #a0aab0);
+  min-height: 100vh;
+  width: 100%;
+}
+
+.container {
+  width: 100%;
+  padding: 0 4vw;
+  max-width: 1360px;
+  margin: 0 auto;
+}
+
+/* ========================================================================== */
+/* 1. HIGHLIGHTS OF INFRASTRUCTURE SECTION                                    */
+/* ========================================================================== */
+.highlightsSection {
+  padding: 6rem 0 7rem 0;
+  background-color: var(--color-black, #0b1012);
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.sectionHeaderBlock {
+  margin-bottom: 3.5rem;
+  text-align: center;
+}
+
+.eyebrow {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.725rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-crimson, #e63946);
+  margin-bottom: 0.85rem;
+  display: block;
+}
+
+.mainHeading {
+  font-family: var(--font-outfit), sans-serif;
+  font-size: clamp(2rem, 3.5vw, 3.2rem);
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.redHeading {
+  color: var(--color-crimson, #e63946);
+}
+
+.highlightsCard {
+  background: rgba(18, 24, 27, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: clamp(2.5rem, 4vw, 4rem);
+  box-shadow: 0 24px 60px -12px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  max-width: 1100px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.highlightsCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 3rem;
+  width: 80px;
+  height: 3px;
+  background: var(--color-crimson, #e63946);
+  border-radius: 2px;
+}
+
+.highlightsTextWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.highlightsParagraph {
+  font-family: var(--font-outfit), sans-serif;
+  font-size: clamp(1.05rem, 1.4vw, 1.25rem);
+  line-height: 1.75;
+  color: var(--color-taupe, #a0aab0);
+  font-weight: 350;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+.ctaWrapper {
+  margin-top: 2.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.enquireBtn {
+  background: var(--color-crimson, #e63946);
+  color: #ffffff;
+  border: none;
+  padding: 0.9rem 2.2rem;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 24px -6px rgba(230, 57, 70, 0.4);
+}
+
+.enquireBtn:hover {
+  background: #d62839;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px -6px rgba(230, 57, 70, 0.6);
+}
+
+/* ========================================================================== */
+/* 2. GLASS GALLERY SECTION                                                    */
+/* ========================================================================== */
+.gallerySection {
+  padding: 7rem 0 8rem 0;
+  background-color: var(--color-black, #0b1012);
+  position: relative;
+}
+
+.gallerySubtitle {
+  font-family: var(--font-mono), monospace;
+  font-size: clamp(0.725rem, 1.1vw, 0.85rem);
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+  margin-top: 0.75rem;
+}
+
+.galleryGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2.5rem;
+  margin-top: 4rem;
+}
+
+@media (max-width: 860px) {
+  .galleryGrid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+.galleryCard {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 18px 45px -10px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  background-color: #12181b;
+  will-change: transform;
+  aspect-ratio: 16 / 10;
+}
+
+.galleryImageWrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.galleryImageWrapper img {
+  object-fit: cover;
+  transition: transform 0.8s var(--ease-fluid, cubic-bezier(0.16, 1, 0.3, 1));
+}
+
+.galleryCard:hover .galleryImageWrapper img {
+  transform: scale(1.07);
+}
+
+.cardOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.75) 100%);
+  z-index: 2;
+  transition: opacity 0.3s ease;
+}
+
+.cardTitleBadge {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 1.5rem;
+  right: 1.5rem;
+  z-index: 5;
+  transition: opacity 0.3s ease;
+}
+
+.cardTitle {
+  font-family: var(--font-outfit), sans-serif;
+  font-size: clamp(1.2rem, 1.8vw, 1.6rem);
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0 0 0.25rem 0;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
+}
+
+.cardSubtitle {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.675rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-crimson, #e63946);
+}
+
+.viewBadge {
+  position: absolute;
+  right: 1.5rem;
+  top: 1.5rem;
+  z-index: 5;
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  padding: 0.4rem 1rem;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  font-family: var(--font-mono), monospace;
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: #ffffff;
+  letter-spacing: 0.14em;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+}
+
+.galleryCard:hover .viewBadge {
+  opacity: 1;
+  transform: translateY(-2px);
+}
+
+/* Hover Details Overlay for Gallery Cards */
+.hoverOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  background: rgba(11, 16, 18, 0.94);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  padding: 2.25rem 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s var(--ease-fluid, cubic-bezier(0.16, 1, 0.3, 1));
+}
+
+.hoverContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  transform: translateY(12px);
+  transition: transform 0.35s var(--ease-fluid, cubic-bezier(0.16, 1, 0.3, 1));
+}
+
+.hoverCategory {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-crimson, #e63946);
+  margin-bottom: 0.35rem;
+  display: block;
+}
+
+.hoverHeading {
+  font-family: var(--font-outfit), sans-serif;
+  font-size: 1.45rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0 0 0.5rem 0;
+  letter-spacing: -0.015em;
+}
+
+.hoverSpecs {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.725rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 0.75rem;
+}
+
+.hoverDescription {
+  font-family: var(--font-outfit), sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 350;
+  margin: 0;
+}
+
+.hoverLink {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.725rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #ffffff;
+  display: inline-block;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  padding-top: 0.75rem;
+}
+
+.galleryCard:hover .hoverOverlay {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.galleryCard:hover .hoverContent {
+  transform: translateY(0);
+}
+
+.galleryCard:hover .cardTitleBadge {
+  opacity: 0;
+}
+
+/* ========================================================================== */
+/* 3. PARTNERS SLIDER SECTION                                                 */
+/* ========================================================================== */
+.partnersSection {
+  background-color: var(--color-black, #0b1012);
+  padding-bottom: 4rem;
+  position: relative;
+}

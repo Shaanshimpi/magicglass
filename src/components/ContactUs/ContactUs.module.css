@@ -1,0 +1,386 @@
+/* ========================================================================== */
+/* CONTACT US PAGE STYLING                                                    */
+/* ========================================================================== */
+
+.pageWrapper {
+  background-color: var(--color-black, #0b1012);
+  color: var(--color-taupe, #a0aab0);
+  min-height: 100vh;
+  width: 100%;
+}
+
+.container {
+  width: 100%;
+  padding: 0 4vw;
+  max-width: 1360px;
+  margin: 0 auto;
+}
+
+/* ========================================================================== */
+/* 1. CONTACT INFO CARDS SECTION                                              */
+/* ========================================================================== */
+.cardsSection {
+  padding: 5rem 0 6rem 0;
+  position: relative;
+  background-color: var(--color-black, #0b1012);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.cardsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 1.5rem;
+}
+
+@media (max-width: 1080px) {
+  .cardsGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .cardsGrid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+}
+
+.contactCard {
+  background: rgba(18, 24, 27, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 2.25rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.35s var(--ease-fluid, cubic-bezier(0.16, 1, 0.3, 1)),
+              box-shadow 0.35s ease,
+              border-color 0.35s ease;
+  box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.contactCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 3px;
+  background: var(--color-crimson, #e63946);
+  border-radius: 2px;
+  transition: width 0.35s ease;
+}
+
+.contactCard:hover {
+  transform: translateY(-6px);
+  border-color: rgba(230, 57, 70, 0.4);
+  box-shadow: 0 24px 50px -12px rgba(230, 57, 70, 0.2);
+}
+
+.contactCard:hover::before {
+  width: 80px;
+}
+
+.iconBadge {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: rgba(230, 57, 70, 0.12);
+  border: 1px solid rgba(230, 57, 70, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-crimson, #e63946);
+  font-size: 1.5rem;
+  margin-bottom: 1.25rem;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.contactCard:hover .iconBadge {
+  transform: scale(1.1);
+  background: rgba(230, 57, 70, 0.2);
+}
+
+.cardTitle {
+  font-family: var(--font-outfit), sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0 0 0.4rem 0;
+  letter-spacing: -0.01em;
+  word-break: break-word;
+}
+
+.cardDetail {
+  font-family: var(--font-outfit), sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: #94a3b8;
+  margin: 0 0 1.25rem 0;
+  font-weight: 400;
+}
+
+.cardActionLink {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.675rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-crimson, #e63946);
+  text-decoration: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  width: 100%;
+  padding-top: 0.85rem;
+  transition: color 0.3s ease;
+}
+
+.cardActionLink:hover {
+  color: #ffffff;
+}
+
+/* ========================================================================== */
+/* 2. SPLIT MAP & FORM SECTION                                                */
+/* ========================================================================== */
+.splitSection {
+  padding: 6rem 0 8rem 0;
+  position: relative;
+  background-color: var(--color-black, #0b1012);
+}
+
+.sectionHeaderBlock {
+  margin-bottom: 3.5rem;
+  text-align: center;
+}
+
+.eyebrow {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.725rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-crimson, #e63946);
+  margin-bottom: 0.85rem;
+  display: block;
+}
+
+.mainHeading {
+  font-family: var(--font-outfit), sans-serif;
+  font-size: clamp(2rem, 3.5vw, 3.2rem);
+  font-weight: 700;
+  color: var(--color-cream);
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.redHeading {
+  color: var(--color-crimson, #e63946);
+}
+
+
+.splitGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: stretch;
+}
+
+@media (max-width: 960px) {
+  .splitGrid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+}
+
+/* Left Column: Map Container */
+.mapCard {
+  background: rgba(18, 24, 27, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.45);
+  display: flex;
+  flex-direction: column;
+  min-height: 520px;
+}
+
+.mapHeader {
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.mapTitle {
+  font-family: var(--font-outfit), sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0;
+}
+
+.mapSubtitle {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.65rem;
+  color: var(--color-crimson, #e63946);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.mapFrameWrapper {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  min-height: 420px;
+  position: relative;
+}
+
+.mapIframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  filter: grayscale(0.25) invert(0.88) hue-rotate(180deg);
+  transition: filter 0.5s ease;
+}
+
+.mapCard:hover .mapIframe {
+  filter: grayscale(0) invert(0) hue-rotate(0deg);
+}
+
+/* Right Column: Glassmorphic Contact Form */
+.formCard {
+  background: rgba(18, 24, 27, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 2.5rem 2.25rem;
+  box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  flex-direction: column;
+}
+
+.formHeader {
+  margin-bottom: 2rem;
+}
+
+.formTitle {
+  font-family: var(--font-outfit), sans-serif;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0 0 0.35rem 0;
+  letter-spacing: -0.015em;
+}
+
+.formDesc {
+  font-family: var(--font-outfit), sans-serif;
+  font-size: 0.875rem;
+  color: var(--color-taupe, #a0aab0);
+  margin: 0;
+  font-weight: 350;
+}
+
+.formGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.inputRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+}
+
+@media (max-width: 580px) {
+  .inputRow {
+    grid-template-columns: 1fr;
+  }
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.inputLabel {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.675rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.inputField,
+.textareaField {
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 6px;
+  padding: 0.8rem 1rem;
+  font-family: var(--font-outfit), sans-serif;
+  font-size: 0.9rem;
+  color: #ffffff;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.inputField::placeholder,
+.textareaField::placeholder {
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.inputField:focus,
+.textareaField:focus {
+  border-color: var(--color-crimson, #e63946);
+  box-shadow: 0 0 0 3px rgba(230, 57, 70, 0.2);
+}
+
+.textareaField {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.submitBtn {
+  background: var(--color-crimson, #e63946);
+  color: #ffffff;
+  border: none;
+  padding: 1rem 2rem;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 24px -6px rgba(230, 57, 70, 0.4);
+}
+
+.submitBtn:hover {
+  background: #d62839;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px -6px rgba(230, 57, 70, 0.6);
+}
+
+.successMessage {
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.4);
+  color: #10b981;
+  padding: 1rem 1.25rem;
+  border-radius: 6px;
+  font-family: var(--font-outfit), sans-serif;
+  font-size: 0.875rem;
+  margin-bottom: 1.5rem;
+}

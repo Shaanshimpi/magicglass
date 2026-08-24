@@ -1,32 +1,16 @@
-'use client'
-
-import React, { useState } from 'react'
-import { Header } from '@/components/Header/Header'
+import React from 'react'
 import { ProductsCollection } from '@/components/ProductsCollection/ProductsCollection'
-import { QuoteDrawer } from '@/components/QuoteDrawer/QuoteDrawer'
-import { FloatingQuoteButton } from '@/components/FloatingQuoteButton/FloatingQuoteButton'
-import { Footer } from '@/components/Footer/Footer'
+
+export const metadata = {
+  title: 'Architectural Products Collection | Magic Glass',
+  description: 'Explore our complete range of architectural glass systems: Toughened, Insulated DGU, Sentry Laminated, Solar Control Low-E, and Ceramic Fritted Glass.',
+}
 
 export default function ProductsPage() {
-  const [isQuoteOpen, setIsQuoteOpen] = useState(false)
-
-  const handleOpenQuote = () => {
-    setIsQuoteOpen(true)
-  }
-
-  const handleCloseQuote = () => {
-    setIsQuoteOpen(false)
-  }
-
   return (
-    <>
-      <Header onOpenQuoteDrawer={handleOpenQuote} isLoaded={true} />
-      <main style={{ paddingTop: '70px', backgroundColor: 'var(--color-black)', color: 'var(--color-taupe)' }}>
-        <ProductsCollection />
-        <QuoteDrawer isOpen={isQuoteOpen} onClose={handleCloseQuote} />
-      </main>
-      <Footer />
-      <FloatingQuoteButton onOpenQuoteDrawer={handleOpenQuote} />
-    </>
+    <div style={{ paddingTop: '70px', backgroundColor: 'var(--color-black)', color: 'var(--color-taupe)' }}>
+      <ProductsCollection />
+    </div>
   )
 }
+

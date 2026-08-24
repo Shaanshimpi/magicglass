@@ -1,0 +1,416 @@
+/* -------------------------------------------------------------------------- */
+/* About.module.css - Fluid Glass Inspired Design System                       */
+/* -------------------------------------------------------------------------- */
+
+.pageWrapper {
+  position: relative;
+  width: 100%;
+  overflow-x: hidden;
+  background-color: var(--color-black);
+  color: var(--color-cream);
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 1.25rem;
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/* 1. Hero Header Section (True 100vw Full-Width Edge-to-Edge Image)          */
+/* -------------------------------------------------------------------------- */
+.heroSection {
+  padding: 9rem 0 0;
+  position: relative;
+  width: 100%;
+}
+
+.heroContent {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  text-align: center;
+}
+
+.heroTitle {
+  font-size: clamp(2.75rem, 6vw, 5.5rem);
+  font-weight: 500;
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+  color: var(--color-cream);
+  margin-top: 1.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.heroTagline {
+  font-size: clamp(1.2rem, 2.2vw, 1.6rem);
+  font-weight: 300;
+  color: var(--color-taupe);
+  max-width: 760px;
+  margin: 0 auto;
+  line-height: 1.4;
+}
+
+/* True Full-Width Edge-to-Edge Hero Image Frame */
+.heroImageFrameFullWidth {
+  position: relative;
+  width: 100vw;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 70vh;
+  min-height: 480px;
+  max-height: 800px;
+  margin-top: 4rem;
+  overflow: hidden;
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.2);
+  background-color: #141a1c;
+}
+
+.heroImageFrameFullWidth img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  transition: transform 1.2s var(--ease-fluid);
+}
+
+.heroImageFrameFullWidth:hover img {
+  transform: scale(1.03);
+}
+
+@media (max-width: 768px) {
+  .heroSection {
+    padding: 6rem 0 0;
+  }
+  .heroImageFrameFullWidth {
+    height: 45vh;
+    min-height: 320px;
+    margin-top: 2rem;
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/* 2. Legacy & Manifesto Section                                               */
+/* -------------------------------------------------------------------------- */
+.manifestoSection {
+  padding: 8rem 0;
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+.manifestoGrid {
+  display: grid;
+  grid-template-columns: 1fr 2.2fr;
+  gap: 4rem;
+}
+
+@media (max-width: 900px) {
+  .manifestoGrid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+.manifestoLead {
+  font-size: clamp(1.4rem, 2.8vw, 2.35rem);
+  font-weight: 400;
+  line-height: 1.35;
+  color: var(--color-cream);
+  letter-spacing: -0.03em;
+  margin-bottom: 2rem;
+}
+
+.manifestoBody {
+  font-size: 1.15rem;
+  line-height: 1.8;
+  color: var(--color-taupe);
+  max-width: 800px;
+  margin-bottom: 3rem;
+}
+
+/* -------------------------------------------------------------------------- */
+/* 3. Vision & Mission Bento Cards                                            */
+/* -------------------------------------------------------------------------- */
+.visionMissionSection {
+  padding: 7rem 0;
+  background-color: #eef1f5;
+  border-top: 1px solid var(--color-border-subtle);
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.visionMissionGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2.5rem;
+}
+
+@media (max-width: 900px) {
+  .visionMissionGrid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+.vmCardShell {
+  padding: 0.5rem;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 1.5rem;
+  transition: transform 0.35s var(--ease-fluid), box-shadow 0.35s var(--ease-fluid);
+}
+
+.vmCardShell:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+}
+
+.vmCardInner {
+  padding: 3rem 2.5rem;
+  background: #ffffff;
+  border-radius: calc(1.5rem - 0.375rem);
+  height: 100%;
+}
+
+.vmTitle {
+  font-size: 2rem;
+  font-weight: 500;
+  color: var(--color-cream);
+  margin-top: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.vmDesc {
+  font-size: 1.1rem;
+  line-height: 1.75;
+  color: var(--color-taupe);
+}
+
+/* -------------------------------------------------------------------------- */
+/* 4. Why Magic Glass Grid                                                    */
+/* -------------------------------------------------------------------------- */
+.whySection {
+  padding: 8rem 0;
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.whyHeader {
+  margin-bottom: 4.5rem;
+}
+
+.whyHeadline {
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  margin-top: 1.25rem;
+}
+
+.whyGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+}
+
+@media (max-width: 1100px) {
+  .whyGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .whyGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.whyCardShell {
+  padding: 0.4rem;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 1.25rem;
+  transition: transform 0.35s var(--ease-fluid);
+}
+
+.whyCardShell:hover {
+  transform: translateY(-4px);
+}
+
+.whyCardInner {
+  padding: 2.25rem 1.75rem;
+  background: #ffffff;
+  border-radius: calc(1.25rem - 0.375rem);
+  height: 100%;
+}
+
+.whyNum {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-crimson);
+  letter-spacing: 0.1em;
+  margin-bottom: 1.5rem;
+  display: block;
+}
+
+.whyTitle {
+  font-size: 1.35rem;
+  font-weight: 500;
+  color: var(--color-cream);
+  margin-bottom: 0.85rem;
+}
+
+.whyDesc {
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: var(--color-taupe);
+}
+
+/* -------------------------------------------------------------------------- */
+/* 5. Modern Executive Leadership Section (With Official Portraits)           */
+/* -------------------------------------------------------------------------- */
+.leadershipSection {
+  padding: 9rem 0;
+  border-bottom: 1px solid var(--color-border-subtle);
+  background-color: var(--color-black);
+}
+
+.leadershipHeader {
+  margin-bottom: 5rem;
+}
+
+.leadershipHeading {
+  font-size: clamp(2.2rem, 4.5vw, 3.8rem);
+  font-weight: 400;
+  margin-top: 1rem;
+  letter-spacing: -0.03em;
+}
+
+.leadershipGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.5rem;
+}
+
+@media (max-width: 1024px) {
+  .leadershipGrid {
+    grid-template-columns: 1fr;
+    gap: 3.5rem;
+  }
+}
+
+/* Doppelrand / Double-Bezel Hardware Card Architecture */
+.leaderCardShell {
+  padding: 0.5rem;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 1.75rem;
+  transition: transform 0.4s var(--ease-fluid), box-shadow 0.4s var(--ease-fluid);
+  display: flex;
+  flex-direction: column;
+}
+
+.leaderCardShell:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.08);
+}
+
+.leaderCardInner {
+  padding: 2.25rem 2rem;
+  background: #ffffff;
+  border-radius: calc(1.75rem - 0.375rem);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.leaderImageContainer {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 4.2;
+  border-radius: 1.25rem;
+  overflow: hidden;
+  background-color: #f1f5f9;
+  margin-bottom: 2rem;
+  border: 1px solid var(--color-border-subtle);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.5);
+}
+
+.leaderPortrait {
+  object-fit: cover;
+  object-position: top center;
+  transition: transform 0.8s var(--ease-fluid);
+}
+
+.leaderCardShell:hover .leaderPortrait {
+  transform: scale(1.05);
+}
+
+.leaderName {
+  font-size: 1.75rem;
+  font-weight: 500;
+  color: var(--color-cream);
+  margin-bottom: 0.35rem;
+  letter-spacing: -0.02em;
+}
+
+.leaderRole {
+  font-size: 0.825rem;
+  font-family: var(--font-mono), monospace;
+  color: var(--color-crimson);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 1.25rem;
+  display: block;
+}
+
+.leaderBio {
+  font-size: 0.96rem;
+  line-height: 1.75;
+  color: var(--color-taupe);
+  flex-grow: 1;
+}
+
+/* -------------------------------------------------------------------------- */
+/* 6. Banner CTA Section                                                       */
+/* -------------------------------------------------------------------------- */
+.ctaBannerSection {
+  padding: 9rem 0;
+  position: relative;
+  background-color: var(--color-cream);
+  color: #ffffff;
+  overflow: hidden;
+}
+
+.ctaBannerContent {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 850px;
+  margin: 0 auto;
+}
+
+.ctaHeadline {
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-weight: 400;
+  color: #ffffff;
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+  margin-top: 1.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.ctaSubtitle {
+  font-size: 1.2rem;
+  color: #94a3b8;
+  margin-bottom: 3rem;
+}
+
+.ctaBtnRow {
+  display: flex;
+  justify-content: center;
+}

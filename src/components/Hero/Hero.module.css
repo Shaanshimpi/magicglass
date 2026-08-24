@@ -15,14 +15,17 @@
   position: absolute;
   inset: -10% 0;
   z-index: 1;
-  background-image: url('/images/hero-bg.jpg');
-  background-size: cover;
-  background-position: center;
   opacity: 0.85;
   filter: contrast(1.04) brightness(0.95);
   transition: opacity 1s ease-out;
   will-change: transform;
 }
+
+.heroImage {
+  object-fit: cover;
+  object-position: center;
+}
+
 
 .vignetteOverlay {
   position: absolute;

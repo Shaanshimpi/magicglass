@@ -1,0 +1,57 @@
+{
+  "page": {
+    "title": "Industry Solution",
+    "redTitle": "Industry",
+    "mainTitle": "Solution",
+    "indexNumber": "04",
+    "category": "Architectural & Industrial Applications",
+    "heroImage": "https://magicglass.co.in/wp-content/uploads/2023/12/Industry-Solution3-scaled.jpg",
+    "fullWidthImage": "https://magicglass.co.in/wp-content/uploads/2023/12/Industry-Solution3-scaled.jpg",
+    "ctaText": "Enquire Now",
+    "eyebrow": "◆ INDUSTRY SOLUTIONS",
+    "subheading": "GET EVERY GLASS APPLICATION UNDER ONE ROOF",
+    "introDescription": "Our glazing solutions deliver tailored glass products designed to meet the rigorous demands of aviation, architectural, automotive, hospitality, and transport sectors."
+  },
+  "industries": [
+    {
+      "id": "airport",
+      "title": "Airport",
+      "subtitle": "AVIATION & INFRASTRUCTURE",
+      "image": "https://magicglass.co.in/wp-content/uploads/2023/12/industry-banner-1.jpg",
+      "specs": "Clarity, Shine & Structural Strength for Premium Terminals",
+      "description": "The airport industry seeks glass solutions to enhance passenger experience in premium terminals. Façades, partitions and panels are expected to elevate the visual appeal of airports through a luxurious and durable aesthetic.\n\nMagic Glass delivers products tailored specifically for the aviation sector. Using cutting-edge technologies, we craft glass renowned for its clarity, shine and strength that creates a truly mesmerising appeal. Through rigorous testing, our solutions retain pristine quality over extended use. Focusing on innovative and transformative designs, Magic Glass helps airports craft iconic landmarks with glass installations that impress travelers from the moment they arrive."
+    },
+    {
+      "id": "architecture",
+      "title": "Architecture",
+      "subtitle": "FAÇADES & SUSTAINABLE GLAZING",
+      "image": "https://magicglass.co.in/wp-content/uploads/2023/12/Architecture.jpg",
+      "specs": "Durability, Thermal Insulation & Superior Strength",
+      "description": "The architecture industry demands premium glass delivering strength, clarity and energy efficiency. Facades, windows and partitions must withstand climatic conditions while maintaining integrity for decades. Glazing must prioritize thermal insulation and transparency to contribute to sustainable construction.\n\nMagic Glass uses toughened glass renowned for durability and high strength. Our reflective, extra clear and heat-strengthened products empower architects to create structures with unparalleled clarity and thermal performance. Using cutting-edge technologies and rigorous testing, we produce solutions exceeding Architecture standards. Our focus on innovation drives advancements in sustainability, functionality and design possibilities."
+    },
+    {
+      "id": "automobile",
+      "title": "Automobile",
+      "subtitle": "AUTOMOTIVE-GRADE GLAZING",
+      "image": "https://magicglass.co.in/wp-content/uploads/2023/12/Automobile-industry.jpg",
+      "specs": "Extreme Temp & Vibration Resistance for Windshields & Sunroofs",
+      "description": "The automotive industry has elevated expectations from glass, demanding lightweight solutions that ensure safety while enhancing the driving experience. Vehicles require windows, windshields and sunroofs engineered for varying climatic conditions.\n\nMagic Glass delivers automotive-grade glass tailored to these needs. With a legacy of crafting premium glass solutions, we produce glass renowned for strength, transparency and longevity. Using state-of-the-art facilities, we manufacture glass solutions undergo rigorous testing as per global standards to consistently perform under extreme temperatures and vibrations. Customized offerings for sunroofs and windows elevate in-cabin ambience. Through continuous innovation, Magic Glass drives advancements in functionality and sustainability, setting new benchmarks in automotive glazing."
+    },
+    {
+      "id": "hospitality",
+      "title": "Hospitality",
+      "subtitle": "PREMIUM HOTELS & VENUES",
+      "image": "https://magicglass.co.in/wp-content/uploads/2023/12/Hospitality.jpg",
+      "specs": "Luxurious Ambience & Natural Light Enhancement",
+      "description": "The hospitality industry seeks glass installations that elevate guest experience through luxurious aesthetics. Hotel lobbies and restaurant interiors require solutions offering clarity, shine and strength to withstand heavy usage over long durations.\n\nUsing advanced manufacturing technology, Magic Glass glass solutions enhance natural light and ambience within premium spaces. Rigorous testing ensures unparalleled quality against daily wear. Customized for premium hospitality projects, our glass redefines luxury. Through continuous innovation, we help create memorable venues and cement client relationships. With a focus on service excellence and compliance with global standards, Magic Glass transforms experiences for discerning hospitality patrons worldwide."
+    },
+    {
+      "id": "transport",
+      "title": "Transport",
+      "subtitle": "TRANSIT HUBS & PUBLIC SPACES",
+      "image": "https://magicglass.co.in/wp-content/uploads/2023/12/Automobile.jpg",
+      "specs": "Heat Insulation, Vibration Safety & Daylighting Panels",
+      "description": "The transport industry expects glass materials to be strong, heat-resistant and energy efficient. In applications like airports and train stations, glass must withstand high temperatures and vibrations without compromising on safety. It is also important for glass to provide thermal insulation and meet increasingly stringent energy efficiency standards.\n\nMagic Glass is at the forefront of catering to these exacting needs of the transport sector. Our versatile glass solutions are used in airports, train stations, etc. in the form of glass walls, partitions, and panels that provide durability and safety in these public spaces. Our glass effectively insulates against heat while allowing daylight in and maintaining the aesthetic appeal of modern transit hubs."
+    }
+  ]
+}
