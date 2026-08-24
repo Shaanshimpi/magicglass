@@ -31,15 +31,16 @@ export const Heritage: React.FC<HeritageProps> = ({ onOpenQuoteDrawer }) => {
     gsap.registerPlugin(ScrollTrigger)
 
     const ctx = gsap.context(() => {
-      if (sectionRef.current && wordRefs.current.length > 0) {
+      if (sectionRef.current && wordRefs.current.length > 0 && containerRef.current) {
         // Pinned ScrollTrigger Timeline: All words scrub from 0.5 to 1.0 opacity
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: sectionRef.current,
             start: 'top top',
             end: '+=130%',
-            pin: true,
+            pin: containerRef.current,
             scrub: 0.8,
+            anticipatePin: 1,
           },
         })
 

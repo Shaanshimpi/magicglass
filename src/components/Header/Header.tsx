@@ -90,10 +90,10 @@ export const Header: React.FC<HeaderProps> = ({
           onClick={(e) => handleNavClick(e, 'home')}
         >
           <Image
-            src="/images/FINAL_LOGO.svg"
+            src="/images/logo.png"
             alt="Magic Glass Logo"
-            width={140}
-            height={56}
+            width={150}
+            height={50}
             className={styles.logoImage}
             priority
           />
@@ -172,7 +172,7 @@ export const Header: React.FC<HeaderProps> = ({
             type="button"
             className="button--red"
             onClick={onOpenQuoteDrawer}
-            style={{ padding: '0.55rem 1.25rem', fontSize: '0.725rem' }}
+            style={{ padding: '0.4rem 0.95rem', fontSize: '0.675rem' }}
           >
             GET A QUOTE
           </button>

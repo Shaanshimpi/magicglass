@@ -40,11 +40,32 @@
   will-change: opacity;
 }
 
+.loaderLogoWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 0.35rem 0.85rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.2);
+}
+
+.loaderLogo {
+  height: 32px;
+  width: auto;
+  object-fit: contain;
+}
+
 .titleBox {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  overflow: hidden;
+  gap: 1.75rem;
+  opacity: 0;
+  transform: translateY(50px);
+  will-change: transform, opacity;
 }
 
 .brandTitle {
@@ -56,9 +77,26 @@
   text-align: center;
   text-transform: uppercase;
   line-height: 1.05;
-  opacity: 0;
-  transform: translateY(60px);
-  will-change: transform, opacity;
+}
+
+.centerLogoWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+  border: none;
+  box-shadow: none;
+}
+
+.centerLogoSvg {
+  height: 64px;
+  width: auto;
+  max-width: 320px;
+  display: block;
+  filter: drop-shadow(0 4px 20px rgba(0, 0, 0, 0.5));
+  will-change: transform, opacity, filter;
 }
 
 .counterBox {
@@ -118,6 +156,10 @@
 @media (max-width: 768px) {
   .loaderContent {
     padding: 2rem 1.5rem;
+  }
+  .centerLogoSvg {
+    height: 46px;
+    max-width: 240px;
   }
   .ringWrapper {
     width: 56px;

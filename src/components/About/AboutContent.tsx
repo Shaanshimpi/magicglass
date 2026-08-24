@@ -55,13 +55,16 @@ export const AboutContent: React.FC = () => {
   const heroRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    if (heroRef.current) {
-      gsap.fromTo(
-        heroRef.current.children,
-        { opacity: 0, y: 35 },
-        { opacity: 1, y: 0, stagger: 0.15, duration: 0.9, ease: 'power3.out' }
-      )
-    }
+    const ctx = gsap.context(() => {
+      if (heroRef.current) {
+        gsap.fromTo(
+          heroRef.current.children,
+          { opacity: 0, y: 35 },
+          { opacity: 1, y: 0, stagger: 0.15, duration: 0.9, ease: 'power3.out' }
+        )
+      }
+    })
+    return () => ctx.revert()
   }, [])
 
   return (

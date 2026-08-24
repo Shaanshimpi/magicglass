@@ -6,7 +6,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 interface ParallaxConfig {
   desktopRef: React.RefObject<HTMLElement | null>
-  mobilePinRef: React.RefObject<HTMLElement | null>
+  mobileSectionRef?: React.RefObject<HTMLElement | null>
+  mobilePinRef: React.RefObject<HTMLDivElement | null>
   row1CardRef?: React.RefObject<HTMLDivElement | null>
   row1TextRef?: React.RefObject<HTMLDivElement | null>
   row2Card1Ref?: React.RefObject<HTMLDivElement | null>
@@ -19,6 +20,7 @@ interface ParallaxConfig {
 
 export function useParallaxGridAnimation({
   desktopRef,
+  mobileSectionRef,
   mobilePinRef,
   row1CardRef,
   row1TextRef,
@@ -139,13 +141,14 @@ export function useParallaxGridAnimation({
     // MOBILE ANIMATION (<= 900px): Pinned Diagonal Scale Scene
     // -------------------------------------------------------------------------
     mm.add('(max-width: 900px)', () => {
-      if (mobilePinRef.current && mobileCardCount > 0) {
+      const triggerEl = mobileSectionRef?.current || mobilePinRef.current
+      if (triggerEl && mobilePinRef.current && mobileCardCount > 0) {
         const tl = gsap.timeline({
           scrollTrigger: {
-            trigger: mobilePinRef.current,
+            trigger: triggerEl,
             start: 'top top',
             end: `+=${mobileCardCount * 90}%`,
-            pin: true,
+            pin: mobilePinRef.current,
             scrub: 1,
           },
         })

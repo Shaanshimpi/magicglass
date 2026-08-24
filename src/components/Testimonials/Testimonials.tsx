@@ -55,13 +55,16 @@ export const Testimonials: React.FC = () => {
   }
 
   useEffect(() => {
-    if (slideContentRef.current) {
-      gsap.fromTo(
-        slideContentRef.current,
-        { opacity: 0, y: 15 },
-        { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }
-      )
-    }
+    const ctx = gsap.context(() => {
+      if (slideContentRef.current) {
+        gsap.fromTo(
+          slideContentRef.current,
+          { opacity: 0, y: 15 },
+          { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }
+        )
+      }
+    })
+    return () => ctx.revert()
   }, [currentIndex])
 
 

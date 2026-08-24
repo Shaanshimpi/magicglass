@@ -64,7 +64,8 @@ const ALL_MOBILE_PRODUCTS: ApplicationCardItem[] = [
 
 export const ProductSystems: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null)
-  const mobilePinRef = useRef<HTMLElement>(null)
+  const mobileSectionRef = useRef<HTMLElement>(null)
+  const mobilePinRef = useRef<HTMLDivElement>(null)
 
   const row1CardRef = useRef<HTMLDivElement>(null)
   const row1TextRef = useRef<HTMLDivElement>(null)
@@ -78,6 +79,7 @@ export const ProductSystems: React.FC = () => {
 
   const { setMobileTileRef } = useParallaxGridAnimation({
     desktopRef: sectionRef,
+    mobileSectionRef: mobileSectionRef,
     mobilePinRef: mobilePinRef,
     row1CardRef,
     row1TextRef,
@@ -175,8 +177,8 @@ export const ProductSystems: React.FC = () => {
       </section>
 
       {/* MOBILE VIEW */}
-      <section ref={mobilePinRef} className={styles.mobileProductSection}>
-        <div className={styles.mobileContainer}>
+      <section ref={mobileSectionRef} className={styles.mobileProductSection}>
+        <div ref={mobilePinRef} className={styles.mobileContainer}>
           <div className={styles.mobileHeaderBlock}>
             <div className={styles.eyebrow}>
               ◆ GLASS APPLICATIONS

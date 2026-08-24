@@ -1,15 +1,15 @@
 .headerContainer {
   position: fixed;
-  top: 1.25rem;
+  top: 0.85rem;
   left: 50%;
   transform: translateX(-50%);
   z-index: 100;
   width: 92%;
-  max-width: 1280px;
+  max-width: 1180px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.5rem 1.5rem;
+  padding: 0.35rem 1.15rem;
   border-radius: 9999px;
   background: rgba(15, 23, 42, 0.94);
   backdrop-filter: blur(24px);
@@ -30,7 +30,7 @@
   align-items: center;
   justify-content: center;
   text-decoration: none;
-  padding: 0.25rem 0.65rem;
+  padding: 0.25rem 0.75rem;
   background: rgba(255, 255, 255, 0.96);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -49,10 +49,11 @@
 }
 
 .logoImage {
-  height: 44px;
+  height: 30px;
   width: auto;
-  max-width: 155px;
+  max-width: 135px;
   object-fit: contain;
+  padding: 0.05rem 0.15rem;
 }
 
 .desktopNav {
@@ -66,15 +67,15 @@
 .navLinks {
   display: flex;
   align-items: center;
-  gap: 1.4rem;
+  gap: 1.15rem;
   list-style: none;
 }
 
 .navLink {
   font-family: var(--font-mono), monospace;
-  font-size: 0.725rem;
+  font-size: 0.675rem;
   font-weight: 600;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: #ffffff;
   opacity: 0.92;
@@ -208,13 +209,13 @@
   }
   .headerContainer {
     width: 92%;
-    padding: 0.5rem 1rem;
-    top: 1rem;
+    padding: 0.3rem 0.85rem;
+    top: 0.65rem;
   }
   .logoLink {
-    padding: 0.2rem 0.5rem;
+    padding: 0.15rem 0.45rem;
   }
   .logoImage {
-    height: 38px;
+    height: 26px;
   }
 }

@@ -28,7 +28,8 @@ export const IndustrySolutionContent: React.FC = () => {
 
   // GSAP Parallax Section & Card Refs
   const sectionRef = useRef<HTMLElement>(null)
-  const mobilePinRef = useRef<HTMLElement>(null)
+  const mobileSectionRef = useRef<HTMLElement>(null)
+  const mobilePinRef = useRef<HTMLDivElement>(null)
 
   // Desktop Card & Text Refs
   const row1CardRef = useRef<HTMLDivElement>(null)
@@ -136,15 +137,15 @@ export const IndustrySolutionContent: React.FC = () => {
     // MOBILE ANIMATION (<= 900px): Pinned Bottom-Right Diagonal Scale Scene
     // -------------------------------------------------------------------------
     mm.add('(max-width: 900px)', () => {
-      if (mobilePinRef.current) {
+      if (mobileSectionRef.current && mobilePinRef.current) {
         const totalCards = industries.length
 
         const tl = gsap.timeline({
           scrollTrigger: {
-            trigger: mobilePinRef.current,
+            trigger: mobileSectionRef.current,
             start: 'top top',
             end: `+=${totalCards * 90}%`,
-            pin: true,
+            pin: mobilePinRef.current,
             scrub: 1,
           },
         })
@@ -409,8 +410,8 @@ export const IndustrySolutionContent: React.FC = () => {
         </section>
 
         {/* 4. Mobile Pinned Diagonal Scale Scene (Mobile View) */}
-        <section ref={mobilePinRef} className={styles.mobileProductSection}>
-          <div className={styles.mobileContainer}>
+        <section ref={mobileSectionRef} className={styles.mobileProductSection}>
+          <div ref={mobilePinRef} className={styles.mobileContainer}>
             <div className={styles.mobileHeaderBlock}>
               <div className={styles.eyebrow}>{page.eyebrow}</div>
               <h2 className={styles.mobileSubheading}>{page.subheading}</h2>
