@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useCallback, createContext, useContext } from 'react'
+import React, { useState, useEffect, useCallback, createContext, useContext } from 'react'
 import { usePathname } from 'next/navigation'
 import { Header } from '@/components/Header/Header'
 import { Footer } from '@/components/Footer/Footer'
@@ -43,6 +43,49 @@ export const ClientLayoutShell: React.FC<{ children: React.ReactNode }> = ({ chi
     setIsLoaded(true)
   }, [])
 
+  // Manual scroll restoration on mount
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      window.history.scrollRestoration = 'manual'
+    }
+  }, [])
+
+  // Trigger loader on route change
+  useEffect(() => {
+    setIsLoaded(false)
+  }, [pathname])
+
+  // Lock scroll while loader is active, and ensure page starts at scroll 0
+  useEffect(() => {
+    const lenis = typeof window !== 'undefined' ? (window as any).__lenis : null
+
+    if (!isLoaded) {
+      document.body.style.overflow = 'hidden'
+      document.documentElement.style.overflow = 'hidden'
+      window.scrollTo(0, 0)
+      if (lenis) {
+        lenis.scrollTo(0, { immediate: true })
+        lenis.stop()
+      }
+    } else {
+      document.body.style.overflow = ''
+      document.documentElement.style.overflow = ''
+      window.scrollTo(0, 0)
+      if (lenis) {
+        lenis.scrollTo(0, { immediate: true })
+        lenis.start()
+      }
+    }
+
+    return () => {
+      document.body.style.overflow = ''
+      document.documentElement.style.overflow = ''
+      if (lenis) {
+        lenis.start()
+      }
+    }
+  }, [isLoaded])
+
   // Preserve custom layout for /color-options or admin routes
   const isSpecialRoute = pathname?.startsWith('/color-options') || pathname?.startsWith('/admin')
 
@@ -50,20 +93,18 @@ export const ClientLayoutShell: React.FC<{ children: React.ReactNode }> = ({ chi
     return <>{children}</>
   }
 
-  const isHomePage = pathname === '/'
-
   return (
     <LayoutContext.Provider
       value={{
         isQuoteOpen,
         openQuoteDrawer,
         closeQuoteDrawer,
-        isLoaded: isHomePage ? isLoaded : true,
+        isLoaded,
         setLoaded: handleLoaderComplete,
       }}
     >
-      {isHomePage && !isLoaded && <Loader onComplete={handleLoaderComplete} />}
-      <Header onOpenQuoteDrawer={openQuoteDrawer} isLoaded={isHomePage ? isLoaded : true} />
+      {!isLoaded && <Loader key={pathname} onComplete={handleLoaderComplete} />}
+      <Header onOpenQuoteDrawer={openQuoteDrawer} isLoaded={isLoaded} />
       <main>{children}</main>
       <QuoteDrawer isOpen={isQuoteOpen} onClose={closeQuoteDrawer} />
       <Footer />

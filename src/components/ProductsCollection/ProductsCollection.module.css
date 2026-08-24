@@ -257,9 +257,9 @@
 }
 
 .stickyContent {
-  position: sticky;
-  top: 120px;
-  height: calc(100vh - 160px);
+  position: relative;
+  top: 0;
+  height: auto;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

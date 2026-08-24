@@ -15,6 +15,10 @@ export const SmoothScroll: React.FC<{ children: React.ReactNode }> = ({ children
       smoothWheel: true,
     })
 
+    if (typeof window !== 'undefined') {
+      ;(window as any).__lenis = lenis
+    }
+
     lenis.on('scroll', ScrollTrigger.update)
 
     const update = (time: number) => {
@@ -25,6 +29,9 @@ export const SmoothScroll: React.FC<{ children: React.ReactNode }> = ({ children
     gsap.ticker.lagSmoothing(0)
 
     return () => {
+      if (typeof window !== 'undefined') {
+        delete (window as any).__lenis
+      }
       gsap.ticker.remove(update)
       lenis.destroy()
     }
