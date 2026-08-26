@@ -29,7 +29,7 @@ export default function ProjectsPage() {
   ]
 
   return (
-    <div style={{ backgroundColor: 'var(--color-black)', minHeight: '100vh', paddingTop: '70px' }}>
+    <div style={{ backgroundColor: 'var(--color-black)', minHeight: '100vh' }}>
       <ProjectsHero
         projects={projects}
         onSelectProject={(project) => setSelectedProject(project)}

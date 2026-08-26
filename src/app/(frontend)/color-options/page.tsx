@@ -112,17 +112,18 @@ const COLOR_OPTIONS: FullColorTheme[] = [
     colorGlassBg: 'rgba(14, 14, 16, 0.88)',
   },
   {
-    id: 'nordic-cobalt',
-    name: '6. Nordic Silver & Cobalt',
-    tagline: 'Cool Metallic Light & Deep Cobalt Blue',
+    id: 'nordic-cyan',
+    name: '6. Nordic Silver & Cyan',
+    tagline: 'Cool Metallic Light & Electric Cyan',
     colorBlack: '#e2e6eb',
     colorGrey: '#ffffff',
     colorSurfaceHover: '#d1d8e0',
     colorTaupe: '#475569',
     colorCream: '#0f172a',
-    colorCrimson: '#2563eb',
-    colorBorderSubtle: 'rgba(15, 23, 42, 0.12)',
+    colorCrimson: '#00b4d8',
+    colorBorderSubtle: 'rgba(0, 180, 216, 0.15)',
     colorGlassBg: 'rgba(226, 230, 235, 0.92)',
+    isFavorite: true,
   },
   {
     id: 'cobalt-gold',
@@ -217,7 +218,7 @@ function ProjectsSectionPreview({ onOpenQuoteDrawer }: { onOpenQuoteDrawer: () =
 }
 
 export default function ColorOptionsPage() {
-  const [activeThemeId, setActiveThemeId] = useState<string>('frost-light')
+  const [activeThemeId, setActiveThemeId] = useState<string>('nordic-cyan')
   const [activeTab, setActiveTab] = useState<PageTab>('home')
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(true)
   const [isQuoteOpen, setIsQuoteOpen] = useState(false)
@@ -636,7 +637,7 @@ export default function ColorOptionsPage() {
             {activeTab === 'products' && (
               <div>
                 <ProductsCollection />
-                <FloatingQuoteButton onOpenQuoteDrawer={handleOpenQuote} />
+                {!isQuoteOpen && <FloatingQuoteButton onOpenQuoteDrawer={handleOpenQuote} />}
               </div>
             )}
 

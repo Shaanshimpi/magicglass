@@ -1,7 +1,6 @@
 .stickyNavContainer {
-  position: sticky;
-  top: 0;
-  z-index: 40;
+  position: relative;
+  z-index: 10;
   width: 100%;
   background-color: #f7f6f2;
   border-bottom: 1px solid rgba(18, 18, 18, 0.12);

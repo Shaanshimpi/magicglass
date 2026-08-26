@@ -108,7 +108,7 @@ export const ClientLayoutShell: React.FC<{ children: React.ReactNode }> = ({ chi
       <main>{children}</main>
       <QuoteDrawer isOpen={isQuoteOpen} onClose={closeQuoteDrawer} />
       <Footer />
-      <FloatingQuoteButton onOpenQuoteDrawer={openQuoteDrawer} />
+      {!isQuoteOpen && <FloatingQuoteButton onOpenQuoteDrawer={openQuoteDrawer} />}
     </LayoutContext.Provider>
   )
 }

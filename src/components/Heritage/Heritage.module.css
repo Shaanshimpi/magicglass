@@ -1,15 +1,14 @@
 .heritageSection {
   position: relative;
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
+  padding: 4rem 2rem;
   background-color: var(--color-black);
   color: var(--color-taupe);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 4rem 2rem 2rem 2rem;
-  overflow: hidden;
   border-top: 1px solid var(--color-border-subtle);
 }
 
@@ -103,9 +102,7 @@
 
 @media (max-width: 850px) {
   .heritageSection {
-    height: auto;
-    min-height: 100vh;
-    padding: 6rem 1.5rem;
+    padding: 5rem 1.5rem 4rem 1.5rem;
   }
   .statementHeadline {
     margin-bottom: 2rem;

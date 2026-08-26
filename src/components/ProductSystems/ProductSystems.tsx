@@ -124,7 +124,7 @@ export const ProductSystems: React.FC = () => {
                 Our <strong>glazing collection</strong> is defined by exceptional craftsmanship, refined design, and enduring quality. Get every glass application under one roof for bold architecture and uncompromising vision.
               </p>
               <div className={styles.ctaWrapper}>
-                <a href="#quote" className="btn-black">
+                <a href="/products" className="btn-black">
                   ↳ PRODUCT OVERVIEW
                 </a>
               </div>

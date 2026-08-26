@@ -32,13 +32,14 @@ export const Heritage: React.FC<HeritageProps> = ({ onOpenQuoteDrawer }) => {
 
     const ctx = gsap.context(() => {
       if (sectionRef.current && wordRefs.current.length > 0 && containerRef.current) {
-        // Pinned ScrollTrigger Timeline: All words scrub from 0.5 to 1.0 opacity
+        // Pinned ScrollTrigger Timeline: Pins while text narrative reveals word-by-word, then unpins
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: sectionRef.current,
             start: 'top top',
-            end: '+=130%',
+            end: '+=110%',
             pin: containerRef.current,
+            pinSpacing: true,
             scrub: 0.8,
             anticipatePin: 1,
           },
@@ -95,7 +96,7 @@ export const Heritage: React.FC<HeritageProps> = ({ onOpenQuoteDrawer }) => {
         </h2>
 
         <div ref={ctaRef} className={styles.ctaContainer}>
-          <a href="#products" className="btn-black">
+          <a href="/about" className="btn-black">
             ↳ WHO WE ARE
           </a>
         </div>

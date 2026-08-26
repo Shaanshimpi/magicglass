@@ -20,11 +20,8 @@ interface IndustryItem {
 }
 
 export const IndustrySolutionContent: React.FC = () => {
-  const [isQuoteOpen, setIsQuoteOpen] = useState(false)
+  const { openQuoteDrawer } = useLayoutContext()
   const { page, industries } = mockData as { page: any; industries: IndustryItem[] }
-
-  const handleOpenQuote = () => setIsQuoteOpen(true)
-  const handleCloseQuote = () => setIsQuoteOpen(false)
 
   // GSAP Parallax Section & Card Refs
   const sectionRef = useRef<HTMLElement>(null)
@@ -278,7 +275,7 @@ export const IndustrySolutionContent: React.FC = () => {
                   Our <strong>industry solution collection</strong> is defined by exceptional engineering, refined aesthetics, and enduring quality. Get every architectural and industrial glass application under one roof.
                 </p>
                 <div className={styles.ctaWrapper}>
-                  <button type="button" className="btn-black" onClick={handleOpenQuote}>
+                  <button type="button" className="btn-black" onClick={openQuoteDrawer}>
                     ↳ REQUEST ENQUIRY
                   </button>
                 </div>
