@@ -210,7 +210,7 @@ export const AboutContent: React.FC = () => {
       <section className={styles.ctaBannerSection}>
         <div className={styles.container}>
           <div className={styles.ctaBannerContent}>
-            <span className="base-title" style={{ color: 'rgba(255, 255, 255, 0.7)' }}>
+            <span className="base-title" style={{ color: '#ffffff' }}>
               WHERE VISION MEETS EXECUTION
             </span>
             <h2 className={styles.ctaHeadline}>Every great build begins with understanding</h2>

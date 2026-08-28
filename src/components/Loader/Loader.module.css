@@ -31,11 +31,11 @@
   align-items: center;
   justify-content: space-between;
   font-family: var(--font-mono), monospace;
-  font-size: 0.725rem;
-  font-weight: 600;
+  font-size: 1.2rem;
+  font-weight: 700;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: #7a8084;
+  color: #ffffff;
   opacity: 0;
   will-change: opacity;
 }

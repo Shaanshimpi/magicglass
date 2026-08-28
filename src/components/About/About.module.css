@@ -248,9 +248,9 @@
 
 .whyNum {
   font-family: var(--font-mono), monospace;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--color-crimson);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #0284c7;
   letter-spacing: 0.1em;
   margin-bottom: 1.5rem;
   display: block;
@@ -358,12 +358,12 @@
 }
 
 .leaderRole {
-  font-size: 0.825rem;
+  font-size: 1.2rem;
   font-family: var(--font-mono), monospace;
-  color: var(--color-crimson);
+  color: #0284c7;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  font-weight: 600;
+  font-weight: 700;
   margin-bottom: 1.25rem;
   display: block;
 }

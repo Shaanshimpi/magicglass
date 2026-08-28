@@ -172,7 +172,7 @@ export const Header: React.FC<HeaderProps> = ({
             type="button"
             className="button--red"
             onClick={onOpenQuoteDrawer}
-            style={{ padding: '0.4rem 0.95rem', fontSize: '0.675rem' }}
+            style={{ padding: '0.45rem 1.05rem', fontSize: '0.85rem' }}
           >
             GET A QUOTE
           </button>

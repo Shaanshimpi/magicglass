@@ -41,21 +41,23 @@
 
 .eyebrow {
   font-family: var(--font-mono), monospace;
-  font-size: 0.725rem;
-  font-weight: 600;
-  letter-spacing: 0.22em;
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--color-crimson, #e63946);
+  color: #0284c7;
   margin-bottom: 0.85rem;
+  opacity: 1;
 }
 
 .subheading {
   font-family: var(--font-mono), monospace;
-  font-size: clamp(0.75rem, 1.2vw, 0.925rem);
-  font-weight: 600;
+  font-size: 1.2rem;
+  font-weight: 700;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--color-crimson, #e63946);
+  color: #0284c7;
+  opacity: 1;
 }
 
 /* -------------------------------------------------------------------------- */

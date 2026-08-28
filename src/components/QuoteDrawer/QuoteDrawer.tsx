@@ -46,7 +46,7 @@ export const QuoteDrawer: React.FC<QuoteDrawerProps> = ({ isOpen, onClose }) => 
         >
           <div className={styles.drawerHeader}>
             <div>
-              <div className="base-title" style={{ fontSize: '0.75rem', marginBottom: '0.25rem' }}>
+              <div className="base-title" style={{ marginBottom: '0.25rem' }}>
                 TECHNICAL INQUIRY
               </div>
               <h3 className={styles.drawerTitle}>Request Technical Quote</h3>
@@ -64,7 +64,7 @@ export const QuoteDrawer: React.FC<QuoteDrawerProps> = ({ isOpen, onClose }) => 
               <h4 style={{ fontSize: '1.5rem', marginBottom: '1rem', color: 'var(--color-cream)' }}>
                 Thank you for your request.
               </h4>
-              <p style={{ color: '#666e6c' }}>
+              <p style={{ color: '#cbd5e1', fontSize: '1rem', lineHeight: '1.6' }}>
                 Our Pune technical sales engineering team will review your specifications and respond within 24 business hours.
               </p>
             </div>

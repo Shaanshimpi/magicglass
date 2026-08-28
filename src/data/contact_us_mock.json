@@ -23,18 +23,18 @@
     {
       "id": "factory-address",
       "title": "Factory Office",
-      "detail": "Gurukripa Industrial Estate, National Highway No. 9, Gat No.: 813/2a, At-Post Yavat, Tal: Daund, Dist: Pune Pin Code – 412214",
+      "detail": "Gurukripa Ind. Estate, National Highway No. 9, Survey No.: 813/8 & 813/9, At-Post Yavat, Tal: Daund, Dist: Pune Pin Code – 412214",
       "icon": "location",
       "actionText": "FACTORY DIRECTIONS",
       "actionUrl": "https://maps.google.com/?q=Gurukripa+Industrial+Estate+Daund+Pune+412214"
     },
     {
       "id": "email",
-      "title": "info@magicglass.co.in",
+      "title": "sales@magicglass.co.in",
       "detail": "Need Support? Drop us an email",
       "icon": "email",
       "actionText": "SEND EMAIL",
-      "actionUrl": "mailto:info@magicglass.co.in"
+      "actionUrl": "mailto:sales@magicglass.co.in"
     },
     {
       "id": "phone",

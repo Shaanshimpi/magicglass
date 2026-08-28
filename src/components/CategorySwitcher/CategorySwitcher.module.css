@@ -30,7 +30,7 @@
   border: 1px solid rgba(212, 206, 198, 0.12);
   color: var(--color-taupe);
   font-family: var(--font-mono), monospace;
-  font-size: 0.775rem;
+  font-size: 1rem;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s var(--ease-fluid);

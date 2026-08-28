@@ -18,10 +18,10 @@
 
 .sectionBadge {
   display: inline-block;
-  font-size: 0.75rem;
+  font-size: 1.2rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--color-crimson, #e20714);
+  color: var(--color-crimson, #00b4d8);
   margin-bottom: 0.5rem;
   font-weight: 600;
 }

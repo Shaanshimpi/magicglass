@@ -191,8 +191,9 @@
 }
 
 .dropzoneText {
-  font-size: 0.8rem;
-  color: var(--color-taupe);
+  font-size: 0.9rem;
+  color: #334155;
+  font-weight: 500;
 }
 
 .inputField {

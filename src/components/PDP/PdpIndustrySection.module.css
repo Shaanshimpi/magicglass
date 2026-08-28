@@ -18,13 +18,14 @@
 
 .sectionBadge {
   font-family: var(--font-mono), monospace;
-  font-size: 0.725rem;
-  font-weight: 600;
-  letter-spacing: 0.22em;
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--color-crimson);
+  color: #0284c7;
   display: inline-block;
   margin-bottom: 0.75rem;
+  opacity: 1;
 }
 
 .sectionTitle {

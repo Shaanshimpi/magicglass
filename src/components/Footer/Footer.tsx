@@ -10,7 +10,7 @@ export const Footer: React.FC = () => {
         <div className={styles.grid}>
           {/* Col 1: Corporate & Factory Offices & Contact Info */}
           <div>
-            <div className="base-title" style={{ fontSize: '0.75rem', marginBottom: '1.25rem', color: '#cbd5e1' }}>
+            <div className="base-title" style={{ marginBottom: '1.25rem', color: 'var(--color-crimson)' }}>
               MAGIC GLASS PRIVATE LIMITED
             </div>
 
@@ -26,22 +26,10 @@ export const Footer: React.FC = () => {
             <div className={styles.officeBlock}>
               <h5 className={styles.officeHeading}>Factory Office</h5>
               <p className={styles.addressText}>
-                Gurukripa Industrial Estate,<br />
-                National Highway No. 9, Gat No.: 813/2a,<br />
-                At-Post Yavat, Tal: Daund, Dist: Pune – 412214
+                Gurukripa Ind. Estate,<br />
+                National Highway No. 9, Survey No.: 813/8 & 813/9,<br />
+                At-Post Yavat, Tal: Daund, Dist: Pune Pin Code – 412214
               </p>
-            </div>
-
-            <div style={{ marginTop: '1rem' }}>
-              <a href="tel:+917774017900" className={styles.contactLink}>
-                TEL: +91-7774017900
-              </a>
-              <a href="mailto:info@magicglass.co.in" className={styles.contactLink}>
-                EMAIL: info@magicglass.co.in
-              </a>
-              <a href="https://magicglass.co.in" target="_blank" rel="noopener noreferrer" className={styles.contactLink}>
-                WEB: www.magicglass.co.in
-              </a>
             </div>
           </div>
 
@@ -87,7 +75,6 @@ export const Footer: React.FC = () => {
                 </a>
               </li>
               <li><a href="tel:+917774017900">Call: +91-7774017900</a></li>
-              <li><a href="mailto:info@magicglass.co.in">info@magicglass.co.in</a></li>
               <li><a href="mailto:sales@magicglass.co.in">sales@magicglass.co.in</a></li>
             </ul>
           </div>

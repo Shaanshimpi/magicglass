@@ -15,12 +15,13 @@
 
 .eyebrow {
   font-family: var(--font-mono), monospace;
-  font-size: 0.725rem;
-  font-weight: 600;
-  letter-spacing: 0.22em;
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--color-crimson);
+  color: #0284c7;
   text-align: center;
+  opacity: 1;
 }
 
 .cardsGrid {
