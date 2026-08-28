@@ -4,12 +4,12 @@
   left: 50%;
   transform: translateX(-50%);
   z-index: 100;
-  width: 94%;
-  max-width: 1320px;
+  width: 95%;
+  max-width: 1420px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.45rem 1.35rem;
+  padding: 0.45rem 1.5rem;
   border-radius: 9999px;
   background: rgba(15, 23, 42, 0.94);
   backdrop-filter: blur(24px);
@@ -67,7 +67,7 @@
 .navLinks {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 1.6rem;
   list-style: none;
 }
 
