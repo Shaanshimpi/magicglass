@@ -170,15 +170,6 @@ export const Header: React.FC<HeaderProps> = ({
         <div ref={actionsRef} className={styles.headerActions}>
           <button
             type="button"
-            className="button--red"
-            onClick={onOpenQuoteDrawer}
-            style={{ padding: '0.45rem 1.05rem', fontSize: '0.85rem' }}
-          >
-            GET A QUOTE
-          </button>
-
-          <button
-            type="button"
             className={styles.mobileMenuBtn}
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label="Toggle menu"
