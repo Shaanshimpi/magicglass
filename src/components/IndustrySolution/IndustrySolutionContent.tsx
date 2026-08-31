@@ -19,9 +19,17 @@ interface IndustryItem {
   description: string
 }
 
-export const IndustrySolutionContent: React.FC = () => {
+interface IndustrySolutionContentProps {
+  cmsData?: {
+    page: any
+    industries: IndustryItem[]
+  }
+}
+
+export const IndustrySolutionContent: React.FC<IndustrySolutionContentProps> = ({ cmsData }) => {
   const { openQuoteDrawer } = useLayoutContext()
-  const { page, industries } = mockData as { page: any; industries: IndustryItem[] }
+  const data = cmsData || (mockData as { page: any; industries: IndustryItem[] })
+  const { page, industries } = data
 
   // GSAP Parallax Section & Card Refs
   const sectionRef = useRef<HTMLElement>(null)

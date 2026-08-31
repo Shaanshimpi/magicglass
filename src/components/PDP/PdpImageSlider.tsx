@@ -83,7 +83,7 @@ export const PdpImageSlider: React.FC<PdpImageSliderProps> = ({
       <div className={styles.sliderHeader}>
         <div>
           <span className={styles.sectionBadge}>SECTOR FOCUS</span>
-          <h2 className={styles.sectionTitle}>
+          <h2 className={styles.sectionTitle} data-cms-field="industryTitle">
             <span className={styles.redHeading}>Our</span>{' '}
             {title ? title.replace(/^Our\s+/i, '') : 'Industry'}
           </h2>
@@ -109,7 +109,7 @@ export const PdpImageSlider: React.FC<PdpImageSliderProps> = ({
         </div>
       </div>
 
-      <div ref={trackRef} className={styles.slideTrack}>
+      <div ref={trackRef} className={styles.slideTrack} data-cms-field="industries">
         {items.map((item, index) => (
           <div key={index} className={styles.slideCard}>
             <div className={styles.imageFrame}>

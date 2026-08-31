@@ -9,11 +9,19 @@ import styles from './Hero.module.css'
 
 interface HeroProps {
   onOpenQuoteDrawer?: () => void
+  cmsData?: any
 }
 
-export const Hero: React.FC<HeroProps> = ({ onOpenQuoteDrawer }) => {
+export const Hero: React.FC<HeroProps> = ({ onOpenQuoteDrawer, cmsData }) => {
   const { openQuoteDrawer } = useLayoutContext()
   const handleQuoteClick = onOpenQuoteDrawer || openQuoteDrawer
+
+  const tagline = cmsData?.tagline || 'PRECISION GLASS MANUFACTURING • YAVAT, PUNE, MAHARASHTRA'
+  const heading = cmsData?.heading || 'Crafting Exceptional Glass Solutions for a Brighter World.'
+  const primaryCtaLabel = cmsData?.primaryCtaLabel || 'REQUEST TECHNICAL QUOTE'
+  const secondaryCtaLabel = cmsData?.secondaryCtaLabel || 'DISCOVER FACTORY'
+  const secondaryCtaHref = cmsData?.secondaryCtaHref || '#heritage'
+  const bgImage = cmsData?.bgImage || '/images/hero-bg.jpg'
 
   const heroRef = useRef<HTMLDivElement>(null)
   const bgRef = useRef<HTMLDivElement>(null)
@@ -57,7 +65,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteDrawer }) => {
     <section ref={heroRef} className={styles.heroSection}>
       <div ref={bgRef} className={styles.bgWrapper}>
         <Image
-          src="/images/hero-bg.jpg"
+          src={bgImage}
           alt="Architectural Glass Processing Factory"
           fill
           priority
@@ -68,21 +76,29 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteDrawer }) => {
       <div className={styles.vignetteOverlay} />
 
       <div ref={contentRef} className={styles.contentContainer}>
-        <div className={`base-title ${styles.tagline}`}>
-          PRECISION GLASS MANUFACTURING • YAVAT, PUNE, MAHARASHTRA
+        <div
+          className={`base-title ${styles.tagline}`}
+          data-cms-field="hero_tagline"
+        >
+          {tagline}
         </div>
 
-        <h1 className={styles.heading}>
-          Crafting Exceptional Glass Solutions for a Brighter World.
+        <h1
+          className={styles.heading}
+          data-cms-field="hero_heading"
+        >
+          {heading}
         </h1>
 
         <div className={styles.ctaGroup}>
           <button type="button" className="button--red" onClick={handleQuoteClick}>
-            <span style={{ color: 'var(--color-crimson)', marginRight: '0.2rem' }}>↳</span> REQUEST TECHNICAL QUOTE
+            <span style={{ color: 'var(--color-crimson)', marginRight: '0.2rem' }}>↳</span>{' '}
+            {primaryCtaLabel}
           </button>
 
-          <a href="#heritage" className={styles.secondaryCta}>
-            <span className={styles.ctaDiamond}>◆</span> DISCOVER FACTORY <span className={styles.ctaArrow}>→</span>
+          <a href={secondaryCtaHref} className={styles.secondaryCta}>
+            <span className={styles.ctaDiamond}>◆</span> {secondaryCtaLabel}{' '}
+            <span className={styles.ctaArrow}>→</span>
           </a>
         </div>
       </div>
@@ -94,4 +110,3 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteDrawer }) => {
     </section>
   )
 }
-

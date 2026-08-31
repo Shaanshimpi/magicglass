@@ -6,18 +6,20 @@ import { Craftsmanship } from '@/components/Craftsmanship/Craftsmanship'
 import { TrustBanner } from '@/components/TrustBanner/TrustBanner'
 import { Testimonials } from '@/components/Testimonials/Testimonials'
 import { CategorySwitcher } from '@/components/CategorySwitcher/CategorySwitcher'
+import { getHomePageCmsData } from '@/lib/cms'
 
-export default function HomePage() {
+export default async function HomePage() {
+  const cmsData = await getHomePageCmsData()
+
   return (
     <>
-      <Hero />
-      <Heritage />
-      <ProductSystems />
-      <Craftsmanship />
-      <TrustBanner />
-      <Testimonials />
-      <CategorySwitcher />
+      <Hero cmsData={cmsData?.hero as any} />
+      <Heritage cmsData={cmsData?.heritage as any} />
+      <ProductSystems cmsData={cmsData?.glassApplications as any} />
+      <Craftsmanship cmsData={cmsData?.craftsmanship as any} />
+      <TrustBanner cmsData={cmsData?.trustBanner as any} />
+      <Testimonials cmsData={cmsData?.testimonials as any} />
+      <CategorySwitcher cmsData={cmsData?.categorySwitcher as any} />
     </>
   )
 }
-

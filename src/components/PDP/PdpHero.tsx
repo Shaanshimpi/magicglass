@@ -71,10 +71,10 @@ export const PdpHero: React.FC<PdpHeroProps> = ({
   return (
     <section className={styles.heroSection}>
       <div ref={heroInnerRef} className={styles.heroInner}>
-        <div className={styles.indexBadge}>{indexNumber}</div>
-        <div className={styles.heroCategoryBadge}>{category}</div>
-        <h1 className={styles.heroTitle}>{title}</h1>
-        {subheading && <p className={styles.heroSubheading}>{subheading}</p>}
+        <div className={styles.indexBadge} data-cms-field="hero_indexNumber">{indexNumber}</div>
+        <div className={styles.heroCategoryBadge} data-cms-field="hero_category">{category}</div>
+        <h1 className={styles.heroTitle} data-cms-field="hero_title">{title}</h1>
+        {subheading && <p className={styles.heroSubheading} data-cms-field="hero_subheading">{subheading}</p>}
 
         <div ref={frameRef} className={styles.heroImageFrame}>
           <Image

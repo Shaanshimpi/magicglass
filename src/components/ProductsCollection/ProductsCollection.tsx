@@ -13,7 +13,11 @@ import {
   ProductItem,
 } from './products.data'
 
-export const ProductsCollection: React.FC = () => {
+interface ProductsCollectionProps {
+  cmsData?: any
+}
+
+export const ProductsCollection: React.FC<ProductsCollectionProps> = ({ cmsData }) => {
   const [activeCategory, setActiveCategory] = useState<string>('all')
   const containerRef = useRef<HTMLDivElement>(null)
   const heroRef = useRef<HTMLDivElement>(null)
@@ -21,10 +25,20 @@ export const ProductsCollection: React.FC = () => {
   const splitRef = useRef<HTMLElement>(null)
   const productGridRef = useRef<HTMLDivElement>(null)
 
+  const topFeaturedEyebrow = cmsData?.topFeaturedEyebrow || 'TOP 3 FEATURED SYSTEMS'
+  const topFeaturedTag = cmsData?.topFeaturedTag || 'FLAGSHIP FAÇADES'
+  const featuredSystems = cmsData?.featuredSystems?.length ? cmsData.featuredSystems : TOP_3_FEATURED
+  const collectionEyebrow = cmsData?.collectionEyebrow || 'MAGIC GLASS COLLECTION'
+  const collectionHeadline =
+    cmsData?.collectionHeadline ||
+    'We offer a wide spectrum of bespoke architectural glass solutions where timeless design meets technical precision.'
+  const categoriesList = cmsData?.categoriesNav?.length ? cmsData.categoriesNav : CATEGORIES_INFO
+  const productsList = cmsData?.allProducts?.length ? cmsData.allProducts : ALL_PRODUCTS
+
   const filteredProducts: ProductItem[] =
     activeCategory === 'all'
-      ? ALL_PRODUCTS
-      : ALL_PRODUCTS.filter((p) => p.category === activeCategory)
+      ? productsList
+      : productsList.filter((p: any) => p.category?.toLowerCase() === activeCategory.toLowerCase())
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger)
@@ -144,16 +158,15 @@ export const ProductsCollection: React.FC = () => {
       {/* -------------------------------------------------------------------- */}
       <section className={styles.heroSection}>
         <div ref={heroRef} className={styles.heroContainer}>
-          <div className={`base-title ${styles.heroTag}`}>
-            COLLECTION / ARCHITECTURAL GLASS SYSTEMS
+          <div className={`base-title ${styles.heroTag}`} data-cms-field="hero_tag">
+            {cmsData?.hero?.tag || 'COLLECTION / ARCHITECTURAL GLASS SYSTEMS'}
           </div>
-          <h1 className={styles.heroTitle}>
-            Architectural Glass & Precision Processing
+          <h1 className={styles.heroTitle} data-cms-field="hero_title">
+            {cmsData?.hero?.title || 'Architectural Glass & Precision Processing'}
           </h1>
-          <p className={styles.heroSubtitle}>
-            Engineered for high-rise curtain walls, acoustic speech isolation,
-            fire containment barriers, and ionoplast structural fins. Sourced and
-            processed with world-class European technology.
+          <p className={styles.heroSubtitle} data-cms-field="hero_subtitle">
+            {cmsData?.hero?.subtitle ||
+              'Engineered for high-rise curtain walls, acoustic speech isolation, fire containment barriers, and ionoplast structural fins. Sourced and processed with world-class European technology.'}
           </p>
         </div>
       </section>
@@ -164,48 +177,60 @@ export const ProductsCollection: React.FC = () => {
       <section ref={topFeaturedRef} className={styles.topFeaturedSection}>
         <div className={styles.topFeaturedInner}>
           <div className={styles.topFeaturedHeader}>
-            <div className="base-title" style={{ color: 'var(--color-taupe)' }}>
-              TOP 3 FEATURED SYSTEMS
+            <div className="base-title" style={{ color: 'var(--color-taupe)' }} data-cms-field="topFeaturedEyebrow">
+              {topFeaturedEyebrow}
             </div>
-            <div className={styles.categoryCodeTag}>FLAGSHIP FAÇADES</div>
+            <div className={styles.categoryCodeTag} data-cms-field="topFeaturedTag">
+              {topFeaturedTag}
+            </div>
           </div>
 
           <div className={styles.topFeaturedGrid}>
-            {TOP_3_FEATURED.map((item) => (
-              <Link
-                key={item.id}
-                href={`/products/${item.id}`}
-                className={styles.featuredCard}
-              >
-                <div className={styles.featuredCardImage}>
-                  <Image
-                    src={item.image}
-                    alt={item.title}
-                    fill
-                    sizes="(max-width: 1024px) 100vw, 33vw"
-                    priority
-                  />
-                </div>
+            {featuredSystems.map((item: any, idx: number) => {
+              const itemHref = item.link || `/products/${item.id || item.productSlug || 'sentry-laminated-glass'}`
+              return (
+                <Link
+                  key={item.id || idx}
+                  href={itemHref}
+                  className={styles.featuredCard}
+                >
+                  <div className={styles.featuredCardImage}>
+                    <Image
+                      src={item.image || item.featuredImageUrl || '/images/craft-laminated.jpg'}
+                      alt={item.title}
+                      fill
+                      sizes="(max-width: 1024px) 100vw, 33vw"
+                      priority
+                      unoptimized={Boolean(item.image?.startsWith('http'))}
+                    />
+                  </div>
 
-                <div className={styles.featuredCardOverlay} />
+                  <div className={styles.featuredCardOverlay} />
 
-                <div className={styles.featuredBadge}>{item.badgeText}</div>
+                  <div className={styles.featuredBadge} data-cms-field={`featuredSystems_${idx}_badgeText`}>
+                    {item.badgeText}
+                  </div>
 
-                <div className={styles.featuredContent}>
-                  <span className={styles.featuredCategoryLabel}>
-                    {item.categoryLabel}
-                  </span>
-                  <h3 className={styles.featuredTitle}>{item.title}</h3>
+                  <div className={styles.featuredContent}>
+                    <span className={styles.featuredCategoryLabel} data-cms-field={`featuredSystems_${idx}_categoryLabel`}>
+                      {item.categoryLabel}
+                    </span>
+                    <h3 className={styles.featuredTitle} data-cms-field={`featuredSystems_${idx}_title`}>
+                      {item.title}
+                    </h3>
 
-                  <div className={styles.featuredHoverDetails}>
-                    <p className={styles.featuredDesc}>{item.description}</p>
-                    <div className={styles.featuredLinkText}>
-                      VIEW PRODUCT SPECIFICATIONS →
+                    <div className={styles.featuredHoverDetails}>
+                      <p className={styles.featuredDesc} data-cms-field={`featuredSystems_${idx}_description`}>
+                        {item.description || item.descriptionHighlight}
+                      </p>
+                      <div className={styles.featuredLinkText}>
+                        VIEW PRODUCT SPECIFICATIONS →
+                      </div>
                     </div>
                   </div>
-                </div>
-              </Link>
-            ))}
+                </Link>
+              )
+            })}
           </div>
         </div>
       </section>
@@ -218,14 +243,13 @@ export const ProductsCollection: React.FC = () => {
           {/* LEFT DIV: PINNED STICKY NARRATIVE */}
           <div className={styles.leftPinnedPane}>
             <div className={styles.stickyContent}>
-              <div className="base-title" style={{ color: 'var(--color-taupe)' }}>
-                MAGIC GLASS COLLECTION
+              <div className="base-title" style={{ color: 'var(--color-taupe)' }} data-cms-field="collectionEyebrow">
+                {collectionEyebrow}
               </div>
 
               <div className={styles.singleHeadlineWrapper}>
-                <h2 className={styles.singleLeftHeadline}>
-                  We offer a wide spectrum of bespoke architectural glass
-                  solutions where timeless design meets technical precision.
+                <h2 className={styles.singleLeftHeadline} data-cms-field="collectionHeadline">
+                  {collectionHeadline}
                 </h2>
               </div>
             </div>
@@ -235,7 +259,7 @@ export const ProductsCollection: React.FC = () => {
           <div className={styles.rightScrollPane}>
             {/* Top Right Inline Category Filter Buttons */}
             <div className={styles.inlineCategoryPills}>
-              {CATEGORIES_INFO.map((cat) => (
+              {categoriesList.map((cat: any) => (
                 <button
                   key={cat.id}
                   type="button"
@@ -263,6 +287,7 @@ export const ProductsCollection: React.FC = () => {
                       alt={product.title}
                       fill
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 30vw"
+                      unoptimized={Boolean(product.image?.startsWith('http'))}
                     />
                   </div>
 
@@ -278,4 +303,3 @@ export const ProductsCollection: React.FC = () => {
     </div>
   )
 }
-

@@ -7,6 +7,19 @@ import sharp from 'sharp'
 
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
+import { Products } from './collections/Products'
+import { Projects } from './collections/Projects'
+import { Inquiries } from './collections/Inquiries'
+
+import { HeaderGlobal } from './globals/HeaderGlobal'
+import { FooterGlobal } from './globals/FooterGlobal'
+import { QuoteDrawerGlobal } from './globals/QuoteDrawerGlobal'
+import { HomePageGlobal } from './globals/HomePageGlobal'
+import { AboutPageGlobal } from './globals/AboutPageGlobal'
+import { ProductsPageGlobal } from './globals/ProductsPageGlobal'
+import { IndustrySolutionPageGlobal } from './globals/IndustrySolutionPageGlobal'
+import { InfrastructurePageGlobal } from './globals/InfrastructurePageGlobal'
+import { ContactUsPageGlobal } from './globals/ContactUsPageGlobal'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -18,7 +31,18 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media],
+  collections: [Users, Media, Products, Projects, Inquiries],
+  globals: [
+    HeaderGlobal,
+    FooterGlobal,
+    QuoteDrawerGlobal,
+    HomePageGlobal,
+    AboutPageGlobal,
+    ProductsPageGlobal,
+    IndustrySolutionPageGlobal,
+    InfrastructurePageGlobal,
+    ContactUsPageGlobal,
+  ],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
@@ -28,6 +52,7 @@ export default buildConfig({
     pool: {
       connectionString: process.env.DATABASE_URL || '',
     },
+    push: true,
   }),
   sharp,
   plugins: [],

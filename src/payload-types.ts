@@ -69,6 +69,9 @@ export interface Config {
   collections: {
     users: User;
     media: Media;
+    products: Product;
+    projects: Project;
+    inquiries: Inquiry;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -78,6 +81,9 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    products: ProductsSelect<false> | ProductsSelect<true>;
+    projects: ProjectsSelect<false> | ProjectsSelect<true>;
+    inquiries: InquiriesSelect<false> | InquiriesSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -87,8 +93,28 @@ export interface Config {
     defaultIDType: number;
   };
   fallbackLocale: null;
-  globals: {};
-  globalsSelect: {};
+  globals: {
+    header: Header;
+    footer: Footer;
+    'quote-drawer': QuoteDrawer;
+    'home-page': HomePage;
+    'about-page': AboutPage;
+    'products-page': ProductsPage;
+    'industry-solution-page': IndustrySolutionPage;
+    'infrastructure-page': InfrastructurePage;
+    'contact-us-page': ContactUsPage;
+  };
+  globalsSelect: {
+    header: HeaderSelect<false> | HeaderSelect<true>;
+    footer: FooterSelect<false> | FooterSelect<true>;
+    'quote-drawer': QuoteDrawerSelect<false> | QuoteDrawerSelect<true>;
+    'home-page': HomePageSelect<false> | HomePageSelect<true>;
+    'about-page': AboutPageSelect<false> | AboutPageSelect<true>;
+    'products-page': ProductsPageSelect<false> | ProductsPageSelect<true>;
+    'industry-solution-page': IndustrySolutionPageSelect<false> | IndustrySolutionPageSelect<true>;
+    'infrastructure-page': InfrastructurePageSelect<false> | InfrastructurePageSelect<true>;
+    'contact-us-page': ContactUsPageSelect<false> | ContactUsPageSelect<true>;
+  };
   locale: null;
   widgets: {
     collections: CollectionsWidget;
@@ -163,6 +189,121 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "products".
+ */
+export interface Product {
+  id: number;
+  slug: string;
+  indexNumber?: string | null;
+  title: string;
+  subheading?: string | null;
+  category: string;
+  heroImage?: (number | null) | Media;
+  heroImageUrl?: string | null;
+  introSummary?: string | null;
+  secondaryText?: string | null;
+  detailImages?:
+    | {
+        image?: (number | null) | Media;
+        imageUrl?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  characteristics?:
+    | {
+        item: string;
+        id?: string | null;
+      }[]
+    | null;
+  specs?:
+    | {
+        icon?: string | null;
+        label: string;
+        value: string;
+        id?: string | null;
+      }[]
+    | null;
+  galleryTitle?: string | null;
+  galleryImages?:
+    | {
+        title?: string | null;
+        image?: (number | null) | Media;
+        src?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  industries?:
+    | {
+        title: string;
+        description?: string | null;
+        image?: (number | null) | Media;
+        imageUrl?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  sliderImages?:
+    | {
+        image?: (number | null) | Media;
+        src?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  relatedProductSlugs?:
+    | {
+        slug: string;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "projects".
+ */
+export interface Project {
+  id: number;
+  slug: string;
+  title: string;
+  category: string;
+  developer?: string | null;
+  location?: string | null;
+  application?: string | null;
+  glassDescription?: string | null;
+  areaSqMtr?: number | null;
+  image?: (number | null) | Media;
+  imageUrl?: string | null;
+  heroFeatured?: boolean | null;
+  tagline?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "inquiries".
+ */
+export interface Inquiry {
+  id: number;
+  formType: 'quote_drawer' | 'contact_us' | 'pdp_inquiry';
+  status: 'new' | 'contacted' | 'quoted' | 'closed';
+  fullName: string;
+  companyName?: string | null;
+  email: string;
+  phone?: string | null;
+  subject?: string | null;
+  projectCategory?: string | null;
+  glassTypes?:
+    | {
+        type?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  message?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -192,6 +333,18 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'media';
         value: number | Media;
+      } | null)
+    | ({
+        relationTo: 'products';
+        value: number | Product;
+      } | null)
+    | ({
+        relationTo: 'projects';
+        value: number | Project;
+      } | null)
+    | ({
+        relationTo: 'inquiries';
+        value: number | Inquiry;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -277,6 +430,118 @@ export interface MediaSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "products_select".
+ */
+export interface ProductsSelect<T extends boolean = true> {
+  slug?: T;
+  indexNumber?: T;
+  title?: T;
+  subheading?: T;
+  category?: T;
+  heroImage?: T;
+  heroImageUrl?: T;
+  introSummary?: T;
+  secondaryText?: T;
+  detailImages?:
+    | T
+    | {
+        image?: T;
+        imageUrl?: T;
+        id?: T;
+      };
+  characteristics?:
+    | T
+    | {
+        item?: T;
+        id?: T;
+      };
+  specs?:
+    | T
+    | {
+        icon?: T;
+        label?: T;
+        value?: T;
+        id?: T;
+      };
+  galleryTitle?: T;
+  galleryImages?:
+    | T
+    | {
+        title?: T;
+        image?: T;
+        src?: T;
+        id?: T;
+      };
+  industries?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+        imageUrl?: T;
+        id?: T;
+      };
+  sliderImages?:
+    | T
+    | {
+        image?: T;
+        src?: T;
+        id?: T;
+      };
+  relatedProductSlugs?:
+    | T
+    | {
+        slug?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "projects_select".
+ */
+export interface ProjectsSelect<T extends boolean = true> {
+  slug?: T;
+  title?: T;
+  category?: T;
+  developer?: T;
+  location?: T;
+  application?: T;
+  glassDescription?: T;
+  areaSqMtr?: T;
+  image?: T;
+  imageUrl?: T;
+  heroFeatured?: T;
+  tagline?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "inquiries_select".
+ */
+export interface InquiriesSelect<T extends boolean = true> {
+  formType?: T;
+  status?: T;
+  fullName?: T;
+  companyName?: T;
+  email?: T;
+  phone?: T;
+  subject?: T;
+  projectCategory?: T;
+  glassTypes?:
+    | T
+    | {
+        type?: T;
+        id?: T;
+      };
+  message?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv_select".
  */
 export interface PayloadKvSelect<T extends boolean = true> {
@@ -314,6 +579,828 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "header".
+ */
+export interface Header {
+  id: number;
+  logo?: (number | null) | Media;
+  navLinks?:
+    | {
+        label: string;
+        href: string;
+        id?: string | null;
+      }[]
+    | null;
+  ctaButtons?:
+    | {
+        label: string;
+        href: string;
+        variant?: ('primary' | 'secondary') | null;
+        id?: string | null;
+      }[]
+    | null;
+  loaderBrandTag?: string | null;
+  loaderBrandTitle?: string | null;
+  loaderStatusText?: string | null;
+  loaderEstYear?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "footer".
+ */
+export interface Footer {
+  id: number;
+  logo?: (number | null) | Media;
+  logoUrl?: string | null;
+  companyName?: string | null;
+  corporateOffice?: {
+    heading?: string | null;
+    address?: string | null;
+    phone?: string | null;
+    email?: string | null;
+    web?: string | null;
+  };
+  factoryOffice?: {
+    heading?: string | null;
+    address?: string | null;
+  };
+  mainNavLinks?:
+    | {
+        label: string;
+        href: string;
+        id?: string | null;
+      }[]
+    | null;
+  glassSolutionsLinks?:
+    | {
+        label: string;
+        href: string;
+        id?: string | null;
+      }[]
+    | null;
+  directConnectLinks?:
+    | {
+        label: string;
+        href: string;
+        type?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  copyrightText?: string | null;
+  cityTagline?: string | null;
+  wordmarkText?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "quote-drawer".
+ */
+export interface QuoteDrawer {
+  id: number;
+  projectCategories?:
+    | {
+        label: string;
+        value?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  glassTypes?:
+    | {
+        label: string;
+        value?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  cadDropzoneText?: string | null;
+  submissionNotice?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home-page".
+ */
+export interface HomePage {
+  id: number;
+  hero?: {
+    tagline?: string | null;
+    heading?: string | null;
+    primaryCtaLabel?: string | null;
+    primaryCtaHref?: string | null;
+    secondaryCtaLabel?: string | null;
+    secondaryCtaHref?: string | null;
+    scrollText?: string | null;
+    bgImage?: (number | null) | Media;
+    bgImageUrl?: string | null;
+  };
+  heritage?: {
+    eyebrow?: string | null;
+    headline?: string | null;
+    statementText?: string | null;
+    ctaLabel?: string | null;
+    ctaHref?: string | null;
+    bgImage?: (number | null) | Media;
+    bgImageUrl?: string | null;
+    stats?:
+      | {
+          value: string;
+          label: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  glassApplications?: {
+    eyebrow?: string | null;
+    heading?: string | null;
+    topDescription?: string | null;
+    ctaLabel?: string | null;
+    ctaHref?: string | null;
+    cards?:
+      | {
+          title: string;
+          subtitle?: string | null;
+          hoverCategory?: string | null;
+          specs?: string | null;
+          hoverLink?: string | null;
+          image?: (number | null) | Media;
+          imageUrl?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  craftsmanship?: {
+    eyebrow?: string | null;
+    heading?: string | null;
+    cards?:
+      | {
+          title: string;
+          description?: string | null;
+          image?: (number | null) | Media;
+          imageUrl?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  trustBanner?: {
+    eyebrow?: string | null;
+    heading?: string | null;
+    partners?:
+      | {
+          name: string;
+          logo?: (number | null) | Media;
+          logoUrl?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  testimonials?:
+    | {
+        quote: string;
+        author: string;
+        title?: string | null;
+        avatar?: (number | null) | Media;
+        avatarUrl?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  categorySwitcher?:
+    | {
+        id: string;
+        title: string;
+        badge?: string | null;
+        subtitle?: string | null;
+        specs?:
+          | {
+              text?: string | null;
+              id?: string | null;
+            }[]
+          | null;
+        image?: (number | null) | Media;
+        imageUrl?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about-page".
+ */
+export interface AboutPage {
+  id: number;
+  hero?: {
+    title?: string | null;
+    tagline?: string | null;
+    eyebrow?: string | null;
+    facilityImage?: (number | null) | Media;
+    facilityImageUrl?: string | null;
+  };
+  legacy?: {
+    title?: string | null;
+    headline?: string | null;
+    bodyText?: string | null;
+    eyebrow?: string | null;
+    buttonLabel?: string | null;
+    buttonHref?: string | null;
+  };
+  visionMission?: {
+    visionTitle?: string | null;
+    visionDesc?: string | null;
+    missionTitle?: string | null;
+    missionDesc?: string | null;
+  };
+  whyMagicGlass?:
+    | {
+        number: string;
+        title: string;
+        description?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  leadership?:
+    | {
+        name: string;
+        role: string;
+        portrait?: (number | null) | Media;
+        portraitUrl?: string | null;
+        bio?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  cta?: {
+    headline?: string | null;
+    subtitle?: string | null;
+    eyebrow?: string | null;
+    buttonLabel?: string | null;
+    buttonHref?: string | null;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "products-page".
+ */
+export interface ProductsPage {
+  id: number;
+  hero?: {
+    tag?: string | null;
+    title?: string | null;
+    subtitle?: string | null;
+  };
+  topFeaturedEyebrow?: string | null;
+  topFeaturedTag?: string | null;
+  featuredSystems?:
+    | {
+        product?: (number | null) | Product;
+        productSlug?: string | null;
+        title: string;
+        badgeText?: string | null;
+        categoryLabel?: string | null;
+        description?: string | null;
+        descriptionHighlight?: string | null;
+        featuredImage?: (number | null) | Media;
+        featuredImageUrl?: string | null;
+        link?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  collectionEyebrow?: string | null;
+  collectionHeadline?: string | null;
+  categoriesNav?:
+    | {
+        code: string;
+        label: string;
+        title?: string | null;
+        description?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "industry-solution-page".
+ */
+export interface IndustrySolutionPage {
+  id: number;
+  hero?: {
+    indexNumber?: string | null;
+    title?: string | null;
+    category?: string | null;
+    subheading?: string | null;
+    heroImage?: (number | null) | Media;
+    heroImageUrl?: string | null;
+  };
+  industries?:
+    | {
+        id: string;
+        title: string;
+        subtitle?: string | null;
+        specs?: string | null;
+        description?: string | null;
+        image?: (number | null) | Media;
+        imageUrl?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "infrastructure-page".
+ */
+export interface InfrastructurePage {
+  id: number;
+  hero?: {
+    indexNumber?: string | null;
+    title?: string | null;
+    category?: string | null;
+    subheading?: string | null;
+    heroImage?: (number | null) | Media;
+    heroImageUrl?: string | null;
+  };
+  industries?:
+    | {
+        id: string;
+        title: string;
+        subtitle?: string | null;
+        specs?: string | null;
+        description?: string | null;
+        image?: (number | null) | Media;
+        imageUrl?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact-us-page".
+ */
+export interface ContactUsPage {
+  id: number;
+  hero?: {
+    indexNumber?: string | null;
+    title?: string | null;
+    redTitle?: string | null;
+    category?: string | null;
+    subheading?: string | null;
+    heroImage?: (number | null) | Media;
+    heroImageUrl?: string | null;
+  };
+  contactCards?:
+    | {
+        id: string;
+        title: string;
+        detail: string;
+        icon?: string | null;
+        actionText?: string | null;
+        actionUrl?: string | null;
+      }[]
+    | null;
+  mapEmbedUrl?: string | null;
+  formConfig?: {
+    title?: string | null;
+    subtitle?: string | null;
+    successMessage?: string | null;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "header_select".
+ */
+export interface HeaderSelect<T extends boolean = true> {
+  logo?: T;
+  navLinks?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+        id?: T;
+      };
+  ctaButtons?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+        variant?: T;
+        id?: T;
+      };
+  loaderBrandTag?: T;
+  loaderBrandTitle?: T;
+  loaderStatusText?: T;
+  loaderEstYear?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "footer_select".
+ */
+export interface FooterSelect<T extends boolean = true> {
+  logo?: T;
+  logoUrl?: T;
+  companyName?: T;
+  corporateOffice?:
+    | T
+    | {
+        heading?: T;
+        address?: T;
+        phone?: T;
+        email?: T;
+        web?: T;
+      };
+  factoryOffice?:
+    | T
+    | {
+        heading?: T;
+        address?: T;
+      };
+  mainNavLinks?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+        id?: T;
+      };
+  glassSolutionsLinks?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+        id?: T;
+      };
+  directConnectLinks?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+        type?: T;
+        id?: T;
+      };
+  copyrightText?: T;
+  cityTagline?: T;
+  wordmarkText?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "quote-drawer_select".
+ */
+export interface QuoteDrawerSelect<T extends boolean = true> {
+  projectCategories?:
+    | T
+    | {
+        label?: T;
+        value?: T;
+        id?: T;
+      };
+  glassTypes?:
+    | T
+    | {
+        label?: T;
+        value?: T;
+        id?: T;
+      };
+  cadDropzoneText?: T;
+  submissionNotice?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home-page_select".
+ */
+export interface HomePageSelect<T extends boolean = true> {
+  hero?:
+    | T
+    | {
+        tagline?: T;
+        heading?: T;
+        primaryCtaLabel?: T;
+        primaryCtaHref?: T;
+        secondaryCtaLabel?: T;
+        secondaryCtaHref?: T;
+        scrollText?: T;
+        bgImage?: T;
+        bgImageUrl?: T;
+      };
+  heritage?:
+    | T
+    | {
+        eyebrow?: T;
+        headline?: T;
+        statementText?: T;
+        ctaLabel?: T;
+        ctaHref?: T;
+        bgImage?: T;
+        bgImageUrl?: T;
+        stats?:
+          | T
+          | {
+              value?: T;
+              label?: T;
+              id?: T;
+            };
+      };
+  glassApplications?:
+    | T
+    | {
+        eyebrow?: T;
+        heading?: T;
+        topDescription?: T;
+        ctaLabel?: T;
+        ctaHref?: T;
+        cards?:
+          | T
+          | {
+              title?: T;
+              subtitle?: T;
+              hoverCategory?: T;
+              specs?: T;
+              hoverLink?: T;
+              image?: T;
+              imageUrl?: T;
+              id?: T;
+            };
+      };
+  craftsmanship?:
+    | T
+    | {
+        eyebrow?: T;
+        heading?: T;
+        cards?:
+          | T
+          | {
+              title?: T;
+              description?: T;
+              image?: T;
+              imageUrl?: T;
+              id?: T;
+            };
+      };
+  trustBanner?:
+    | T
+    | {
+        eyebrow?: T;
+        heading?: T;
+        partners?:
+          | T
+          | {
+              name?: T;
+              logo?: T;
+              logoUrl?: T;
+              id?: T;
+            };
+      };
+  testimonials?:
+    | T
+    | {
+        quote?: T;
+        author?: T;
+        title?: T;
+        avatar?: T;
+        avatarUrl?: T;
+        id?: T;
+      };
+  categorySwitcher?:
+    | T
+    | {
+        id?: T;
+        title?: T;
+        badge?: T;
+        subtitle?: T;
+        specs?:
+          | T
+          | {
+              text?: T;
+              id?: T;
+            };
+        image?: T;
+        imageUrl?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about-page_select".
+ */
+export interface AboutPageSelect<T extends boolean = true> {
+  hero?:
+    | T
+    | {
+        title?: T;
+        tagline?: T;
+        eyebrow?: T;
+        facilityImage?: T;
+        facilityImageUrl?: T;
+      };
+  legacy?:
+    | T
+    | {
+        title?: T;
+        headline?: T;
+        bodyText?: T;
+        eyebrow?: T;
+        buttonLabel?: T;
+        buttonHref?: T;
+      };
+  visionMission?:
+    | T
+    | {
+        visionTitle?: T;
+        visionDesc?: T;
+        missionTitle?: T;
+        missionDesc?: T;
+      };
+  whyMagicGlass?:
+    | T
+    | {
+        number?: T;
+        title?: T;
+        description?: T;
+        id?: T;
+      };
+  leadership?:
+    | T
+    | {
+        name?: T;
+        role?: T;
+        portrait?: T;
+        portraitUrl?: T;
+        bio?: T;
+        id?: T;
+      };
+  cta?:
+    | T
+    | {
+        headline?: T;
+        subtitle?: T;
+        eyebrow?: T;
+        buttonLabel?: T;
+        buttonHref?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "products-page_select".
+ */
+export interface ProductsPageSelect<T extends boolean = true> {
+  hero?:
+    | T
+    | {
+        tag?: T;
+        title?: T;
+        subtitle?: T;
+      };
+  topFeaturedEyebrow?: T;
+  topFeaturedTag?: T;
+  featuredSystems?:
+    | T
+    | {
+        product?: T;
+        productSlug?: T;
+        title?: T;
+        badgeText?: T;
+        categoryLabel?: T;
+        description?: T;
+        descriptionHighlight?: T;
+        featuredImage?: T;
+        featuredImageUrl?: T;
+        link?: T;
+        id?: T;
+      };
+  collectionEyebrow?: T;
+  collectionHeadline?: T;
+  categoriesNav?:
+    | T
+    | {
+        code?: T;
+        label?: T;
+        title?: T;
+        description?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "industry-solution-page_select".
+ */
+export interface IndustrySolutionPageSelect<T extends boolean = true> {
+  hero?:
+    | T
+    | {
+        indexNumber?: T;
+        title?: T;
+        category?: T;
+        subheading?: T;
+        heroImage?: T;
+        heroImageUrl?: T;
+      };
+  industries?:
+    | T
+    | {
+        id?: T;
+        title?: T;
+        subtitle?: T;
+        specs?: T;
+        description?: T;
+        image?: T;
+        imageUrl?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "infrastructure-page_select".
+ */
+export interface InfrastructurePageSelect<T extends boolean = true> {
+  hero?:
+    | T
+    | {
+        indexNumber?: T;
+        title?: T;
+        category?: T;
+        subheading?: T;
+        heroImage?: T;
+        heroImageUrl?: T;
+      };
+  industries?:
+    | T
+    | {
+        id?: T;
+        title?: T;
+        subtitle?: T;
+        specs?: T;
+        description?: T;
+        image?: T;
+        imageUrl?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact-us-page_select".
+ */
+export interface ContactUsPageSelect<T extends boolean = true> {
+  hero?:
+    | T
+    | {
+        indexNumber?: T;
+        title?: T;
+        redTitle?: T;
+        category?: T;
+        subheading?: T;
+        heroImage?: T;
+        heroImageUrl?: T;
+      };
+  contactCards?:
+    | T
+    | {
+        id?: T;
+        title?: T;
+        detail?: T;
+        icon?: T;
+        actionText?: T;
+        actionUrl?: T;
+      };
+  mapEmbedUrl?: T;
+  formConfig?:
+    | T
+    | {
+        title?: T;
+        subtitle?: T;
+        successMessage?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

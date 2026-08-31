@@ -26,7 +26,19 @@ const LayoutContext = createContext<LayoutContextType>({
 
 export const useLayoutContext = () => useContext(LayoutContext)
 
-export const ClientLayoutShell: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+interface ClientLayoutShellProps {
+  children: React.ReactNode
+  headerCmsData?: any
+  footerCmsData?: any
+  quoteDrawerCmsData?: any
+}
+
+export const ClientLayoutShell: React.FC<ClientLayoutShellProps> = ({
+  children,
+  headerCmsData,
+  footerCmsData,
+  quoteDrawerCmsData,
+}) => {
   const pathname = usePathname()
   const [isQuoteOpen, setIsQuoteOpen] = useState(false)
   const [isLoaded, setIsLoaded] = useState(false)
@@ -86,8 +98,12 @@ export const ClientLayoutShell: React.FC<{ children: React.ReactNode }> = ({ chi
     }
   }, [isLoaded])
 
-  // Preserve custom layout for /color-options or admin routes
-  const isSpecialRoute = pathname?.startsWith('/color-options') || pathname?.startsWith('/admin')
+  // Preserve custom standalone layout for dashboard, mock-dashboard, color-options, or admin routes
+  const isSpecialRoute =
+    pathname?.startsWith('/dashboard') ||
+    pathname?.startsWith('/mock-dashboard') ||
+    pathname?.startsWith('/color-options') ||
+    pathname?.startsWith('/admin')
 
   if (isSpecialRoute) {
     return <>{children}</>
@@ -103,11 +119,11 @@ export const ClientLayoutShell: React.FC<{ children: React.ReactNode }> = ({ chi
         setLoaded: handleLoaderComplete,
       }}
     >
-      {!isLoaded && <Loader key={pathname} onComplete={handleLoaderComplete} />}
-      <Header onOpenQuoteDrawer={openQuoteDrawer} isLoaded={isLoaded} />
+      {!isLoaded && <Loader key={pathname} onComplete={handleLoaderComplete} cmsData={headerCmsData} />}
+      <Header onOpenQuoteDrawer={openQuoteDrawer} isLoaded={isLoaded} cmsData={headerCmsData} />
       <main>{children}</main>
-      <QuoteDrawer isOpen={isQuoteOpen} onClose={closeQuoteDrawer} />
-      <Footer />
+      <QuoteDrawer isOpen={isQuoteOpen} onClose={closeQuoteDrawer} cmsData={quoteDrawerCmsData} />
+      <Footer cmsData={footerCmsData} />
       {!isQuoteOpen && <FloatingQuoteButton onOpenQuoteDrawer={openQuoteDrawer} />}
     </LayoutContext.Provider>
   )

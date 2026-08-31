@@ -10,12 +10,18 @@ interface HeaderProps {
   onOpenQuoteDrawer?: () => void
   isLoaded?: boolean
   onNavigatePreview?: (pageTab: string) => void
+  cmsData?: {
+    logo?: string
+    navLinks?: Array<{ label: string; href: string }>
+    ctaButtons?: Array<{ label: string; href: string; variant?: string }>
+  }
 }
 
 export const Header: React.FC<HeaderProps> = ({
   onOpenQuoteDrawer,
   isLoaded = true,
   onNavigatePreview,
+  cmsData,
 }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const headerRef = useRef<HTMLHeadingElement>(null)
@@ -101,69 +107,84 @@ export const Header: React.FC<HeaderProps> = ({
 
         <nav ref={navRef} className={styles.desktopNav}>
           <ul className={styles.navLinks}>
-            <li>
-              <Link
-                href="/about"
-                className={styles.navLink}
-                onClick={(e) => handleNavClick(e, 'about')}
-              >
-                About
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/products"
-                className={styles.navLink}
-                onClick={(e) => handleNavClick(e, 'products')}
-              >
-                Products
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/toughened-glass"
-                className={styles.navLink}
-                onClick={(e) => handleNavClick(e, 'toughened-glass')}
-              >
-                Toughened Glass
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/industry-solution"
-                className={styles.navLink}
-                onClick={(e) => handleNavClick(e, 'industry-solution')}
-              >
-                Industry Solution
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/infrastructure"
-                className={styles.navLink}
-                onClick={(e) => handleNavClick(e, 'infrastructure')}
-              >
-                Infrastructure
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/projects"
-                className={styles.navLink}
-                onClick={(e) => handleNavClick(e, 'projects')}
-              >
-                Projects
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/contact-us"
-                className={styles.navLink}
-                onClick={(e) => handleNavClick(e, 'contact-us')}
-              >
-                Contact Us
-              </Link>
-            </li>
+            {cmsData?.navLinks ? (
+              cmsData.navLinks.map((item, idx) => (
+                <li key={idx}>
+                  <Link
+                    href={item.href}
+                    className={styles.navLink}
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))
+            ) : (
+              <>
+                <li>
+                  <Link
+                    href="/about"
+                    className={styles.navLink}
+                    onClick={(e) => handleNavClick(e, 'about')}
+                  >
+                    About
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/products"
+                    className={styles.navLink}
+                    onClick={(e) => handleNavClick(e, 'products')}
+                  >
+                    Products
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/products/toughened-glass"
+                    className={styles.navLink}
+                    onClick={(e) => handleNavClick(e, 'toughened-glass')}
+                  >
+                    Toughened Glass
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/industry-solution"
+                    className={styles.navLink}
+                    onClick={(e) => handleNavClick(e, 'industry-solution')}
+                  >
+                    Industry Solution
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/infrastructure"
+                    className={styles.navLink}
+                    onClick={(e) => handleNavClick(e, 'infrastructure')}
+                  >
+                    Infrastructure
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/projects"
+                    className={styles.navLink}
+                    onClick={(e) => handleNavClick(e, 'projects')}
+                  >
+                    Projects
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/contact-us"
+                    className={styles.navLink}
+                    onClick={(e) => handleNavClick(e, 'contact-us')}
+                  >
+                    Contact Us
+                  </Link>
+                </li>
+              </>
+            )}
           </ul>
         </nav>
 

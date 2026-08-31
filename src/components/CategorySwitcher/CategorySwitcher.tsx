@@ -6,20 +6,29 @@ import styles from './CategorySwitcher.module.css'
 
 interface CategoryData {
   id: string
-  number: string
-  label: string
+  badge?: string
+  number?: string
+  label?: string
+  subtitle?: string
   title: string
-  items: string[]
+  specs?: string[]
+  items?: string[]
   image: string
 }
 
-const CATEGORIES: CategoryData[] = [
+interface CategorySwitcherProps {
+  cmsData?: CategoryData[]
+}
+
+const DEFAULT_CATEGORIES: CategoryData[] = [
   {
     id: 'structural',
     number: '01',
+    badge: '01',
     label: 'Structural & Exterior Glazing',
+    subtitle: 'Structural & Exterior Glazing',
     title: 'Structural & Exterior Glazing Systems',
-    items: [
+    specs: [
       'SentryGlas® Laminated Extra Clear Structural Glass Fins',
       'Double Glazed DGU 28mm Insulated Facade Panels',
       'Low-E & SKN Ultra Solar Control High-Performance Glass',
@@ -30,9 +39,11 @@ const CATEGORIES: CategoryData[] = [
   {
     id: 'interior',
     number: '02',
+    badge: '02',
     label: 'Interior & Partitions',
+    subtitle: 'Interior & Partitions',
     title: 'Interior Partitions & Decorative Systems',
-    items: [
+    specs: [
       'Acoustic PVB 42dB Soundproof Conference Partitions',
       'Ceramic Fritted Screen-Printed Privacy Dot Matrix Glass',
       'Acid-Etched Frosted Satin Non-Fingerprint Glass',
@@ -43,9 +54,11 @@ const CATEGORIES: CategoryData[] = [
   {
     id: 'safety',
     number: '03',
+    badge: '03',
     label: 'Safety & Processing',
+    subtitle: 'Safety & Processing',
     title: 'Safety, Toughened & Curved Glass Processing',
-    items: [
+    specs: [
       'Heat Soaked Toughened Glass (HS) for Spontaneous Breakage Prevention',
       '3D Curved Architectural Glass Facades & Staircases',
       'Fire-Rated EW60 / EI90 Clear Safety Barriers',
@@ -55,10 +68,19 @@ const CATEGORIES: CategoryData[] = [
   },
 ]
 
-export const CategorySwitcher: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<string>('01')
+export const CategorySwitcher: React.FC<CategorySwitcherProps> = ({ cmsData }) => {
+  const categories = cmsData?.length ? cmsData : DEFAULT_CATEGORIES
 
-  const activeCategory = CATEGORIES.find((cat) => cat.number === activeTab) || CATEGORIES[0]
+  // Normalise: CMS sends badge/subtitle, legacy used number/label
+  const normalised = categories.map((cat, i) => ({
+    ...cat,
+    number: cat.badge || cat.number || String(i + 1).padStart(2, '0'),
+    label: cat.subtitle || cat.label || cat.title,
+    items: cat.specs || cat.items || [],
+  }))
+
+  const [activeTab, setActiveTab] = useState<string>(normalised[0]?.number || '01')
+  const activeCategory = normalised.find((cat) => cat.number === activeTab) || normalised[0]
 
   return (
     <section className={styles.switcherSection}>
@@ -68,7 +90,7 @@ export const CategorySwitcher: React.FC = () => {
         </div>
 
         <div className={styles.pillsRow}>
-          {CATEGORIES.map((cat) => (
+          {normalised.map((cat) => (
             <button
               key={cat.id}
               type="button"
@@ -83,9 +105,9 @@ export const CategorySwitcher: React.FC = () => {
 
         <div className={styles.displayCard}>
           <div>
-            <h3 className={styles.title}>{activeCategory.title}</h3>
+            <h3 className={styles.title}>{activeCategory?.title}</h3>
             <ul className={styles.specsList}>
-              {activeCategory.items.map((item, idx) => (
+              {activeCategory?.items?.map((item, idx) => (
                 <li key={idx} className={styles.specItem}>
                   {item}
                 </li>
@@ -95,8 +117,8 @@ export const CategorySwitcher: React.FC = () => {
 
           <div className={styles.imageFrame}>
             <Image
-              src={activeCategory.image}
-              alt={activeCategory.title}
+              src={activeCategory?.image || '/images/prod-structural.jpg'}
+              alt={activeCategory?.title || ''}
               fill
               sizes="(max-width: 900px) 100vw, 50vw"
             />

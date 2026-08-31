@@ -6,15 +6,53 @@ import styles from './QuoteDrawer.module.css'
 interface QuoteDrawerProps {
   isOpen: boolean
   onClose: () => void
+  cmsData?: any
 }
 
-const CATEGORIES = ['Commercial Facade', 'Residential Interior', 'Skylight / Roof', 'Infrastructure']
-const GLASS_TYPES = ['DGU Insulated', 'Low-E SKN Ultra', 'Sentry Laminated', 'Acoustic PVB', 'Toughened HS', 'Ceramic Fritted', 'Mirror']
+const DEFAULT_CATEGORIES = [
+  'Commercial Facade',
+  'Residential Interior',
+  'Skylight / Roof',
+  'Infrastructure',
+]
+const DEFAULT_GLASS_TYPES = [
+  'DGU Insulated',
+  'Low-E SKN Ultra',
+  'Sentry Laminated',
+  'Acoustic PVB',
+  'Toughened HS',
+  'Ceramic Fritted',
+  'Mirror',
+]
 
-export const QuoteDrawer: React.FC<QuoteDrawerProps> = ({ isOpen, onClose }) => {
-  const [selectedCat, setSelectedCat] = useState<string>('Commercial Facade')
-  const [selectedTypes, setSelectedTypes] = useState<string[]>(['DGU Insulated'])
+export const QuoteDrawer: React.FC<QuoteDrawerProps> = ({ isOpen, onClose, cmsData }) => {
+  const categories: string[] = cmsData?.projectCategories?.length
+    ? cmsData.projectCategories.map((c: any) => c.label || c)
+    : DEFAULT_CATEGORIES
+
+  const glassTypes: string[] = cmsData?.glassTypes?.length
+    ? cmsData.glassTypes.map((g: any) => g.label || g)
+    : DEFAULT_GLASS_TYPES
+
+  const cadDropzoneText =
+    cmsData?.cadDropzoneText || 'Drop DWG, DXF, PDF drawings or BOQ spreadsheet here'
+
+  const submissionNotice =
+    cmsData?.submissionNotice ||
+    'Our Pune technical sales engineering team will review your specifications and respond within 24 business hours.'
+
+  const [selectedCat, setSelectedCat] = useState<string>(categories[0] || 'Commercial Facade')
+  const [selectedTypes, setSelectedTypes] = useState<string[]>([glassTypes[0] || 'DGU Insulated'])
   const [submitted, setSubmitted] = useState<boolean>(false)
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
+
+  const [formState, setFormState] = useState({
+    fullName: '',
+    companyName: '',
+    email: '',
+    phone: '',
+    message: '',
+  })
 
   const toggleGlassType = (type: string) => {
     if (selectedTypes.includes(type)) {
@@ -24,13 +62,43 @@ export const QuoteDrawer: React.FC<QuoteDrawerProps> = ({ isOpen, onClose }) => 
     }
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target
+    setFormState((prev) => ({ ...prev, [name]: value }))
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setSubmitted(true)
-    setTimeout(() => {
-      setSubmitted(false)
-      onClose()
-    }, 2500)
+    setIsSubmitting(true)
+
+    try {
+      await fetch('/api/inquiries/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          formType: 'quote_drawer',
+          fullName: formState.fullName,
+          companyName: formState.companyName,
+          email: formState.email,
+          phone: formState.phone,
+          projectCategory: selectedCat,
+          glassTypes: selectedTypes,
+          message: formState.message,
+        }),
+      })
+    } catch (err) {
+      console.warn('Inquiry submission fallback:', err)
+    } finally {
+      setIsSubmitting(false)
+      setSubmitted(true)
+      setTimeout(() => {
+        setSubmitted(false)
+        setFormState({ fullName: '', companyName: '', email: '', phone: '', message: '' })
+        onClose()
+      }, 3000)
+    }
   }
 
   return (
@@ -58,14 +126,17 @@ export const QuoteDrawer: React.FC<QuoteDrawerProps> = ({ isOpen, onClose }) => 
 
           {submitted ? (
             <div style={{ padding: '4rem 0', textAlign: 'center' }}>
-              <div className="base-title" style={{ color: 'var(--color-crimson)', marginBottom: '1rem' }}>
+              <div
+                className="base-title"
+                style={{ color: 'var(--color-crimson)', marginBottom: '1rem' }}
+              >
                 ◆ INQUIRY TRANSMITTED
               </div>
               <h4 style={{ fontSize: '1.5rem', marginBottom: '1rem', color: 'var(--color-cream)' }}>
                 Thank you for your request.
               </h4>
               <p style={{ color: '#cbd5e1', fontSize: '1rem', lineHeight: '1.6' }}>
-                Our Pune technical sales engineering team will review your specifications and respond within 24 business hours.
+                {submissionNotice}
               </p>
             </div>
           ) : (
@@ -74,11 +145,13 @@ export const QuoteDrawer: React.FC<QuoteDrawerProps> = ({ isOpen, onClose }) => 
               <div className={styles.formGroup}>
                 <label className={styles.label}>1. Project Category</label>
                 <div className={styles.pillsGrid}>
-                  {CATEGORIES.map((cat) => (
+                  {categories.map((cat) => (
                     <button
                       key={cat}
                       type="button"
-                      className={`${styles.categoryPill} ${selectedCat === cat ? styles.categoryPillActive : ''}`}
+                      className={`${styles.categoryPill} ${
+                        selectedCat === cat ? styles.categoryPillActive : ''
+                      }`}
                       onClick={() => setSelectedCat(cat)}
                     >
                       {cat}
@@ -91,7 +164,7 @@ export const QuoteDrawer: React.FC<QuoteDrawerProps> = ({ isOpen, onClose }) => 
               <div className={styles.formGroup}>
                 <label className={styles.label}>2. Glass Specifications Required</label>
                 <div className={styles.checkboxesGrid}>
-                  {GLASS_TYPES.map((type) => (
+                  {glassTypes.map((type) => (
                     <label key={type} className={styles.checkboxLabel}>
                       <input
                         type="checkbox"
@@ -108,37 +181,76 @@ export const QuoteDrawer: React.FC<QuoteDrawerProps> = ({ isOpen, onClose }) => 
               <div className={styles.formGroup}>
                 <label className={styles.label}>3. Drawings / BOQ Spreadsheet</label>
                 <div className={styles.dropzone}>
-                  <p className={styles.dropzoneText}>
-                    Drop DWG, DXF, PDF drawings or BOQ spreadsheet here
-                  </p>
+                  <p className={styles.dropzoneText}>{cadDropzoneText}</p>
                 </div>
               </div>
 
               {/* Contact Inputs */}
-              <div className={styles.formGroup} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+              <div
+                className={styles.formGroup}
+                style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}
+              >
                 <div>
-                  <label className={styles.label}>Full Name</label>
-                  <input type="text" required placeholder="Architect / Developer Name" className={styles.inputField} />
+                  <label className={styles.label}>Full Name *</label>
+                  <input
+                    type="text"
+                    name="fullName"
+                    value={formState.fullName}
+                    onChange={handleInputChange}
+                    required
+                    placeholder="Architect / Developer Name"
+                    className={styles.inputField}
+                  />
                 </div>
                 <div>
                   <label className={styles.label}>Company Name</label>
-                  <input type="text" required placeholder="Firm / Contractor Name" className={styles.inputField} />
+                  <input
+                    type="text"
+                    name="companyName"
+                    value={formState.companyName}
+                    onChange={handleInputChange}
+                    placeholder="Firm / Contractor Name"
+                    className={styles.inputField}
+                  />
                 </div>
               </div>
 
-              <div className={styles.formGroup} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+              <div
+                className={styles.formGroup}
+                style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}
+              >
                 <div>
-                  <label className={styles.label}>Work Email</label>
-                  <input type="email" required placeholder="email@company.com" className={styles.inputField} />
+                  <label className={styles.label}>Work Email *</label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={formState.email}
+                    onChange={handleInputChange}
+                    required
+                    placeholder="email@company.com"
+                    className={styles.inputField}
+                  />
                 </div>
                 <div>
                   <label className={styles.label}>Phone Number</label>
-                  <input type="tel" required placeholder="+91 98765 43210" className={styles.inputField} />
+                  <input
+                    type="tel"
+                    name="phone"
+                    value={formState.phone}
+                    onChange={handleInputChange}
+                    placeholder="+91 98765 43210"
+                    className={styles.inputField}
+                  />
                 </div>
               </div>
 
-              <button type="submit" className={styles.submitBtn}>
-                SUBMIT TECHNICAL INQUIRY
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className={styles.submitBtn}
+                style={{ opacity: isSubmitting ? 0.7 : 1 }}
+              >
+                {isSubmitting ? 'TRANSMITTING SPECIFICATIONS...' : 'SUBMIT TECHNICAL SPECIFICATIONS →'}
               </button>
             </form>
           )}

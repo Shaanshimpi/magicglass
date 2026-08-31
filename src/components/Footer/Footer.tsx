@@ -3,32 +3,95 @@
 import React from 'react'
 import styles from './Footer.module.css'
 
-export const Footer: React.FC = () => {
+interface FooterProps {
+  cmsData?: any
+}
+
+export const Footer: React.FC<FooterProps> = ({ cmsData }) => {
+  const companyName = cmsData?.companyName || 'MAGIC GLASS PRIVATE LIMITED'
+  const corporateOffice = cmsData?.corporateOffice || {
+    heading: 'CORPORATE OFFICE',
+    address:
+      'Boulevard Towers Phase-2, 9th Floor, A1-901 & A1-902, Sadhu Vaswani Chowk, Camp, Pune, Maharashtra – 411001',
+  }
+
+  const factoryOffice = cmsData?.factoryOffice || {
+    heading: 'FACTORY OFFICE',
+    address:
+      'Gurukripa Ind. Estate, National Highway No. 9, Survey No.: 813/8 & 813/9, At-Post Yavat, Tal: Daund, Dist: Pune Pin Code – 412214',
+  }
+
+  const mainNav = cmsData?.mainNavLinks?.length
+    ? cmsData.mainNavLinks
+    : [
+        { label: 'About Us', href: '/about' },
+        { label: 'Products', href: '/products' },
+        { label: 'Industry Solution', href: '/industry-solution' },
+        { label: 'Infrastructure', href: '/infrastructure' },
+        { label: 'Projects Portfolio', href: '/projects' },
+        { label: 'Contact Us', href: '/contact-us' },
+      ]
+
+  const glassSolutions = cmsData?.glassSolutionsLinks?.length
+    ? cmsData.glassSolutionsLinks
+    : [
+        { label: 'Toughened Glass', href: '/toughened-glass' },
+        { label: 'Double Glazed Unit (DGU)', href: '/products/insulated-glass-dgu' },
+        { label: 'Sentry Laminated Glass', href: '/products/sentry-laminated-glass' },
+        { label: 'Acoustic Laminated Glass', href: '/products/acoustic-lami-glass' },
+        { label: 'Low-E Glass Processing', href: '/products/high-performance-low-e-glass' },
+        { label: 'SKN-Ultra High-Performance Glass', href: '/products/skn-ultra-high-performance-glass' },
+        { label: 'Ceramic Glass', href: '/products/ceramic-glass' },
+        { label: 'Fire & Safety Glass', href: '/products/fire-safety-glass' },
+      ]
+
+  const directConnect = cmsData?.directConnectLinks?.length
+    ? cmsData.directConnectLinks
+    : [
+        { label: 'WhatsApp Sales Chat →', href: 'https://wa.me/917774017900', type: 'whatsapp' },
+        { label: 'Call: +91-7774017900', href: 'tel:+917774017900', type: 'phone' },
+        { label: 'sales@magicglass.co.in', href: 'mailto:sales@magicglass.co.in', type: 'email' },
+      ]
+
+  const copyrightText =
+    cmsData?.copyrightText ||
+    `© ${new Date().getFullYear()} Magic Glass Private Limited. All rights reserved.`
+
+  const cityTagline =
+    cmsData?.cityTagline ||
+    'Pune, Maharashtra, India • Premier Architectural Glass Processing'
+
+  const wordmarkText = cmsData?.wordmarkText || 'MAGIC GLASS'
+
   return (
     <footer id="footer" className={styles.footerSection}>
       <div className={styles.container}>
         <div className={styles.grid}>
           {/* Col 1: Corporate & Factory Offices & Contact Info */}
           <div>
-            <div className="base-title" style={{ marginBottom: '1.25rem', color: 'var(--color-crimson)' }}>
-              MAGIC GLASS PRIVATE LIMITED
+            <div
+              className="base-title"
+              style={{ marginBottom: '1.25rem', color: 'var(--color-crimson)' }}
+              data-cms-field="companyName"
+            >
+              {companyName}
             </div>
 
             <div className={styles.officeBlock}>
-              <h5 className={styles.officeHeading}>Corporate Office</h5>
-              <p className={styles.addressText}>
-                Boulevard Towers Phase-2, 9th Floor,<br />
-                A1-901 & A1-902, Sadhu Vaswani Chowk,<br />
-                Camp, Pune, Maharashtra – 411001
+              <h5 className={styles.officeHeading} data-cms-field="corporateOffice_heading">
+                {corporateOffice.heading || 'CORPORATE OFFICE'}
+              </h5>
+              <p className={styles.addressText} style={{ whiteSpace: 'pre-line' }} data-cms-field="corporateOffice_address">
+                {corporateOffice.address}
               </p>
             </div>
 
             <div className={styles.officeBlock}>
-              <h5 className={styles.officeHeading}>Factory Office</h5>
-              <p className={styles.addressText}>
-                Gurukripa Ind. Estate,<br />
-                National Highway No. 9, Survey No.: 813/8 & 813/9,<br />
-                At-Post Yavat, Tal: Daund, Dist: Pune Pin Code – 412214
+              <h5 className={styles.officeHeading} data-cms-field="factoryOffice_heading">
+                {factoryOffice.heading || 'FACTORY OFFICE'}
+              </h5>
+              <p className={styles.addressText} style={{ whiteSpace: 'pre-line' }} data-cms-field="factoryOffice_address">
+                {factoryOffice.address}
               </p>
             </div>
           </div>
@@ -37,28 +100,27 @@ export const Footer: React.FC = () => {
           <div>
             <h4 className={styles.colTitle}>Navigation</h4>
             <ul className={styles.linksList}>
-              <li><a href="/#heritage">About</a></li>
-              <li><a href="/products">Products</a></li>
-              <li><a href="/toughened-glass">Toughened Glass</a></li>
-              <li><a href="/industry-solution">Industry Solution</a></li>
-              <li><a href="/infrastructure">Infrastructure</a></li>
-              <li><a href="/projects">Projects</a></li>
-              <li><a href="/contact-us">Contact Us</a></li>
+              {mainNav.map((link: any, idx: number) => (
+                <li key={idx}>
+                  <a href={link.href} data-cms-field={`mainNavLinks_${idx}_label`}>
+                    {link.label}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
 
-          {/* Col 3: Glass Solutions (Curated Core Working Products) */}
+          {/* Col 3: Glass Solutions */}
           <div>
             <h4 className={styles.colTitle}>Glass Solutions</h4>
             <ul className={styles.productsSubGrid}>
-              <li><a href="/toughened-glass">Toughened Glass</a></li>
-              <li><a href="/products/insulated-glass-dgu">DGU (Insulated)</a></li>
-              <li><a href="/products/sentry-laminated-glass">Sentry Laminated</a></li>
-              <li><a href="/products/acoustic-lami-glass">Acoustic Lami Glass</a></li>
-              <li><a href="/products/high-performance-low-e-glass">Low-E Glass</a></li>
-              <li><a href="/products/skn-ultra-high-performance-glass">SKN-Ultra Glass</a></li>
-              <li><a href="/products/ceramic-glass">Ceramic Glass</a></li>
-              <li><a href="/products/fire-safety-glass">Fire & Safety Glass</a></li>
+              {glassSolutions.map((link: any, idx: number) => (
+                <li key={idx}>
+                  <a href={link.href} data-cms-field={`glassSolutionsLinks_${idx}_label`}>
+                    {link.label}
+                  </a>
+                </li>
+              ))}
             </ul>
             <a href="/products" className={styles.viewAllProductsLink}>
               View All Products →
@@ -69,40 +131,37 @@ export const Footer: React.FC = () => {
           <div>
             <h4 className={styles.colTitle}>Direct Connect</h4>
             <ul className={styles.linksList}>
-              <li>
-                <a href="https://wa.me/917774017900" target="_blank" rel="noopener noreferrer" style={{ color: '#25D366', fontWeight: 600 }}>
-                  WhatsApp Sales Chat →
-                </a>
-              </li>
-              <li><a href="tel:+917774017900">Call: +91-7774017900</a></li>
-              <li><a href="mailto:sales@magicglass.co.in">sales@magicglass.co.in</a></li>
+              {directConnect.map((link: any, idx: number) => (
+                <li key={idx}>
+                  <a
+                    href={link.href}
+                    target={link.href.startsWith('http') ? '_blank' : undefined}
+                    rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                    style={
+                      link.type === 'whatsapp' || link.href.includes('wa.me')
+                        ? { color: '#25D366', fontWeight: 600 }
+                        : undefined
+                    }
+                    data-cms-field={`directConnectLinks_${idx}_label`}
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
         </div>
 
         <div className={styles.bottomRow}>
-          <p>© {new Date().getFullYear()} Magic Glass Private Limited. All rights reserved.</p>
-          <p>Pune, Maharashtra, India • Premier Architectural Glass Processing</p>
+          <p data-cms-field="copyrightText">{copyrightText}</p>
+          <p data-cms-field="cityTagline">{cityTagline}</p>
         </div>
       </div>
 
-      {/* Gigantic SVG Mask Wordmark Footer Logo */}
-      <div className={styles.wordmarkWrapper}>
-        <svg viewBox="0 0 1000 140" className={styles.wordmarkSvg}>
-          <text
-            x="50%"
-            y="50%"
-            dominantBaseline="middle"
-            textAnchor="middle"
-            fill="currentColor"
-            fontSize="125"
-            fontWeight="900"
-            letterSpacing="-4"
-            fontFamily="var(--font-outfit)"
-          >
-            MAGIC GLASS
-          </text>
-        </svg>
+      <div className={styles.giantWordmarkContainer} aria-hidden="true">
+        <span className={styles.giantWordmarkText} data-cms-field="wordmarkText">
+          {wordmarkText}
+        </span>
       </div>
     </footer>
   )

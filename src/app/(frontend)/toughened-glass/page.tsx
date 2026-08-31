@@ -1,10 +1,10 @@
 import React from 'react'
 import { notFound } from 'next/navigation'
-import { PDP_MOCK_DATA } from '@/components/PDP/pdpData'
 import { PdpClientContent } from '@/components/PDP/PdpClientContent'
+import { getPdpProductCmsData } from '@/lib/cms'
 
-export default function ToughenedGlassPage() {
-  const product = PDP_MOCK_DATA['toughened-glass']
+export default async function ToughenedGlassPage() {
+  const product = await getPdpProductCmsData('toughened-glass')
 
   if (!product) {
     notFound()

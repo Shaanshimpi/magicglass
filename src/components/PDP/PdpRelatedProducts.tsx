@@ -17,8 +17,18 @@ export const PdpRelatedProducts: React.FC<PdpRelatedProductsProps> = ({
 }) => {
   const sectionRef = useRef<HTMLElement>(null)
 
-  const relatedProducts: PdpProductDetail[] = relatedIds
-    .map((id) => PDP_MOCK_DATA[id])
+  const relatedProducts = relatedIds
+    .map((id) => {
+      if (PDP_MOCK_DATA[id]) return PDP_MOCK_DATA[id]
+      return {
+        id,
+        title: id
+          .split('-')
+          .map((s) => s.charAt(0).toUpperCase() + s.slice(1))
+          .join(' '),
+        heroImage: '/images/prod-structural.jpg',
+      }
+    })
     .filter(Boolean)
 
   useEffect(() => {

@@ -6,9 +6,19 @@ import styles from './Loader.module.css'
 
 interface LoaderProps {
   onComplete: () => void
+  cmsData?: {
+    loaderBrandTag?: string
+    loaderBrandTitle?: string
+    loaderStatusText?: string
+    loaderEstYear?: string
+  }
 }
 
-export const Loader: React.FC<LoaderProps> = ({ onComplete }) => {
+export const Loader: React.FC<LoaderProps> = ({ onComplete, cmsData }) => {
+  const brandTag = cmsData?.loaderBrandTag || '◆ MAGIC GLASS'
+  const brandTitle = cmsData?.loaderBrandTitle || 'ARCHITECTURAL GLAZING'
+  const statusText = cmsData?.loaderStatusText || 'INITIALIZING EXPERIENCE'
+  const estYear = cmsData?.loaderEstYear || 'EST. 2006'
   const [progress, setProgress] = useState(0)
   const loaderRef = useRef<HTMLDivElement>(null)
   const svgPathRef = useRef<SVGPathElement>(null)
@@ -161,13 +171,13 @@ export const Loader: React.FC<LoaderProps> = ({ onComplete }) => {
       <div className={styles.loaderContent}>
         {/* Top Tagline */}
         <div ref={tagRef} className={styles.topMeta}>
-          <span>◆ MAGIC GLASS</span>
-          <span>EST. 2006</span>
+          <span>{brandTag}</span>
+          <span>{estYear}</span>
         </div>
 
         {/* Center Kinetic Editorial Title & Prominent Centered Logo */}
         <div ref={titleRef} className={styles.titleBox}>
-          <h1 className={styles.brandTitle}>ARCHITECTURAL GLAZING</h1>
+          <h1 className={styles.brandTitle}>{brandTitle}</h1>
           <div className={styles.centerLogoWrapper}>
             <svg
               ref={logoSvgRef}
@@ -299,7 +309,7 @@ export const Loader: React.FC<LoaderProps> = ({ onComplete }) => {
               {progress < 10 ? `0${progress}` : progress}
             </span>
           </div>
-          <span className={styles.loadingStatus}>INITIALIZING EXPERIENCE</span>
+          <span className={styles.loadingStatus}>{statusText}</span>
         </div>
       </div>
     </div>

@@ -10,12 +10,26 @@ export const SmoothScroll: React.FC<{ children: React.ReactNode }> = ({ children
   const pathname = usePathname()
 
   useEffect(() => {
+    // Completely disable and destroy Lenis smooth scroll on dashboard or admin routes
+    if (pathname?.startsWith('/dashboard') || pathname?.startsWith('/admin')) {
+      if (typeof window !== 'undefined' && (window as any).__lenis) {
+        ;(window as any).__lenis.destroy()
+        delete (window as any).__lenis
+      }
+      return
+    }
+
     gsap.registerPlugin(ScrollTrigger)
 
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
+      prevent: (node) => {
+        if (!node || node.nodeType !== 1) return false
+        const el = node as Element
+        return el.hasAttribute('data-lenis-prevent') || el.closest('[data-lenis-prevent]') !== null
+      },
     })
 
     if (typeof window !== 'undefined') {
@@ -38,10 +52,13 @@ export const SmoothScroll: React.FC<{ children: React.ReactNode }> = ({ children
       gsap.ticker.remove(update)
       lenis.destroy()
     }
-  }, [])
+  }, [pathname])
 
   // Scroll to top and refresh ScrollTrigger on route navigation
   useEffect(() => {
+    if (pathname?.startsWith('/dashboard') || pathname?.startsWith('/admin')) {
+      return
+    }
     if (typeof window !== 'undefined' && (window as any).__lenis) {
       ;(window as any).__lenis.scrollTo(0, { immediate: true })
     }

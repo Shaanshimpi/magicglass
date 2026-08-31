@@ -2,6 +2,8 @@ import React from 'react'
 import { Outfit, JetBrains_Mono } from 'next/font/google'
 import { SmoothScroll } from '@/components/SmoothScroll/SmoothScroll'
 import { ClientLayoutShell } from '@/components/Shell/ClientLayoutShell'
+import { LivePreviewListener } from '@/components/LivePreviewListener'
+import { getHeaderCmsData, getFooterCmsData, getQuoteDrawerCmsData } from '@/lib/cms'
 import './styles.css'
 
 const outfit = Outfit({
@@ -24,11 +26,24 @@ export const metadata = {
 export default async function RootLayout(props: { children: React.ReactNode }) {
   const { children } = props
 
+  const [headerData, footerData, quoteDrawerData] = await Promise.all([
+    getHeaderCmsData(),
+    getFooterCmsData(),
+    getQuoteDrawerCmsData(),
+  ])
+
   return (
     <html lang="en" className={`${outfit.variable} ${jetbrainsMono.variable}`} data-scroll-behavior="smooth">
       <body>
         <SmoothScroll>
-          <ClientLayoutShell>{children}</ClientLayoutShell>
+          <LivePreviewListener />
+          <ClientLayoutShell
+            headerCmsData={headerData}
+            footerCmsData={footerData}
+            quoteDrawerCmsData={quoteDrawerData}
+          >
+            {children}
+          </ClientLayoutShell>
         </SmoothScroll>
       </body>
     </html>

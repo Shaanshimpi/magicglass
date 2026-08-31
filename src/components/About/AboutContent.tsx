@@ -51,8 +51,42 @@ const LEADERSHIP = [
   },
 ]
 
-export const AboutContent: React.FC = () => {
+interface AboutContentProps {
+  cmsData?: any
+}
+
+export const AboutContent: React.FC<AboutContentProps> = ({ cmsData }) => {
   const heroRef = useRef<HTMLDivElement>(null)
+
+  const heroEyebrow = cmsData?.hero?.eyebrow || 'ABOUT MAGIC GLASS'
+  const heroTitle = cmsData?.hero?.title || 'About Magic Glass'
+  const heroTagline = cmsData?.hero?.tagline || 'With "Build to Last" as our guiding philosophy, Magic Glass stands as a symbol of enduring strength and innovation in the glass processing industry.'
+  const facilityImage = cmsData?.hero?.facilityImage || '/images/hero-bg.jpg'
+
+  const legacyEyebrow = cmsData?.legacy?.eyebrow || 'OUR LEGACY'
+  const legacyHeadline = cmsData?.legacy?.headline || 'Welcome to the world of Magic Glass, where excellence is not just a commitment; it’s a legacy.'
+  const legacyBodyText = cmsData?.legacy?.bodyText || 'Since our inception in 2006, we have proudly upheld the promise of delivering uncompromising quality, earning the trust of countless happy customers. As a family-run enterprise, we are driven by a passion for perfection that has been passed down through generations.'
+  const legacyButtonLabel = cmsData?.legacy?.buttonLabel || 'OUR SOLUTIONS ↗'
+  const legacyButtonHref = cmsData?.legacy?.buttonHref || '/industry-solution'
+
+  const visionTitle = cmsData?.visionMission?.visionTitle || 'Setting the Gold Standard'
+  const visionDesc = cmsData?.visionMission?.visionDesc || 'Our vision is to lead the global glass processing industry, setting the gold standard for quality, craftsmanship, and sustainability.'
+  const missionTitle = cmsData?.visionMission?.missionTitle || 'Uncompromising Quality'
+  const missionDesc = cmsData?.visionMission?.missionDesc || 'To solidify our position as global leaders in the glass processing industry by consistently delivering exceptional quality, leveraging cutting-edge technology, and nurturing a culture of innovation.'
+
+  const whyList = cmsData?.whyMagicGlass?.map((w: any) => ({
+    num: w.number || w.num,
+    title: w.title,
+    desc: w.description || w.desc,
+  })) || WHY_MAGIC_GLASS
+
+  const leadersList = cmsData?.leadership?.length ? cmsData.leadership : LEADERSHIP
+
+  const ctaEyebrow = cmsData?.cta?.eyebrow || 'WHERE VISION MEETS EXECUTION'
+  const ctaHeadline = cmsData?.cta?.headline || 'Every great build begins with understanding'
+  const ctaSubtitle = cmsData?.cta?.subtitle || 'Speak with our technical engineering team to consult on custom BOQ specifications or glass requirements.'
+  const ctaButtonLabel = cmsData?.cta?.buttonLabel || 'GET IN TOUCH ↗'
+  const ctaButtonHref = cmsData?.cta?.buttonHref || '/contact-us'
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -69,23 +103,21 @@ export const AboutContent: React.FC = () => {
 
   return (
     <div className={styles.pageWrapper}>
-      {/* 1. Hero Header Section with True 100vw Full-Width Edge-to-Edge Image */}
+      {/* 1. Hero Header Section */}
       <section className={styles.heroSection}>
         <div ref={heroRef} className={styles.heroContent}>
-          <span className="base-title">ABOUT MAGIC GLASS</span>
-          <h1 className={styles.heroTitle}>About Magic Glass</h1>
-          <p className={styles.heroTagline}>
-            With &ldquo;Build to Last&rdquo; as our guiding philosophy, Magic Glass stands as a symbol of
-            enduring strength and innovation in the glass processing industry.
-          </p>
+          <span className="base-title" data-cms-field="hero_eyebrow">{heroEyebrow}</span>
+          <h1 className={styles.heroTitle} data-cms-field="hero_title">{heroTitle}</h1>
+          <p className={styles.heroTagline} data-cms-field="hero_tagline">{heroTagline}</p>
         </div>
 
         {/* Full-Width Viewport Image Frame */}
         <div className={styles.heroImageFrameFullWidth}>
           <Image
-            src="/images/hero-bg.jpg"
+            src={facilityImage}
             alt="Magic Glass State-of-the-Art Processing Facility"
             fill
+            sizes="100vw"
             priority
           />
         </div>
@@ -96,21 +128,18 @@ export const AboutContent: React.FC = () => {
         <div className={styles.container}>
           <div className={styles.manifestoGrid}>
             <div>
-              <span className="base-title">OUR LEGACY</span>
+              <span className="base-title" data-cms-field="legacy_title">{legacyEyebrow}</span>
             </div>
             <div>
-              <h2 className={styles.manifestoLead}>
-                Welcome to the world of Magic Glass, where excellence is not just a commitment; it’s a legacy.
+              <h2 className={styles.manifestoLead} data-cms-field="legacy_headline">
+                {legacyHeadline}
               </h2>
-              <p className={styles.manifestoBody}>
-                Since our inception in 2006, we have proudly upheld the promise of delivering
-                uncompromising quality, earning the trust of countless happy customers. As a family-run
-                enterprise, we are driven by a passion for perfection that has been passed down through
-                generations.
+              <p className={styles.manifestoBody} data-cms-field="legacy_bodyText">
+                {legacyBodyText}
               </p>
               <div>
-                <Link href="/industry-solution" className="btn-black">
-                  OUR SOLUTIONS ↗
+                <Link href={legacyButtonHref} className="btn-black" data-cms-field="legacy_buttonLabel">
+                  {legacyButtonLabel}
                 </Link>
               </div>
             </div>
@@ -126,10 +155,9 @@ export const AboutContent: React.FC = () => {
             <div className={styles.vmCardShell}>
               <div className={styles.vmCardInner}>
                 <span className="base-title">VISION</span>
-                <h3 className={styles.vmTitle}>Setting the Gold Standard</h3>
-                <p className={styles.vmDesc}>
-                  Our vision is to lead the global glass processing industry, setting the gold standard for
-                  quality, craftsmanship, and sustainability.
+                <h3 className={styles.vmTitle} data-cms-field="visionMission_visionTitle">{visionTitle}</h3>
+                <p className={styles.vmDesc} data-cms-field="visionMission_visionDesc">
+                  {visionDesc}
                 </p>
               </div>
             </div>
@@ -138,11 +166,9 @@ export const AboutContent: React.FC = () => {
             <div className={styles.vmCardShell}>
               <div className={styles.vmCardInner}>
                 <span className="base-title">MISSION</span>
-                <h3 className={styles.vmTitle}>Uncompromising Quality</h3>
-                <p className={styles.vmDesc}>
-                  To solidify our position as global leaders in the glass processing industry by
-                  consistently delivering exceptional quality, leveraging cutting-edge technology, and
-                  nurturing a culture of innovation.
+                <h3 className={styles.vmTitle} data-cms-field="visionMission_missionTitle">{missionTitle}</h3>
+                <p className={styles.vmDesc} data-cms-field="visionMission_missionDesc">
+                  {missionDesc}
                 </p>
               </div>
             </div>
@@ -159,12 +185,12 @@ export const AboutContent: React.FC = () => {
           </div>
 
           <div className={styles.whyGrid}>
-            {WHY_MAGIC_GLASS.map((item) => (
-              <div key={item.num} className={styles.whyCardShell}>
+            {whyList.map((item: any) => (
+              <div key={item.num || item.number} className={styles.whyCardShell}>
                 <div className={styles.whyCardInner}>
-                  <span className={styles.whyNum}>{item.num}</span>
+                  <span className={styles.whyNum}>{item.num || item.number}</span>
                   <h3 className={styles.whyTitle}>{item.title}</h3>
-                  <p className={styles.whyDesc}>{item.desc}</p>
+                  <p className={styles.whyDesc}>{item.desc || item.description}</p>
                 </div>
               </div>
             ))}
@@ -172,7 +198,7 @@ export const AboutContent: React.FC = () => {
         </div>
       </section>
 
-      {/* 5. Executive Leadership Section with Official Portraits */}
+      {/* 5. Executive Leadership Section */}
       <section className={styles.leadershipSection}>
         <div className={styles.container}>
           <div className={styles.leadershipHeader}>
@@ -181,12 +207,12 @@ export const AboutContent: React.FC = () => {
           </div>
 
           <div className={styles.leadershipGrid}>
-            {LEADERSHIP.map((leader) => (
+            {leadersList.map((leader: any) => (
               <div key={leader.name} className={styles.leaderCardShell}>
                 <div className={styles.leaderCardInner}>
                   <div className={styles.leaderImageContainer}>
                     <Image
-                      src={leader.image}
+                      src={leader.image || leader.portraitUrl || 'https://magicglass.co.in/wp-content/uploads/2025/04/Manik-Kodre.png'}
                       alt={leader.name}
                       fill
                       sizes="(max-width: 1024px) 100vw, 33vw"
@@ -203,7 +229,7 @@ export const AboutContent: React.FC = () => {
         </div>
       </section>
 
-      {/* 6. Reused Homepage Testimonials Component */}
+      {/* 6. Testimonials Component */}
       <Testimonials />
 
       {/* 7. Banner CTA Section */}
@@ -211,16 +237,16 @@ export const AboutContent: React.FC = () => {
         <div className={styles.container}>
           <div className={styles.ctaBannerContent}>
             <span className="base-title" style={{ color: '#ffffff' }}>
-              WHERE VISION MEETS EXECUTION
+              {ctaEyebrow}
             </span>
-            <h2 className={styles.ctaHeadline}>Every great build begins with understanding</h2>
-            <p className={styles.ctaSubtitle}>
-              Speak with our technical engineering team to consult on custom BOQ specifications or glass requirements.
+            <h2 className={styles.ctaHeadline} data-cms-field="cta_headline">{ctaHeadline}</h2>
+            <p className={styles.ctaSubtitle} data-cms-field="cta_subtitle">
+              {ctaSubtitle}
             </p>
 
             <div className={styles.ctaBtnRow}>
-              <Link href="/contact-us" className="button--red">
-                GET IN TOUCH ↗
+              <Link href={ctaButtonHref} className="button--red" data-cms-field="cta_buttonLabel">
+                {ctaButtonLabel}
               </Link>
             </div>
           </div>

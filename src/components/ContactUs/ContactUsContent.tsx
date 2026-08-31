@@ -19,7 +19,15 @@ interface ContactCard {
   actionUrl: string | null
 }
 
-export const ContactUsContent: React.FC = () => {
+interface ContactUsContentProps {
+  cmsData?: {
+    page: any
+    contactCards: ContactCard[]
+    mapEmbedUrl: string
+  }
+}
+
+export const ContactUsContent: React.FC<ContactUsContentProps> = ({ cmsData }) => {
   const { openQuoteDrawer } = useLayoutContext()
   const [formSubmitted, setFormSubmitted] = useState(false)
   const [formData, setFormData] = useState({
@@ -30,11 +38,13 @@ export const ContactUsContent: React.FC = () => {
     message: '',
   })
 
-  const { page, contactCards, mapEmbedUrl } = mockData as {
+  const data = cmsData || (mockData as {
     page: any
     contactCards: ContactCard[]
     mapEmbedUrl: string
-  }
+  })
+
+  const { page, contactCards, mapEmbedUrl } = data
 
   // GSAP Animation Refs
   const cardsSectionRef = useRef<HTMLElement>(null)
@@ -87,11 +97,36 @@ export const ContactUsContent: React.FC = () => {
     setFormData((prev) => ({ ...prev, [name]: value }))
   }
 
-  const handleFormSubmit = (e: React.FormEvent) => {
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
+  const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!formData.fullName || !formData.email || !formData.message) return
-    setFormSubmitted(true)
-    setFormData({ fullName: '', email: '', phone: '', subject: '', message: '' })
+
+    setIsSubmitting(true)
+    try {
+      await fetch('/api/inquiries/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          formType: 'contact_us',
+          fullName: formData.fullName,
+          email: formData.email,
+          phone: formData.phone,
+          subject: formData.subject,
+          message: formData.message,
+        }),
+      })
+    } catch (err) {
+      console.warn('Contact form submission fallback:', err)
+    } finally {
+      setIsSubmitting(false)
+      setFormSubmitted(true)
+      setFormData({ fullName: '', email: '', phone: '', subject: '', message: '' })
+      setTimeout(() => {
+        setFormSubmitted(false)
+      }, 6000)
+    }
   }
 
   const renderIcon = (iconName: string) => {

@@ -19,9 +19,17 @@ interface InfrastructureItem {
   description: string
 }
 
-export const InfrastructureContent: React.FC = () => {
+interface InfrastructureContentProps {
+  cmsData?: {
+    page: any
+    industries: InfrastructureItem[]
+  }
+}
+
+export const InfrastructureContent: React.FC<InfrastructureContentProps> = ({ cmsData }) => {
   const { openQuoteDrawer } = useLayoutContext()
-  const { page, industries } = mockData as { page: any; industries: InfrastructureItem[] }
+  const data = cmsData || (mockData as { page: any; industries: InfrastructureItem[] })
+  const { page, industries } = data
 
 
   // GSAP Parallax Section & Card Refs

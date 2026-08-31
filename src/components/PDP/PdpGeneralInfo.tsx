@@ -116,7 +116,7 @@ export const PdpGeneralInfo: React.FC<PdpGeneralInfoProps> = ({
     <section ref={sectionRef} className={styles.generalSection}>
       <div className={styles.container}>
         <div ref={topBlockRef} className={styles.topBlock}>
-          <p className={styles.introSummary}>{introSummary}</p>
+          <p className={styles.introSummary} data-cms-field="introSummary">{introSummary}</p>
 
           <div className={styles.detailImageFlex}>
             <PdpScrubbedImage
@@ -138,7 +138,7 @@ export const PdpGeneralInfo: React.FC<PdpGeneralInfoProps> = ({
         </div>
 
         <div ref={bottomBlockRef} className={styles.bottomBlock}>
-          <p className={styles.secondaryText}>{secondaryText}</p>
+          <p className={styles.secondaryText} data-cms-field="secondaryText">{secondaryText}</p>
 
           <div className={styles.characteristicsBox}>
             <div className={styles.caratteristicheTag}>

@@ -30,7 +30,7 @@ export const PdpMasonryGallery: React.FC<PdpMasonryGalleryProps> = ({
   const items: GalleryItem[] = Array.from({ length: 4 }).map((_, index) => {
     const item = imageItems?.[index]
     return {
-      src: item?.src || images[index] || images[0],
+      src: item?.src || images?.[index] || images?.[0] || '/images/prod-structural.jpg',
       title: item?.title || DEFAULT_APPLICATION_TITLES[index] || `APPLICATION 0${index + 1}`,
     }
   })
@@ -40,7 +40,7 @@ export const PdpMasonryGallery: React.FC<PdpMasonryGalleryProps> = ({
       <div className={styles.galleryContainer}>
         <div className={styles.headerBox}>
           <span className={styles.sectionBadge}>APPLICATIONS & PORTFOLIO</span>
-          <h2 className={styles.sectionTitle}>
+          <h2 className={styles.sectionTitle} data-cms-field="galleryTitle">
             <span className={styles.redHeading}>Glass</span> {title ? title.replace(/^Glass\s+/i, '') : 'Applications'}
           </h2>
         </div>

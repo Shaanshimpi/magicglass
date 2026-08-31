@@ -5,6 +5,7 @@ import { PdpProductDetail } from './pdpData'
 import { PdpHero } from './PdpHero'
 import { PdpGeneralInfo } from './PdpGeneralInfo'
 import { PdpMasonryGallery } from './PdpMasonryGallery'
+import { PdpDiscoverSlider } from './PdpDiscoverSlider'
 import { PdpImageSlider } from './PdpImageSlider'
 import { PdpRelatedProducts } from './PdpRelatedProducts'
 import { PdpInquiryForm } from './PdpInquiryForm'
@@ -40,9 +41,13 @@ export const PdpClientContent: React.FC<PdpClientContentProps> = ({
         title={product.galleryTitle || 'Glass Applications'}
         imageItems={product.galleryImageItems}
       />
-      <PdpImageSlider
+      <PdpDiscoverSlider
         images={product.sliderImages}
+        title="Featured Installations"
+      />
+      <PdpImageSlider
         industryItems={product.industries}
+        title="Our Industry"
       />
       <PdpRelatedProducts relatedIds={product.relatedProductIds} />
       <PdpInquiryForm

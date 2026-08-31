@@ -5,22 +5,41 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import styles from './Heritage.module.css'
 
-interface HeritageProps {
-  onOpenQuoteDrawer?: () => void
+interface HeritageStat {
+  value: string
+  label: string
 }
 
-const STATEMENT_TEXT =
-  'Welcome to the world of Magic Glass. Since our inception in 2006, we have proudly upheld the promise of delivering uncompromising quality, earning the trust of countless happy customers.'
-const WORDS = STATEMENT_TEXT.split(' ')
+interface HeritageProps {
+  onOpenQuoteDrawer?: () => void
+  cmsData?: {
+    eyebrow?: string
+    statementText?: string
+    ctaLabel?: string
+    ctaHref?: string
+    stats?: HeritageStat[]
+  }
+}
 
-const STATS = [
+const DEFAULT_STATEMENT =
+  'Welcome to the world of Magic Glass. Since our inception in 2006, we have proudly upheld the promise of delivering uncompromising quality, earning the trust of countless happy customers.'
+
+const DEFAULT_STATS: HeritageStat[] = [
   { value: '600+', label: 'Projects Finished' },
   { value: '17+', label: 'Years of Experience' },
   { value: '80,000', label: 'Sq ft Factory Area' },
   { value: '500+', label: 'Customers' },
 ]
 
-export const Heritage: React.FC<HeritageProps> = ({ onOpenQuoteDrawer }) => {
+export const Heritage: React.FC<HeritageProps> = ({ onOpenQuoteDrawer, cmsData }) => {
+  const eyebrow = cmsData?.eyebrow || '◆ ABOUT MAGIC GLASS'
+  const statementText = cmsData?.statementText || DEFAULT_STATEMENT
+  const ctaLabel = cmsData?.ctaLabel || '↳ WHO WE ARE'
+  const ctaHref = cmsData?.ctaHref || '/about'
+  const stats = cmsData?.stats?.length ? cmsData.stats : DEFAULT_STATS
+
+  const words = statementText.split(' ')
+
   const sectionRef = useRef<HTMLElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   const wordRefs = useRef<(HTMLSpanElement | null)[]>([])
@@ -32,7 +51,6 @@ export const Heritage: React.FC<HeritageProps> = ({ onOpenQuoteDrawer }) => {
 
     const ctx = gsap.context(() => {
       if (sectionRef.current && wordRefs.current.length > 0 && containerRef.current) {
-        // Pinned ScrollTrigger Timeline: Pins while text narrative reveals word-by-word, then unpins
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: sectionRef.current,
@@ -45,7 +63,6 @@ export const Heritage: React.FC<HeritageProps> = ({ onOpenQuoteDrawer }) => {
           },
         })
 
-        // Step 1: Scrub words opacity from 0.5 to 1.0 sequentially
         tl.to(wordRefs.current, {
           opacity: 1,
           color: 'var(--color-cream)',
@@ -53,7 +70,6 @@ export const Heritage: React.FC<HeritageProps> = ({ onOpenQuoteDrawer }) => {
           ease: 'none',
         })
 
-        // Step 2: Reveal CTA and Verified Stats Grid as narrative finishes
         if (ctaRef.current) {
           tl.fromTo(
             ctaRef.current,
@@ -74,17 +90,17 @@ export const Heritage: React.FC<HeritageProps> = ({ onOpenQuoteDrawer }) => {
     }, sectionRef)
 
     return () => ctx.revert()
-  }, [])
+  }, [statementText])
 
   return (
     <section id="heritage" ref={sectionRef} className={styles.heritageSection}>
       <div ref={containerRef} className={styles.container}>
-        <div className={styles.eyebrow}>
-          ◆ ABOUT MAGIC GLASS
+        <div className={styles.eyebrow} data-cms-field="heritage_eyebrow">
+          {eyebrow}
         </div>
 
-        <h2 className={styles.statementHeadline}>
-          {WORDS.map((word, index) => (
+        <h2 className={styles.statementHeadline} data-cms-field="heritage_statementText">
+          {words.map((word, index) => (
             <span
               key={index}
               ref={(el) => { wordRefs.current[index] = el }}
@@ -96,14 +112,14 @@ export const Heritage: React.FC<HeritageProps> = ({ onOpenQuoteDrawer }) => {
         </h2>
 
         <div ref={ctaRef} className={styles.ctaContainer}>
-          <a href="/about" className="btn-black">
-            ↳ WHO WE ARE
+          <a href={ctaHref} className="btn-black" data-cms-field="heritage_ctaLabel">
+            {ctaLabel}
           </a>
         </div>
 
-        {/* Verified Stats Grid matching magicglass.co.in */}
+        {/* Verified Stats Grid */}
         <div ref={statsRef} className={styles.statsGrid}>
-          {STATS.map((stat, idx) => (
+          {stats.map((stat, idx) => (
             <div key={idx} className={styles.statItem}>
               <span className={styles.statValue}>{stat.value}</span>
               <span className={styles.statLabel}>{stat.label}</span>
