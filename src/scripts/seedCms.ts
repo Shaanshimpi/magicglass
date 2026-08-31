@@ -634,6 +634,51 @@ async function seed() {
     }
   }
 
+  // ---------------------------------------------------------------------------
+  // 12. Seed Staff & Management Users (Admin & Manager Roles)
+  // ---------------------------------------------------------------------------
+  console.log('📦 Seeding Staff & Management Users (Admin & Manager)...')
+  const defaultUsers = [
+    {
+      email: 'admin@magicglass.co.in',
+      password: 'Admin@123',
+      name: 'System Administrator',
+      role: 'admin' as const,
+    },
+    {
+      email: 'manager@magicglass.co.in',
+      password: 'Manager@123',
+      name: 'Production Manager',
+      role: 'manager' as const,
+    },
+  ]
+
+  for (const userItem of defaultUsers) {
+    const existing = await payload.find({
+      collection: 'users',
+      where: { email: { equals: userItem.email } },
+      limit: 1,
+    })
+
+    if (existing.docs.length > 0) {
+      await payload.update({
+        collection: 'users',
+        id: existing.docs[0].id,
+        data: {
+          name: userItem.name,
+          role: userItem.role,
+        },
+      })
+      console.log(`   ✓ Updated User: ${userItem.email} (${userItem.role})`)
+    } else {
+      await payload.create({
+        collection: 'users',
+        data: userItem,
+      })
+      console.log(`   + Created User: ${userItem.email} (${userItem.role})`)
+    }
+  }
+
   console.log('✅ ALL Payload CMS Globals & Collections Successfully Seeded in PostgreSQL!')
 }
 

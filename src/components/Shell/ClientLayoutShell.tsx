@@ -98,11 +98,13 @@ export const ClientLayoutShell: React.FC<ClientLayoutShellProps> = ({
     }
   }, [isLoaded])
 
-  // Preserve custom standalone layout for dashboard, mock-dashboard, color-options, or admin routes
+  // Preserve custom standalone layout for dashboard, mock-dashboard, color-options, staff-login, or admin routes
   const isSpecialRoute =
     pathname?.startsWith('/dashboard') ||
     pathname?.startsWith('/mock-dashboard') ||
     pathname?.startsWith('/color-options') ||
+    pathname?.startsWith('/staff-login') ||
+    pathname?.startsWith('/login') ||
     pathname?.startsWith('/admin')
 
   if (isSpecialRoute) {

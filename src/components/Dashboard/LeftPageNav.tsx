@@ -1,8 +1,10 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import styles from './Dashboard.module.css'
 import { ProductCreateModal } from './ProductCreateModal'
+import { ALL_PRODUCTS } from '@/components/ProductsCollection/products.data'
 import {
   FiHome,
   FiInfo,
@@ -12,12 +14,17 @@ import {
   FiCpu,
   FiPhoneCall,
   FiChevronRight,
+  FiChevronDown,
   FiLayout,
   FiSliders,
   FiMenu,
   FiBox,
   FiPlus,
   FiRefreshCw,
+  FiLogOut,
+  FiExternalLink,
+  FiShield,
+  FiLock,
 } from 'react-icons/fi'
 
 export interface PageRoute {
@@ -29,6 +36,13 @@ export interface PageRoute {
   itemSlug?: string
   icon?: React.ReactNode
 }
+
+const DEFAULT_INITIAL_PRODUCTS = ALL_PRODUCTS.map((p) => ({
+  id: p.id,
+  slug: p.id,
+  title: p.title,
+  category: p.category,
+}))
 
 export const STATIC_PAGE_NAV_CONFIG: PageRoute[] = [
   { id: 'home', label: 'Homepage', path: '/', cmsType: 'global', cmsSlug: 'home-page', icon: <FiHome /> },
@@ -57,16 +71,53 @@ export const LeftPageNav: React.FC<LeftPageNavProps> = ({
   activeItemSlug,
   onSelectPage,
 }) => {
-  const [productsList, setProductsList] = useState<Array<{ id: string; slug: string; title: string; category: string }>>([])
+  const router = useRouter()
+  const [productsList, setProductsList] = useState<Array<{ id: string; slug: string; title: string; category: string }>>(
+    DEFAULT_INITIAL_PRODUCTS
+  )
+  const [isProductsOpen, setIsProductsOpen] = useState(true)
   const [loadingProducts, setLoadingProducts] = useState(false)
   const [isProductModalOpen, setIsProductModalOpen] = useState(false)
+  const [currentUser, setCurrentUser] = useState<any>(null)
+  const [loggingOut, setLoggingOut] = useState(false)
+
+  // Fetch current authenticated user
+  const fetchUserSession = async () => {
+    try {
+      const res = await fetch('/api/users/me', { credentials: 'include' })
+      if (res.ok) {
+        const json = await res.json()
+        if (json.user) {
+          setCurrentUser(json.user)
+        }
+      }
+    } catch (err) {
+      console.warn('Failed to load user session in dashboard:', err)
+    }
+  }
+
+  const handleLogout = async () => {
+    setLoggingOut(true)
+    try {
+      await fetch('/api/users/logout', {
+        method: 'POST',
+        credentials: 'include',
+      })
+      router.push('/login')
+    } catch (err) {
+      console.warn('Logout failed:', err)
+      router.push('/login')
+    } finally {
+      setLoggingOut(false)
+    }
+  }
 
   const fetchProducts = async () => {
     setLoadingProducts(true)
     try {
       const res = await fetch('/api/cms/get?type=collection&slug=products')
       const json = await res.json()
-      if (json.success && Array.isArray(json.data)) {
+      if (json.success && Array.isArray(json.data) && json.data.length > 0) {
         setProductsList(
           json.data.map((doc: any) => ({
             id: doc.id,
@@ -85,14 +136,18 @@ export const LeftPageNav: React.FC<LeftPageNavProps> = ({
 
   useEffect(() => {
     fetchProducts()
+    fetchUserSession()
   }, [])
+
+  const prodSlugToPath = (slug: string) =>
+    slug === 'toughened-glass' ? '/toughened-glass' : `/products/${slug}`
 
   const handleProductCreated = (newProd: { slug: string; title: string; category: string }) => {
     fetchProducts()
     onSelectPage({
       id: `pdp-${newProd.slug}`,
       label: newProd.title,
-      path: `/products/${newProd.slug}`,
+      path: prodSlugToPath(newProd.slug),
       cmsType: 'collection',
       cmsSlug: 'products',
       itemSlug: newProd.slug,
@@ -138,14 +193,24 @@ export const LeftPageNav: React.FC<LeftPageNavProps> = ({
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
+            cursor: 'pointer',
           }}
         >
-          <span>Product Catalog ({productsList.length})</span>
+          <span
+            onClick={() => setIsProductsOpen(!isProductsOpen)}
+            style={{ display: 'flex', alignItems: 'center', gap: '6px' }}
+          >
+            {isProductsOpen ? <FiChevronDown size={12} /> : <FiChevronRight size={12} />}
+            <span>Product Catalog ({productsList.length})</span>
+          </span>
           <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
             <button
               type="button"
               className={styles.actionIconBtn}
-              onClick={fetchProducts}
+              onClick={(e) => {
+                e.stopPropagation()
+                fetchProducts()
+              }}
               title="Refresh Products"
             >
               <FiRefreshCw size={11} className={loadingProducts ? styles.spinIcon : ''} />
@@ -153,7 +218,10 @@ export const LeftPageNav: React.FC<LeftPageNavProps> = ({
             <button
               type="button"
               className={styles.actionIconBtn}
-              onClick={() => setIsProductModalOpen(true)}
+              onClick={(e) => {
+                e.stopPropagation()
+                setIsProductModalOpen(true)
+              }}
               title="Add New Product PDP"
             >
               <FiPlus size={12} /> Add
@@ -161,37 +229,39 @@ export const LeftPageNav: React.FC<LeftPageNavProps> = ({
           </div>
         </div>
 
-        <div className={styles.productsNavScroll}>
-          {productsList.map((prod) => {
-            const pageObj: PageRoute = {
-              id: `pdp-${prod.slug}`,
-              label: prod.title,
-              path: prod.slug === 'toughened-glass' ? '/toughened-glass' : `/products/${prod.slug}`,
-              cmsType: 'collection',
-              cmsSlug: 'products',
-              itemSlug: prod.slug,
-              icon: <FiBox />,
-            }
-            const isSelected = activeItemSlug === prod.slug || activePageId === `pdp-${prod.slug}`
+        {isProductsOpen && (
+          <div className={styles.productsNavScroll}>
+            {productsList.map((prod) => {
+              const pageObj: PageRoute = {
+                id: `pdp-${prod.slug}`,
+                label: prod.title,
+                path: prodSlugToPath(prod.slug),
+                cmsType: 'collection',
+                cmsSlug: 'products',
+                itemSlug: prod.slug,
+                icon: <FiBox />,
+              }
+              const isSelected = activeItemSlug === prod.slug || activePageId === `pdp-${prod.slug}`
 
-            return (
-              <div
-                key={prod.slug}
-                className={`${styles.navItem} ${styles.productNavItem} ${isSelected ? styles.navItemActive : ''}`}
-                onClick={() => onSelectPage(pageObj)}
-                title={`Edit PDP: ${prod.title}`}
-              >
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', overflow: 'hidden' }}>
-                  <FiBox style={{ fontSize: '13px', flexShrink: 0, opacity: 0.8 }} />
-                  <span className={styles.productNavTitle}>{prod.title}</span>
+              return (
+                <div
+                  key={prod.slug}
+                  className={`${styles.navItem} ${styles.productNavItem} ${isSelected ? styles.navItemActive : ''}`}
+                  onClick={() => onSelectPage(pageObj)}
+                  title={`Edit PDP: ${prod.title}`}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', overflow: 'hidden' }}>
+                    <FiBox style={{ fontSize: '13px', flexShrink: 0, opacity: 0.8 }} />
+                    <span className={styles.productNavTitle}>{prod.title}</span>
+                  </div>
+                  <span className={styles.productNavBadge}>
+                    {prod.category?.slice(0, 4).toUpperCase()}
+                  </span>
                 </div>
-                <span className={styles.productNavBadge}>
-                  {prod.category?.slice(0, 4).toUpperCase()}
-                </span>
-              </div>
-            )
-          })}
-        </div>
+              )
+            })}
+          </div>
+        )}
 
         {/* 3. Site Globals & Shell */}
         <div className={styles.sectionGroupTitle} style={{ marginTop: '18px' }}>
@@ -213,6 +283,67 @@ export const LeftPageNav: React.FC<LeftPageNavProps> = ({
             </div>
           )
         })}
+
+        {/* 4. Active User & Auth Controls */}
+        <div className={styles.userProfileFooter}>
+          {currentUser ? (
+            <>
+              <div className={styles.userCard}>
+                <div className={styles.userAvatarMini}>
+                  {currentUser.name?.[0] || currentUser.email?.[0]?.toUpperCase() || 'U'}
+                </div>
+                <div className={styles.userInfo}>
+                  <div className={styles.userEmail} title={currentUser.email}>
+                    {currentUser.name || currentUser.email}
+                  </div>
+                  <span
+                    className={`${styles.userRoleBadge} ${
+                      currentUser.role === 'admin'
+                        ? styles.userRoleAdmin
+                        : styles.userRoleManager
+                    }`}
+                  >
+                    {currentUser.role === 'admin' ? 'ADMIN' : 'MANAGER'}
+                  </span>
+                </div>
+              </div>
+
+              <div className={styles.userNavActions}>
+                {currentUser.role === 'admin' && (
+                  <a
+                    href="/admin"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.userActionBtn}
+                    title="Open Payload CMS Admin Panel"
+                  >
+                    <FiLock size={11} /> Admin CMS
+                  </a>
+                )}
+                <button
+                  type="button"
+                  className={styles.userActionBtn}
+                  onClick={handleLogout}
+                  disabled={loggingOut}
+                  title="Sign out of Dashboard"
+                >
+                  <FiLogOut size={11} /> {loggingOut ? '...' : 'Sign Out'}
+                </button>
+              </div>
+            </>
+          ) : (
+            <div className={styles.userNavActions}>
+              <button
+                type="button"
+                className={styles.userActionBtn}
+                onClick={() => router.push('/staff-login')}
+                style={{ width: '100%', justifyContent: 'center' }}
+              >
+                <FiShield size={11} /> Staff Login Portal
+              </button>
+            </div>
+          )}
+        </div>
       </aside>
 
       <ProductCreateModal
