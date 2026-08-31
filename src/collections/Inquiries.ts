@@ -76,6 +76,14 @@ export const Inquiries: CollectionConfig = {
       name: 'message',
       type: 'textarea',
     },
+    {
+      name: 'attachmentName',
+      type: 'text',
+    },
+    {
+      name: 'internalNotes',
+      type: 'textarea',
+    },
   ],
   timestamps: true,
 }

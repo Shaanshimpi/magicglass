@@ -98,14 +98,17 @@ export const ContactUsContent: React.FC<ContactUsContentProps> = ({ cmsData }) =
   }
 
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [formError, setFormError] = useState<string | null>(null)
 
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!formData.fullName || !formData.email || !formData.message) return
 
     setIsSubmitting(true)
+    setFormError(null)
+
     try {
-      await fetch('/api/inquiries/submit', {
+      const res = await fetch('/api/inquiries/submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -117,15 +120,22 @@ export const ContactUsContent: React.FC<ContactUsContentProps> = ({ cmsData }) =
           message: formData.message,
         }),
       })
-    } catch (err) {
-      console.warn('Contact form submission fallback:', err)
-    } finally {
-      setIsSubmitting(false)
+
+      const json = await res.json()
+      if (!res.ok || !json.success) {
+        throw new Error(json.error || 'Failed to submit contact message')
+      }
+
       setFormSubmitted(true)
       setFormData({ fullName: '', email: '', phone: '', subject: '', message: '' })
       setTimeout(() => {
         setFormSubmitted(false)
       }, 6000)
+    } catch (err: any) {
+      console.error('Contact form submission error:', err)
+      setFormError(err.message || 'Unable to submit your message. Please try again.')
+    } finally {
+      setIsSubmitting(false)
     }
   }
 
@@ -253,6 +263,12 @@ export const ContactUsContent: React.FC<ContactUsContentProps> = ({ cmsData }) =
                   </div>
                 )}
 
+                {formError && (
+                  <div style={{ background: 'rgba(239, 68, 68, 0.15)', border: '1px solid rgba(239, 68, 68, 0.3)', color: '#fca5a5', padding: '0.75rem 1rem', borderRadius: '6px', fontSize: '0.85rem', marginBottom: '1rem' }}>
+                    ⚠️ {formError}
+                  </div>
+                )}
+
                 <form onSubmit={handleFormSubmit} className={styles.formGrid}>
                   <div className={styles.inputRow}>
                     <div className={styles.inputGroup}>
@@ -318,8 +334,13 @@ export const ContactUsContent: React.FC<ContactUsContentProps> = ({ cmsData }) =
                     />
                   </div>
 
-                  <button type="submit" className={styles.submitBtn}>
-                    SEND MESSAGE →
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className={styles.submitBtn}
+                    style={{ opacity: isSubmitting ? 0.7 : 1, cursor: isSubmitting ? 'not-allowed' : 'pointer' }}
+                  >
+                    {isSubmitting ? 'TRANSMITTING MESSAGE...' : 'SEND MESSAGE →'}
                   </button>
                 </form>
               </div>

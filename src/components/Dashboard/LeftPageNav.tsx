@@ -22,9 +22,9 @@ import {
   FiPlus,
   FiRefreshCw,
   FiLogOut,
-  FiExternalLink,
   FiShield,
   FiLock,
+  FiInbox,
 } from 'react-icons/fi'
 
 export interface PageRoute {
@@ -35,6 +35,15 @@ export interface PageRoute {
   cmsSlug: string
   itemSlug?: string
   icon?: React.ReactNode
+}
+
+export const INQUIRIES_PAGE_ROUTE: PageRoute = {
+  id: 'inquiries-inbox',
+  label: 'Inquiries & Leads',
+  path: '/inquiries',
+  cmsType: 'collection',
+  cmsSlug: 'inquiries',
+  icon: <FiInbox />,
 }
 
 const DEFAULT_INITIAL_PRODUCTS = ALL_PRODUCTS.map((p) => ({
@@ -80,6 +89,7 @@ export const LeftPageNav: React.FC<LeftPageNavProps> = ({
   const [isProductModalOpen, setIsProductModalOpen] = useState(false)
   const [currentUser, setCurrentUser] = useState<any>(null)
   const [loggingOut, setLoggingOut] = useState(false)
+  const [newInquiriesCount, setNewInquiriesCount] = useState<number>(0)
 
   // Fetch current authenticated user
   const fetchUserSession = async () => {
@@ -93,6 +103,19 @@ export const LeftPageNav: React.FC<LeftPageNavProps> = ({
       }
     } catch (err) {
       console.warn('Failed to load user session in dashboard:', err)
+    }
+  }
+
+  // Fetch unread inquiries count
+  const fetchInquiriesCount = async () => {
+    try {
+      const res = await fetch('/api/inquiries')
+      const json = await res.json()
+      if (json.success && json.stats) {
+        setNewInquiriesCount(json.stats.newCount || 0)
+      }
+    } catch (err) {
+      console.warn('Failed to fetch inquiries count:', err)
     }
   }
 
@@ -137,6 +160,7 @@ export const LeftPageNav: React.FC<LeftPageNavProps> = ({
   useEffect(() => {
     fetchProducts()
     fetchUserSession()
+    fetchInquiriesCount()
   }, [])
 
   const prodSlugToPath = (slug: string) =>
@@ -166,8 +190,34 @@ export const LeftPageNav: React.FC<LeftPageNavProps> = ({
           </div>
         </div>
 
-        {/* 1. Primary Site Pages */}
-        <div className={styles.sectionGroupTitle}>Site Pages</div>
+        {/* 1. Form Submissions */}
+        <div className={styles.sectionGroupTitle}>Submissions</div>
+        <div
+          className={`${styles.navItem} ${styles.inquiriesNavItem} ${
+            activePageId === 'inquiries-inbox' ? styles.navItemActive : ''
+          }`}
+          onClick={() => onSelectPage(INQUIRIES_PAGE_ROUTE)}
+          title="View Form Submissions and Inquiries"
+        >
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <span style={{ fontSize: '16px', color: activePageId === 'inquiries-inbox' ? '#fff' : '#ef4444' }}>
+              <FiInbox />
+            </span>
+            <span style={{ fontWeight: 600 }}>Inquiries & Messages</span>
+          </div>
+          {newInquiriesCount > 0 ? (
+            <span className={styles.newInquiryBadge}>
+              {newInquiriesCount}
+            </span>
+          ) : (
+            <FiChevronRight style={{ fontSize: '14px', opacity: activePageId === 'inquiries-inbox' ? 1 : 0.4 }} />
+          )}
+        </div>
+
+        {/* 2. Primary Site Pages */}
+        <div className={styles.sectionGroupTitle} style={{ marginTop: '18px' }}>
+          Site Pages
+        </div>
         {STATIC_PAGE_NAV_CONFIG.map((page) => {
           const isSelected = activePageId === page.id && !activeItemSlug
           return (
@@ -185,7 +235,7 @@ export const LeftPageNav: React.FC<LeftPageNavProps> = ({
           )
         })}
 
-        {/* 2. Products PDP Catalog */}
+        {/* 3. Products PDP Catalog */}
         <div
           className={styles.sectionGroupTitle}
           style={{
@@ -263,7 +313,7 @@ export const LeftPageNav: React.FC<LeftPageNavProps> = ({
           </div>
         )}
 
-        {/* 3. Site Globals & Shell */}
+        {/* 4. Site Globals & Shell */}
         <div className={styles.sectionGroupTitle} style={{ marginTop: '18px' }}>
           Site Globals & Shell
         </div>
@@ -284,7 +334,7 @@ export const LeftPageNav: React.FC<LeftPageNavProps> = ({
           )
         })}
 
-        {/* 4. Active User & Auth Controls */}
+        {/* 5. Active User & Auth Controls */}
         <div className={styles.userProfileFooter}>
           {currentUser ? (
             <>

@@ -15,9 +15,10 @@ export async function POST(req: Request) {
       projectCategory = '',
       glassTypes = [],
       message = '',
+      attachmentName = '',
     } = body
 
-    if (!fullName || !email) {
+    if (!fullName || !fullName.trim() || !email || !email.trim()) {
       return NextResponse.json(
         { success: false, error: 'Full name and email address are required.' },
         { status: 400 }
@@ -27,7 +28,9 @@ export async function POST(req: Request) {
     const payload = await getPayload({ config: configPromise })
 
     const formattedGlassTypes = Array.isArray(glassTypes)
-      ? glassTypes.map((type: string) => ({ type }))
+      ? glassTypes.map((item: any) => ({
+          type: typeof item === 'string' ? item : item.type || String(item),
+        }))
       : []
 
     const inquiry = await payload.create({
@@ -35,20 +38,21 @@ export async function POST(req: Request) {
       data: {
         formType,
         status: 'new',
-        fullName,
-        companyName,
-        email,
-        phone,
-        subject,
-        projectCategory,
+        fullName: fullName.trim(),
+        companyName: (companyName || '').trim(),
+        email: email.trim().toLowerCase(),
+        phone: (phone || '').trim(),
+        subject: (subject || '').trim(),
+        projectCategory: (projectCategory || '').trim(),
         glassTypes: formattedGlassTypes,
-        message,
+        message: (message || '').trim(),
+        attachmentName: (attachmentName || '').trim(),
       },
     })
 
     return NextResponse.json({
       success: true,
-      message: 'Inquiry received successfully.',
+      message: 'Inquiry received and recorded in database successfully.',
       id: inquiry.id,
     })
   } catch (error: any) {

@@ -34,9 +34,6 @@ export const QuoteDrawer: React.FC<QuoteDrawerProps> = ({ isOpen, onClose, cmsDa
     ? cmsData.glassTypes.map((g: any) => g.label || g)
     : DEFAULT_GLASS_TYPES
 
-  const cadDropzoneText =
-    cmsData?.cadDropzoneText || 'Drop DWG, DXF, PDF drawings or BOQ spreadsheet here'
-
   const submissionNotice =
     cmsData?.submissionNotice ||
     'Our Pune technical sales engineering team will review your specifications and respond within 24 business hours.'
@@ -45,6 +42,7 @@ export const QuoteDrawer: React.FC<QuoteDrawerProps> = ({ isOpen, onClose, cmsDa
   const [selectedTypes, setSelectedTypes] = useState<string[]>([glassTypes[0] || 'DGU Insulated'])
   const [submitted, setSubmitted] = useState<boolean>(false)
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
+  const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
   const [formState, setFormState] = useState({
     fullName: '',
@@ -72,9 +70,10 @@ export const QuoteDrawer: React.FC<QuoteDrawerProps> = ({ isOpen, onClose, cmsDa
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
+    setErrorMessage(null)
 
     try {
-      await fetch('/api/inquiries/submit', {
+      const res = await fetch('/api/inquiries/submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -88,16 +87,24 @@ export const QuoteDrawer: React.FC<QuoteDrawerProps> = ({ isOpen, onClose, cmsDa
           message: formState.message,
         }),
       })
-    } catch (err) {
-      console.warn('Inquiry submission fallback:', err)
-    } finally {
-      setIsSubmitting(false)
+
+      const json = await res.json()
+
+      if (!res.ok || !json.success) {
+        throw new Error(json.error || 'Failed to submit quote inquiry')
+      }
+
       setSubmitted(true)
       setTimeout(() => {
         setSubmitted(false)
         setFormState({ fullName: '', companyName: '', email: '', phone: '', message: '' })
         onClose()
-      }, 3000)
+      }, 3500)
+    } catch (err: any) {
+      console.error('Quote submission error:', err)
+      setErrorMessage(err.message || 'Unable to transmit quote request. Please try again.')
+    } finally {
+      setIsSubmitting(false)
     }
   }
 
@@ -114,12 +121,12 @@ export const QuoteDrawer: React.FC<QuoteDrawerProps> = ({ isOpen, onClose, cmsDa
         >
           <div className={styles.drawerHeader}>
             <div>
-              <div className="base-title" style={{ marginBottom: '0.25rem' }}>
+              <div className="base-title" style={{ marginBottom: '0.25rem', color: 'var(--color-crimson)' }}>
                 TECHNICAL INQUIRY
               </div>
               <h3 className={styles.drawerTitle}>Request Technical Quote</h3>
             </div>
-            <button type="button" className={styles.closeBtn} onClick={onClose}>
+            <button type="button" className={styles.closeBtn} onClick={onClose} aria-label="Close quote drawer">
               &times;
             </button>
           </div>
@@ -135,13 +142,27 @@ export const QuoteDrawer: React.FC<QuoteDrawerProps> = ({ isOpen, onClose, cmsDa
               <h4 style={{ fontSize: '1.5rem', marginBottom: '1rem', color: 'var(--color-cream)' }}>
                 Thank you for your request.
               </h4>
-              <p style={{ color: '#cbd5e1', fontSize: '1rem', lineHeight: '1.6' }}>
+              <p style={{ color: '#cbd5e1', fontSize: '0.95rem', lineHeight: '1.6', maxWidth: '420px', margin: '0 auto 2rem' }}>
                 {submissionNotice}
               </p>
+              <button
+                type="button"
+                className={styles.submitBtn}
+                onClick={onClose}
+                style={{ maxWidth: '200px', margin: '0 auto' }}
+              >
+                CLOSE DRAWER
+              </button>
             </div>
           ) : (
             <form onSubmit={handleSubmit}>
-              {/* Category Pills */}
+              {errorMessage && (
+                <div className={styles.errorBanner}>
+                  ⚠️ {errorMessage}
+                </div>
+              )}
+
+              {/* 1. Category Pills */}
               <div className={styles.formGroup}>
                 <label className={styles.label}>1. Project Category</label>
                 <div className={styles.pillsGrid}>
@@ -160,7 +181,7 @@ export const QuoteDrawer: React.FC<QuoteDrawerProps> = ({ isOpen, onClose, cmsDa
                 </div>
               </div>
 
-              {/* Glass Types Checkboxes */}
+              {/* 2. Glass Types Checkboxes */}
               <div className={styles.formGroup}>
                 <label className={styles.label}>2. Glass Specifications Required</label>
                 <div className={styles.checkboxesGrid}>
@@ -177,15 +198,7 @@ export const QuoteDrawer: React.FC<QuoteDrawerProps> = ({ isOpen, onClose, cmsDa
                 </div>
               </div>
 
-              {/* CAD Dropzone */}
-              <div className={styles.formGroup}>
-                <label className={styles.label}>3. Drawings / BOQ Spreadsheet</label>
-                <div className={styles.dropzone}>
-                  <p className={styles.dropzoneText}>{cadDropzoneText}</p>
-                </div>
-              </div>
-
-              {/* Contact Inputs */}
+              {/* 3. Contact Inputs */}
               <div
                 className={styles.formGroup}
                 style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}
@@ -242,6 +255,20 @@ export const QuoteDrawer: React.FC<QuoteDrawerProps> = ({ isOpen, onClose, cmsDa
                     className={styles.inputField}
                   />
                 </div>
+              </div>
+
+              {/* 4. Project Notes / Scope */}
+              <div className={styles.formGroup}>
+                <label className={styles.label}>Project Scope & Dimensions (Optional)</label>
+                <textarea
+                  name="message"
+                  value={formState.message}
+                  onChange={handleInputChange}
+                  rows={3}
+                  placeholder="Estimated square footage, thermal U-value targets, acoustic ratings, delivery timeline, or site requirements..."
+                  className={styles.inputField}
+                  style={{ resize: 'vertical' }}
+                />
               </div>
 
               <button

@@ -304,6 +304,8 @@ export interface Inquiry {
       }[]
     | null;
   message?: string | null;
+  attachmentName?: string | null;
+  internalNotes?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -544,6 +546,8 @@ export interface InquiriesSelect<T extends boolean = true> {
         id?: T;
       };
   message?: T;
+  attachmentName?: T;
+  internalNotes?: T;
   updatedAt?: T;
   createdAt?: T;
 }

@@ -176,24 +176,14 @@
   cursor: pointer;
 }
 
-.dropzone {
-  border: 1px dashed var(--color-border-strong);
-  border-radius: 0.75rem;
-  padding: 1.5rem;
-  text-align: center;
-  background: var(--color-surface-hover);
-  cursor: pointer;
-  transition: border-color 0.2s ease;
-}
-
-.dropzone:hover {
-  border-color: var(--color-crimson);
-}
-
-.dropzoneText {
-  font-size: 0.9rem;
-  color: #334155;
-  font-weight: 500;
+.errorBanner {
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #fca5a5;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  margin-bottom: 1.25rem;
 }
 
 .inputField {
