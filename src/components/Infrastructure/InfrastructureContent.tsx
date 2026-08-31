@@ -150,8 +150,10 @@ export const InfrastructureContent: React.FC<InfrastructureContentProps> = ({ cm
           scrollTrigger: {
             trigger: mobileSectionRef.current,
             start: 'top top',
-            end: `+=${totalCards * 90}%`,
+            end: `+=${totalCards * 100}%`,
             pin: mobilePinRef.current,
+            pinSpacing: true,
+            anticipatePin: 1,
             scrub: 1,
           },
         })

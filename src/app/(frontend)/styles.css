@@ -96,6 +96,15 @@ a:hover {
   flex-shrink: 0;
 }
 
+@media (max-width: 640px) {
+  .base-title {
+    font-size: clamp(0.75rem, 3.2vw, 1.05rem);
+    letter-spacing: 0.12em;
+    max-width: 100%;
+    word-break: break-word;
+  }
+}
+
 /* -------------------------------------------------------------------------- */
 /* fluid.glass Signature Rectangular Arrow Buttons                            */
 /* -------------------------------------------------------------------------- */

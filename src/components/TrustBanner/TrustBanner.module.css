@@ -26,6 +26,21 @@
   color: #0284c7;
   margin-bottom: 2.5rem;
   opacity: 1;
+  text-align: center;
+  padding: 0 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .trustSection {
+    padding: 4rem 0;
+  }
+  .eyebrow {
+    font-size: clamp(0.75rem, 3.2vw, 1rem);
+    letter-spacing: 0.12em;
+    margin-bottom: 1.75rem;
+    padding: 0 1.25rem;
+    max-width: 100%;
+  }
 }
 
 .marqueeTrack {

@@ -398,27 +398,39 @@
 
   .splitSectionInner {
     flex-direction: column;
-    gap: 3rem;
+    gap: 2.5rem;
   }
 
-  .leftPinnedPane,
+  .leftPinnedPane {
+    position: static;
+    top: auto;
+    height: auto;
+    width: 100%;
+  }
+
   .rightScrollPane {
     width: 100%;
   }
 
   .stickyContent {
-    position: relative;
-    top: 0;
+    position: static;
+    top: auto;
     height: auto;
     padding-right: 0;
   }
 
+  .singleHeadlineWrapper {
+    margin-top: 1rem;
+    padding-bottom: 0;
+  }
+
   .singleLeftHeadline {
-    font-size: 2.2rem;
+    font-size: clamp(1.8rem, 4vw, 2.4rem);
   }
 
   .inlineCategoryPills {
     justify-content: flex-start;
+    margin-bottom: 2.5rem;
   }
 }
 

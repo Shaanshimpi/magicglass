@@ -141,14 +141,15 @@ export function useParallaxGridAnimation({
     // MOBILE ANIMATION (<= 900px): Pinned Diagonal Scale Scene
     // -------------------------------------------------------------------------
     mm.add('(max-width: 900px)', () => {
-      const triggerEl = mobileSectionRef?.current || mobilePinRef.current
-      if (triggerEl && mobilePinRef.current && mobileCardCount > 0) {
+      if (mobileSectionRef?.current && mobilePinRef.current && mobileCardCount > 0) {
         const tl = gsap.timeline({
           scrollTrigger: {
-            trigger: triggerEl,
+            trigger: mobileSectionRef.current,
             start: 'top top',
-            end: `+=${mobileCardCount * 90}%`,
+            end: `+=${mobileCardCount * 100}%`,
             pin: mobilePinRef.current,
+            pinSpacing: true,
+            anticipatePin: 1,
             scrub: 1,
           },
         })
@@ -209,7 +210,7 @@ export function useParallaxGridAnimation({
     })
 
     return () => mm.revert()
-  }, [mobileCardCount, desktopRef, mobilePinRef, row1CardRef, row1TextRef, row2Card1Ref, row2Card2Ref, row2Card3Ref, row3Card1Ref, row3Card2Ref])
+  }, [mobileCardCount, desktopRef, mobileSectionRef, mobilePinRef, row1CardRef, row1TextRef, row2Card1Ref, row2Card2Ref, row2Card3Ref, row3Card1Ref, row3Card2Ref])
 
   return { setMobileTileRef }
 }

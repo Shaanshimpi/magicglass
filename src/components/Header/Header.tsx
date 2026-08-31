@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import gsap from 'gsap'
 import styles from './Header.module.css'
 
@@ -23,6 +24,7 @@ export const Header: React.FC<HeaderProps> = ({
   onNavigatePreview,
   cmsData,
 }) => {
+  const pathname = usePathname()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const headerRef = useRef<HTMLHeadingElement>(null)
   const logoLinkRef = useRef<HTMLAnchorElement>(null)
@@ -30,6 +32,11 @@ export const Header: React.FC<HeaderProps> = ({
   const actionsRef = useRef<HTMLDivElement>(null)
   const menuOverlayRef = useRef<HTMLDivElement>(null)
   const menuLinksRef = useRef<HTMLUListElement>(null)
+
+  // Automatically close mobile menu whenever route changes
+  useEffect(() => {
+    setIsMenuOpen(false)
+  }, [pathname])
 
   useEffect(() => {
     if (headerRef.current && logoLinkRef.current && navRef.current && actionsRef.current) {
@@ -79,10 +86,10 @@ export const Header: React.FC<HeaderProps> = ({
   }
 
   const handleNavClick = (e: React.MouseEvent, pageTab: string) => {
+    handleCloseMenu()
     if (onNavigatePreview) {
       e.preventDefault()
       onNavigatePreview(pageTab)
-      handleCloseMenu()
     }
   }
 

@@ -183,8 +183,7 @@
 
 @media (max-width: 768px) {
   .detailImageFlex {
-    flex-direction: column;
-    gap: 2rem;
+    display: none !important;
   }
 
   .generalSection {

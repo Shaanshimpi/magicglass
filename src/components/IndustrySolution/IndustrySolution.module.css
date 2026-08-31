@@ -345,19 +345,18 @@
   display: none;
   position: relative;
   width: 100%;
-  height: 100vh;
   background-color: var(--color-black, #0b1012);
   color: var(--color-taupe, #a0aab0);
-  overflow: hidden;
 }
 
 .mobileContainer {
   position: relative;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   padding: 5rem 1.5rem 2rem 1.5rem;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 .mobileHeaderBlock {
@@ -473,5 +472,10 @@
   }
   .mobileProductSection {
     display: block;
+  }
+  .mobileHeaderBlock .eyebrow {
+    font-size: clamp(0.75rem, 3.2vw, 1rem);
+    letter-spacing: 0.12em;
+    margin-bottom: 0.5rem;
   }
 }
