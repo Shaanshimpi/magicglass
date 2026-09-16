@@ -55,10 +55,10 @@ export const Heritage: React.FC<HeritageProps> = ({ onOpenQuoteDrawer, cmsData }
           scrollTrigger: {
             trigger: sectionRef.current,
             start: 'top top',
-            end: '+=110%',
+            end: '+=77%',
             pin: containerRef.current,
             pinSpacing: true,
-            scrub: 0.8,
+            scrub: 0.2,
             anticipatePin: 1,
           },
         })

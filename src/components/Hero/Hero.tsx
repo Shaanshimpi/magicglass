@@ -16,7 +16,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteDrawer, cmsData }) => {
   const { openQuoteDrawer } = useLayoutContext()
   const handleQuoteClick = onOpenQuoteDrawer || openQuoteDrawer
 
-  const tagline = cmsData?.tagline || 'PRECISION GLASS MANUFACTURING • YAVAT, PUNE, MAHARASHTRA'
+  const tagline = cmsData?.tagline
   const heading = cmsData?.heading || 'Crafting Exceptional Glass Solutions for a Brighter World.'
   const primaryCtaLabel = cmsData?.primaryCtaLabel || 'REQUEST TECHNICAL QUOTE'
   const secondaryCtaLabel = cmsData?.secondaryCtaLabel || 'DISCOVER FACTORY'
@@ -76,12 +76,14 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteDrawer, cmsData }) => {
       <div className={styles.vignetteOverlay} />
 
       <div ref={contentRef} className={styles.contentContainer}>
-        <div
-          className={`base-title ${styles.tagline}`}
-          data-cms-field="hero_tagline"
-        >
-          {tagline}
-        </div>
+        {tagline ? (
+          <div
+            className={`base-title ${styles.tagline}`}
+            data-cms-field="hero_tagline"
+          >
+            {tagline}
+          </div>
+        ) : null}
 
         <h1
           className={styles.heading}

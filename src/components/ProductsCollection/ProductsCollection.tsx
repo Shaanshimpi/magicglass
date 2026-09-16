@@ -151,6 +151,13 @@ export const ProductsCollection: React.FC<ProductsCollectionProps> = ({ cmsData 
     )
   }, [activeCategory])
 
+  const rawSubtitle =
+    cmsData?.hero?.subtitle ||
+    'Engineered for high-rise curtain walls, acoustic speech isolation, fire containment barriers, and ionoplast structural fins.'
+  const heroSubtitle = rawSubtitle
+    .replace(/\s*Sourced and processed with world-class European technology\.?/gi, '')
+    .trim()
+
   return (
     <div ref={containerRef} className={styles.collectionWrapper}>
       {/* -------------------------------------------------------------------- */}
@@ -158,16 +165,14 @@ export const ProductsCollection: React.FC<ProductsCollectionProps> = ({ cmsData 
       {/* -------------------------------------------------------------------- */}
       <section className={styles.heroSection}>
         <div ref={heroRef} className={styles.heroContainer}>
-          <div className={`base-title ${styles.heroTag}`} data-cms-field="hero_tag">
-            {cmsData?.hero?.tag || 'COLLECTION / ARCHITECTURAL GLASS SYSTEMS'}
-          </div>
           <h1 className={styles.heroTitle} data-cms-field="hero_title">
             {cmsData?.hero?.title || 'Architectural Glass & Precision Processing'}
           </h1>
-          <p className={styles.heroSubtitle} data-cms-field="hero_subtitle">
-            {cmsData?.hero?.subtitle ||
-              'Engineered for high-rise curtain walls, acoustic speech isolation, fire containment barriers, and ionoplast structural fins. Sourced and processed with world-class European technology.'}
-          </p>
+          {heroSubtitle && (
+            <p className={styles.heroSubtitle} data-cms-field="hero_subtitle">
+              {heroSubtitle}
+            </p>
+          )}
         </div>
       </section>
 

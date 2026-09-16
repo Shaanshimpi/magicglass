@@ -5,6 +5,7 @@ import styles from './Dashboard.module.css'
 import { PageRoute } from './LeftPageNav'
 import { MediaPickerModal } from './MediaPickerModal'
 import { ProjectCreateModal } from './ProjectCreateModal'
+import { ALL_PRODUCTS } from '@/components/ProductsCollection/products.data'
 import {
   FiSave,
   FiChevronDown,
@@ -17,6 +18,8 @@ import {
   FiAlertCircle,
   FiCheckCircle,
   FiSearch,
+  FiStar,
+  FiX,
 } from 'react-icons/fi'
 
 interface RightSectionInspectorProps {
@@ -73,10 +76,46 @@ export const RightSectionInspector: React.FC<RightSectionInspectorProps> = ({
     setOpenSections((prev) => ({ ...prev, [sec]: !prev[sec] }))
   }
 
+  // Available Products Catalog state for Featured Products selection
+  const [availableProducts, setAvailableProducts] = useState<any[]>([])
+
+  const fetchAvailableProducts = async () => {
+    try {
+      const res = await fetch('/api/cms/get?type=collection&slug=products')
+      const json = await res.json()
+      if (json.success && Array.isArray(json.data) && json.data.length > 0) {
+        setAvailableProducts(json.data)
+      } else {
+        setAvailableProducts(
+          ALL_PRODUCTS.map((p) => ({
+            id: p.id,
+            slug: p.id,
+            title: p.title,
+            category: p.categoryLabel,
+            introSummary: p.description,
+            heroImageUrl: p.image,
+          }))
+        )
+      }
+    } catch {
+      setAvailableProducts(
+        ALL_PRODUCTS.map((p) => ({
+          id: p.id,
+          slug: p.id,
+          title: p.title,
+          category: p.categoryLabel,
+          introSummary: p.description,
+          heroImageUrl: p.image,
+        }))
+      )
+    }
+  }
+
   // Fetch CMS data whenever activePage changes
   const fetchData = async () => {
     setLoading(true)
     setFeedback(null)
+    fetchAvailableProducts()
     try {
       if (activePage.cmsSlug === 'projects' && activePage.cmsType === 'collection') {
         const res = await fetch('/api/cms/get?type=collection&slug=projects')
@@ -331,6 +370,37 @@ export const RightSectionInspector: React.FC<RightSectionInspectorProps> = ({
                   </div>
                   {openSections.hero && (
                     <div className={styles.accordionBody}>
+                      <div
+                        className={styles.fieldGroup}
+                        style={{
+                          background: 'rgba(37, 99, 235, 0.08)',
+                          padding: '10px 12px',
+                          borderRadius: '6px',
+                          border: '1px solid rgba(59, 130, 246, 0.3)',
+                          marginBottom: '12px',
+                        }}
+                      >
+                        <label
+                          style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '8px',
+                            cursor: 'pointer',
+                            margin: 0,
+                            fontWeight: 600,
+                            color: data?.isFeatured ? '#60a5fa' : '#94a3b8',
+                          }}
+                        >
+                          <input
+                            type="checkbox"
+                            checked={Boolean(data?.isFeatured)}
+                            onChange={(e) => handleFieldChange('isFeatured', e.target.checked)}
+                            style={{ width: '16px', height: '16px', accentColor: '#2563eb' }}
+                          />
+                          <span>★ Mark as Featured Architectural Product</span>
+                        </label>
+                      </div>
+
                       <div className={styles.fieldGroup}>
                         <label className={styles.fieldLabel}>Product Title</label>
                         <input
@@ -354,13 +424,14 @@ export const RightSectionInspector: React.FC<RightSectionInspectorProps> = ({
                           <label className={styles.fieldLabel}>Category</label>
                           <select
                             className={styles.inputControl}
-                            value={data?.category || 'structural'}
+                            value={data?.category || 'toughened'}
                             onChange={(e) => handleFieldChange('category', e.target.value)}
                           >
-                            <option value="structural">Structural & Exterior</option>
-                            <option value="interior">Interior & Partitions</option>
-                            <option value="safety">Safety & Processing</option>
-                            <option value="specialty">Specialty & Decorative</option>
+                            <option value="toughened">Toughened Glass</option>
+                            <option value="laminated">Laminated Glass</option>
+                            <option value="insulated">Insulated Glass</option>
+                            <option value="reflective">Reflective Glass</option>
+                            <option value="other">Other Glass</option>
                           </select>
                         </div>
                         <div className={styles.fieldGroup}>
@@ -555,7 +626,7 @@ export const RightSectionInspector: React.FC<RightSectionInspectorProps> = ({
                             className={styles.actionIconBtn}
                             onClick={() => {
                               const existing = Array.isArray(data?.galleryImages) ? [...data.galleryImages] : []
-                              existing.push({ title: 'NEW APPLICATION', src: '/images/prod-structural.jpg' })
+                              existing.push({ title: 'NEW APPLICATION', src: '/images/products/details/partitions.png' })
                               handleFieldChange('galleryImages', existing)
                             }}
                           >
@@ -640,6 +711,59 @@ export const RightSectionInspector: React.FC<RightSectionInspectorProps> = ({
                                 <FiTrash2 size={12} />
                               </button>
                             </div>
+                            <div className={styles.fieldGroup}>
+                              <label className={styles.fieldLabel}>Linked Project Title</label>
+                              <input
+                                type="text"
+                                className={styles.inputControl}
+                                value={typeof sItem === 'string' ? '' : sItem.title || ''}
+                                onChange={(e) => {
+                                  const updated = [...data.sliderImages]
+                                  updated[sIdx] = {
+                                    ...(typeof sItem === 'string' ? { src: sItem } : sItem),
+                                    title: e.target.value,
+                                  }
+                                  handleFieldChange('sliderImages', updated)
+                                }}
+                                placeholder="e.g. Balmoral by Riverside"
+                              />
+                            </div>
+                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
+                              <div className={styles.fieldGroup}>
+                                <label className={styles.fieldLabel}>Developer</label>
+                                <input
+                                  type="text"
+                                  className={styles.inputControl}
+                                  value={typeof sItem === 'string' ? '' : sItem.developer || ''}
+                                  onChange={(e) => {
+                                    const updated = [...data.sliderImages]
+                                    updated[sIdx] = {
+                                      ...(typeof sItem === 'string' ? { src: sItem } : sItem),
+                                      developer: e.target.value,
+                                    }
+                                    handleFieldChange('sliderImages', updated)
+                                  }}
+                                  placeholder="e.g. Kasturi Builder"
+                                />
+                              </div>
+                              <div className={styles.fieldGroup}>
+                                <label className={styles.fieldLabel}>Location</label>
+                                <input
+                                  type="text"
+                                  className={styles.inputControl}
+                                  value={typeof sItem === 'string' ? '' : sItem.location || ''}
+                                  onChange={(e) => {
+                                    const updated = [...data.sliderImages]
+                                    updated[sIdx] = {
+                                      ...(typeof sItem === 'string' ? { src: sItem } : sItem),
+                                      location: e.target.value,
+                                    }
+                                    handleFieldChange('sliderImages', updated)
+                                  }}
+                                  placeholder="e.g. Baner, Pune"
+                                />
+                              </div>
+                            </div>
                             {renderMediaControl(
                               `Slide Image ${sIdx + 1}`,
                               `sliderImages.${sIdx}.src`,
@@ -669,7 +793,7 @@ export const RightSectionInspector: React.FC<RightSectionInspectorProps> = ({
                             existing.push({
                               title: 'NEW SECTOR',
                               description: 'Engineered glass solutions tailored for rigorous performance standards.',
-                              imageUrl: '/images/prod-structural.jpg',
+                              imageUrl: '/images/products/details/architecture.png',
                             })
                             handleFieldChange('industries', existing)
                           }}
@@ -792,6 +916,95 @@ export const RightSectionInspector: React.FC<RightSectionInspectorProps> = ({
             {/* ============================================================= */}
             {activePage.cmsSlug === 'projects' && (
               <div className={styles.projectsManagerContainer}>
+                {/* 01. Hero Featured Projects Carousel Manager */}
+                <div className={styles.heroProjectsManagerCard}>
+                  <div className={styles.heroProjectsManagerHeader}>
+                    <div className={styles.heroProjectsManagerTitle}>
+                      <FiStar style={{ color: '#fbbf24' }} />
+                      <span>Hero Section: Featured Projects Carousel</span>
+                    </div>
+                    <span className={styles.heroProjectsCountBadge}>
+                      {projectsList.filter((p) => p.heroFeatured).length} Active in Hero
+                    </span>
+                  </div>
+
+                  {/* Active Hero Projects Chips */}
+                  <div className={styles.heroProjectsChipsList}>
+                    {projectsList.filter((p) => p.heroFeatured).length === 0 ? (
+                      <div style={{ fontSize: '12px', color: '#94a3b8', fontStyle: 'italic' }}>
+                        No projects currently marked as featured in hero. (First 4 projects will display as fallback).
+                      </div>
+                    ) : (
+                      projectsList
+                        .filter((p) => p.heroFeatured)
+                        .map((fp) => {
+                          const originalIdx = projectsList.findIndex((p) => p.slug === fp.slug)
+                          return (
+                            <div key={fp.slug} className={styles.heroProjectChip}>
+                              {/* eslint-disable-next-line @next/next/no-img-element */}
+                              <img
+                                src={
+                                  fp.imageUrl ||
+                                  fp.image?.url ||
+                                  '/images/projects/balmoral-by-riverside.jpg'
+                                }
+                                alt={fp.title}
+                                className={styles.heroProjectChipImg}
+                              />
+                              <span className={styles.heroProjectChipTitle} title={fp.title}>
+                                {fp.title}
+                              </span>
+                              <button
+                                type="button"
+                                className={styles.heroProjectChipRemoveBtn}
+                                title={`Remove "${fp.title}" from hero carousel`}
+                                onClick={() => {
+                                  if (originalIdx !== -1) {
+                                    handleProjectFieldChange(originalIdx, 'heroFeatured', false)
+                                  }
+                                }}
+                              >
+                                <FiX size={13} />
+                              </button>
+                            </div>
+                          )
+                        })
+                    )}
+                  </div>
+
+                  {/* Quick Add Dropdown */}
+                  <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+                    <select
+                      className={styles.inputControl}
+                      style={{
+                        fontSize: '12px',
+                        padding: '7px 10px',
+                        background: '#09101f',
+                        borderColor: '#c5a880',
+                        color: '#f8fafc',
+                      }}
+                      value=""
+                      onChange={(e) => {
+                        const slugToAdd = e.target.value
+                        if (!slugToAdd) return
+                        const idx = projectsList.findIndex((p) => p.slug === slugToAdd)
+                        if (idx !== -1) {
+                          handleProjectFieldChange(idx, 'heroFeatured', true)
+                        }
+                      }}
+                    >
+                      <option value="">➕ Add Project to Hero Carousel...</option>
+                      {projectsList
+                        .filter((p) => !p.heroFeatured)
+                        .map((p) => (
+                          <option key={p.slug} value={p.slug}>
+                            {p.title} ({p.category || 'Project'})
+                          </option>
+                        ))}
+                    </select>
+                  </div>
+                </div>
+
                 <div className={styles.projectsToolbar}>
                   <div className={styles.projectCategoryPills}>
                     {['ALL', 'Airports', 'Commercial', 'Residential', 'Infrastructure', 'Hospitality'].map((cat) => (
@@ -874,6 +1087,64 @@ export const RightSectionInspector: React.FC<RightSectionInspectorProps> = ({
 
                           {isExpanded && (
                             <div className={styles.projectCardBody}>
+                              <div
+                                className={styles.fieldGroup}
+                                style={{
+                                  background: project.heroFeatured
+                                    ? 'rgba(251, 191, 36, 0.08)'
+                                    : 'rgba(255, 255, 255, 0.03)',
+                                  padding: '10px 12px',
+                                  borderRadius: '6px',
+                                  border: project.heroFeatured
+                                    ? '1px solid rgba(251, 191, 36, 0.35)'
+                                    : '1px solid rgba(255, 255, 255, 0.1)',
+                                  marginBottom: '12px',
+                                }}
+                              >
+                                <label
+                                  style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '8px',
+                                    cursor: 'pointer',
+                                    margin: 0,
+                                    fontWeight: 600,
+                                    color: project.heroFeatured ? '#fbbf24' : '#94a3b8',
+                                  }}
+                                >
+                                  <input
+                                    type="checkbox"
+                                    checked={Boolean(project.heroFeatured)}
+                                    onChange={(e) =>
+                                      handleProjectFieldChange(
+                                        pIdx,
+                                        'heroFeatured',
+                                        e.target.checked
+                                      )
+                                    }
+                                    style={{
+                                      width: '16px',
+                                      height: '16px',
+                                      accentColor: '#fbbf24',
+                                    }}
+                                  />
+                                  <span>★ Feature in Hero Carousel (Top of /projects page)</span>
+                                </label>
+                              </div>
+
+                              <div className={styles.fieldGroup}>
+                                <label className={styles.fieldLabel}>Hero Carousel Tagline</label>
+                                <input
+                                  type="text"
+                                  className={styles.inputControl}
+                                  value={project.tagline || ''}
+                                  placeholder="e.g. Balmoral Riverside — Pune's Grand Luxury Facade"
+                                  onChange={(e) =>
+                                    handleProjectFieldChange(pIdx, 'tagline', e.target.value)
+                                  }
+                                />
+                              </div>
+
                               <div className={styles.fieldGroup}>
                                 <label className={styles.fieldLabel}>Project Title</label>
                                 <input
@@ -1679,10 +1950,117 @@ export const RightSectionInspector: React.FC<RightSectionInspectorProps> = ({
 
                       {Array.isArray(data?.featuredSystems) &&
                         data.featuredSystems.map((item: any, fIdx: number) => (
-                          <div key={fIdx} style={{ padding: 10, background: '#0e1726', borderRadius: 6, marginBottom: 10 }}>
-                            <div style={{ fontSize: '11px', color: '#c5a880', fontWeight: 600, marginBottom: 6 }}>
-                              FEATURED SYSTEM #{fIdx + 1}
+                          <div
+                            key={fIdx}
+                            style={{
+                              padding: 12,
+                              background: '#0e1726',
+                              borderRadius: 8,
+                              marginBottom: 14,
+                              border: '1px solid rgba(59, 130, 246, 0.25)',
+                            }}
+                          >
+                            <div className={styles.featuredProductBadgeLine}>
+                              <span style={{ color: '#c5a880', fontWeight: 600, fontSize: '11px' }}>
+                                FEATURED SYSTEM #{fIdx + 1}
+                              </span>
+                              {item.productSlug && (
+                                <span
+                                  style={{
+                                    color: '#60a5fa',
+                                    fontSize: '11px',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: 4,
+                                  }}
+                                >
+                                  ✓ Linked: <code>{item.productSlug}</code>
+                                </span>
+                              )}
                             </div>
+
+                            {/* Product Catalog Selector Dropdown */}
+                            <div className={styles.fieldGroup} style={{ marginBottom: 12 }}>
+                              <label
+                                className={styles.fieldLabel}
+                                style={{ color: '#60a5fa', fontWeight: 600 }}
+                              >
+                                Select Product from Catalog
+                              </label>
+                              <div style={{ display: 'flex', gap: 8 }}>
+                                <select
+                                  className={styles.productCatalogSelectControl}
+                                  value={item.productSlug || ''}
+                                  onChange={(e) => {
+                                    const selectedSlug = e.target.value
+                                    const found = availableProducts.find(
+                                      (p: any) =>
+                                        p.slug === selectedSlug || p.id === selectedSlug
+                                    )
+                                    const updated = [...(data?.featuredSystems || [])]
+                                    if (found) {
+                                      updated[fIdx] = {
+                                        ...updated[fIdx],
+                                        productSlug: found.slug || found.id,
+                                        title: found.title || updated[fIdx].title,
+                                        categoryLabel:
+                                          found.category ||
+                                          updated[fIdx].categoryLabel ||
+                                          'Laminated Glass',
+                                        badgeText:
+                                          updated[fIdx].badgeText || 'FLAGSHIP FAÇADE',
+                                        description:
+                                          found.introSummary ||
+                                          found.subheading ||
+                                          updated[fIdx].description ||
+                                          '',
+                                        featuredImageUrl:
+                                          found.heroImageUrl ||
+                                          found.image ||
+                                          updated[fIdx].featuredImageUrl ||
+                                          '/images/products/sentry-laminated-glass.png',
+                                        link: `/products/${found.slug || found.id}`,
+                                      }
+                                    } else {
+                                      updated[fIdx] = {
+                                        ...updated[fIdx],
+                                        productSlug: selectedSlug,
+                                      }
+                                    }
+                                    handleFieldChange('featuredSystems', updated)
+                                  }}
+                                >
+                                  <option value="">-- Choose a Product from Catalog --</option>
+                                  {availableProducts.map((prod: any) => (
+                                    <option key={prod.slug || prod.id} value={prod.slug || prod.id}>
+                                      {prod.title} ({prod.category || 'Glass'})
+                                    </option>
+                                  ))}
+                                </select>
+                                {item.productSlug && (
+                                  <button
+                                    type="button"
+                                    className={styles.deleteIconBtn}
+                                    style={{
+                                      width: 'auto',
+                                      padding: '0 8px',
+                                      fontSize: '11px',
+                                      height: '36px',
+                                      flexShrink: 0,
+                                    }}
+                                    title="Unlink product"
+                                    onClick={() => {
+                                      const updated = [...(data?.featuredSystems || [])]
+                                      updated[fIdx] = { ...updated[fIdx], productSlug: '' }
+                                      handleFieldChange('featuredSystems', updated)
+                                    }}
+                                  >
+                                    Unlink
+                                  </button>
+                                )}
+                              </div>
+                            </div>
+
                             <div className={styles.fieldGroup}>
                               <label className={styles.fieldLabel}>Product Title</label>
                               <input
@@ -1742,8 +2120,62 @@ export const RightSectionInspector: React.FC<RightSectionInspectorProps> = ({
                               `featuredSystems.${fIdx}.featuredImageUrl`,
                               item.featuredImageUrl || item.featuredImage?.url || ''
                             )}
+
+                            <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 10 }}>
+                              <button
+                                type="button"
+                                className={styles.deleteIconBtn}
+                                style={{
+                                  width: 'auto',
+                                  padding: '4px 10px',
+                                  fontSize: '11px',
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  gap: 4,
+                                }}
+                                onClick={() => {
+                                  const updated = data.featuredSystems.filter(
+                                    (_: any, i: number) => i !== fIdx
+                                  )
+                                  handleFieldChange('featuredSystems', updated)
+                                }}
+                              >
+                                <FiTrash2 size={12} /> Remove System
+                              </button>
+                            </div>
                           </div>
                         ))}
+
+                      <button
+                        type="button"
+                        className={styles.actionIconBtn}
+                        style={{
+                          marginTop: 6,
+                          padding: '7px 14px',
+                          width: 'auto',
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: 6,
+                          fontSize: '12px',
+                        }}
+                        onClick={() => {
+                          const existing = Array.isArray(data?.featuredSystems)
+                            ? [...data.featuredSystems]
+                            : []
+                          existing.push({
+                            productSlug: '',
+                            title: 'New Featured System',
+                            badgeText: 'FLAGSHIP FAÇADE',
+                            categoryLabel: 'Laminated Glass',
+                            description: 'High performance architectural glass specification.',
+                            featuredImageUrl: '/images/products/sentry-laminated-glass.png',
+                            link: '/products',
+                          })
+                          handleFieldChange('featuredSystems', existing)
+                        }}
+                      >
+                        <FiPlus size={13} /> Add Featured System Card
+                      </button>
                     </div>
                   )}
                 </div>
@@ -2163,7 +2595,7 @@ export const RightSectionInspector: React.FC<RightSectionInspectorProps> = ({
                         <input
                           type="text"
                           className={styles.inputControl}
-                          value={data?.loaderBrandTitle || 'ARCHITECTURAL GLAZING'}
+                          value={data?.loaderBrandTitle || "It's not just glass It's"}
                           onChange={(e) => handleFieldChange('loaderBrandTitle', e.target.value)}
                         />
                       </div>

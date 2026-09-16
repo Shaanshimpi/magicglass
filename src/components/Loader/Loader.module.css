@@ -1,3 +1,7 @@
+:global(html.loader-complete) .loaderWrapper {
+  display: none !important;
+}
+
 .loaderWrapper {
   position: fixed;
   inset: 0;
@@ -75,7 +79,6 @@
   letter-spacing: -0.03em;
   color: #ffffff;
   text-align: center;
-  text-transform: uppercase;
   line-height: 1.05;
 }
 

@@ -1,3 +1,5 @@
+import { PdpLinkedProject } from './pdpProjectsRegistry'
+
 export interface TechnicalSpec {
   icon?: string
   label: string
@@ -26,1215 +28,1496 @@ export interface PdpProductDetail {
   galleryImageItems?: Array<{ src: string; title?: string }>
   galleryImages: [string, string, string, string]
   industries?: IndustryItem[]
-  sliderImages: string[]
+  sliderImages: Array<string | PdpLinkedProject>
   relatedProductIds: [string, string]
 }
 
-
 export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
-  'toughened-glass': {
-    id: 'toughened-glass',
-    indexNumber: '14',
-    title: 'Toughened Glass',
-    subheading: 'Fortified Safety Glass Quadruple (4x) Strength',
-    category: 'Safety & Processing',
-    heroImage: 'https://magicglass.co.in/wp-content/uploads/2023/11/HIGH-RISE-BUILDINGS.png',
-    introSummary:
-      'Toughened glass, commonly referred to as \'Tempered glass,\' stands as fortified safety glass, its strength amplified through meticulous thermal processes. This involves subjecting annealed glass to temperatures of around 650°C followed by swift cooling, culminating in a glass that possesses fourfold the strength of regular glass.',
-    secondaryText:
-      'This intense heat treatment and rapid cooling induce distinct physical attributes, notably instilling surface compressive stress and enhancing the glass\'s flexural potency. Preceding toughening, the glass is intricately cut to precise dimensions or expertly shaped, setting the stage for its exceptional attributes.',
-    detailImages: [
-      'https://magicglass.co.in/wp-content/uploads/2023/11/SAFETY-DOORS.png',
-      'https://magicglass.co.in/wp-content/uploads/2024/02/automotive.png',
+  "toughened-glass": {
+    "id": "toughened-glass",
+    "indexNumber": "01",
+    "title": "Toughened Glass",
+    "subheading": "Fortified Safety Glass Quadruple (4x) Strength",
+    "category": "Toughened Glass",
+    "heroImage": "/images/products/toughened-glass.png",
+    "introSummary": "Toughened glass, commonly referred to as ‘Tempered glass,’ stands as fortified safety glass, its strength amplified through meticulous thermal processes. This involves subjecting annealed glass to temperatures of around 650⁰C followed by swift cooling, culminating in a glass that possesses fourfold the strength of regular glass.",
+    "secondaryText": "This intense heat treatment and rapid cooling induce distinct physical attributes, notably instilling surface compressive stress and enhancing the glass’s flexural potency. Preceding toughening, the glass is intricately cut to precise dimensions or expertly shaped, setting the stage for its exceptional attributes.",
+    "detailImages": [
+      "/images/products/details/SAFETY-DOORS.png",
+      "/images/products/details/automotive.png"
     ],
-    characteristics: [
-      'Fourfold (4x) mechanical strength compared to annealed float glass',
-      'High surface compressive stress & enhanced flexural resistance',
-      'Precision custom cut & edge preparation before furnace tempering',
-      'Triple heating method harmony (conduction, convection, and radiation)',
-      'Motorized roller hearth ensuring equal heat distribution across surfaces',
-      'Uniform high-pressure air quenching achieving high physical resilience',
-      'Safe small-fragment crumbling pattern upon impact reducing injury risk',
+    "characteristics": [
+      "4x Strength of Annealed Float Glass",
+      "High Surface Compressive Stress",
+      "Convection Furnace Quench Processed",
+      "Certified to international standards EN, ASTM, and IS",
+      "Custom fabricated to precise structural engineering specifications"
     ],
-    specs: [
+    "specs": [
       {
-        icon: 'https://magicglass.co.in/wp-content/uploads/2023/11/Group-2258.png',
-        label: 'Glass Thickness Range',
-        value: '4mm to 19mm',
+        "icon": "/images/products/details/icons/Group-2258.png",
+        "label": "Glass Thickness Range",
+        "value": "4mm to 19mm"
       },
       {
-        icon: 'https://magicglass.co.in/wp-content/uploads/2023/11/Group-2288.png',
-        label: 'DGU unit thickness',
-        value: '14mm to 48 mm',
+        "icon": "/images/products/details/icons/Group-2288.png",
+        "label": "DGU unit thickness",
+        "value": "14mm to 48 mm"
       },
       {
-        icon: 'https://magicglass.co.in/wp-content/uploads/2023/11/Group-2267.png',
-        label: 'Butyl Make',
-        value: 'Fenzi (Italy)',
+        "icon": "/images/products/details/icons/Group-2267.png",
+        "label": "Butyl Make",
+        "value": "Fenzi (Italy)"
       },
       {
-        icon: 'https://magicglass.co.in/wp-content/uploads/2023/11/Group-2268.png',
-        label: 'Desiccant Make',
-        value: 'Netragy',
+        "icon": "/images/products/details/icons/Group-2268.png",
+        "label": "Desiccant Make",
+        "value": "Netragy"
       },
       {
-        icon: 'https://magicglass.co.in/wp-content/uploads/2023/11/Group-2269.png',
-        label: 'Silicon Make',
-        value: 'Sealande, Dow(USA)',
+        "icon": "/images/products/details/icons/Group-2269.png",
+        "label": "Silicon Make",
+        "value": "ealande, Dow(USA)"
       },
       {
-        icon: 'https://magicglass.co.in/wp-content/uploads/2023/10/process-type.png',
-        label: 'Process Type',
-        value: 'Vertically fully automated robotic sealing process',
-      },
+        "icon": "/images/products/details/icons/process-type.png",
+        "label": "Process Type",
+        "value": "Vertically fully automated robotic sealing process"
+      }
     ],
-    galleryTitle: 'Glass Applications',
-    galleryImageItems: [
+    "galleryTitle": "Glass Applications",
+    "galleryImageItems": [
       {
-        src: 'https://magicglass.co.in/wp-content/uploads/2023/11/SAFETY-DOORS.png',
-        title: 'BUILDING AND CONSTRUCTION',
+        "src": "/images/products/details/SAFETY-DOORS.png",
+        "title": "BUILDING AND CONSTRUCTION"
       },
       {
-        src: 'https://magicglass.co.in/wp-content/uploads/2024/02/automotive.png',
-        title: 'AUTOMOTIVE INDUSTRY',
+        "src": "/images/products/details/automotive.png",
+        "title": "AUTOMOTIVE INDUSTRY"
       },
       {
-        src: 'https://magicglass.co.in/wp-content/uploads/2023/11/FURNITURE.png',
-        title: 'FURNITURE AND DECOR',
+        "src": "/images/products/details/FURNITURE.png",
+        "title": "FURNITURE AND DECOR"
       },
       {
-        src: 'https://magicglass.co.in/wp-content/uploads/2023/11/HIGH-RISE-BUILDINGS.png',
-        title: 'SOLAR ENERGY',
-      },
+        "src": "/images/products/details/HIGH-RISE-BUILDINGS.png",
+        "title": "SOLAR ENERGY"
+      }
     ],
-    galleryImages: [
-      'https://magicglass.co.in/wp-content/uploads/2023/11/SAFETY-DOORS.png',
-      'https://magicglass.co.in/wp-content/uploads/2024/02/automotive.png',
-      'https://magicglass.co.in/wp-content/uploads/2023/11/FURNITURE.png',
-      'https://magicglass.co.in/wp-content/uploads/2023/11/HIGH-RISE-BUILDINGS.png',
+    "galleryImages": [
+      "/images/products/details/SAFETY-DOORS.png",
+      "/images/products/details/automotive.png",
+      "/images/products/details/FURNITURE.png",
+      "/images/products/details/HIGH-RISE-BUILDINGS.png"
     ],
-    industries: [
+    "industries": [
       {
-        title: 'BUILDING & CONSTRUCTION',
-        image: 'https://magicglass.co.in/wp-content/uploads/2023/11/Mask-group-3.png',
-        description:
-          'Toughened glass glides on rollers through our furnace undergoing thermal processing at 650°C. Conduction, convection, and radiation work in harmony to produce high structural strength and resilience.',
+        "title": "AUTOMOTIVE INDUSTRY",
+        "image": "/images/products/details/windows.png",
+        "description": "High-strength toughened safety glass engineered for windshields, side windows, and automotive glass enclosures providing impact resistance and passenger safety."
       },
       {
-        title: 'AUTOMOTIVE & TRANSPORT',
-        image: 'https://magicglass.co.in/wp-content/uploads/2024/02/automotive.png',
-        description:
-          'High mechanical impact resistance and safe fragmentation characteristics engineered for transport, automotive side glazing, and heavy machinery cabins.',
+        "title": "FURNITURE AND DECOR",
+        "image": "/images/products/details/FURNITURE.png",
+        "description": "Elegant toughened glass tables, shelves, display counters, and interior partition panels crafted for modern residences and retail spaces."
       },
       {
-        title: 'INTERIOR & FURNITURE',
-        image: 'https://magicglass.co.in/wp-content/uploads/2023/11/FURNITURE.png',
-        description:
-          'Sleek frameless glass doors, shower enclosures, table tops, and architectural balustrades combining safety with pristine clarity.',
-      },
+        "title": "SOLAR ENERGY",
+        "image": "/images/products/details/HIGH-RISE-BUILDINGS.png",
+        "description": "Specialized low-iron toughened glass panels offering high solar transmittance and enduring durability for photovoltaic solar modules and collectors."
+      }
     ],
-    sliderImages: [
-      'https://magicglass.co.in/wp-content/uploads/2023/12/Balmoral-by-riverside.jpg',
-      'https://magicglass.co.in/wp-content/uploads/2023/12/the-ark-Tribeca-devlopers.jpg',
-      'https://magicglass.co.in/wp-content/uploads/2023/12/VARDE-ABIL.jpg',
-      'https://magicglass.co.in/wp-content/uploads/2023/12/Ganga-Platino-.jpg',
+    "sliderImages": [
+      "/images/products/details/balmoral-by-riverside.jpg",
+      "/images/products/details/the-ark-tribeca.jpg",
+      "/images/products/details/varde-abil.jpg",
+      "/images/products/details/ganga-platino.jpg"
     ],
-    relatedProductIds: ['clear-glass', 'hs-glass'],
+    "relatedProductIds": [
+      "clear-glass",
+      "hs-glass"
+    ]
   },
-
-  'clear-glass': {
-    id: 'clear-glass',
-    indexNumber: '01',
-    title: 'Clear Glass',
-    category: 'Structural & Exterior Glazing',
-    heroImage: '/images/prod-windows.jpg',
-    introSummary:
-      'Discover the extraordinary clarity and purity of Clear Glass. Manufactured by Saint Gobain using state-of-the-art float glass technology, it offers high optical clarity, uniform thickness, and superior optical flatness.',
-    secondaryText:
-      'Clear Glass is a versatile solution that seamlessly integrates into various applications. Whether it is partitions, doors, windows, or furniture, Clear Glass enhances aesthetics while providing optimal functionality.',
-    detailImages: [
-      '/images/prod-windows.jpg',
-      '/images/prod-structural.jpg',
+  "clear-glass": {
+    "id": "clear-glass",
+    "indexNumber": "02",
+    "title": "Clear Glass",
+    "subheading": "BUILT TO LAST — Unsurpassed Optical Transparency",
+    "category": "Toughened Glass",
+    "heroImage": "/images/products/clear-glass.png",
+    "introSummary": "Discover the extraordinary clarity and purity of Clear Glass. This exceptional product is manufactured by Saint Gobain using state-of-the-art techniques, guaranteeing unparalleled transparency without any tint. With its crystal-clear finish, Clear Glass provides an unobstructed view, allowing you to experience the true colors of your surroundings.",
+    "secondaryText": "Clear Glass is a versatile solution that seamlessly integrates into various applications. Whether it’s partitions, doors, furniture, or display cabinets, this glass is designed to enhance and elevate any space it adorns. Clear glass can be toughened or heat strengthened",
+    "detailImages": [
+      "/images/products/details/partitions.png",
+      "/images/products/details/Shower.png"
     ],
-    characteristics: [
-      'High optical clarity with minimal distortion',
-      'Iron content precision measured at 654 PPM',
-      'Max manufacturing jumbo panel size up to 9*16 ft.',
-      'Certified to EN 14179, EN 12150-1, ASTM C 1048, and IS 2553 standards',
-      'Ideal base float substrate for tempering, insulating, and lamination',
+    "characteristics": [
+      "Saint Gobain Premium Float Glass",
+      "Low Iron Index at 654 PPM",
+      "Jumbo Panels up to 9*16 ft.",
+      "Certified to international standards EN, ASTM, and IS",
+      "Custom fabricated to precise structural engineering specifications"
     ],
-    specs: [
+    "specs": [
       {
-        
-        label: 'Min-max thickness',
-        value: '4 mm to 19 mm',
+        "icon": "/images/products/details/icons/thickness.png",
+        "label": "Min-max thickness",
+        "value": "4 mm to 19 mm"
       },
       {
-        
-        label: 'Clarity',
-        value: '654 PPM',
+        "icon": "/images/products/details/icons/clarity.png",
+        "label": "Clarity",
+        "value": "654 PPM"
       },
       {
-        
-        label: 'Max size',
-        value: '9*16 ft.',
+        "icon": "/images/products/details/icons/max-size.png",
+        "label": "Max size",
+        "value": "9*16 ft."
       },
       {
-        
-        label: 'Standard',
-        value: 'EN 14179, EN 12150-1, ASTM C 1048, IS 2553 PART 1 & PART 2, EN 1279, EN 12543',
+        "icon": "/images/products/details/icons/standard.png",
+        "label": "Standard",
+        "value": "EN 14179, EN 12150-1 and, ASTM C 1048 EN 12150-1 and, ASTM C 1048, IS 2553 PART 1 and, PART 2, EN 1279, EN 12543"
       },
       {
-        
-        label: 'Process Type',
-        value: 'Tempering using horizontal roller hearth convection furnace, insulating glass, lamination glass, sand frosting, bevelled and chamfered glass',
+        "icon": "/images/products/details/icons/process-type.png",
+        "label": "Process Type",
+        "value": "Tempering using horizontal roller hearth convection furnace, insulating glass, lamination glass, sand frosting, bevelled and chamfered glass"
+      }
+    ],
+    "galleryTitle": "Glass Applications",
+    "galleryImageItems": [
+      {
+        "src": "/images/products/details/partitions.png",
+        "title": "PARTITIONS"
       },
+      {
+        "src": "/images/products/details/Shower.png",
+        "title": "SHOWER CUBICLES"
+      },
+      {
+        "src": "/images/products/details/balconies.png",
+        "title": "BALCONIES"
+      },
+      {
+        "src": "/images/products/details/staircase.png",
+        "title": "STAIRCASE"
+      },
+      {
+        "src": "/images/products/details/interiors.png",
+        "title": "INTERIORS"
+      }
     ],
-    galleryImages: [
-      '/images/prod-windows.jpg',
-      '/images/prod-structural.jpg',
-      '/images/prod-additional.jpg',
-      '/images/craft-laminated.jpg',
+    "galleryImages": [
+      "/images/products/details/partitions.png",
+      "/images/products/details/Shower.png",
+      "/images/products/details/balconies.png",
+      "/images/products/details/staircase.png"
     ],
-    sliderImages: [
-      '/images/prod-windows.jpg',
-      '/images/prod-structural.jpg',
+    "industries": [
+      {
+        "title": "AUTOMOTIVE",
+        "image": "/images/products/details/automotive.png",
+        "description": "Experience the ultimate clarity and sophistication with clear glass for automotive application, providing sleek and unobstructed windows, windshields, and panoramic roof that elevate the driving experience."
+      },
+      {
+        "title": "ARCHITECTURE",
+        "image": "/images/products/details/architecture.png",
+        "description": "Unleash your architectural vision with Clear Glass, perfect for creating stunning facades, modern structures, and captivating interiors that emphasize transparency and elegance."
+      }
     ],
-    relatedProductIds: ['extra-clear-glass', 'hs-glass'],
+    "sliderImages": [
+      "/images/products/details/balmoral-by-riverside.jpg",
+      "/images/products/details/the-ark-tribeca.jpg",
+      "/images/products/details/varde-abil.jpg",
+      "/images/products/details/ganga-platino.jpg"
+    ],
+    "relatedProductIds": [
+      "extra-clear-glass",
+      "hs-glass"
+    ]
   },
-
-  'extra-clear-glass': {
-    id: 'extra-clear-glass',
-    indexNumber: '02',
-    title: 'Extra Clear Glass',
-    category: 'Structural & Exterior Glazing',
-    heroImage: '/images/prod-structural.jpg',
-    introSummary:
-      'The Extra clear glass is a type of Float glass that has low iron content (lower than clear glass), which reduces the greenish-blue tint and therefore makes it extra clear. It is also called low iron glass.',
-    secondaryText:
-      'With its unparalleled clarity and transparency, Extra Clear Glass creates an environment that is bathed in natural light, showcasing true colors and creating an atmosphere of purity and refinement. Experience a new level of sophistication with Extra Clear Glass, where visual clarity is elevated to an art form.',
-    detailImages: [
-      '/images/prod-structural.jpg',
-      '/images/prod-windows.jpg',
+  "extra-clear-glass": {
+    "id": "extra-clear-glass",
+    "indexNumber": "03",
+    "title": "Extra Clear Glass",
+    "subheading": "Pure Light Transmission & True Color Rendering",
+    "category": "Toughened Glass",
+    "heroImage": "/images/products/extra-clear-glass.png",
+    "introSummary": "The Extra clear glass is a type of Float glass that has low iron content (lower than clear glass), which reduces the greenish-blue tint and therefore makes it extra clear. It is also called low iron glass.",
+    "secondaryText": "With its unparalleled clarity and transparency, Extra Clear Glass creates an environment that is bathed in natural light, showcasing true colors and creating an atmosphere of purity and refinement. Experience a new level of sophistication with Extra Clear Glass, where visual clarity is elevated to an art form.",
+    "detailImages": [
+      "/images/products/details/KITCHENS.png",
+      "/images/products/details/TABLETOPS.png"
     ],
-    characteristics: [
-      'Ultra-low iron float glass reducing greenish edge tinting',
-      'Precision optical clarity with 654 PPM ferric oxide index',
-      'Jumbo sheet processing dimensions up to 9*16 ft.',
-      'Certified to EN 14179, EN 12150-1, ASTM C 1048, and IS 2553',
-      'Perfect substrate for premium facades, display showcases, and luxury partitions',
+    "characteristics": [
+      "Ultra-Low Ferric Oxide Substrate",
+      "Zero Green Edge Tint",
+      ">91% Light Transmittance",
+      "Certified to international standards EN, ASTM, and IS",
+      "Custom fabricated to precise structural engineering specifications"
     ],
-    specs: [
+    "specs": [
       {
-        
-        label: 'Min-max thickness',
-        value: '4mm to 19mm',
+        "icon": "/images/products/details/icons/thickness.png",
+        "label": "Min-max thickness",
+        "value": "4mm to 19mm"
       },
       {
-        
-        label: 'Clarity',
-        value: '654 PPM',
+        "icon": "/images/products/details/icons/clarity.png",
+        "label": "Clarity",
+        "value": "654 PPM"
       },
       {
-        
-        label: 'Max size',
-        value: '9*16 ft.',
+        "icon": "/images/products/details/icons/max-size.png",
+        "label": "Max size",
+        "value": "9*16 ft."
       },
       {
-        
-        label: 'Standard',
-        value: 'EN 14179, EN 12150-1, ASTM C 1048, IS 2553 PART 1 & PART 2, EN 1279, EN 12543',
+        "icon": "/images/products/details/icons/standard.png",
+        "label": "Standard",
+        "value": "EN 14179, EN 12150-1 and, ASTM C 1048 EN 12150-1 and, ASTM C 1048, IS 2553 PART 1 and, PART 2, EN 1279, EN 12543"
       },
       {
-        
-        label: 'Process Type',
-        value: 'Tempering using horizontal roller hearth convection furnace, insulating glass, lamination glass, sand frosting, bevelled and chamfered glass',
+        "icon": "/images/products/details/icons/process-type.png",
+        "label": "Process Type",
+        "value": "Tempering using horizontal roller hearth convection furnace, insulating glass, lamination glass, sand frosting, bevelled and chamfered glass"
+      }
+    ],
+    "galleryTitle": "Glass Applications",
+    "galleryImageItems": [
+      {
+        "src": "/images/products/details/KITCHENS.png",
+        "title": "KITCHENS"
       },
+      {
+        "src": "/images/products/details/TABLETOPS.png",
+        "title": "TABLETOPS"
+      },
+      {
+        "src": "/images/products/details/PARTITIONS.png",
+        "title": "PARTITIONS"
+      },
+      {
+        "src": "/images/products/details/DISPLAY-SHOWCASES.png",
+        "title": "DISPLAY SHOWCASES"
+      },
+      {
+        "src": "/images/products/details/SHOPFRONTS.png",
+        "title": "SHOPFRONTS"
+      }
     ],
-    galleryImages: [
-      '/images/prod-structural.jpg',
-      '/images/prod-windows.jpg',
-      '/images/craft-laminated.jpg',
-      '/images/prod-partitions.jpg',
+    "galleryImages": [
+      "/images/products/details/KITCHENS.png",
+      "/images/products/details/TABLETOPS.png",
+      "/images/products/details/PARTITIONS.png",
+      "/images/products/details/DISPLAY-SHOWCASES.png"
     ],
-    sliderImages: [
-      '/images/prod-structural.jpg',
-      '/images/prod-windows.jpg',
+    "industries": [
+      {
+        "title": "ARCHITECTURE",
+        "image": "/images/products/details/architecture.png",
+        "description": "Unleash your architectural vision with Clear Glass, perfect for creating stunning facades, modern structures, and captivating interiors that emphasize transparency and elegance."
+      }
     ],
-    relatedProductIds: ['clear-glass', 'sentry-laminated-glass'],
+    "sliderImages": [
+      "/images/products/details/balmoral-by-riverside.jpg",
+      "/images/products/details/the-ark-tribeca.jpg",
+      "/images/products/details/varde-abil.jpg",
+      "/images/products/details/ganga-platino.jpg"
+    ],
+    "relatedProductIds": [
+      "clear-glass",
+      "sentry-laminated-glass"
+    ]
   },
-
-  'hs-glass': {
-    id: 'hs-glass',
-    indexNumber: '03',
-    title: 'HS Glass',
-    category: 'Safety & Processing',
-    heroImage: '/images/prod-additional.jpg',
-    introSummary:
-      'Heat-strengthened glass is heat-treated glass that retains the distinctive properties of ordinary float glass. The glass is subjected to a heating and cooling process that makes it approximately twice as strong as annealed glass of the same thickness and configuration.',
-    secondaryText:
-      'Engineered specifically for spandrel panels, high-wind exterior facades, and overhead glazing where post-breakage retention is paramount, breaking into large interlocked fragments that remain safely anchored in the frame.',
-    detailImages: [
-      '/images/prod-additional.jpg',
-      '/images/factory-cnc.jpg',
+  "hs-glass": {
+    "id": "hs-glass",
+    "indexNumber": "04",
+    "title": "HS Glass",
+    "subheading": "High Mechanical & Thermal Stress Resistance",
+    "category": "Toughened Glass",
+    "heroImage": "/images/products/hs-glass.png",
+    "introSummary": "Heat-strengthened glass is heat-treated glass that retains the distinctive properties of ordinary float glass. The glass is manufactured in one of the two electric horizontal roller-hearth tempering lines, where the glass is first heated and then cooled down with much less pressure. The machines are equipped with an advanced convection system to produce the best optical quality glass with a significant energy consumption reduction. Along with this, the super flat spotless technology ensures minimum iridescence and produces high-quality glass. Heat-strengthened glass is popular among design professionals for curtain wall façades of buildings, in both the vision and spandrel applications. It is valued for its mechanical strength, higher optical clarity, and flatter finish, and the probability of nickel sulfide inclusions inducing spontaneous breakages in the heat-strengthened glass is practically non-existent.",
+    "secondaryText": "Heat-strengthened glass is heat-treated glass that retains the distinctive properties of ordinary float glass. The glass is manufactured in one of the two electric horizontal roller-hearth tempering lines, where the glass is first heated and then cooled down with much less pressure. The machines are equipped with an advanced convection system to produce the best optical quality glass with a significant energy consumption reduction. Along with this, the super flat spotless technology ensures minimum iridescence and produces high-quality glass. Heat-strengthened glass is popular among design professionals for curtain wall façades of buildings, in both the vision and spandrel applications. It is valued for its mechanical strength, higher optical clarity, and flatter finish, and the probability of nickel sulfide inclusions inducing spontaneous breakages in the heat-strengthened glass is practically non-existent.",
+    "detailImages": [
+      "/images/products/details/FACADES-REFLECTIVE-GLASS.png",
+      "/images/products/details/EXTERIOR-WINDOWS.png"
     ],
-    characteristics: [
-      '2x mechanical and thermal strength compared to annealed float glass',
-      'Interlocking break pattern ensuring fragments stay anchored in frame',
-      'Available in Clear, Extra Clear, Low-E, Reflective, Double & Triple Silver',
-      'Certified under EN 1863 and IS 2553 PART 1 standards',
-      'Eliminates spontaneous NiS breakage risk for spandrels and facades',
+    "characteristics": [
+      "2x Mechanical Strength of Float Glass",
+      "Interlocking Break Pattern",
+      "Optimized for Spandrel & Wind-Load Panels",
+      "Certified to international standards EN, ASTM, and IS",
+      "Custom fabricated to precise structural engineering specifications"
     ],
-    specs: [
+    "specs": [
       {
-        
-        label: 'Min-max thickness',
-        value: '4mm to 12 mm',
+        "icon": "/images/products/details/icons/thickness.png",
+        "label": "Min-max thickness",
+        "value": "4mm to 12 mm"
       },
       {
-        
-        label: 'Glass Type',
-        value: 'Clear, Extra Clear, Low e, Reflective, Double Silver, Triple Silver',
+        "icon": "/images/products/details/icons/Group-2261.png",
+        "label": "Glass Type",
+        "value": "Clear, Extra Clear, Low e, Reflective, Double Silver, Triple Silver"
       },
       {
-        
-        label: 'Max size',
-        value: '9*16 ft.',
+        "icon": "/images/products/details/icons/max-size.png",
+        "label": "Max size",
+        "value": "9*16 ft."
       },
       {
-        
-        label: 'Standard',
-        value: 'EN 1863 and IS 2553 PART 1',
+        "icon": "/images/products/details/icons/standard.png",
+        "label": "Standard",
+        "value": "EN 1863 and IS 2553 PART 1"
       },
       {
-        
-        label: 'Process Type',
-        value: 'Tempering using horizontal roller hearth convection furnace, insulating glass, lamination glass, sand frosting, bevelled and chamfered glass',
+        "icon": "/images/products/details/icons/process-type.png",
+        "label": "Process Type",
+        "value": "Tempering using horizontal roller hearth convection furnace, insulating glass, lamination glass, sand frosting, bevelled and chamfered glass"
+      }
+    ],
+    "galleryTitle": "Glass Applications",
+    "galleryImageItems": [
+      {
+        "src": "/images/products/details/FACADES-REFLECTIVE-GLASS.png",
+        "title": "FACADES (REFLECTIVE GLASS)"
       },
+      {
+        "src": "/images/products/details/EXTERIOR-WINDOWS.png",
+        "title": "EXTERIOR (WINDOWS)"
+      }
     ],
-    galleryImages: [
-      '/images/prod-additional.jpg',
-      '/images/factory-cnc.jpg',
-      '/images/apps/railings.png',
-      '/images/craft-laminated.jpg',
+    "galleryImages": [
+      "/images/products/details/FACADES-REFLECTIVE-GLASS.png",
+      "/images/products/details/EXTERIOR-WINDOWS.png",
+      "/images/products/details/FACADES-REFLECTIVE-GLASS.png",
+      "/images/products/details/FACADES-REFLECTIVE-GLASS.png"
     ],
-    sliderImages: [
-      '/images/prod-additional.jpg',
-      '/images/factory-cnc.jpg',
+    "industries": [
+      {
+        "title": "ARCHITECTURE",
+        "image": "/images/products/details/architecture.png",
+        "description": "Architects and designers turn to HS Glass to bring their visions to life. In the field of architecture, this heat-strengthened glass adds an extra layer of safety and aesthetics to structures, empowering architects to create stunning facades and exteriors while ensuring optimal thermal performance."
+      }
     ],
-    relatedProductIds: ['heat-soaked-glass', 'pvb-laminated-glass'],
+    "sliderImages": [
+      "/images/products/details/balmoral-by-riverside.jpg",
+      "/images/products/details/the-ark-tribeca.jpg",
+      "/images/products/details/varde-abil.jpg",
+      "/images/products/details/ganga-platino.jpg"
+    ],
+    "relatedProductIds": [
+      "toughened-glass",
+      "heat-soaked-glass"
+    ]
   },
-
-  'heat-soaked-glass': {
-    id: 'heat-soaked-glass',
-    indexNumber: '04',
-    title: 'Heat Soaked Glass',
-    category: 'Safety & Processing',
-    heroImage: '/images/factory-cnc.jpg',
-    introSummary:
-      'Float glass used in windows and doors often contains microscopic nickel sulfide inclusions that can expand over time and cause spontaneous breakage. Through Magic Glass, we reheat fully tempered panes of glass in special heating chambers, accelerating any expansion of NiS inclusions.',
-    secondaryText:
-      'By toughening the glass using horizontal roller hearth convection furnace, we help ensure it will maintain structural integrity and prevent unexpected spontaneous breakage on high-rise facades, providing DIN EN 14179-1 certified protection.',
-    detailImages: [
-      '/images/factory-cnc.jpg',
-      '/images/prod-additional.jpg',
+  "heat-soaked-glass": {
+    "id": "heat-soaked-glass",
+    "indexNumber": "05",
+    "title": "Heat Soaked Glass",
+    "subheading": "Zero Spontaneous Breakage for High-Rise Glazing",
+    "category": "Toughened Glass",
+    "heroImage": "/images/products/heat-soaked-glass.jpg",
+    "introSummary": "Float glass used in windows and doors often contains microscopic nickel sulfide inclusions that can expand over time and cause panes of tempered glass to suddenly and unexpectedly break—an effect known as spontaneous breakage. This poses serious risks, as shattered glass can injure anyone nearby. Our Heat Soaked Glass to help eliminate this threat.",
+    "secondaryText": "Through Magic Glass, we reheat fully tempered panes of glass in special heating chambers, accelerating any expansion of nickel sulfide that may occur naturally over the years. This controlled expansion causes any prone-to-break glass to fail safely inside the chamber rather than unexpectedly in the field. Once cooled, the resulting glass carries a dramatically reduced risk of spontaneous shattering.",
+    "detailImages": [
+      "/images/products/details/INTERIOR-DECOR-1.png",
+      "/images/products/details/FACADES-REFLECTIVE-GLASS.png"
     ],
-    characteristics: [
-      'Subjected to DIN EN 14179-1 certified heat soak hold testing',
-      'Destroys vulnerable panels in factory to guarantee zero spontaneous failure',
-      '4-5x bending strength of annealed float glass with safety fragment pattern',
-      'Compatible with full flood coat or custom screen-printed ceramic designs',
-      'Essential safety processing for high-rise glass curtain walls and overhead glazing',
+    "characteristics": [
+      "Accelerated Hold Cycle in Oven (EN 14179)",
+      "Eliminates Spontaneous NiS Breakage",
+      "Certified for High-Rise Facades",
+      "Certified to international standards EN, ASTM, and IS",
+      "Custom fabricated to precise structural engineering specifications"
     ],
-    specs: [
+    "specs": [
       {
-        
-        label: 'Glass Thickness Range',
-        value: '4 mm - 19 mm',
+        "icon": "/images/products/details/icons/Group-2258.png",
+        "label": "Glass Thickness Range",
+        "value": "4 mm – 19 mm"
       },
       {
-        
-        label: 'Design Type',
-        value: 'Full flood coat or a wide range of custom designs.',
+        "icon": "/images/products/details/icons/Group-2270.png",
+        "label": "Design Type",
+        "value": "Full flood coat or a wide range of custom designs."
       },
       {
-        
-        label: 'Glass Type',
-        value: 'Clear, extra clear, COLOR Options: All colours in the RAL colour scheme.',
+        "icon": "/images/products/details/icons/Group-2261.png",
+        "label": "Glass Type",
+        "value": "Clear, extra clear, COLOR Options: All colours in the RAL colour scheme."
       },
       {
-        
-        label: 'Process Type',
-        value: 'Automatic Screen Printing in controlled room conditions with IR Drying System and Multicolour options.',
+        "icon": "/images/products/details/icons/process-type.png",
+        "label": "Process Type",
+        "value": "Automatic Screen Printing in controlled room conditions with IR Drying System and Multicolour options."
+      }
+    ],
+    "galleryTitle": "Glass Applications",
+    "galleryImageItems": [
+      {
+        "src": "/images/products/details/INTERIOR-DECOR-1.png",
+        "title": "INTERIORS"
       },
+      {
+        "src": "/images/products/details/FACADES-REFLECTIVE-GLASS.png",
+        "title": "FACADE"
+      },
+      {
+        "src": "/images/products/details/HIGH-RISE-BUILDINGS.png",
+        "title": "HIGH-RISE BUILDINGS"
+      }
     ],
-    galleryImages: [
-      '/images/factory-cnc.jpg',
-      '/images/prod-additional.jpg',
-      '/images/craft-laminated.jpg',
-      '/images/apps/railings.png',
+    "galleryImages": [
+      "/images/products/details/INTERIOR-DECOR-1.png",
+      "/images/products/details/FACADES-REFLECTIVE-GLASS.png",
+      "/images/products/details/HIGH-RISE-BUILDINGS.png",
+      "/images/products/details/INTERIOR-DECOR-1.png"
     ],
-    sliderImages: [
-      '/images/factory-cnc.jpg',
-      '/images/prod-additional.jpg',
+    "industries": [
+      {
+        "title": "TRANSPORT",
+        "image": "/images/products/details/Transport.png",
+        "description": "Enhance the passenger experience in transport hubs with Ceramic Glass. Applied to glass walls, partitions, and panels, the coating offers both practicality and aesthetics, elevating the visual appeal and creating an inviting environment in train stations, airports, and other transportation settings."
+      },
+      {
+        "title": "PUBLIC SPACES",
+        "image": "/images/products/details/Public-Spaces.png",
+        "description": "Enchant public spaces with Ceramic Glass, whether it&#8217;s shopping centers, museums, or educational institutions. The coating can be used to create privacy screens, captivating decorative elements, or elegant signage, captivating visitors while maintaining a flawless appearance."
+      },
+      {
+        "title": "ARCHITECTURE",
+        "image": "/images/products/details/architecture.png",
+        "description": "Architects and designers choose Ceramic Glass to create architectural marvels that stand the test of time. From residential complexes to commercial buildings, this glass solution combines enduring beauty with unmatched durability, setting a new benchmark for excellence."
+      }
     ],
-    relatedProductIds: ['hs-glass', 'sentry-laminated-glass'],
+    "sliderImages": [
+      "/images/products/details/balmoral-by-riverside.jpg",
+      "/images/products/details/the-ark-tribeca.jpg",
+      "/images/products/details/varde-abil.jpg",
+      "/images/products/details/ganga-platino.jpg"
+    ],
+    "relatedProductIds": [
+      "toughened-glass",
+      "hs-glass"
+    ]
   },
-
-  'sentry-laminated-glass': {
-    id: 'sentry-laminated-glass',
-    indexNumber: '05',
-    title: 'Sentry Laminated Glass',
-    category: 'Structural & Exterior Glazing',
-    heroImage: '/images/craft-laminated.jpg',
-    introSummary:
-      'Sentry Laminated Glass by Magic Glass elevates strength and durability to newer heights. Designed to surpass the strength of traditional laminated glass, Sentry Laminated Glass uses SentryGlas® ionoplast interlayers to deliver 5x tear strength and 100x stiffness compared to standard PVB.',
-    secondaryText:
-      'Sentry Laminated Glass is engineered to withstand the toughest challenges, ensuring the safety and security of your space. Ideal for hurricane-resistant curtain walls, structural glass fins, glass staircases, overhead canopies, and luxury residential facades.',
-    detailImages: [
-      '/images/craft-laminated.jpg',
-      '/images/prod-structural.jpg',
+  "sentry-laminated-glass": {
+    "id": "sentry-laminated-glass",
+    "indexNumber": "06",
+    "title": "Sentry Laminated Glass",
+    "subheading": "High-Security Structural Glazing & Overhead Canopies",
+    "category": "Laminated Glass",
+    "heroImage": "/images/products/sentry-laminated-glass.png",
+    "introSummary": "Sentry Laminated Glass by Magic Glass elevates strength and durability to newer heights. Designed to surpass the strength of traditional PVB films, Sentry Laminated Glass employs the superior SGP (Sentry Glass Plus) film to offer unparalleled resistance.",
+    "secondaryText": "Sentry Laminated Glass is engineered to withstand the toughest challenges, ensuring the safety and security of your spaces. With its robust SGP film, it offers increased resistance to impacts, breakage, and forced entry. Be it for commercial or residential purposes, sentry laminated glass provides security and delivers ultimate peace of mind, fortifying your surroundings with unyielding strength.",
+    "detailImages": [
+      "/images/products/details/WINDOWS-2.png",
+      "/images/products/details/OVERHEAD-SPACES-1.png"
     ],
-    characteristics: [
-      'Ultra-rigid Kuraray SentryGlas® Ionoplast interlayer with 5x tear strength',
-      '100x stiffness of standard PVB to prevent post-breakage glass collapse',
-      'Zero edge delamination risk even in humid coastal environments',
-      'Certified for hurricane-rated impact facades, glass fins, and staircases',
-      'High optical clarity with minimal yellowing index over 20+ years',
+    "characteristics": [
+      "5x Tear Strength & 100x Stiffness",
+      "Ionoplast Rigid Interlayer",
+      "Zero Delamination Risk Under Storm Loads",
+      "Certified to international standards EN, ASTM, and IS",
+      "Custom fabricated to precise structural engineering specifications"
     ],
-    specs: [
+    "specs": [
       {
-        
-        label: 'Glass Thickness Range',
-        value: '4 mm - 19 mm',
+        "icon": "/images/products/details/icons/Group-2258.png",
+        "label": "Glass Thickness Range",
+        "value": "4 mm – 19 mm"
       },
       {
-        
-        label: 'Unit Thickness Range',
-        value: '8.38 mm - 80 mm',
+        "icon": "/images/products/details/icons/Group-2259.png",
+        "label": "Unit Thickness Range",
+        "value": "8.38 mm – 80 mm"
       },
       {
-        
-        label: 'Lamination Film Make',
-        value: 'Kuraray Sentry Glass (USA)',
+        "icon": "/images/products/details/icons/Group-2260.png",
+        "label": "Lamination Film Make",
+        "value": "Kurrary Sentry Glass (USA)"
       },
       {
-        
-        label: 'Standard',
-        value: 'EN 12543',
+        "icon": "/images/products/details/icons/standard.png",
+        "label": "Standard",
+        "value": "EN 12543"
       },
       {
-        
-        label: 'Glass Type',
-        value: 'Clear, extra clear, ultra clear, tinted, solar-control coated, low - E coated. (Upto Triple Silver)',
+        "icon": "/images/products/details/icons/Group-2261.png",
+        "label": "Glass Type",
+        "value": "Clear, extra clear, ultra clear, tinted, solar-control coated, low – E coated. (Upto Tripple Silver)"
       },
       {
-        
-        label: 'Process Type',
-        value: 'Horizontal Assembly line with Press Rollers under controlled room conditions followed by autoclaving',
-      },
+        "icon": "/images/products/details/icons/process-type.png",
+        "label": "Process Type",
+        "value": "Horizontal Assembly line with Press Rollers under controlled room conditions followed by autoclaving"
+      }
     ],
-    galleryImages: [
-      '/images/craft-laminated.jpg',
-      '/images/prod-structural.jpg',
-      '/images/craft-dgu.jpg',
-      '/images/prod-additional.jpg',
+    "galleryTitle": "Glass Applications",
+    "galleryImageItems": [
+      {
+        "src": "/images/products/details/WINDOWS-2.png",
+        "title": "WINDOWS"
+      },
+      {
+        "src": "/images/products/details/OVERHEAD-SPACES-1.png",
+        "title": "OVERHEAD SPACES"
+      },
+      {
+        "src": "/images/products/details/GLASS-LIFTS-1.png",
+        "title": "GLASS LIFTS"
+      },
+      {
+        "src": "/images/products/details/RAILINGS-STAIRCASE-AND-PARTITIONS-2.png",
+        "title": "RAILINGS, STAIRCASE, AND PARTITIONS"
+      },
+      {
+        "src": "/images/products/details/DOORS-1.png",
+        "title": "DOORS"
+      },
+      {
+        "src": "/images/products/details/FACADES.png",
+        "title": "FACADES"
+      }
     ],
-    sliderImages: [
-      '/images/craft-laminated.jpg',
-      '/images/prod-structural.jpg',
-      '/images/craft-dgu.jpg',
+    "galleryImages": [
+      "/images/products/details/WINDOWS-2.png",
+      "/images/products/details/OVERHEAD-SPACES-1.png",
+      "/images/products/details/GLASS-LIFTS-1.png",
+      "/images/products/details/RAILINGS-STAIRCASE-AND-PARTITIONS-2.png"
     ],
-    relatedProductIds: ['skn-ultra-high-performance-glass', 'insulated-glass-dgu'],
+    "industries": [
+      {
+        "title": "ARCHITECTURAL",
+        "image": "/images/products/details/architecture.png",
+        "description": "From residential complexes to commercial buildings, Sentry Laminated Glass provides an extra layer of security, making it an ideal choice for architects seeking to prioritize safety and durability without compromising on design aesthetics."
+      }
+    ],
+    "sliderImages": [
+      "/images/products/details/balmoral-by-riverside.jpg",
+      "/images/products/details/the-ark-tribeca.jpg",
+      "/images/products/details/varde-abil.jpg",
+      "/images/products/details/ganga-platino.jpg"
+    ],
+    "relatedProductIds": [
+      "pvb-laminated-glass",
+      "skn-ultra-high-performance-glass"
+    ]
   },
-
-  'acoustic-lami-glass': {
-    id: 'acoustic-lami-glass',
-    indexNumber: '06',
-    title: 'Acoustic Lami Glass',
-    subheading: 'Experience Exceptional Sound Insulation',
-    category: 'Interior & Partitions',
-    heroImage: 'https://magicglass.co.in/wp-content/uploads/2024/02/1900-px-890-px.jpg',
-    introSummary:
-      'Designed to provide superior acoustic insulation and noise control, Acoustic Lami Glass plays a crucial role in creating a soothing and peaceful environment in both living and working spaces.',
-    secondaryText:
-      'Acoustic Lami Glass is a revolution in sound control, consisting of multiple layers of glass bonded together by acoustic polyvinyl butyral (PVB) interlayers. This configuration acts as a noise dampener, weakening sound waves as they travel through the glass. By incorporating Acoustic Lami Glass, you can significantly reduce exterior noise, ensuring a peaceful atmosphere within your space. Additionally, the laminated glass provides an added safety benefit, as it remains intact even when broken, reducing the risk of injury.',
-    detailImages: [
-      'https://magicglass.co.in/wp-content/uploads/2023/11/PARTITIONS-1.png',
-      'https://magicglass.co.in/wp-content/uploads/2023/11/WINDOWS-2.png',
+  "acoustic-lami-glass": {
+    "id": "acoustic-lami-glass",
+    "indexNumber": "07",
+    "title": "Acoustic Lami Glass",
+    "subheading": "Revolutionary Sound Control & Acoustic Isolation",
+    "category": "Laminated Glass",
+    "heroImage": "/images/products/acoustic-lami-glass.png",
+    "introSummary": "Designed to provide superior acoustic insulation and noise control, Acoustic Lami Glass plays a crucial role in creating a soothing and peaceful environment in both living and working spaces.",
+    "secondaryText": "Acoustic Lami Glass is a revolution in sound control, consisting of multiple layers of glass bonded together by acoustic polyvinyl butyral (PVB) interlayers. This configuration acts as a noise dampener, weakening sound waves as they travel through the glass. By incorporating Acoustic Lami Glass, you can significantly reduce exterior noise, ensuring a peaceful atmosphere within your space. Additionally, the laminated glass provides an added safety benefit, as it remains intact even when broken, reducing the risk of injury.",
+    "detailImages": [
+      "/images/products/details/WINDOWS-2.png",
+      "/images/products/details/PARTITIONS-1.png"
     ],
-    characteristics: [
-      'Tri-layer acoustic PVB interlayer attenuating sound wave resonance',
-      'Sound Transmission Class (STC) ratings up to 42dB speech privacy',
-      'Full safety glass impact protection adhering to EN 12543 standards',
-      '99% blocking of harmful solar ultraviolet (UV) radiation',
-      'Horizontal assembly line autoclaved production under cleanroom control',
+    "characteristics": [
+      "Superior Sound Insulation up to STC 42dB",
+      "Dampens Airborne Noise & Vibration",
+      "Speech Privacy for Corporate Interiors",
+      "Certified to international standards EN, ASTM, and IS",
+      "Custom fabricated to precise structural engineering specifications"
     ],
-    specs: [
+    "specs": [
       {
-        icon: 'https://magicglass.co.in/wp-content/uploads/2023/11/Group-2258.png',
-        label: 'Glass Thickness Range',
-        value: '4 mm – 19 mm',
+        "icon": "/images/products/details/icons/Group-2258.png",
+        "label": "Glass Thickness Range",
+        "value": "4 mm – 19 mm"
       },
       {
-        icon: 'https://magicglass.co.in/wp-content/uploads/2023/11/Group-2259.png',
-        label: 'Unit Thickness Range',
-        value: '8.38 mm – 80 mm',
+        "icon": "/images/products/details/icons/Group-2259.png",
+        "label": "Unit Thickness Range",
+        "value": "8.38 mm – 80 mm"
       },
       {
-        icon: 'https://magicglass.co.in/wp-content/uploads/2023/10/standard.png',
-        label: 'Standard',
-        value: 'EN 12543',
+        "icon": "/images/products/details/icons/standard.png",
+        "label": "Standard",
+        "value": "EN 12543"
       },
       {
-        icon: 'https://magicglass.co.in/wp-content/uploads/2023/11/Group-2261.png',
-        label: 'Glass Type',
-        value: 'Clear, extra clear, ultra clear, tinted, solar-control coated, low – E coated. (Upto Tripple Silver)',
+        "icon": "/images/products/details/icons/Group-2261.png",
+        "label": "Glass Type",
+        "value": "Clear, extra clear, ultra clear, tinted, solar-control coated, low – E coated. (Upto Tripple Silver)"
       },
       {
-        icon: 'https://magicglass.co.in/wp-content/uploads/2023/10/process-type.png',
-        label: 'Process Type',
-        value: 'Horizontal Assembly line with Press Rollers under controlled room conditions followed by autoclaving',
-      },
+        "icon": "/images/products/details/icons/process-type.png",
+        "label": "Process Type",
+        "value": "Horizontal Assembly line with Press Rollers under controlled room conditions followed by autoclaving"
+      }
     ],
-    galleryTitle: 'Glass Applications',
-    galleryImageItems: [
+    "galleryTitle": "Glass Applications",
+    "galleryImageItems": [
       {
-        src: 'https://magicglass.co.in/wp-content/uploads/2023/11/WINDOWS-2.png',
-        title: 'WINDOWS',
+        "src": "/images/products/details/WINDOWS-2.png",
+        "title": "WINDOWS"
       },
       {
-        src: 'https://magicglass.co.in/wp-content/uploads/2023/11/PARTITIONS-1.png',
-        title: 'PARTITIONS',
+        "src": "/images/products/details/PARTITIONS-1.png",
+        "title": "PARTITIONS"
       },
       {
-        src: 'https://magicglass.co.in/wp-content/uploads/2023/11/DOORS-2.png',
-        title: 'DOORS',
+        "src": "/images/products/details/DOORS-2.png",
+        "title": "DOORS"
       },
       {
-        src: 'https://magicglass.co.in/wp-content/uploads/2023/11/ARCHITECTURAL-INTERIOR.png',
-        title: 'ARCHITECTURAL INTERIOR',
-      },
+        "src": "/images/products/details/ARCHITECTURAL-INTERIOR.png",
+        "title": "ARCHITECTURAL INTERIOR"
+      }
     ],
-    galleryImages: [
-      'https://magicglass.co.in/wp-content/uploads/2023/11/WINDOWS-2.png',
-      'https://magicglass.co.in/wp-content/uploads/2023/11/PARTITIONS-1.png',
-      'https://magicglass.co.in/wp-content/uploads/2023/11/DOORS-2.png',
-      'https://magicglass.co.in/wp-content/uploads/2023/11/ARCHITECTURAL-INTERIOR.png',
+    "galleryImages": [
+      "/images/products/details/WINDOWS-2.png",
+      "/images/products/details/PARTITIONS-1.png",
+      "/images/products/details/DOORS-2.png",
+      "/images/products/details/ARCHITECTURAL-INTERIOR.png"
     ],
-    industries: [
+    "industries": [
       {
-        title: 'ARCHITECTURAL',
-        image: 'https://magicglass.co.in/wp-content/uploads/2023/09/architecture.png',
-        description:
-          'Acoustic Lami Glass finds its place in architectural projects, providing unrivaled sound insulation for both commercial and residential buildings. Architects and designers can create spaces that prioritize occupant comfort, reducing noise disturbances and promoting tranquility.',
-      },
-      {
-        title: 'AIRPORT',
-        image: 'https://magicglass.co.in/wp-content/uploads/2023/12/industry-banner-1.jpg',
-        description:
-          'The airport industry seeks glass solutions to enhance passenger experience in premium terminals. Façades, partitions and panels elevate visual appeal with luxurious sound dampening aesthetics.',
-      },
-      {
-        title: 'HOSPITALITY',
-        image: 'https://magicglass.co.in/wp-content/uploads/2023/12/Hospitality.jpg',
-        description:
-          'Hotel lobbies and restaurant interiors requiring acoustic isolation and sound damping to offer guests a quiet and peaceful environment under heavy usage over long durations.',
-      },
+        "title": "ARCHITECTURAL",
+        "image": "/images/products/details/architecture.png",
+        "description": "Acoustic Lami Glass finds its place in architectural projects, providing unrivaled sound insulation for both commercial and residential buildings. Architects and designers can create spaces that prioritize occupant comfort, reducing noise disturbances and promoting tranquility."
+      }
     ],
-    sliderImages: [
-      'https://magicglass.co.in/wp-content/uploads/2023/12/Balmoral-by-riverside.jpg',
-      'https://magicglass.co.in/wp-content/uploads/2023/12/the-ark-Tribeca-devlopers.jpg',
-      'https://magicglass.co.in/wp-content/uploads/2023/12/VARDE-ABIL.jpg',
-      'https://magicglass.co.in/wp-content/uploads/2023/12/Ganga-Platino-.jpg',
+    "sliderImages": [
+      "/images/products/details/balmoral-by-riverside.jpg",
+      "/images/products/details/the-ark-tribeca.jpg",
+      "/images/products/details/varde-abil.jpg",
+      "/images/products/details/ganga-platino.jpg"
     ],
-    relatedProductIds: ['pvb-laminated-glass', 'sentry-laminated-glass'],
+    "relatedProductIds": [
+      "pvb-laminated-glass",
+      "clear-glass"
+    ]
   },
-
-  'pvb-laminated-glass': {
-    id: 'pvb-laminated-glass',
-    indexNumber: '07',
-    title: 'PVB Laminated Glass',
-    category: 'Safety & Processing',
-    heroImage: '/images/apps/railings.png',
-    introSummary:
-      'PVB Laminated Glass is made by combining layers of interlayer film with two or more panes of glass through a meticulous manufacturing process. With a range of interlayers including PVB, SGP, colored, and acoustic options, PVB Laminated Glass is the natural choice.',
-    secondaryText:
-      'PVB Laminated Glass provides comprehensive protection in various scenarios. In the event of glass breakage, the interlayer holds the fragments intact, preventing fall-through injuries and blocking 99% of fading solar UV radiation.',
-    detailImages: [
-      '/images/apps/railings.png',
-      '/images/craft-laminated.jpg',
+  "pvb-laminated-glass": {
+    "id": "pvb-laminated-glass",
+    "indexNumber": "08",
+    "title": "PVB Laminated Glass",
+    "subheading": "Comprehensive Impact Protection & Safety Glazing",
+    "category": "Laminated Glass",
+    "heroImage": "/images/products/pvb-laminated-glass.png",
+    "introSummary": "PVB Laminated Glass is made by combining layers of interlayer film with two or more panes of glass through a meticulous lamination process. Utilizing high temperature and pressure in an autoclave, we ensure exceptional adhesion and impact resistance.",
+    "secondaryText": "With a range of interlayers including PVB, SGP, colored, and acoustic options, PVB Laminated Glass is the natural choice for applications requiring safety, security, solar control, UV protection, and noise reduction.",
+    "detailImages": [
+      "/images/products/details/WINDOWS-1.png",
+      "/images/products/details/OVERHEAD-SPACES-1.png"
     ],
-    characteristics: [
-      'High-adhesion Kuraray PVB & Eastman Solutia safety interlayers',
-      'Glass shards adhere to interlayer upon impact, preventing fall-through',
-      'High penetration resistance against forced entry and physical impact',
-      'Filters 99% of fading UV solar radiation',
-      'Certified EN 12543 horizontal assembly line autoclaved production',
+    "characteristics": [
+      "Polyvinyl Butyral (PVB) High-Tension Interlayer",
+      "Fall-Through Protection Upon Breakage",
+      "99% Ultraviolet (UV) Ray Rejection",
+      "Certified to international standards EN, ASTM, and IS",
+      "Custom fabricated to precise structural engineering specifications"
     ],
-    specs: [
+    "specs": [
       {
-        
-        label: 'Glass Thickness Range',
-        value: '4 mm - 19 mm',
+        "icon": "/images/products/details/icons/Group-2258.png",
+        "label": "Glass Thickness Range",
+        "value": "4 mm – 19 mm"
       },
       {
-        
-        label: 'Unit Thickness Range',
-        value: '8.38 mm - 80 mm',
+        "icon": "/images/products/details/icons/Group-2259.png",
+        "label": "Unit Thickness Range",
+        "value": "8.38 mm – 80 mm"
       },
       {
-        
-        label: 'Lamination Film Make',
-        value: 'Kuraray PVB, Eastman Solutia (USA)',
+        "icon": "/images/products/details/icons/Group-2260.png",
+        "label": "Lamination Film Make",
+        "value": "Kurrary PVB, Eastman Solutia (USA)"
       },
       {
-        
-        label: 'Standard',
-        value: 'EN 12543',
+        "icon": "/images/products/details/icons/standard.png",
+        "label": "Standard",
+        "value": "EN 12543"
       },
       {
-        
-        label: 'Glass Type',
-        value: 'Clear, extra clear, ultra clear, tinted, solar-control coated, low-E coated. (Upto Triple Silver)',
+        "icon": "/images/products/details/icons/Group-2261.png",
+        "label": "Glass Type",
+        "value": "Clear, extra clear, ultra clear, tinted, solar-control coated, low-E coated. (Upto Triple Silver)"
       },
       {
-        
-        label: 'Process Type',
-        value: 'Horizontal Assembly line with Press Rollers under controlled room conditions followed by autoclaving',
-      },
+        "icon": "/images/products/details/icons/process-type.png",
+        "label": "Process Type",
+        "value": "Horizontal Assembly line with Press Rollers under controlled room conditions followed by autoclaving"
+      }
     ],
-    galleryImages: [
-      '/images/apps/railings.png',
-      '/images/craft-laminated.jpg',
-      '/images/prod-partitions.jpg',
-      '/images/prod-additional.jpg',
+    "galleryTitle": "Glass Applications",
+    "galleryImageItems": [
+      {
+        "src": "/images/products/details/WINDOWS-1.png",
+        "title": "WINDOWS"
+      },
+      {
+        "src": "/images/products/details/OVERHEAD-SPACES-1.png",
+        "title": "OVERHEAD SPACES"
+      },
+      {
+        "src": "/images/products/details/GLASS-LIFTS-1.png",
+        "title": "GLASS LIFTS"
+      },
+      {
+        "src": "/images/products/details/RAILINGS-STAIRCASE-AND-PARTITIONS-2.png",
+        "title": "RAILINGS, STAIRCASE, AND PARTITIONS"
+      },
+      {
+        "src": "/images/products/details/DOORS-2.png",
+        "title": "DOORS"
+      },
+      {
+        "src": "/images/products/details/FACADES-1.png",
+        "title": "FACADES"
+      }
     ],
-    sliderImages: [
-      '/images/apps/railings.png',
-      '/images/craft-laminated.jpg',
+    "galleryImages": [
+      "/images/products/details/WINDOWS-1.png",
+      "/images/products/details/OVERHEAD-SPACES-1.png",
+      "/images/products/details/GLASS-LIFTS-1.png",
+      "/images/products/details/RAILINGS-STAIRCASE-AND-PARTITIONS-2.png"
     ],
-    relatedProductIds: ['acoustic-lami-glass', 'sentry-laminated-glass'],
+    "industries": [
+      {
+        "title": "ARCHITECTURAL",
+        "image": "/images/products/details/architecture.png",
+        "description": "PVB Laminated Glass finds its place in architectural projects where safety is of utmost importance. From commercial buildings to residential complexes, this glass solution ensures the protection of occupants, providing peace of mind for architects and designers alike."
+      }
+    ],
+    "sliderImages": [
+      "/images/products/details/balmoral-by-riverside.jpg",
+      "/images/products/details/the-ark-tribeca.jpg",
+      "/images/products/details/varde-abil.jpg",
+      "/images/products/details/ganga-platino.jpg"
+    ],
+    "relatedProductIds": [
+      "sentry-laminated-glass",
+      "acoustic-lami-glass"
+    ]
   },
-
-  'insulated-glass-dgu': {
-    id: 'insulated-glass-dgu',
-    indexNumber: '08',
-    title: 'DGU (Insulated Glass)',
-    category: 'Structural & Exterior Glazing',
-    heroImage: '/images/craft-dgu.jpg',
-    introSummary:
-      'Insulated glass is a combination of two or more panels that are spaced apart and sealed with sealant to appear as a single unit. By harnessing the power of Insulated Glass (DGU) by Magic Glass, you can create a comfortable and sustainable environment.',
-    secondaryText:
-      'By combining tinted glass, Low-E coatings, reflective coatings, etc., a wide variety of insulating glass configurations are available to achieve superior U-value thermal insulation (< 1.1 W/m²K) and sound reduction.',
-    detailImages: [
-      '/images/craft-dgu.jpg',
-      '/images/apps/windows.png',
+  "insulated-glass-dgu": {
+    "id": "insulated-glass-dgu",
+    "indexNumber": "09",
+    "title": "DGU (Insulated Glass)",
+    "subheading": "Thermal Comfort & Energy Efficient Architecture",
+    "category": "Insulated Glass",
+    "heroImage": "/images/products/insulated-glass-dgu.png",
+    "introSummary": "Insulated glass is a combination of two or more panels that are spaced apart and sealed with sealant to appear as a single unit. At Magic Glass, we have state-of-the-art fully automatic Insulating lines with robot sealing. We were also the first company to manufacture Insulated glass in Pune. With such long experience and an excellent team, we have mastered the art of making the highest quality Insulated panels.",
+    "secondaryText": "By harnessing the power of Insulated Glass (DGU) by Magic Glass, you can create a comfortable and sustainable environment while significantly lowering your energy costs.",
+    "detailImages": [
+      "/images/products/details/FACADES-3.png",
+      "/images/products/details/PARTITIONS-1.png"
     ],
-    characteristics: [
-      'Vertically fully automated robotic sealing process with PIB primary seal',
-      'Italian Profil Glass warm-edge spacers preventing condensation',
-      'Argon gas cavity filling options for optimal U-value performance',
-      'Fenzi butyl & Sealande/Dow Corning structural silicone secondary sealing',
-      'Certified EN 1279 hermetically sealed double glazing units',
+    "characteristics": [
+      "Robotic Sealing with Fenzi Butyl & Dow Silicone",
+      "Argon Gas Thermal Barrier (U-value < 1.1)",
+      "Warm-Edge Spacer System",
+      "Certified to international standards EN, ASTM, and IS",
+      "Custom fabricated to precise structural engineering specifications"
     ],
-    specs: [
+    "specs": [
       {
-        
-        label: 'Process type',
-        value: 'vertically fully automated robotic sealing process',
+        "icon": "/images/products/details/icons/process-type.png",
+        "label": "Process type",
+        "value": "vertically fully automated robotic sealing process"
       },
       {
-        
-        label: 'Glass thickness range',
-        value: '4mm to 19mm',
+        "icon": "/images/products/details/icons/Group-2258.png",
+        "label": "Glass thickness range",
+        "value": "4mm to 19mm"
       },
       {
-        
-        label: 'DGU unit thickness',
-        value: '14mm to 48mm',
+        "icon": "/images/products/details/icons/Group-2288.png",
+        "label": "DGU unit thickness",
+        "value": "14mm to 48mm"
       },
       {
-        
-        label: 'Airfill type',
-        value: 'Air or Argon Glass',
+        "icon": "/images/products/details/icons/Group-2265.png",
+        "label": "Airfill type",
+        "value": "Air or Argon Glass"
       },
       {
-        
-        label: 'Spacer Make',
-        value: 'Profil Glass (Italy)',
+        "icon": "/images/products/details/icons/Group-2266.png",
+        "label": "Spacer Make",
+        "value": "Profil Glass (Italy)"
       },
       {
-        
-        label: 'Butyl Make',
-        value: 'Fenzi (Italy)',
+        "icon": "/images/products/details/icons/Group-2267.png",
+        "label": "Butyl Make",
+        "value": "Fenzi (Italy)"
       },
       {
-        
-        label: 'Desiccant Make',
-        value: 'Netragy',
+        "icon": "/images/products/details/icons/Group-2268.png",
+        "label": "Desiccant Make",
+        "value": "Netragy"
       },
       {
-        
-        label: 'Silicon Make',
-        value: 'Sealande, Dow(USA)',
+        "icon": "/images/products/details/icons/Group-2269.png",
+        "label": "Silicon Make",
+        "value": "Sealande, Dow(USA)"
       },
       {
-        
-        label: 'Standard',
-        value: 'EN 1279',
+        "icon": "/images/products/details/icons/standard.png",
+        "label": "Standard",
+        "value": "EN 1279"
       },
+      {
+        "icon": "/images/products/details/icons/standard.png",
+        "label": "Butyl Make",
+        "value": "Fenzi (Italy)"
+      }
     ],
-    galleryImages: [
-      '/images/craft-dgu.jpg',
-      '/images/apps/windows.png',
-      '/images/prod-structural.jpg',
-      '/images/craft-laminated.jpg',
+    "galleryTitle": "Glass Applications",
+    "galleryImageItems": [
+      {
+        "src": "/images/products/details/FACADES-3.png",
+        "title": "FACADES"
+      },
+      {
+        "src": "/images/products/details/PARTITIONS-1.png",
+        "title": "PARTITIONS"
+      },
+      {
+        "src": "/images/products/details/HIGH-RISE-BUILDINGS.png",
+        "title": "HIGH-RISE BUILDINGS"
+      },
+      {
+        "src": "/images/products/details/WINDOWS-2.png",
+        "title": "WINDOWS"
+      }
     ],
-    sliderImages: [
-      '/images/craft-dgu.jpg',
-      '/images/apps/windows.png',
+    "galleryImages": [
+      "/images/products/details/FACADES-3.png",
+      "/images/products/details/PARTITIONS-1.png",
+      "/images/products/details/HIGH-RISE-BUILDINGS.png",
+      "/images/products/details/WINDOWS-2.png"
     ],
-    relatedProductIds: ['dgu-laminated-glass', 'skn-ultra-high-performance-glass'],
+    "industries": [
+      {
+        "title": "AUTOMOTIVE",
+        "image": "/images/products/details/automotive.png",
+        "description": "It is mostly used in commercial refrigerators for reducing heat transfer and having clear visibility. It is also used in elevators, trains, and various places where there is a need to control the temperature and have clear visibility."
+      },
+      {
+        "title": "ARCHITECTURE",
+        "image": "/images/products/details/architecture.png",
+        "description": "Architects rely on Insulated Glass (DGU) to create sustainable and environmentally conscious structures. In the field of architecture, this energy-efficient glazing solution helps meet green building standards, enhances thermal comfort, and promotes energy conservation, paving the way for a more sustainable future."
+      }
+    ],
+    "sliderImages": [
+      "/images/products/details/balmoral-by-riverside.jpg",
+      "/images/products/details/the-ark-tribeca.jpg",
+      "/images/products/details/varde-abil.jpg",
+      "/images/products/details/ganga-platino.jpg"
+    ],
+    "relatedProductIds": [
+      "dgu-laminated-glass",
+      "high-performance-low-e-glass"
+    ]
   },
-
-  'dgu-laminated-glass': {
-    id: 'dgu-laminated-glass',
-    indexNumber: '09',
-    title: 'DGU Laminated Glass',
-    category: 'Structural & Exterior Glazing',
-    heroImage: '/images/apps/windows.png',
-    introSummary:
-      'Indulge in the world of DGU Laminated Glass by Magic Glass, where luxury and elegance intertwine flawlessly. Crafted to perfection, this extraordinary glass creation offers an exceptional blend of aesthetics, safety, and acoustic performance.',
-    secondaryText:
-      'From its impeccable appearance to its exceptional performance, DGU Laminated Glass emanates opulence and refinement, making it the premier choice for luxury villa envelopes, commercial airport facades, and high-rise residential towers.',
-    detailImages: [
-      '/images/apps/windows.png',
-      '/images/craft-dgu.jpg',
+  "dgu-laminated-glass": {
+    "id": "dgu-laminated-glass",
+    "indexNumber": "10",
+    "title": "DGU Laminated Glass",
+    "subheading": "Indulgent Luxury & Multi-Performance Shielding",
+    "category": "Insulated Glass",
+    "heroImage": "/images/products/dgu-laminated-glass.png",
+    "introSummary": "Indulge in the world of DGU Laminated Glass by Magic Glass, where luxury and elegance intertwine flawlessly. Crafted to elevate premium spaces to unprecedented heights, DGU Laminated Glass is the epitome of super luxurious glass.",
+    "secondaryText": "From its impeccable appearance to its exceptional performance, DGU Laminated Glass emanates opulence and refinement, making it the ultimate choice for prestigious venues including airports and 5-star hotels.",
+    "detailImages": [
+      "/images/products/details/WINDOWS-2.png",
+      "/images/products/details/FACADES-3.png"
     ],
-    characteristics: [
-      'Vertically fully automated robotic sealing process for dual-pane laminated units',
-      'Combines outer laminated safety pane with inner Low-E energy pane',
-      'Argon gas cavity with Italian Profil Glass warm-edge spacer sealing',
-      'Fenzi butyl & Dow Corning structural silicone secondary hermetic seals',
-      'Maximum impact safety + sound reduction + thermal solar control in one assembly',
+    "characteristics": [
+      "Laminated Safety Outer Pane + Low-E DGU Unit",
+      "Acoustic Barrier for Transit & Airports",
+      "Maximum Security & Climate Protection",
+      "Certified to international standards EN, ASTM, and IS",
+      "Custom fabricated to precise structural engineering specifications"
     ],
-    specs: [
+    "specs": [
       {
-        
-        label: 'Process type',
-        value: 'vertically fully automated robotic sealing process',
+        "icon": "/images/products/details/icons/process-type.png",
+        "label": "Process type",
+        "value": "vertically fully automated robotic sealing process"
       },
       {
-        
-        label: 'Glass thickness range',
-        value: '4mm to 19mm',
+        "icon": "/images/products/details/icons/Group-2258.png",
+        "label": "Glass thickness range",
+        "value": "4mm to 19mm"
       },
       {
-        
-        label: 'DGU unit thickness',
-        value: '28mm to 48mm',
+        "icon": "/images/products/details/icons/Group-2288.png",
+        "label": "DGU unit thickness",
+        "value": "12mm to 4860mm"
       },
       {
-        
-        label: 'Airfill type',
-        value: 'Air or Argon Glass',
+        "icon": "/images/products/details/icons/Group-2265.png",
+        "label": "Airfill type",
+        "value": "Air or Argon Glass"
       },
       {
-        
-        label: 'Spacer Make',
-        value: 'Profil Glass (Italy)',
+        "icon": "/images/products/details/icons/Group-2266.png",
+        "label": "Spacer Make",
+        "value": "Profil Glass (Italy)"
       },
       {
-        
-        label: 'Butyl Make',
-        value: 'Fenzi (Italy)',
+        "icon": "/images/products/details/icons/Group-2267.png",
+        "label": "Butyl Make",
+        "value": "Fenzi (Italy)"
       },
       {
-        
-        label: 'Desiccant Make',
-        value: 'Netragy',
+        "icon": "/images/products/details/icons/Group-2268.png",
+        "label": "Desiccant Make",
+        "value": "Netragy"
       },
       {
-        
-        label: 'Silicon Make',
-        value: 'Sealande, Dow(USA)',
+        "icon": "/images/products/details/icons/Group-2269.png",
+        "label": "Silicon Make",
+        "value": "Sealande, Dow(USA)"
       },
+      {
+        "icon": "/images/products/details/icons/standard.png",
+        "label": "Butyl Make",
+        "value": "Fenzi (Italy)"
+      }
     ],
-    galleryImages: [
-      '/images/apps/windows.png',
-      '/images/craft-dgu.jpg',
-      '/images/apps/roof.png',
-      '/images/craft-laminated.jpg',
+    "galleryTitle": "Glass Applications",
+    "galleryImageItems": [
+      {
+        "src": "/images/products/details/WINDOWS-2.png",
+        "title": "WINDOWS"
+      },
+      {
+        "src": "/images/products/details/FACADES-3.png",
+        "title": "FACADES"
+      }
     ],
-    sliderImages: [
-      '/images/apps/windows.png',
-      '/images/craft-dgu.jpg',
+    "galleryImages": [
+      "/images/products/details/WINDOWS-2.png",
+      "/images/products/details/FACADES-3.png",
+      "/images/products/details/WINDOWS-2.png",
+      "/images/products/details/WINDOWS-2.png"
     ],
-    relatedProductIds: ['insulated-glass-dgu', 'skn-ultra-high-performance-glass'],
+    "industries": [
+      {
+        "title": "AIRPORTS",
+        "image": "/images/products/details/Airports.png",
+        "description": "Create a truly memorable airport experience with IGU Laminated Glass. Its luxurious appearance and exceptional quality make it the perfect choice for premium airport terminals."
+      },
+      {
+        "title": "HOSPITALITY",
+        "image": "/images/products/details/hospitality-1-2.png",
+        "description": "From luxurious hotel suites to lavish resorts, IGU Laminated Glass adds a touch of elegance, creating a captivating ambiance that delights guests and leaves a lasting impression."
+      }
+    ],
+    "sliderImages": [
+      "/images/products/details/balmoral-by-riverside.jpg",
+      "/images/products/details/the-ark-tribeca.jpg",
+      "/images/products/details/varde-abil.jpg",
+      "/images/products/details/ganga-platino.jpg"
+    ],
+    "relatedProductIds": [
+      "insulated-glass-dgu",
+      "sentry-laminated-glass"
+    ]
   },
-
-  'high-performance-low-e-glass': {
-    id: 'high-performance-low-e-glass',
-    indexNumber: '10',
-    title: 'High Performance LOW-E Glass',
-    category: 'Structural & Exterior Glazing',
-    heroImage: '/images/apps/roof.png',
-    introSummary:
-      'High-Performance Low-E Glass leverages cutting-edge technology to provide superior thermal performance. Designed as an advanced thermal insulation glass (Low-E), High-Performance Low-E Glass revolutionizes energy efficiency in buildings, setting new benchmarks in the glass manufacturing industry in India.',
-    secondaryText:
-      'Manufactured using state-of-the-art magnetron sputtering processes under vacuum conditions, this coated glass reflects long-wave heat radiation, ensuring exceptional thermal insulation and maximum occupant comfort. With outstanding light transmission and minimal reflection, High-Performance Low-E Glass allows ample natural light to penetrate while providing unparalleled clarity.',
-    detailImages: [
-      '/images/apps/roof.png',
-      '/images/prod-structural.jpg',
+  "high-performance-low-e-glass": {
+    "id": "high-performance-low-e-glass",
+    "indexNumber": "11",
+    "title": "High Performance LOW-E Glass",
+    "subheading": "Advanced Thermal Insulation & Infrared Control",
+    "category": "Reflective Glass",
+    "heroImage": "/images/products/high-performance-low-e-glass.png",
+    "introSummary": "High-Performance Low-E Glass leverages cutting-edge technology to provide superior thermal performance. Designed as an advanced thermal insulation glass (Low-E), High-Performance Low-E Glass revolutionizes energy efficiency in buildings, setting new benchmarks in the glass manufacturing industry in India.",
+    "secondaryText": "Manufactured using state-of-the-art magnetron sputtering processes under vacuum conditions, this coated glass reflects long-wave heat radiation, ensuring exceptional thermal insulation and maximum occupant comfort. With outstanding light transmission and minimal reflection, High-Performance Low-E Glass allows ample natural light to penetrate while providing unparalleled clarity.",
+    "detailImages": [
+      "/images/products/details/FACADES-1.png",
+      "/images/products/details/architecture.png"
     ],
-    characteristics: [
-      'Magnetron soft-coat low-emissivity coating applied under high vacuum',
-      'Reflects long-wave infrared thermal radiation while transmitting natural daylight',
-      'Substantially reduces HVAC operational costs and building carbon footprint',
-      'Processed onto Saint Gobain, Gujarat Guardian & Asahi India float substrates',
-      'Certified to EN-1096, EN-12150, EN-12543, EN-1279, EN-1863, and IS-2553 standards',
+    "characteristics": [
+      "Off-Line Vacuum Sputtered Magnetron Coating",
+      "Reflects Long-Wave Infrared Heat",
+      "Significantly Decreases HVAC Cooling Loads",
+      "Certified to international standards EN, ASTM, and IS",
+      "Custom fabricated to precise structural engineering specifications"
     ],
-    specs: [
+    "specs": [
       {
-        
-        label: 'Glass Thickness',
-        value: '4mm-12mm',
+        "icon": "/images/products/details/icons/Group-2258.png",
+        "label": "Glass Thickness",
+        "value": "4mm-12mm"
       },
       {
-        
-        label: 'Tempering',
-        value: 'Heat-strengthened (HS), Toughened',
+        "icon": "/images/products/details/icons/Group-2262.png",
+        "label": "Tempering",
+        "value": "Heat-strengthened (HS), Toughened"
       },
       {
-        
-        label: 'Standard',
-        value: 'EN-1096, EN-12150, EN-12543, EN-1279, EN-1863, IS-2553 PART 1',
+        "icon": "/images/products/details/icons/standard.png",
+        "label": "Standard",
+        "value": "EN-1096, EN-12150, EN-12543, EN-1279, EN-1863, IS-2553 PART 1"
       },
       {
-        
-        label: 'Glass Make',
-        value: 'Saint Gobain, Gujarat Guardian, Asahi India',
+        "icon": "/images/products/details/icons/Group-2257.png",
+        "label": "Glass Make",
+        "value": "Saint Gobain, Gujarat Guardian, Asahi India"
       },
       {
-        
-        label: 'Value Addition',
-        value: 'Insulated Glass (IGU), Laminated Glass (PVB and SentryGlas)',
+        "icon": "/images/products/details/icons/Group-2263.png",
+        "label": "Value Addition",
+        "value": "Insulated Glass (IGU), Laminated Glass (PVB and SentryGlas)"
+      }
+    ],
+    "galleryTitle": "Glass Applications",
+    "galleryImageItems": [
+      {
+        "src": "/images/products/details/FACADES-1.png",
+        "title": "FACADES"
+      }
+    ],
+    "galleryImages": [
+      "/images/products/details/FACADES-1.png",
+      "/images/products/details/FACADES-1.png",
+      "/images/products/details/FACADES-1.png",
+      "/images/products/details/FACADES-1.png"
+    ],
+    "industries": [
+      {
+        "title": "ARCHITECTURE",
+        "image": "/images/products/details/architecture.png",
+        "description": "Architects and designers turn to high-performance low-E Glass to meet the demands of sustainable and energy-efficient building design. Its remarkable thermal insulation properties contribute to improved energy performance."
       },
+      {
+        "title": "TRANSPORT",
+        "image": "/images/products/details/Transport.png",
+        "description": "By minimizing heat transfer and ensuring optimal thermal comfort, it enhances the passenger experience while reducing energy consumption. High-Performance Low-E Glass brings innovation and sustainability to transport infrastructure, making it a preferred choice for environmentally conscious design."
+      },
+      {
+        "title": "PUBLIC SPACES",
+        "image": "/images/products/details/Public-Spaces.png",
+        "description": "High-Performance Low-E Glass contributes to energy savings and enhances the visual appeal of public spaces such as shopping centers, educational institutions, and offices, creating a welcoming and sustainable atmosphere."
+      }
     ],
-    galleryImages: [
-      '/images/apps/roof.png',
-      '/images/prod-structural.jpg',
-      '/images/craft-dgu.jpg',
-      '/images/prod-windows.jpg',
+    "sliderImages": [
+      "/images/products/details/balmoral-by-riverside.jpg",
+      "/images/products/details/the-ark-tribeca.jpg",
+      "/images/products/details/varde-abil.jpg",
+      "/images/products/details/ganga-platino.jpg"
     ],
-    sliderImages: [
-      '/images/apps/roof.png',
-      '/images/prod-structural.jpg',
-    ],
-    relatedProductIds: ['skn-ultra-high-performance-glass', 'insulated-glass-dgu'],
+    "relatedProductIds": [
+      "skn-ultra-high-performance-glass",
+      "insulated-glass-dgu"
+    ]
   },
-
-  'skn-ultra-high-performance-glass': {
-    id: 'skn-ultra-high-performance-glass',
-    indexNumber: '11',
-    title: 'SKN-Ultra High-Performance Glass',
-    category: 'Structural & Exterior Glazing',
-    heroImage: '/images/prod-structural.jpg',
-    introSummary:
-      'Ultra-high-performance glass provides natural light transmission while helping to limit heat gain and thermal energy transfer. Through continuous improvements in its thermal insulation and solar control performance, glass has become a flexible building material that can improve buildings energy efficiency.',
-    secondaryText:
-      'SKN High-Performance Glass from Magic Glass offers critical benefits for thermal insulation and solar control. It allows sunlight to pass through while reflecting a large proportion of solar heat (SHGC < 0.23). This keeps indoor spaces brighter and cooler compared to uncoated glass, improving energy efficiency.',
-    detailImages: [
-      '/images/prod-structural.jpg',
-      '/images/apps/roof.png',
+  "skn-ultra-high-performance-glass": {
+    "id": "skn-ultra-high-performance-glass",
+    "indexNumber": "12",
+    "title": "SKN-Ultra High-Performance Glass",
+    "subheading": "Next-Generation Green Building Solar Glazing",
+    "category": "Reflective Glass",
+    "heroImage": "/images/products/skn-ultra-high-performance-glass.jpg",
+    "introSummary": "Ultra-high-performance glass provides natural light transmission while helping to limit heat gain and thermal energy transfer. Through continuous improvements in its thermal insulation and solar control performance, glass has become a flexible building material that can improve buildings&#8217; energy efficiency. High-performance coated glass is a critical part of our glazing system. Coated glass allows building occupants to engage visually with the external environment from a comfortable interior.",
+    "secondaryText": "High-performance glass works by controlling how it interacts with the electromagnetic spectrum. Solar energy from the sun includes ultraviolet, visible, and near-infrared wavelengths ranging from 300 to 2,500 nm. Solar control-coated glass can block a significant portion of this energy by reflecting and absorbing it. High-performance coatings on glass are designed to slow radiant heat transfer by reflecting longwave radiation (heat) into the building structure during cooler periods.",
+    "detailImages": [
+      "/images/products/details/FACADES-1.png",
+      "/images/products/details/architecture.png"
     ],
-    characteristics: [
-      'Triple & double-silver magnetron coatings delivering SHGC < 0.23',
-      'High spectral selectivity admitting daylight while reflecting solar heat',
-      'Blocks up to 99% of damaging UV radiation to prevent interior fading',
-      'Reduces glare and air conditioning energy consumption significantly',
-      'Certified to EN-1096, EN-12150, EN-12543, EN-1279, EN-1863, and IS-2553 standards',
+    "characteristics": [
+      "Double & Triple Silver Coated Chemistry",
+      "Ultra-Low Solar Heat Gain Coefficient (SHGC)",
+      "High Natural Neutral Daylight Penetration",
+      "Certified to international standards EN, ASTM, and IS",
+      "Custom fabricated to precise structural engineering specifications"
     ],
-    specs: [
+    "specs": [
       {
-        
-        label: 'Glass Thickness',
-        value: '4mm-12mm',
+        "icon": "/images/products/details/icons/Group-2258.png",
+        "label": "Glass Thickness",
+        "value": "4mm-12mm"
       },
       {
-        
-        label: 'Tempering',
-        value: 'Heat-strengthened (HS), Toughened',
+        "icon": "/images/products/details/icons/Group-2262.png",
+        "label": "Tempering",
+        "value": "Heat-strengthened (HS), Toughened"
       },
       {
-        
-        label: 'Standard',
-        value: 'EN-1096, EN-12150, EN-12543, EN-1279, EN-1863, IS-2553 PART 1',
+        "icon": "/images/products/details/icons/standard.png",
+        "label": "Standard",
+        "value": "EN-1096, EN-12150, EN-12543, EN-1279, EN-1863, IS-2553 PART 1"
       },
       {
-        
-        label: 'Glass Make',
-        value: 'Saint Gobain, Gujarat Guardian, Asahi India',
+        "icon": "/images/products/details/icons/Group-2257.png",
+        "label": "Glass Make",
+        "value": "Saint Gobain, Gujarat Guardian, Asahi India"
       },
       {
-        
-        label: 'Value Addition',
-        value: 'Insulated Glass (IGU), Laminated Glass (PVB and SentryGlas)',
+        "icon": "/images/products/details/icons/Group-2263.png",
+        "label": "Value Addition",
+        "value": "Insulated Glass (IGU), Laminated Glass (PVB and SentryGlas)"
+      }
+    ],
+    "galleryTitle": "Glass Applications",
+    "galleryImageItems": [
+      {
+        "src": "/images/products/details/FACADES-1.png",
+        "title": "FACADES"
+      }
+    ],
+    "galleryImages": [
+      "/images/products/details/FACADES-1.png",
+      "/images/products/details/FACADES-1.png",
+      "/images/products/details/FACADES-1.png",
+      "/images/products/details/FACADES-1.png"
+    ],
+    "industries": [
+      {
+        "title": "ARCHITECTURE",
+        "image": "/images/products/details/architecture.png",
+        "description": "Architects and designers turn to high-performance low-E Glass to meet the demands of sustainable and energy-efficient building design. Its remarkable thermal insulation properties contribute to improved energy performance."
       },
+      {
+        "title": "TRANSPORT",
+        "image": "/images/products/details/Transport.png",
+        "description": "By minimizing heat transfer and ensuring optimal thermal comfort, it enhances the passenger experience while reducing energy consumption. High-Performance Low-E Glass brings innovation and sustainability to transport infrastructure, making it a preferred choice for environmentally conscious design."
+      },
+      {
+        "title": "PUBLIC SPACES",
+        "image": "/images/products/details/Public-Spaces.png",
+        "description": "High-Performance Low-E Glass contributes to energy savings and enhances the visual appeal of public spaces such as shopping centers, educational institutions, and offices, creating a welcoming and sustainable atmosphere."
+      }
     ],
-    galleryImages: [
-      '/images/prod-structural.jpg',
-      '/images/apps/roof.png',
-      '/images/craft-dgu.jpg',
-      '/images/craft-laminated.jpg',
+    "sliderImages": [
+      "/images/products/details/balmoral-by-riverside.jpg",
+      "/images/products/details/the-ark-tribeca.jpg",
+      "/images/products/details/varde-abil.jpg",
+      "/images/products/details/ganga-platino.jpg"
     ],
-    sliderImages: [
-      '/images/prod-structural.jpg',
-      '/images/apps/roof.png',
-    ],
-    relatedProductIds: ['sentry-laminated-glass', 'high-performance-low-e-glass'],
+    "relatedProductIds": [
+      "high-performance-low-e-glass",
+      "dgu-laminated-glass"
+    ]
   },
-
-  'fire-safety-glass': {
-    id: 'fire-safety-glass',
-    indexNumber: '12',
-    title: 'Fire & Safety Glass',
-    category: 'Safety & Processing',
-    heroImage: '/images/apps/glass-lifts.png',
-    introSummary:
-      'In the face of unpredictable natural calamities such as fire, Fire & Safety Glass by Magic Glass emerges as a crucial line of defense for residential and commercial spaces. With its exceptional fire-resistant properties, this specially laminated glass is designed to withstand high temperatures, preventing the spread of fire and containing it within a specific location.',
-    secondaryText:
-      'Fire & Safety Glass by Magic Glass is more than just a protective barrier—it is a lifeline during critical moments. Its robust composition acts as a shield, preventing the fire from spreading through the glass and minimizing the risk of smoke inhalation. By confining the fire and limiting the spread of smoke, Fire & Safety Glass provides precious time for occupants to call for help and evacuate safely.',
-    detailImages: [
-      '/images/apps/glass-lifts.png',
-      '/images/factory-cnc.jpg',
+  "fire-safety-glass": {
+    "id": "fire-safety-glass",
+    "indexNumber": "13",
+    "title": "Fire & Safety Glass",
+    "subheading": "Protecting Lives and Properties with Fire Resistance",
+    "category": "Other Glass",
+    "heroImage": "/images/products/fire-safety-glass.png",
+    "introSummary": "In the face of unpredictable natural calamities such as fire, Fire & Safety Glass by Magic Glass emerges as a crucial line of defense for residential and commercial spaces. With its exceptional fire-resistant properties, this specially laminated glass is designed to withstand high temperatures, preventing the spread of fire and containing it within a specific location. By installing Fire & Safety Glass, you proactively minimize damage and enhance the safety of your property and its occupants.",
+    "secondaryText": "Fire & Safety Glass by Magic Glass is more than just a protective barrier—it is a lifeline during critical moments. Its robust composition acts as a shield, preventing the fire from spreading through the glass and minimizing the risk of smoke inhalation. By confining the fire and limiting the spread of smoke, Fire & Safety Glass provides precious time for occupants to call for help and evacuate safely. It is a testament to our commitment to saving lives and protecting properties, offering unmatched peace of mind in the face of fire-related emergencies.",
+    "detailImages": [
+      "/images/products/details/ARCHITECTURE-HOSPITALS.png",
+      "/images/products/details/SAFETY-DOORS.png"
     ],
-    characteristics: [
-      'Certified EW30 to EI120 fire resistance ratings (30 to 120 minutes)',
-      'Intumescent gel layer transforms into an opaque thermal heat shield during fire',
-      'Blocks radiant heat transfer and dangerous toxic smoke propagation',
-      'Class 1 impact safety glass rating for daily high-traffic building use',
-      'Mandatory safety installation for escape stairwells, corridors, and fire barriers',
+    "characteristics": [
+      "Laminated Fire-Resistive Composition",
+      "Confines Flames & Smoke Inhalation Risks",
+      "Certified for Hospitals & Commercial Exits",
+      "Certified to international standards EN, ASTM, and IS",
+      "Custom fabricated to precise structural engineering specifications"
     ],
-    specs: [
+    "specs": [
       {
-        
-        label: 'Glass Thickness Range',
-        value: '10 mm to 32 mm',
+        "icon": "/images/products/details/icons/thickness.png",
+        "label": "Glass Thickness Range",
+        "value": "5mm to 19mm"
       },
       {
-        
-        label: 'Fire Rating',
-        value: 'EW30 to EI120 (30 to 120 Minutes Fire Protection)',
+        "icon": "/images/products/details/icons/max-size.png",
+        "label": "Max Sheet Size",
+        "value": "8*14 ft."
       },
       {
-        
-        label: 'Standard',
-        value: 'EN 1363, EN 12600, BS 476',
+        "icon": "/images/products/details/icons/standard.png",
+        "label": "Fire Rating Standards",
+        "value": "EN 1363-1, BS 476, IS 3614, UL 10C / ASTM E119"
       },
       {
-        
-        label: 'Interlayer Type',
-        value: 'Intumescent Gel Fire-Insulating Interlayer',
+        "icon": "/images/products/details/icons/process-type.png",
+        "label": "Process Type",
+        "value": "Specialized thermal toughening with intumescent fire-resistive interlayers"
+      }
+    ],
+    "galleryTitle": "Glass Applications",
+    "galleryImageItems": [
+      {
+        "src": "/images/products/details/ARCHITECTURE-HOSPITALS.png",
+        "title": "ARCHITECTURE (HOSPITALS)"
       },
       {
-        
-        label: 'Process Type',
-        value: 'Laminated safety fire barrier composition with clear visual light transmission',
+        "src": "/images/products/details/SAFETY-DOORS.png",
+        "title": "SAFETY DOORS"
+      }
+    ],
+    "galleryImages": [
+      "/images/products/details/ARCHITECTURE-HOSPITALS.png",
+      "/images/products/details/SAFETY-DOORS.png",
+      "/images/products/details/ARCHITECTURE-HOSPITALS.png",
+      "/images/products/details/ARCHITECTURE-HOSPITALS.png"
+    ],
+    "industries": [
+      {
+        "title": "COMMERCIAL",
+        "image": "/images/products/details/hospitality-1.png",
+        "description": "Fire & Safety Glass is a game-changer in commercial settings, where the protection of assets and the continuity of business operations are paramount. With a fire-resistant glass in office buildings, retail establishments, and industrial facilities, businesses mitigate the risk of fire damage and ensure the safety of employees and valuable."
       },
+      {
+        "title": "PUBLIC SPACES",
+        "image": "/images/products/details/Public-Spaces.png",
+        "description": "Fire & Safety Glass plays a pivotal role in public spaces such as shopping centers, educational institutions, and entertainment venues. Fire & Safety Glass enhance fire safety measures, enabling efficient evacuation and reducing the risk of fire-related incidents."
+      }
     ],
-    galleryImages: [
-      '/images/apps/glass-lifts.png',
-      '/images/factory-cnc.jpg',
-      '/images/prod-additional.jpg',
-      '/images/apps/railings.png',
+    "sliderImages": [
+      "/images/products/details/balmoral-by-riverside.jpg",
+      "/images/products/details/the-ark-tribeca.jpg",
+      "/images/products/details/varde-abil.jpg",
+      "/images/products/details/ganga-platino.jpg"
     ],
-    sliderImages: [
-      '/images/apps/glass-lifts.png',
-      '/images/factory-cnc.jpg',
-    ],
-    relatedProductIds: ['heat-soaked-glass', 'pvb-laminated-glass'],
+    "relatedProductIds": [
+      "toughened-glass",
+      "pvb-laminated-glass"
+    ]
   },
-
-  'ceramic-glass': {
-    id: 'ceramic-glass',
-    indexNumber: '13',
-    title: 'Ceramic Glass',
-    category: 'Specialty & Decorative',
-    heroImage: '/images/craft-ceramic.jpg',
-    introSummary:
-      'Step into the world of Ceramic Glass by Magic Glass, where artistry meets durability. Through the innovative process of Ceramic fritting, glass enamel is fused onto the glass surface, creating a permanent coating that withstands the test of time. Light frit colors and pattern designs enhance brightness, while dark frit colors reduce glare.',
-    secondaryText:
-      'Ceramic Glass unlocks boundless possibilities in interior and façade design. Its versatile application allows for privacy, background concealment, product enhancement, and pure aesthetic appeal. The coating remains impervious to moisture, oil, soaps, chemicals, or detergents, ensuring a pristine appearance throughout the glass lifetime.',
-    detailImages: [
-      '/images/craft-ceramic.jpg',
-      '/images/apps/partition.png',
+  "ceramic-glass": {
+    "id": "ceramic-glass",
+    "indexNumber": "14",
+    "title": "Ceramic Glass",
+    "subheading": "Permanent Architectural Graphics & Sun Shading",
+    "category": "Other Glass",
+    "heroImage": "/images/products/ceramic-glass.png",
+    "introSummary": "Step into the world of Ceramic Glass by Magic Glass, where artistry meets durability. Through the innovative process of Ceramic fritting, glass enamel is fused onto the glass surface, creating a permanent coating that withstands the test of time. Light frit colors and pattern designs enhance brightness, while dark frit colors reduce glare, offering a harmonious balance of aesthetics and functionality.",
+    "secondaryText": "Ceramic Glass unlocks boundless possibilities in interior and façade design. Its versatile application allows for privacy, background concealment, product enhancement, and pure aesthetic appeal. The coating remains impervious to moisture, oil, soaps, chemicals, or detergents, ensuring a pristine appearance throughout the glass’s lifespan. With Ceramic Glass, you can redefine the boundaries of design, making a lasting impression with enduring elegance.",
+    "detailImages": [
+      "/images/products/details/INTERIOR-DECOR-1.png",
+      "/images/products/details/FACADES-REFLECTIVE-GLASS.png"
     ],
-    characteristics: [
-      'Enamel paint fused into glass matrix during tempering cycle',
-      'Scratch-resistant, weather-proof, and UV-immune surface finish',
-      'Automatic screen printing in controlled cleanroom with IR drying',
-      'Full flood coat or custom dot matrices in all RAL color scheme options',
-      'Ideal for building spandrels, glare control fins, and decorative screens',
+    "characteristics": [
+      "Ceramic Enamel Permanently Fused at 650°C",
+      "UV, Scratch & Weathering Immune",
+      "Custom Silkscreen Architectural Motifs",
+      "Certified to international standards EN, ASTM, and IS",
+      "Custom fabricated to precise structural engineering specifications"
     ],
-    specs: [
+    "specs": [
       {
-        
-        label: 'Glass Thickness Range',
-        value: '4 mm - 19 mm',
+        "icon": "/images/products/details/icons/Group-2258.png",
+        "label": "Glass Thickness Range",
+        "value": "4 mm – 19 mm"
       },
       {
-        
-        label: 'Design Type',
-        value: 'Full flood coat or a wide range of custom designs.',
+        "icon": "/images/products/details/icons/Group-2270.png",
+        "label": "Design Type",
+        "value": "Full flood coat or a wide range of custom designs."
       },
       {
-        
-        label: 'Glass Type',
-        value: 'Clear, extra clear, COLOR Options: All colours in the RAL colour scheme.',
+        "icon": "/images/products/details/icons/Group-2261.png",
+        "label": "Glass Type",
+        "value": "Clear, extra clear, COLOR Options: All colours in the RAL colour scheme."
       },
       {
-        
-        label: 'Process Type',
-        value: 'Automatic Screen Printing in controlled room conditions with IR Drying System and Multicolour options.',
+        "icon": "/images/products/details/icons/process-type.png",
+        "label": "Process Type",
+        "value": "Automatic Screen Printing in controlled room conditions with IR Drying System and Multicolour options."
+      }
+    ],
+    "galleryTitle": "Glass Applications",
+    "galleryImageItems": [
+      {
+        "src": "/images/products/details/INTERIOR-DECOR-1.png",
+        "title": "INTERIORS"
       },
+      {
+        "src": "/images/products/details/FACADES-REFLECTIVE-GLASS.png",
+        "title": "FACADE"
+      }
     ],
-    galleryImages: [
-      '/images/craft-ceramic.jpg',
-      '/images/apps/partition.png',
-      '/images/prod-partitions.jpg',
-      '/images/prod-structural.jpg',
+    "galleryImages": [
+      "/images/products/details/INTERIOR-DECOR-1.png",
+      "/images/products/details/FACADES-REFLECTIVE-GLASS.png",
+      "/images/products/details/INTERIOR-DECOR-1.png",
+      "/images/products/details/INTERIOR-DECOR-1.png"
     ],
-    sliderImages: [
-      '/images/craft-ceramic.jpg',
-      '/images/apps/partition.png',
+    "industries": [
+      {
+        "title": "TRANSPORT",
+        "image": "/images/products/details/Transport.png",
+        "description": "Enhance the passenger experience in transport hubs with Ceramic Glass. Applied to glass walls, partitions, and panels, the coating offers both practicality and aesthetics, elevating the visual appeal and creating an inviting environment in train stations, airports, and other transportation settings."
+      },
+      {
+        "title": "PUBLIC SPACES",
+        "image": "/images/products/details/Public-Spaces.png",
+        "description": "Enchant public spaces with Ceramic Glass, whether it&#8217;s shopping centers, museums, or educational institutions. The coating can be used to create privacy screens, captivating decorative elements, or elegant signage, captivating visitors while maintaining a flawless appearance."
+      },
+      {
+        "title": "ARCHITECTURE",
+        "image": "/images/products/details/architecture.png",
+        "description": "Architects and designers choose Ceramic Glass to create architectural marvels that stand the test of time. From residential complexes to commercial buildings, this glass solution combines enduring beauty with unmatched durability, setting a new benchmark for excellence."
+      }
     ],
-    relatedProductIds: ['frosted-glass', 'mirror-glass'],
+    "sliderImages": [
+      "/images/products/details/balmoral-by-riverside.jpg",
+      "/images/products/details/the-ark-tribeca.jpg",
+      "/images/products/details/varde-abil.jpg",
+      "/images/products/details/ganga-platino.jpg"
+    ],
+    "relatedProductIds": [
+      "frosted-glass",
+      "clear-glass"
+    ]
   },
-
-  'frosted-glass': {
-    id: 'frosted-glass',
-    indexNumber: '14',
-    title: 'Frosted Glass',
-    category: 'Specialty & Decorative',
-    heroImage: '/images/apps/partition.png',
-    introSummary:
-      'With its distinct appearance, Frosted Glass adds a touch of sophistication to any space. Using techniques like sandblasting or acid-etching, the transparent sheet of glass is transformed into an opaque masterpiece. Light scattering during transmission creates a translucent effect, allowing the glass to transmit light while obscuring visibility.',
-    secondaryText:
-      'This type of glass is widely used in interior applications and gives a great aesthetic appeal. In furniture, it adds a layer of elegance, whether as cabinet doors, tabletops, or shelving units, transforming ordinary pieces into extraordinary statements. In bathrooms, Frosted Glass provides privacy while still allowing natural light to filter through.',
-    detailImages: [
-      '/images/apps/partition.png',
-      '/images/craft-ceramic.jpg',
+  "frosted-glass": {
+    "id": "frosted-glass",
+    "indexNumber": "15",
+    "title": "Frosted Glass",
+    "subheading": "Sophisticated Privacy & Translucent Light Quality",
+    "category": "Other Glass",
+    "heroImage": "/images/products/frosted-glass.png",
+    "introSummary": "With its distinct appearance, Frosted Glass adds a touch of sophistication to any space. Using techniques like sandblasting, the transparent sheet of glass is transformed into an opaque masterpiece. Light scattering during transmission creates a translucent effect, allowing the glass to transmit light while obscuring visibility.",
+    "secondaryText": "This type of glass is widely used in interior applications and gives a great aesthetic appeal. In furniture, it adds a layer of elegance, whether as cabinet doors, tabletops, or shelving units, transforming ordinary pieces into extraordinary statements. In bathrooms, Frosted Glass provides privacy while still allowing natural light to filter through, creating a serene and soothing atmosphere. Railings adorned with Frosted Glass elevate safety and design, adding a touch of sophistication to staircases, balconies, or any architectural element.",
+    "detailImages": [
+      "/images/products/details/FURNITURE.png",
+      "/images/products/details/BATHROOMS.png"
     ],
-    characteristics: [
-      'Smooth acid-etched satin surface providing privacy and light diffusion',
-      'High daylight transmittance with complete visual privacy protection',
-      'Smudge-resistant and easy to clean compared to sandblasted glass',
-      'Can be toughened and laminated into safety partitions',
-      'Available on Clear, Extra Clear, Tinted, and Reflective glass substrates',
+    "characteristics": [
+      "Non-Fingerprint Translucent Acid-Etched Surface",
+      "Uniform Soft Light Scattering & Diffusion",
+      "Superior Durability Over Sandblasted Glass",
+      "Certified to international standards EN, ASTM, and IS",
+      "Custom fabricated to precise structural engineering specifications"
     ],
-    specs: [
+    "specs": [
       {
-        
-        label: 'Glass Thickness',
-        value: '4mm to 19mm',
+        "icon": "/images/products/details/icons/Group-2258.png",
+        "label": "Glass Thickness",
+        "value": "4mm to 19mm"
       },
       {
-        
-        label: 'Tempering',
-        value: 'Heat Strengthened (HS), Toughened',
+        "icon": "/images/products/details/icons/Group-2262.png",
+        "label": "Tempering",
+        "value": "Heat Strengthened (HS), Toughened"
       },
       {
-        
-        label: 'Glass Type',
-        value: 'Clear Glass, Extra Clear Glass, Tinted Glass, Reflective Glass',
+        "icon": "/images/products/details/icons/Group-2261.png",
+        "label": "Glass Type",
+        "value": "Clear Glass, Extra Clear Glass, Tinted Glass, Reflective Glass"
       },
       {
-        
-        label: 'Value Addition',
-        value: 'IGU and Laminated Glass',
+        "icon": "/images/products/details/icons/Group-2263.png",
+        "label": "Value Addition",
+        "value": "IGU and Laminated Glass"
+      }
+    ],
+    "galleryTitle": "Glass Applications",
+    "galleryImageItems": [
+      {
+        "src": "/images/products/details/FURNITURE.png",
+        "title": "FURNITURE"
       },
+      {
+        "src": "/images/products/details/BATHROOMS.png",
+        "title": "BATHROOMS"
+      },
+      {
+        "src": "/images/products/details/RAILINGS.png",
+        "title": "RAILINGS"
+      },
+      {
+        "src": "/images/products/details/WALL-PARTITIONS-DOORS.png",
+        "title": "WALL PARTITIONS, DOORS"
+      }
     ],
-    galleryImages: [
-      '/images/apps/partition.png',
-      '/images/craft-ceramic.jpg',
-      '/images/prod-partitions.jpg',
-      '/images/prod-structural.jpg',
+    "galleryImages": [
+      "/images/products/details/FURNITURE.png",
+      "/images/products/details/BATHROOMS.png",
+      "/images/products/details/RAILINGS.png",
+      "/images/products/details/WALL-PARTITIONS-DOORS.png"
     ],
-    sliderImages: [
-      '/images/apps/partition.png',
-      '/images/craft-ceramic.jpg',
+    "industries": [
+      {
+        "title": "ARCHITECTURE",
+        "image": "/images/products/details/architecture.png",
+        "description": "Whether incorporated into facades, partitions, or windows, Frosted Glass combines functionality and elegance, allowing natural light to enter while maintaining privacy. Architects and designers embrace Frosted Glass as a versatile solution that adds a touch of allure to their creations."
+      }
     ],
-    relatedProductIds: ['ceramic-glass', 'mirror-glass'],
+    "sliderImages": [
+      "/images/products/details/balmoral-by-riverside.jpg",
+      "/images/products/details/the-ark-tribeca.jpg",
+      "/images/products/details/varde-abil.jpg",
+      "/images/products/details/ganga-platino.jpg"
+    ],
+    "relatedProductIds": [
+      "mirror-glass",
+      "ceramic-glass"
+    ]
   },
-
-  'mirror-glass': {
-    id: 'mirror-glass',
-    indexNumber: '15',
-    title: 'Mirror Glass',
-    category: 'Specialty & Decorative',
-    heroImage: '/images/prod-partitions.jpg',
-    introSummary:
-      'Mirrored glass adds a living quality to your design. Whether you want a glamorous, full reflection effect, specific reflectivity with light-diffusing etched or patterned surfaces, or a custom luminous color, we can help. Pair graphics with a mirror to achieve depth, or add an etched layer for a soft, welcoming glow.',
-    secondaryText:
-      'Discover the widest range of designs, shapes, and colors to maximize the room lighting, making the details look more prominent than ever. Manufactured with environmental copper-free and lead-free silver backing for long-lasting corrosion resistance.',
-    detailImages: [
-      '/images/prod-partitions.jpg',
-      '/images/prod-structural.jpg',
+  "mirror-glass": {
+    "id": "mirror-glass",
+    "indexNumber": "16",
+    "title": "Mirror Glass",
+    "subheading": "Maximized Room Dimensions & Living Light Reflections",
+    "category": "Other Glass",
+    "heroImage": "/images/products/mirror-glass.png",
+    "introSummary": "Mirrored glass adds a living quality to your design. Whether you want a glamorous, full reflection effect, specific reflectivity with light-diffusing etched or patterned surfaces, or a custom luminous color, we can help. Pair graphics with a mirror to achieve depth, or add an etched layer for a soft, welcoming glow.",
+    "secondaryText": "Discover the widest range of designs, shapes, and colors to maximise the room’s lighting, making the details look more prominent than ever",
+    "detailImages": [
+      "/images/products/details/INTERIOR-DECOR.png",
+      "/images/products/details/architecture.png"
     ],
-    characteristics: [
-      'Copper-free and lead-free environmental silver mirror backing',
-      'High resistance to atmospheric corrosion and edge blackening',
-      'Distortion-free optics with crystal clear depth of reflection',
-      'Brands available: Saint Gobain, Gujarat Guardian, Sisecam',
-      'Available in silver, bronze, grey, and custom architectural tints',
+    "characteristics": [
+      "Copper-Free & Lead-Free Environmental Backing",
+      "Zero Optical Distortion Reflection",
+      "High Moisture & Oxidation Resistance",
+      "Certified to international standards EN, ASTM, and IS",
+      "Custom fabricated to precise structural engineering specifications"
     ],
-    specs: [
+    "specs": [
       {
-        
-        label: 'Thickness',
-        value: '4mm to 6mm',
+        "icon": "/images/products/details/icons/thickness.png",
+        "label": "Thickness",
+        "value": "4mm to 6mm"
       },
       {
-        
-        label: 'Brands',
-        value: 'Saint Gobain, Gujarat Guardian, Sisecam',
-      },
+        "icon": "/images/products/details/icons/Group-2264.png",
+        "label": "Brands",
+        "value": "Saint Gobain, Gujarat Guardian, Sisecam"
+      }
+    ],
+    "galleryTitle": "Glass Applications",
+    "galleryImageItems": [
       {
-        
-        label: 'Backing Type',
-        value: 'Copper-free and lead-free environmental silver mirror backing',
-      },
+        "src": "/images/products/details/INTERIOR-DECOR.png",
+        "title": "INTERIOR (DECOR)"
+      }
+    ],
+    "galleryImages": [
+      "/images/products/details/INTERIOR-DECOR.png",
+      "/images/products/details/INTERIOR-DECOR.png",
+      "/images/products/details/INTERIOR-DECOR.png",
+      "/images/products/details/INTERIOR-DECOR.png"
+    ],
+    "industries": [
       {
-        
-        label: 'Value Addition',
-        value: 'Bevelled edges, frosted graphics, tinted mirrors (bronze, grey, clear)',
-      },
+        "title": "ARCHITECTURE",
+        "image": "/images/products/details/architecture.png",
+        "description": "Mirror Glass is a preferred choice for architects and designers, enhancing the aesthetics of structures with its luxurious and refined reflections. From grand entrances to stylish interior designs, these mirrors leave a lasting impression and elevate the visual impact of architectural spaces."
+      }
     ],
-    galleryImages: [
-      '/images/prod-partitions.jpg',
-      '/images/prod-structural.jpg',
-      '/images/apps/partition.png',
-      '/images/craft-ceramic.jpg',
+    "sliderImages": [
+      "/images/products/details/balmoral-by-riverside.jpg",
+      "/images/products/details/the-ark-tribeca.jpg",
+      "/images/products/details/varde-abil.jpg",
+      "/images/products/details/ganga-platino.jpg"
     ],
-    sliderImages: [
-      '/images/prod-partitions.jpg',
-      '/images/prod-structural.jpg',
-    ],
-    relatedProductIds: ['frosted-glass', 'extra-clear-glass'],
-  },
-
-  'back-painted-glass': {
-    id: 'back-painted-glass',
-    indexNumber: '16',
-    title: 'Back-Painted Glass',
-    category: 'Specialty & Decorative',
-    heroImage: '/images/craft-ceramic.jpg',
-    introSummary:
-      'High-grade opaque colored lacquered glass featuring durable moisture-resistant backing enamel. Perfect for modern kitchen backsplashes, wall paneling, writing boards, and interior accents.',
-    secondaryText:
-      'Available in custom RAL color matching, offering a seamless, non-porous glass surface that is easy to clean and maintains high-gloss brilliance over time.',
-    detailImages: [
-      '/images/craft-ceramic.jpg',
-      '/images/apps/partition.png',
-    ],
-    characteristics: [
-      'Opaque high-gloss lacquered surface finish',
-      'Durable moisture and heat resistant backing enamel',
-      'Available in all RAL color scheme matching options',
-      'Ideal for kitchen backsplashes, wall cladding, and writing boards',
-      'Easy to clean non-porous hygienic glass surface',
-    ],
-    specs: [
-      {
-        
-        label: 'Glass Thickness Range',
-        value: '4mm - 12mm',
-      },
-      {
-        
-        label: 'Color Options',
-        value: 'All colors in the RAL color scheme',
-      },
-      {
-        
-        label: 'Process Type',
-        value: 'Lacquered back coating with moisture-resistant enamel',
-      },
-      {
-        
-        label: 'Value Addition',
-        value: 'Magnetic glass writing board processing, custom cutouts',
-      },
-    ],
-    galleryImages: [
-      '/images/craft-ceramic.jpg',
-      '/images/apps/partition.png',
-      '/images/prod-partitions.jpg',
-      '/images/prod-structural.jpg',
-    ],
-    sliderImages: [
-      '/images/craft-ceramic.jpg',
-      '/images/apps/partition.png',
-    ],
-    relatedProductIds: ['ceramic-glass', 'frosted-glass'],
-  },
-
-  'led-lighting-glass': {
-    id: 'led-lighting-glass',
-    indexNumber: '17',
-    title: 'LED Lighting Glass',
-    category: 'Specialty & Decorative',
-    heroImage: '/images/prod-structural.jpg',
-    introSummary:
-      'Integrated edge-lit and surface-diffused LED architectural glass panels providing uniform edge-to-edge glow for signages, luxury interior feature displays, and backlit cladding.',
-    secondaryText:
-      'Combines low-voltage LED illumination with extra clear float glass substrates for high-impact architectural features in commercial lobbies, hotel reception desks, and retail storefronts.',
-    detailImages: [
-      '/images/prod-structural.jpg',
-      '/images/prod-windows.jpg',
-    ],
-    characteristics: [
-      'Integrated edge-lit low voltage LED lighting channels',
-      'Uniform edge-to-edge light guide surface diffusion',
-      'Low-iron extra clear glass substrate for crystal transparency',
-      'Custom laser engraving and fritted graphic illumination',
-      'Available in single color, CCT tunable, and RGB LED options',
-    ],
-    specs: [
-      {
-        
-        label: 'Glass Thickness Range',
-        value: '6mm - 19mm',
-      },
-      {
-        
-        label: 'Illumination Type',
-        value: 'Integrated Edge-Lit LED & Surface Light Guide Panel',
-      },
-      {
-        
-        label: 'Glass Substrate',
-        value: 'Low-Iron Extra Clear Float Glass',
-      },
-      {
-        
-        label: 'Value Addition',
-        value: 'Custom laser engraving, fritted graphics, RGB / CCT LED options',
-      },
-    ],
-    galleryImages: [
-      '/images/prod-structural.jpg',
-      '/images/prod-windows.jpg',
-      '/images/craft-ceramic.jpg',
-      '/images/prod-partitions.jpg',
-    ],
-    sliderImages: [
-      '/images/prod-structural.jpg',
-      '/images/prod-windows.jpg',
-    ],
-    relatedProductIds: ['extra-clear-glass', 'ceramic-glass'],
-  },
+    "relatedProductIds": [
+      "extra-clear-glass",
+      "frosted-glass"
+    ]
+  }
 }
-

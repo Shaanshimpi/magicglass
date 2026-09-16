@@ -4,7 +4,6 @@ import React, { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { PdpHero } from '@/components/PDP/PdpHero'
-import { TrustBanner } from '@/components/TrustBanner/TrustBanner'
 import { useLayoutContext } from '@/components/Shell/ClientLayoutShell'
 import mockData from '@/data/contact_us_mock.json'
 import styles from './ContactUs.module.css'
@@ -197,8 +196,18 @@ export const ContactUsContent: React.FC<ContactUsContentProps> = ({ cmsData }) =
                   className={styles.contactCard}
                 >
                   <div className={styles.iconBadge}>{renderIcon(card.icon)}</div>
-                  <h3 className={styles.cardTitle}>{card.title}</h3>
-                  <p className={styles.cardDetail}>{card.detail}</p>
+                  <h3 className={styles.cardTitle}>
+                    {card.title.includes('@') ? (
+                      <>
+                        {card.title.split('@')[0]}@<wbr />{card.title.split('@')[1]}
+                      </>
+                    ) : (
+                      card.title
+                    )}
+                  </h3>
+                  <p className={styles.cardDetail}>
+                    <span>{card.detail}</span>
+                  </p>
 
                   {card.actionUrl ? (
                     <a
@@ -346,11 +355,6 @@ export const ContactUsContent: React.FC<ContactUsContentProps> = ({ cmsData }) =
               </div>
             </div>
           </div>
-        </section>
-
-        {/* 4. Partner Client Slider */}
-        <section style={{ backgroundColor: 'var(--color-black)', paddingBottom: '3rem' }}>
-          <TrustBanner />
         </section>
     </div>
   )

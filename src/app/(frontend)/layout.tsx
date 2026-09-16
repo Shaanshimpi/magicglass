@@ -33,7 +33,19 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
   ])
 
   return (
-    <html lang="en" className={`${outfit.variable} ${jetbrainsMono.variable}`} data-scroll-behavior="smooth">
+    <html
+      lang="en"
+      className={`${outfit.variable} ${jetbrainsMono.variable}`}
+      data-scroll-behavior="smooth"
+      suppressHydrationWarning
+    >
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{if(sessionStorage.getItem('magicglass_loader_shown')==='true'){document.documentElement.classList.add('loader-complete');}}catch(e){}})();`,
+          }}
+        />
+      </head>
       <body>
         <SmoothScroll>
           <LivePreviewListener />

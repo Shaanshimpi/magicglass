@@ -30,12 +30,11 @@ export function getMediaUrl(mediaField: any, fallbackUrl?: string): string {
 
 // Map alias route slugs to canonical PDP dataset keys
 export function resolveCanonicalSlug(slug: string): string {
+  if (PDP_MOCK_DATA[slug]) return slug
   const ALIAS_MAP: Record<string, string> = {
-    'acoustic-lami-glass': 'acoustic-laminated-glass',
-    'high-performance-low-e-glass': 'low-e-glass-processing',
-    'ceramic-glass': 'ceramic-fritted-glass',
-    'skn-ultra-high-performance-glass': 'insulated-glass-dgu',
-    'fire-safety-glass': 'toughened-glass',
+    'acoustic-laminated-glass': 'acoustic-lami-glass',
+    'low-e-glass-processing': 'high-performance-low-e-glass',
+    'ceramic-fritted-glass': 'ceramic-glass',
   }
   return ALIAS_MAP[slug] || slug
 }
@@ -60,10 +59,10 @@ export async function getHeaderCmsData() {
             href: item.href,
             variant: item.variant,
           })) || [
-            { label: 'GET A QUOTE', href: '#quote', variant: 'primary' },
-          ],
+              { label: 'GET A QUOTE', href: '#quote', variant: 'primary' },
+            ],
           loaderBrandTag: data.loaderBrandTag || '◆ MAGIC GLASS',
-          loaderBrandTitle: data.loaderBrandTitle || 'ARCHITECTURAL GLAZING',
+          loaderBrandTitle: data.loaderBrandTitle || "It's not just glass It's",
           loaderStatusText: data.loaderStatusText || 'INITIALIZING EXPERIENCE',
           loaderEstYear: data.loaderEstYear || 'EST. 2006',
         }
@@ -88,7 +87,7 @@ export async function getHeaderCmsData() {
       { label: 'GET A QUOTE', href: '#quote', variant: 'primary' },
     ],
     loaderBrandTag: '◆ MAGIC GLASS',
-    loaderBrandTitle: 'ARCHITECTURAL GLAZING',
+    loaderBrandTitle: "It's not just glass It's",
     loaderStatusText: 'INITIALIZING EXPERIENCE',
     loaderEstYear: 'EST. 2006',
   }
@@ -254,7 +253,7 @@ export async function getHomePageCmsData() {
   // Full fallback
   return {
     hero: {
-      tagline: 'PRECISION GLASS MANUFACTURING • YAVAT, PUNE, MAHARASHTRA',
+      tagline: '',
       heading: 'Crafting Exceptional Glass Solutions for a Brighter World.',
       primaryCtaLabel: 'REQUEST TECHNICAL QUOTE',
       primaryCtaHref: '#quote',
@@ -277,7 +276,7 @@ export async function getHomePageCmsData() {
       ],
     },
     glassApplications: {
-      eyebrow: '◆ GLASS APPLICATIONS',
+      eyebrow: ' GLASS APPLICATIONS',
       heading: 'GET EVERY GLASS APPLICATION UNDER ONE ROOF',
       topDescription:
         'Our glazing collection is defined by exceptional craftsmanship, refined design, and enduring quality.',
@@ -304,12 +303,24 @@ export async function getHomePageCmsData() {
     trustBanner: {
       eyebrow: "◆ WE'RE TRUSTED BY LEADING PARTNERS",
       partners: [
-        { name: 'Tribeca Developers' }, { name: 'Solitaire' }, { name: 'Nyati Group' },
-        { name: 'ABIL Group' }, { name: 'Amar Builders' }, { name: 'ASCII' },
-        { name: 'Gujarat Guardian' }, { name: 'Mantra Properties' }, { name: 'Ark' },
-        { name: 'Legrand by Nouveaute' }, { name: 'Kesseböhmer' }, { name: 'VTP Realty' },
-        { name: 'Gera Developments' }, { name: 'G Interio' }, { name: 'Godrej Properties' },
-        { name: 'Kasturi Housing' }, { name: 'Sleek by Asian Paints' }, { name: 'Saint-Gobain' },
+        { name: 'Tribeca Developers', logoUrl: '/images/partners/tribeca.png' },
+        { name: 'Solitaire', logoUrl: '/images/partners/solitaire.png' },
+        { name: 'Nyati Group', logoUrl: '/images/partners/nyati.png' },
+        { name: 'ABIL Group', logoUrl: '/images/partners/abil.png' },
+        { name: 'Amar Builders', logoUrl: '/images/partners/amar-builders.png' },
+        { name: 'ASCII', logoUrl: '/images/partners/ascii.png' },
+        { name: 'Gujarat Guardian', logoUrl: '/images/partners/gujarat-guardian.png' },
+        { name: 'Mantra Properties', logoUrl: '/images/partners/mantra.png' },
+        { name: 'Ark', logoUrl: '/images/partners/ark.png' },
+        { name: 'Legrand by Nouveaute', logoUrl: '/images/partners/legrand.png' },
+        { name: 'Kesseböhmer', logoUrl: '/images/partners/kessebohmer.png' },
+        { name: 'VTP Realty', logoUrl: '/images/partners/vtp.png' },
+        { name: 'Gera Developments', logoUrl: '/images/partners/gera.png' },
+        { name: 'G Interio', logoUrl: '/images/partners/g-interio.png' },
+        { name: 'Godrej Properties', logoUrl: '/images/partners/godrej.png' },
+        { name: 'Kasturi Housing', logoUrl: '/images/partners/kasturi.png' },
+        { name: 'Sleek by Asian Paints', logoUrl: '/images/partners/sleek.png' },
+        { name: 'Saint-Gobain', logoUrl: '/images/partners/saint-gobain.png' },
       ],
     },
     testimonials: [
@@ -412,45 +423,53 @@ export async function getProductsPageCmsData() {
       const dynamicProducts =
         productsRes.docs && productsRes.docs.length > 0
           ? productsRes.docs.map((doc: any) => ({
-              id: doc.slug,
-              title: doc.title,
-              category: doc.category,
-              categoryLabel:
-                doc.category === 'structural'
-                  ? 'Structural & Exterior Glazing'
-                  : doc.category === 'interior'
-                  ? 'Interior & Partitions'
-                  : doc.category === 'safety'
-                  ? 'Safety & Processing'
-                  : doc.category === 'specialty'
-                  ? 'Specialty & Decorative'
-                  : 'Architectural Glazing',
-              badgeText: doc.subheading || doc.category?.toUpperCase() || 'ARCHITECTURAL GLASS',
-              thicknessRange:
-                doc.specs?.find((s: any) => s.label?.toLowerCase().includes('thickness'))?.value ||
-                'Custom Specifications',
-              description: doc.introSummary || doc.secondaryText || '',
-              features: doc.characteristics?.map((c: any) => c.item || c) || [],
-              image: getMediaUrl(doc.heroImage, doc.heroImageUrl || '/images/prod-structural.jpg'),
-            }))
+            id: doc.slug,
+            title: doc.title,
+            category: doc.category,
+            categoryLabel:
+              doc.category === 'toughened'
+                ? 'Toughened Glass'
+                : doc.category === 'laminated'
+                  ? 'Laminated Glass'
+                  : doc.category === 'insulated'
+                    ? 'Insulated Glass'
+                    : doc.category === 'reflective'
+                      ? 'Reflective Glass'
+                      : doc.category === 'other'
+                        ? 'Other Glass'
+                        : 'Architectural Glazing',
+            badgeText: doc.subheading || doc.category?.toUpperCase() || 'ARCHITECTURAL GLASS',
+            thicknessRange:
+              doc.specs?.find((s: any) => s.label?.toLowerCase().includes('thickness'))?.value ||
+              'Custom Specifications',
+            description: doc.introSummary || doc.secondaryText || '',
+            features: doc.characteristics?.map((c: any) => c.item || c) || [],
+            image: getMediaUrl(doc.heroImage, doc.heroImageUrl || '/images/prod-structural.jpg'),
+          }))
           : ALL_PRODUCTS
 
       if (data && data.hero?.title) {
         return {
-          hero: data.hero,
+          hero: {
+            ...data.hero,
+            tag: '',
+            subtitle: (data.hero.subtitle || '')
+              .replace(/\s*Sourced and processed with world-class European technology\.?/gi, '')
+              .trim(),
+          },
           topFeaturedEyebrow: data.topFeaturedEyebrow || 'TOP 3 FEATURED SYSTEMS',
           topFeaturedTag: data.topFeaturedTag || 'FLAGSHIP FAÇADES',
           featuredSystems:
             data.featuredSystems && data.featuredSystems.length > 0
               ? data.featuredSystems.map((f: any) => ({
-                  id: f.productSlug || f.link?.replace('/products/', '') || 'sentry-laminated-glass',
-                  title: f.title,
-                  badgeText: f.badgeText || 'FLAGSHIP FAÇADE',
-                  categoryLabel: f.categoryLabel || 'Structural & Exterior Glazing',
-                  description: f.description || f.descriptionHighlight || '',
-                  image: getMediaUrl(f.featuredImage, f.featuredImageUrl || '/images/prod-structural.jpg'),
-                  link: f.link || `/products/${f.productSlug || ''}`,
-                }))
+                id: f.productSlug || f.link?.replace('/products/', '') || 'sentry-laminated-glass',
+                title: f.title,
+                badgeText: f.badgeText || 'FLAGSHIP FAÇADE',
+                categoryLabel: f.categoryLabel || 'Structural & Exterior Glazing',
+                description: f.description || f.descriptionHighlight || '',
+                image: getMediaUrl(f.featuredImage, f.featuredImageUrl || '/images/prod-structural.jpg'),
+                link: f.link || `/products/${f.productSlug || ''}`,
+              }))
               : TOP_3_FEATURED,
           collectionEyebrow: data.collectionEyebrow || 'MAGIC GLASS COLLECTION',
           collectionHeadline:
@@ -467,10 +486,10 @@ export async function getProductsPageCmsData() {
 
   return {
     hero: {
-      tag: 'COLLECTION / ARCHITECTURAL GLASS SYSTEMS',
+      tag: '',
       title: 'Architectural Glass & Precision Processing',
       subtitle:
-        'Engineered for high-rise curtain walls, acoustic speech isolation, fire containment barriers, and ionoplast structural fins. Sourced and processed with world-class European technology.',
+        'Engineered for high-rise curtain walls, acoustic speech isolation, fire containment barriers, and ionoplast structural fins.',
     },
     topFeaturedEyebrow: 'TOP 3 FEATURED SYSTEMS',
     topFeaturedTag: 'FLAGSHIP FAÇADES',
@@ -534,7 +553,14 @@ export async function getPdpProductCmsData(slug: string): Promise<PdpProductDeta
             description: ind.description,
             image: getMediaUrl(ind.image, ind.imageUrl),
           })),
-          sliderImages: item.sliderImages?.map((s: any) => getMediaUrl(s.image, s.src)) || [],
+          sliderImages:
+            item.sliderImages?.map((s: any) => ({
+              src: getMediaUrl(s.image, s.src),
+              title: s.title,
+              developer: s.developer,
+              location: s.location,
+              category: s.category,
+            })) || [],
           relatedProductIds: item.relatedProductSlugs?.map((r: any) => r.slug || r) || [
             'toughened-glass',
             'insulated-glass-dgu',
@@ -582,6 +608,75 @@ export async function getProjectsCmsData() {
   }
 
   return projectsMock
+}
+
+// ----------------------------------------------------
+// Projects Page Global & Hero Featured Projects
+// ----------------------------------------------------
+export async function getProjectsPageCmsData() {
+  const allProjects = await getProjectsCmsData()
+
+  let heroProjects: any[] = []
+  let pageGlobal: any = null
+
+  try {
+    const payload = await getPayloadClient()
+    if (payload) {
+      pageGlobal = await payload.findGlobal({
+        slug: 'projects-page',
+        depth: 2,
+      })
+
+      if (
+        pageGlobal?.hero?.featuredProjects &&
+        Array.isArray(pageGlobal.hero.featuredProjects) &&
+        pageGlobal.hero.featuredProjects.length > 0
+      ) {
+        heroProjects = pageGlobal.hero.featuredProjects
+          .map((item: any) => {
+            if (typeof item === 'object' && item !== null && (item.slug || item.title)) {
+              return {
+                id: item.slug || item.id,
+                title: item.title,
+                category: item.category,
+                developer: item.developer || '',
+                location: item.location || '',
+                application: item.application || '',
+                glassDescription: item.glassDescription || '',
+                areaSqMtr: item.areaSqMtr || 0,
+                image: getMediaUrl(item.image, item.imageUrl),
+                heroFeatured: true,
+                tagline: item.tagline || '',
+              }
+            }
+            const found = allProjects.find((p: any) => p.id === item || (p as any).slug === item)
+            return found ? { ...found, heroFeatured: true } : null
+          })
+          .filter(Boolean)
+      }
+    }
+  } catch (err) {
+    console.warn('Projects page global fetch failed, using fallback:', err)
+  }
+
+  // Fallback 1: Filter from allProjects by heroFeatured flag
+  if (heroProjects.length === 0) {
+    heroProjects = allProjects.filter((p: any) => p.heroFeatured)
+  }
+
+  // Fallback 2: If none flagged, take first 4 projects as safety fallback
+  if (heroProjects.length === 0 && allProjects.length > 0) {
+    heroProjects = allProjects.slice(0, 4)
+  }
+
+  return {
+    allProjects,
+    heroProjects,
+    heroHeadline: pageGlobal?.hero?.headline || 'FEATURED ARCHITECTURAL FAÇADES',
+    heroTagline:
+      pageGlobal?.hero?.tagline ||
+      'Pioneering structural glass engineering across landmark transit hubs, commercial towers, and luxury developments.',
+  }
 }
 
 // ----------------------------------------------------

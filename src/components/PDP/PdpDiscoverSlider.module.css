@@ -122,13 +122,46 @@
   transform: scale(1.06);
 }
 
+.cardLinkWrapper {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  width: 100%;
+  height: 100%;
+}
+
+.imageOverlayBadge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 2;
+  padding: 4px 10px;
+  background: rgba(10, 14, 18, 0.75);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 4px;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #c5a880;
+}
+
 .cardFooter {
   padding: 1rem 1.25rem;
-  background: rgba(10, 14, 18, 0.95);
+  background: rgba(10, 14, 18, 0.96);
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  gap: 0.45rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.footerTopRow {
+  display: flex;
+  align-items: baseline;
   justify-content: space-between;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  gap: 0.75rem;
 }
 
 .cardNumber {
@@ -137,14 +170,56 @@
   font-weight: 700;
   color: #c5a880;
   letter-spacing: 0.1em;
+  flex-shrink: 0;
 }
 
-.cardTag {
-  font-size: 0.8rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
+.projectTag {
+  font-family: var(--font-outfit), sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
+  color: #f8fafc;
+  text-align: right;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color 0.2s ease;
+}
+
+.slideCard:hover .projectTag {
+  color: #c5a880;
+}
+
+.footerDetailsRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding-top: 0.25rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.projectSubtitle {
+  font-size: 0.78rem;
   color: #94a3b8;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.viewProjectArrow {
+  color: #64748b;
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.slideCard:hover .viewProjectArrow {
+  color: #c5a880;
+  transform: translate(2px, -2px);
 }
 
 @media (max-width: 1024px) {

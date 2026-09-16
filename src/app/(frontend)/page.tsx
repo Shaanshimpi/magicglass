@@ -2,6 +2,7 @@ import React from 'react'
 import { Hero } from '@/components/Hero/Hero'
 import { Heritage } from '@/components/Heritage/Heritage'
 import { ProductSystems } from '@/components/ProductSystems/ProductSystems'
+import { GlassApplications } from '@/components/GlassApplications/GlassApplications'
 import { Craftsmanship } from '@/components/Craftsmanship/Craftsmanship'
 import { TrustBanner } from '@/components/TrustBanner/TrustBanner'
 import { Testimonials } from '@/components/Testimonials/Testimonials'
@@ -15,7 +16,7 @@ export default async function HomePage() {
     <>
       <Hero cmsData={cmsData?.hero as any} />
       <Heritage cmsData={cmsData?.heritage as any} />
-      <ProductSystems cmsData={cmsData?.glassApplications as any} />
+      <GlassApplications cmsData={cmsData?.glassApplications as any} />
       <Craftsmanship cmsData={cmsData?.craftsmanship as any} />
       <TrustBanner cmsData={cmsData?.trustBanner as any} />
       <Testimonials cmsData={cmsData?.testimonials as any} />

@@ -7,10 +7,40 @@ import { FiX, FiSearch, FiCheck, FiImage } from 'react-icons/fi'
 interface MediaItem {
   name: string
   url: string
-  category: 'General' | 'Applications' | 'Projects' | 'Craftsmanship' | 'Leadership'
+  category: 'General' | 'Products' | 'Industries' | 'Applications' | 'Projects' | 'Craftsmanship' | 'Leadership'
 }
 
 const PRESET_MEDIA_LIBRARY: MediaItem[] = [
+  // Authentic Products (All 16)
+  { name: 'Toughened Glass (Hero)', url: '/images/products/toughened-glass.png', category: 'Products' },
+  { name: 'Clear Glass (Hero)', url: '/images/products/clear-glass.png', category: 'Products' },
+  { name: 'Extra Clear Glass (Hero)', url: '/images/products/extra-clear-glass.png', category: 'Products' },
+  { name: 'HS Glass (Hero)', url: '/images/products/hs-glass.png', category: 'Products' },
+  { name: 'Heat Soaked Glass (Hero)', url: '/images/products/heat-soaked-glass.png', category: 'Products' },
+  { name: 'Sentry Laminated Glass (Hero)', url: '/images/products/sentry-laminated-glass.png', category: 'Products' },
+  { name: 'Acoustic Lami Glass (Hero)', url: '/images/products/acoustic-lami-glass.png', category: 'Products' },
+  { name: 'PVB Laminated Glass (Hero)', url: '/images/products/pvb-laminated-glass.png', category: 'Products' },
+  { name: 'DGU Insulated Glass (Hero)', url: '/images/products/insulated-glass-dgu.png', category: 'Products' },
+  { name: 'DGU Laminated Glass (Hero)', url: '/images/products/dgu-laminated-glass.png', category: 'Products' },
+  { name: 'High Performance Low-E Glass (Hero)', url: '/images/products/high-performance-low-e-glass.png', category: 'Products' },
+  { name: 'SKN Ultra High-Performance Glass (Hero)', url: '/images/products/skn-ultra-high-performance-glass.jpg', category: 'Products' },
+  { name: 'Fire Safety Glass (Hero)', url: '/images/products/fire-safety-glass.png', category: 'Products' },
+  { name: 'Ceramic Glass (Hero)', url: '/images/products/ceramic-glass.png', category: 'Products' },
+  { name: 'Frosted Glass (Hero)', url: '/images/products/frosted-glass.png', category: 'Products' },
+  { name: 'Mirror Glass (Hero)', url: '/images/products/mirror-glass.png', category: 'Products' },
+
+  // Industries & Sectors
+  { name: 'Industry Solution Hero Banner', url: '/images/industry/Industry-Solution3-scaled.jpg', category: 'Industries' },
+  { name: 'Airport Industry', url: '/images/industry/industry-banner-1.jpg', category: 'Industries' },
+  { name: 'Architecture Industry', url: '/images/industry/Architecture.jpg', category: 'Industries' },
+  { name: 'Automobile Industry', url: '/images/industry/Automobile-industry.jpg', category: 'Industries' },
+  { name: 'Hospitality Industry', url: '/images/industry/Hospitality.jpg', category: 'Industries' },
+  { name: 'Transport Sector', url: '/images/industry/Automobile.jpg', category: 'Industries' },
+  { name: 'Automotive Windows Sector', url: '/images/products/details/windows.png', category: 'Industries' },
+  { name: 'Furniture & Decor Sector', url: '/images/products/details/FURNITURE.png', category: 'Industries' },
+  { name: 'High-Rise Solar Energy Sector', url: '/images/products/details/HIGH-RISE-BUILDINGS.png', category: 'Industries' },
+  { name: 'Structural Architecture Sector', url: '/images/products/details/architecture.png', category: 'Industries' },
+
   // General & Hero
   { name: 'Hero Background Facade', url: '/images/hero-bg.jpg', category: 'General' },
   { name: 'Magic Glass Official Logo', url: '/images/logo.png', category: 'General' },
@@ -72,7 +102,7 @@ export const MediaPickerModal: React.FC<MediaPickerModalProps> = ({
 
   if (!isOpen) return null
 
-  const categories = ['All', 'General', 'Applications', 'Craftsmanship', 'Leadership', 'Projects']
+  const categories = ['All', 'Products', 'Industries', 'General', 'Applications', 'Craftsmanship', 'Leadership', 'Projects']
 
   const filteredMedia = PRESET_MEDIA_LIBRARY.filter((item) => {
     const matchesCategory = activeCategory === 'All' || item.category === activeCategory

@@ -18,10 +18,10 @@ export const ProductCreateModal: React.FC<ProductCreateModalProps> = ({
 }) => {
   const [slug, setSlug] = useState('')
   const [title, setTitle] = useState('')
-  const [category, setCategory] = useState('structural')
+  const [category, setCategory] = useState('toughened')
   const [subheading, setSubheading] = useState('')
-  const [indexNumber, setIndexNumber] = useState('15')
-  const [heroImageUrl, setHeroImageUrl] = useState('/images/prod-structural.jpg')
+  const [indexNumber, setIndexNumber] = useState('17')
+  const [heroImageUrl, setHeroImageUrl] = useState('/images/products/toughened-glass.png')
   const [introSummary, setIntroSummary] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
@@ -89,7 +89,22 @@ export const ProductCreateModal: React.FC<ProductCreateModalProps> = ({
             imageUrl: '/images/prod-partitions.jpg',
           },
         ],
-        sliderImages: [{ src: heroImageUrl || '/images/prod-structural.jpg' }],
+        sliderImages: [
+          {
+            title: 'Balmoral by Riverside',
+            developer: 'Kasturi Builder',
+            location: 'Baner, Pune',
+            category: 'Residential',
+            src: '/images/projects/balmoral-by-riverside.jpg',
+          },
+          {
+            title: 'The Ark',
+            developer: 'Tribeca Developers',
+            location: 'NIBM, Pune',
+            category: 'Residential',
+            src: '/images/projects/the-ark.jpg',
+          },
+        ],
         relatedProductSlugs: [{ slug: 'toughened-glass' }, { slug: 'insulated-glass-dgu' }],
       }
 
@@ -183,10 +198,11 @@ export const ProductCreateModal: React.FC<ProductCreateModalProps> = ({
                     value={category}
                     onChange={(e) => setCategory(e.target.value)}
                   >
-                    <option value="structural">Structural & Exterior</option>
-                    <option value="interior">Interior & Partitions</option>
-                    <option value="safety">Safety & Processing</option>
-                    <option value="specialty">Specialty & Decorative</option>
+                    <option value="toughened">Toughened Glass</option>
+                    <option value="laminated">Laminated Glass</option>
+                    <option value="insulated">Insulated Glass</option>
+                    <option value="reflective">Reflective Glass</option>
+                    <option value="other">Other Glass</option>
                   </select>
                 </div>
               </div>

@@ -20,6 +20,7 @@ import { ProductsPageGlobal } from './globals/ProductsPageGlobal'
 import { IndustrySolutionPageGlobal } from './globals/IndustrySolutionPageGlobal'
 import { InfrastructurePageGlobal } from './globals/InfrastructurePageGlobal'
 import { ContactUsPageGlobal } from './globals/ContactUsPageGlobal'
+import { ProjectsPageGlobal } from './globals/ProjectsPageGlobal'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -39,6 +40,7 @@ export default buildConfig({
     HomePageGlobal,
     AboutPageGlobal,
     ProductsPageGlobal,
+    ProjectsPageGlobal,
     IndustrySolutionPageGlobal,
     InfrastructurePageGlobal,
     ContactUsPageGlobal,

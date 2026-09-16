@@ -20,31 +20,31 @@ interface PdpImageSliderProps {
 const DEFAULT_OFFICIAL_INDUSTRIES: IndustryItem[] = [
   {
     title: 'AIRPORT',
-    image: 'https://magicglass.co.in/wp-content/uploads/2023/12/industry-banner-1.jpg',
+    image: '/images/products/details/Airports.png',
     description:
       'The airport industry seeks glass solutions to enhance passenger experience in premium terminals. Façades, partitions and panels elevate visual appeal with luxurious and durable aesthetics.',
   },
   {
     title: 'ARCHITECTURE',
-    image: 'https://magicglass.co.in/wp-content/uploads/2023/12/Architecture.jpg',
+    image: '/images/products/details/architecture.png',
     description:
       'Demanding premium glass delivering strength, clarity and energy efficiency. Facades, windows and partitions withstand climatic conditions while maintaining structural integrity.',
   },
   {
     title: 'AUTOMOBILE',
-    image: 'https://magicglass.co.in/wp-content/uploads/2023/12/Automobile-industry.jpg',
+    image: '/images/products/details/automotive.png',
     description:
       'Lightweight safety glazing engineered for varying climatic conditions. Windows, windshields and sunroofs tested under extreme temperatures and vibrations.',
   },
   {
     title: 'HOSPITALITY',
-    image: 'https://magicglass.co.in/wp-content/uploads/2023/12/Hospitality.jpg',
+    image: '/images/products/details/hospitality-1.png',
     description:
       'Elevating guest experience through luxurious aesthetics in hotel lobbies and interiors offering clarity, shine and high durability under daily use.',
   },
   {
     title: 'TRANSPORT',
-    image: 'https://magicglass.co.in/wp-content/uploads/2023/12/Automobile.jpg',
+    image: '/images/products/details/Transport.png',
     description:
       'Strong, heat-resistant and energy efficient glass for transit hubs, airports, and train stations providing safety, heat insulation, and natural daylight.',
   },

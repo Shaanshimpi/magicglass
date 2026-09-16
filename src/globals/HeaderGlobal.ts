@@ -60,7 +60,7 @@ export const HeaderGlobal: GlobalConfig = {
     {
       name: 'loaderBrandTitle',
       type: 'text',
-      defaultValue: 'ARCHITECTURAL GLAZING',
+      defaultValue: "It's not just glass It's",
     },
     {
       name: 'loaderStatusText',

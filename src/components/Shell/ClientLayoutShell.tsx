@@ -52,23 +52,36 @@ export const ClientLayoutShell: React.FC<ClientLayoutShellProps> = ({
   }, [])
 
   const handleLoaderComplete = useCallback(() => {
+    try {
+      sessionStorage.setItem('magicglass_loader_shown', 'true')
+    } catch (e) {}
+    if (typeof document !== 'undefined') {
+      document.documentElement.classList.add('loader-complete')
+    }
     setIsLoaded(true)
   }, [])
 
-  // Manual scroll restoration on mount
+  // Manual scroll restoration on mount & check if loader was already shown in this session
   useEffect(() => {
     if (typeof window !== 'undefined') {
       window.history.scrollRestoration = 'manual'
+      try {
+        if (sessionStorage.getItem('magicglass_loader_shown') === 'true') {
+          setIsLoaded(true)
+          document.documentElement.classList.add('loader-complete')
+        }
+      } catch (e) {}
     }
   }, [])
 
-  // Trigger loader on route change
-  useEffect(() => {
-    setIsLoaded(false)
-  }, [pathname])
-
   // Lock scroll while loader is active, and ensure page starts at scroll 0
   useEffect(() => {
+    try {
+      if (sessionStorage.getItem('magicglass_loader_shown') === 'true') {
+        return
+      }
+    } catch (e) {}
+
     const lenis = typeof window !== 'undefined' ? (window as any).__lenis : null
 
     if (!isLoaded) {
@@ -121,7 +134,7 @@ export const ClientLayoutShell: React.FC<ClientLayoutShellProps> = ({
         setLoaded: handleLoaderComplete,
       }}
     >
-      {!isLoaded && <Loader key={pathname} onComplete={handleLoaderComplete} cmsData={headerCmsData} />}
+      {!isLoaded && <Loader onComplete={handleLoaderComplete} cmsData={headerCmsData} />}
       <Header onOpenQuoteDrawer={openQuoteDrawer} isLoaded={isLoaded} cmsData={headerCmsData} />
       <main>{children}</main>
       <QuoteDrawer isOpen={isQuoteOpen} onClose={closeQuoteDrawer} cmsData={quoteDrawerCmsData} />

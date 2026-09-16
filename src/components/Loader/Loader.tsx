@@ -16,7 +16,7 @@ interface LoaderProps {
 
 export const Loader: React.FC<LoaderProps> = ({ onComplete, cmsData }) => {
   const brandTag = cmsData?.loaderBrandTag || '◆ MAGIC GLASS'
-  const brandTitle = cmsData?.loaderBrandTitle || 'ARCHITECTURAL GLAZING'
+  const brandTitle = cmsData?.loaderBrandTitle || "It's not just glass It's"
   const statusText = cmsData?.loaderStatusText || 'INITIALIZING EXPERIENCE'
   const estYear = cmsData?.loaderEstYear || 'EST. 2006'
   const [progress, setProgress] = useState(0)

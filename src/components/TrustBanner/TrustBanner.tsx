@@ -19,24 +19,24 @@ interface TrustBannerProps {
 }
 
 const DEFAULT_PARTNERS: Partner[] = [
-  { name: 'Tribeca Developers' },
-  { name: 'Solitaire' },
-  { name: 'Nyati Group' },
-  { name: 'ABIL Group' },
-  { name: 'Amar Builders' },
-  { name: 'ASCII' },
-  { name: 'Gujarat Guardian' },
-  { name: 'Mantra Properties' },
-  { name: 'Ark' },
-  { name: 'Legrand by Nouveaute' },
-  { name: 'Kesseböhmer' },
-  { name: 'VTP Realty' },
-  { name: 'Gera Developments' },
-  { name: 'G Interio' },
-  { name: 'Godrej Properties' },
-  { name: 'Kasturi Housing' },
-  { name: 'Sleek by Asian Paints' },
-  { name: 'Saint-Gobain' },
+  { name: 'Tribeca Developers', logoUrl: '/images/partners/tribeca.png' },
+  { name: 'Solitaire', logoUrl: '/images/partners/solitaire.png' },
+  { name: 'Nyati Group', logoUrl: '/images/partners/nyati.png' },
+  { name: 'ABIL Group', logoUrl: '/images/partners/abil.png' },
+  { name: 'Amar Builders', logoUrl: '/images/partners/amar-builders.png' },
+  { name: 'ASCII', logoUrl: '/images/partners/ascii.png' },
+  { name: 'Gujarat Guardian', logoUrl: '/images/partners/gujarat-guardian.png' },
+  { name: 'Mantra Properties', logoUrl: '/images/partners/mantra.png' },
+  { name: 'Ark', logoUrl: '/images/partners/ark.png' },
+  { name: 'Legrand by Nouveaute', logoUrl: '/images/partners/legrand.png' },
+  { name: 'Kesseböhmer', logoUrl: '/images/partners/kessebohmer.png' },
+  { name: 'VTP Realty', logoUrl: '/images/partners/vtp.png' },
+  { name: 'Gera Developments', logoUrl: '/images/partners/gera.png' },
+  { name: 'G Interio', logoUrl: '/images/partners/g-interio.png' },
+  { name: 'Godrej Properties', logoUrl: '/images/partners/godrej.png' },
+  { name: 'Kasturi Housing', logoUrl: '/images/partners/kasturi.png' },
+  { name: 'Sleek by Asian Paints', logoUrl: '/images/partners/sleek.png' },
+  { name: 'Saint-Gobain', logoUrl: '/images/partners/saint-gobain.png' },
 ]
 
 export const TrustBanner: React.FC<TrustBannerProps> = ({ cmsData }) => {
@@ -46,20 +46,22 @@ export const TrustBanner: React.FC<TrustBannerProps> = ({ cmsData }) => {
   const renderPartnerItem = (partner: Partner, key: string) => {
     const logoSrc = partner.logo || partner.logoUrl
     return (
-      <span key={key} className={styles.partnerName} style={{ display: 'inline-flex', alignItems: 'center', gap: '0.6rem' }}>
-        {logoSrc && !logoSrc.startsWith('/images/partners/') ? (
-          <Image
-            src={logoSrc}
-            alt={partner.name}
-            width={100}
-            height={32}
-            style={{ objectFit: 'contain', filter: 'grayscale(1) brightness(1.8)' }}
-            unoptimized={logoSrc.startsWith('http')}
-          />
-        ) : null}
-        <span>{partner.name}</span>
-        <span className={styles.dot}>•</span>
-      </span>
+      <div key={key} className={styles.partnerItem} title={partner.name}>
+        {logoSrc ? (
+          <div className={styles.logoWrapper}>
+            <Image
+              src={logoSrc}
+              alt={partner.name}
+              width={200}
+              height={90}
+              className={styles.partnerLogo}
+              unoptimized={logoSrc.startsWith('http')}
+            />
+          </div>
+        ) : (
+          <span className={styles.partnerFallbackName}>{partner.name}</span>
+        )}
+      </div>
     )
   }
 

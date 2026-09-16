@@ -36,7 +36,7 @@ interface ProductSystemsProps {
 }
 
 export const ProductSystems: React.FC<ProductSystemsProps> = ({ cmsData }) => {
-  const eyebrow = cmsData?.eyebrow || '◆ GLASS APPLICATIONS'
+  const eyebrow = cmsData?.eyebrow || ' GLASS APPLICATIONS'
   const heading = cmsData?.heading || 'GET EVERY GLASS APPLICATION UNDER ONE ROOF'
   const topDescription = cmsData?.topDescription || 'Our glazing collection is defined by exceptional craftsmanship, refined design, and enduring quality. Get every glass application under one roof for bold architecture and uncompromising vision.'
   const ctaLabel = cmsData?.ctaLabel || '↳ PRODUCT OVERVIEW'

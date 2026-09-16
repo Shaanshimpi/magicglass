@@ -11,8 +11,8 @@
 
 .container {
   width: 100%;
-  padding: 0 4vw;
-  max-width: 1360px;
+  padding: 0 clamp(1rem, 2.5vw, 3rem);
+  max-width: 1440px;
   margin: 0 auto;
 }
 
@@ -20,7 +20,7 @@
 /* 1. CONTACT INFO CARDS SECTION                                              */
 /* ========================================================================== */
 .cardsSection {
-  padding: 5rem 0 6rem 0;
+  padding: 4.5rem 0 5.5rem 0;
   position: relative;
   background-color: var(--color-black, #0b1012);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
@@ -28,21 +28,29 @@
 
 .cardsGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: clamp(0.75rem, 1.2vw, 1.25rem);
+  align-items: stretch;
 }
 
-@media (max-width: 1080px) {
+@media (max-width: 1024px) {
   .cardsGrid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.25rem;
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
+  .cardsGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 520px) {
   .cardsGrid {
     grid-template-columns: 1fr;
-    gap: 1.25rem;
+    gap: 1rem;
   }
 }
 
@@ -50,13 +58,14 @@
   background: rgba(18, 24, 27, 0.85);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 12px;
-  padding: 2.25rem 1.75rem;
+  padding: 1.85rem 0.85rem 1.4rem 0.85rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
   position: relative;
   overflow: hidden;
+  height: 100%;
   transition: transform 0.35s var(--ease-fluid, cubic-bezier(0.16, 1, 0.3, 1)),
               box-shadow 0.35s ease,
               border-color 0.35s ease;
@@ -71,74 +80,94 @@
   top: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 40px;
+  width: 36px;
   height: 3px;
-  background: var(--color-crimson, #e63946);
+  background: var(--color-crimson, #00b4d8);
   border-radius: 2px;
   transition: width 0.35s ease;
 }
 
 .contactCard:hover {
   transform: translateY(-6px);
-  border-color: rgba(230, 57, 70, 0.4);
-  box-shadow: 0 24px 50px -12px rgba(230, 57, 70, 0.2);
+  border-color: rgba(0, 180, 216, 0.4);
+  box-shadow: 0 20px 44px -10px rgba(0, 180, 216, 0.2);
 }
 
 .contactCard:hover::before {
-  width: 80px;
+  width: 72px;
 }
 
 .iconBadge {
-  width: 60px;
-  height: 60px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
-  background: rgba(230, 57, 70, 0.12);
-  border: 1px solid rgba(230, 57, 70, 0.25);
+  background: rgba(0, 180, 216, 0.1);
+  border: 1px solid rgba(0, 180, 216, 0.25);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--color-crimson, #e63946);
-  font-size: 1.5rem;
-  margin-bottom: 1.25rem;
-  transition: transform 0.3s ease, background 0.3s ease;
+  color: var(--color-crimson, #00b4d8);
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  flex-shrink: 0;
+  transition: transform 0.3s ease, background 0.3s ease, border-color 0.3s ease;
 }
 
 .contactCard:hover .iconBadge {
-  transform: scale(1.1);
-  background: rgba(230, 57, 70, 0.2);
+  transform: scale(1.08);
+  background: rgba(0, 180, 216, 0.2);
+  border-color: rgba(0, 180, 216, 0.45);
 }
 
 .cardTitle {
   font-family: var(--font-outfit), sans-serif;
-  font-size: 1.1rem;
+  font-size: clamp(0.85rem, 0.88vw, 1.02rem);
   font-weight: 600;
   color: #ffffff;
-  margin: 0 0 0.4rem 0;
+  margin: 0 0 0.5rem 0;
   letter-spacing: -0.01em;
   word-break: break-word;
+  overflow-wrap: anywhere;
+  line-height: 1.35;
+  min-height: 2.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
 }
 
 .cardDetail {
   font-family: var(--font-outfit), sans-serif;
-  font-size: 0.875rem;
+  font-size: clamp(0.75rem, 0.78vw, 0.84rem);
   line-height: 1.5;
   color: #94a3b8;
   margin: 0 0 1.25rem 0;
   font-weight: 400;
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
 }
 
 .cardActionLink {
   font-family: var(--font-mono), monospace;
-  font-size: 0.675rem;
+  font-size: clamp(0.58rem, 0.62vw, 0.675rem);
   font-weight: 600;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--color-crimson, #e63946);
+  color: var(--color-crimson, #00b4d8);
   text-decoration: none;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   width: 100%;
   padding-top: 0.85rem;
   transition: color 0.3s ease;
+  margin-top: auto;
+  white-space: nowrap;
+  display: block;
+  text-align: center;
 }
 
 .cardActionLink:hover {

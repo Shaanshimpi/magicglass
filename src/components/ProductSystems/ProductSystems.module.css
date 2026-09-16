@@ -19,27 +19,35 @@
 
 .headerBlock {
   margin-bottom: 5rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .eyebrow {
   font-family: var(--font-mono), monospace;
-  font-size: 1.2rem;
+  font-size: clamp(1.8rem, 3.2vw, 2.75rem);
   font-weight: 700;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: #0284c7;
-  margin-bottom: 0.85rem;
+  margin-bottom: 1rem;
   opacity: 1;
+  text-align: center;
+  line-height: 1.2;
 }
 
 .subheading {
   font-family: var(--font-mono), monospace;
-  font-size: 1.2rem;
-  font-weight: 700;
-  letter-spacing: 0.18em;
+  font-size: clamp(0.95rem, 1.4vw, 1.2rem);
+  font-weight: 600;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: #0284c7;
-  opacity: 1;
+  opacity: 0.9;
+  text-align: center;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -327,6 +335,10 @@
 .mobileHeaderBlock {
   margin-bottom: 1.5rem;
   z-index: 10;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .mobileSubheading {
@@ -438,8 +450,9 @@
     display: block;
   }
   .mobileHeaderBlock .eyebrow {
-    font-size: clamp(0.75rem, 3.2vw, 1rem);
+    font-size: clamp(1.1rem, 4.2vw, 1.45rem);
     letter-spacing: 0.12em;
     margin-bottom: 0.5rem;
+    text-align: center;
   }
 }

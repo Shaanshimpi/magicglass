@@ -7,17 +7,30 @@ import styles from './ProjectsHero.module.css'
 
 interface ProjectsHeroProps {
   projects: ProjectItem[]
+  heroProjects?: ProjectItem[]
   onSelectProject: (project: ProjectItem) => void
 }
 
-export const ProjectsHero: React.FC<ProjectsHeroProps> = ({ projects, onSelectProject }) => {
-  const heroProjects = projects.filter((p) => p.heroFeatured)
+export const ProjectsHero: React.FC<ProjectsHeroProps> = ({
+  projects,
+  heroProjects: explicitHeroProjects,
+  onSelectProject,
+}) => {
+  const heroProjects =
+    explicitHeroProjects && explicitHeroProjects.length > 0
+      ? explicitHeroProjects
+      : projects.filter((p) => p.heroFeatured).length > 0
+      ? projects.filter((p) => p.heroFeatured)
+      : projects.slice(0, 4)
+
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isTransitioning, setIsTransitioning] = useState(false)
 
+  const totalCount = Math.max(heroProjects.length, 1)
   const activeProject = heroProjects[currentIndex] || projects[0]
 
   const handleNext = useCallback(() => {
+    if (heroProjects.length <= 1) return
     setIsTransitioning(true)
     setTimeout(() => {
       setCurrentIndex((prev) => (prev + 1) % heroProjects.length)
@@ -26,6 +39,7 @@ export const ProjectsHero: React.FC<ProjectsHeroProps> = ({ projects, onSelectPr
   }, [heroProjects.length])
 
   const handlePrev = useCallback(() => {
+    if (heroProjects.length <= 1) return
     setIsTransitioning(true)
     setTimeout(() => {
       setCurrentIndex((prev) => (prev - 1 + heroProjects.length) % heroProjects.length)
@@ -59,7 +73,7 @@ export const ProjectsHero: React.FC<ProjectsHeroProps> = ({ projects, onSelectPr
 
       <div className={styles.heroContent}>
         <div className={styles.metaBadge}>
-          PROJECT [{String(currentIndex + 1).padStart(2, '0')} / {String(heroProjects.length).padStart(2, '0')}] &bull; {activeProject.category}
+          PROJECT [{String(currentIndex + 1).padStart(2, '0')} / {String(totalCount).padStart(2, '0')}] &bull; {activeProject.category}
         </div>
         <h1 className={styles.heroTitle}>{activeProject.title}</h1>
         <p className={styles.heroTagline}>
@@ -94,7 +108,7 @@ export const ProjectsHero: React.FC<ProjectsHeroProps> = ({ projects, onSelectPr
       <div className={styles.progressBarContainer}>
         <div
           className={styles.progressBarFill}
-          style={{ width: `${((currentIndex + 1) / heroProjects.length) * 100}%` }}
+          style={{ width: `${((currentIndex + 1) / totalCount) * 100}%` }}
         />
       </div>
     </section>

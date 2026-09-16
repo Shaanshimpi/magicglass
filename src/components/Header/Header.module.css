@@ -24,6 +24,13 @@
   border-color: rgba(255, 255, 255, 0.3);
 }
 
+:global(html.loader-complete) .logoLink,
+:global(html.loader-complete) .desktopNav,
+:global(html.loader-complete) .headerActions {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
 /* Glassmorphism Logo Pod for Crisp Visibility */
 .logoLink {
   display: flex;

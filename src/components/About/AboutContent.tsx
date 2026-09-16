@@ -4,7 +4,7 @@ import React, { useRef, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import gsap from 'gsap'
-import { Testimonials } from '@/components/Testimonials/Testimonials'
+import { useLayoutContext } from '@/components/Shell/ClientLayoutShell'
 import styles from './About.module.css'
 
 const WHY_MAGIC_GLASS = [
@@ -25,22 +25,26 @@ const WHY_MAGIC_GLASS = [
   },
   {
     num: '04',
-    title: 'Customer Focus',
-    desc: 'Dedicated technical consultation, custom BOQ engineering, and reliable nationwide project delivery for architects and builders.',
+    title: 'End-to-End Processing',
+    desc: 'Equipped to process over 1.2 million square meters of glass annually with cutting, grinding, tempering, laminating, and DGU insulated glass lines.',
+  },
+  {
+    num: '05',
+    title: 'Technical Consultation',
+    desc: 'Our experienced structural engineers guide architects, developers, and facade consultants through bespoke glass configurations.',
+  },
+  {
+    num: '06',
+    title: 'Sustainability Focused',
+    desc: 'High-performance Low-E coatings, solar heat control, and eco-conscious manufacturing helping structures achieve LEED & IGBC green ratings.',
   },
 ]
 
 const LEADERSHIP = [
   {
     name: 'Manik Kodre',
-    role: 'Managing Director & Founder',
+    role: 'CHAIRMAN & MANAGING DIRECTOR',
     image: 'https://magicglass.co.in/wp-content/uploads/2025/04/Manik-Kodre.png',
-    bio: 'Meet Manik Kodre, the visionary Managing Director and founder of Magic Glass. With roots in farming, he recognized the limitless potential of toughened glass in the modern world, founding our company in 2006. Under his leadership, Magic Glass has grown into a dominant force in Pune’s retail market and expanded swiftly, meeting surging demand in 2014. Manik’s strategic acumen and unwavering belief in the potential of toughened glass have propelled us to unprecedented heights, forging partnerships with major corporations across India and shaping our journey of excellence.',
-  },
-  {
-    name: 'Anup Kodre',
-    role: 'Director (Marketing & Finance)',
-    image: 'https://magicglass.co.in/wp-content/uploads/2025/04/Anup-Kodre.png',
     bio: 'Anup’s innate talent for marketing and finance, paired with his strong presence, eloquent communication, and visionary leadership, has been instrumental in Magic Glass’ rise in the Indian glass industry. Anup’s strategic acumen has strengthened our relationships with key stakeholders, expanding Magic Glass’s influence beyond Pune and Maharashtra to neighboring states. His expertise in marketing, finance, strategy, and business development continues to drive our success story. He holds an MBA (Finance) from the Sydney Institute of Technology.',
   },
   {
@@ -53,12 +57,14 @@ const LEADERSHIP = [
 
 interface AboutContentProps {
   cmsData?: any
+  onOpenQuoteDrawer?: () => void
 }
 
-export const AboutContent: React.FC<AboutContentProps> = ({ cmsData }) => {
+export const AboutContent: React.FC<AboutContentProps> = ({ cmsData, onOpenQuoteDrawer }) => {
+  const { openQuoteDrawer } = useLayoutContext()
+  const handleOpenDrawer = onOpenQuoteDrawer || openQuoteDrawer
   const heroRef = useRef<HTMLDivElement>(null)
 
-  const heroEyebrow = cmsData?.hero?.eyebrow || 'ABOUT MAGIC GLASS'
   const heroTitle = cmsData?.hero?.title || 'About Magic Glass'
   const heroTagline = cmsData?.hero?.tagline || 'With "Build to Last" as our guiding philosophy, Magic Glass stands as a symbol of enduring strength and innovation in the glass processing industry.'
   const facilityImage = cmsData?.hero?.facilityImage || '/images/hero-bg.jpg'
@@ -106,7 +112,6 @@ export const AboutContent: React.FC<AboutContentProps> = ({ cmsData }) => {
       {/* 1. Hero Header Section */}
       <section className={styles.heroSection}>
         <div ref={heroRef} className={styles.heroContent}>
-          <span className="base-title" data-cms-field="hero_eyebrow">{heroEyebrow}</span>
           <h1 className={styles.heroTitle} data-cms-field="hero_title">{heroTitle}</h1>
           <p className={styles.heroTagline} data-cms-field="hero_tagline">{heroTagline}</p>
         </div>
@@ -229,10 +234,7 @@ export const AboutContent: React.FC<AboutContentProps> = ({ cmsData }) => {
         </div>
       </section>
 
-      {/* 6. Testimonials Component */}
-      <Testimonials />
-
-      {/* 7. Banner CTA Section */}
+      {/* 6. Banner CTA Section */}
       <section className={styles.ctaBannerSection}>
         <div className={styles.container}>
           <div className={styles.ctaBannerContent}>
@@ -245,9 +247,14 @@ export const AboutContent: React.FC<AboutContentProps> = ({ cmsData }) => {
             </p>
 
             <div className={styles.ctaBtnRow}>
-              <Link href={ctaButtonHref} className="button--red" data-cms-field="cta_buttonLabel">
+              <button
+                type="button"
+                onClick={handleOpenDrawer}
+                className="button--red"
+                data-cms-field="cta_buttonLabel"
+              >
                 {ctaButtonLabel}
-              </Link>
+              </button>
             </div>
           </div>
         </div>

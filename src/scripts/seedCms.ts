@@ -7,6 +7,7 @@ import infrastructureMock from '../data/infrastructure_mock.json'
 import projectsMock from '../data/projects_mock.json'
 import { PDP_MOCK_DATA } from '../components/PDP/pdpData'
 import { CATEGORIES_INFO } from '../components/ProductsCollection/products.data'
+import { resolveProjectInfo } from '../components/PDP/pdpProjectsRegistry'
 
 async function seed() {
   console.log('🚀 Starting Comprehensive Payload CMS Database Seeding...')
@@ -32,7 +33,7 @@ async function seed() {
         { label: 'GET A QUOTE', href: '#quote', variant: 'primary' },
       ],
       loaderBrandTag: '◆ MAGIC GLASS',
-      loaderBrandTitle: 'ARCHITECTURAL GLAZING',
+      loaderBrandTitle: "It's not just glass It's",
       loaderStatusText: 'INITIALIZING EXPERIENCE',
       loaderEstYear: 'EST. 2006',
     },
@@ -121,7 +122,7 @@ async function seed() {
     slug: 'home-page',
     data: {
       hero: {
-        tagline: 'PRECISION GLASS MANUFACTURING • YAVAT, PUNE, MAHARASHTRA',
+        tagline: '',
         heading: 'Crafting Exceptional Glass Solutions for a Brighter World.',
         primaryCtaLabel: 'REQUEST TECHNICAL QUOTE',
         primaryCtaHref: '#quote',
@@ -145,7 +146,7 @@ async function seed() {
         ],
       },
       glassApplications: {
-        eyebrow: '◆ GLASS APPLICATIONS',
+        eyebrow: ' GLASS APPLICATIONS',
         heading: 'GET EVERY GLASS APPLICATION UNDER ONE ROOF',
         topDescription: 'Our glazing collection is defined by exceptional craftsmanship, refined design, and enduring quality. Get every glass application under one roof for bold architecture and uncompromising vision.',
         ctaLabel: '↳ PRODUCT OVERVIEW',
@@ -400,10 +401,10 @@ async function seed() {
     slug: 'products-page',
     data: {
       hero: {
-        tag: 'COLLECTION / ARCHITECTURAL GLASS SYSTEMS',
+        tag: '',
         title: 'Architectural Glass & Precision Processing',
         subtitle:
-          'Engineered for high-rise curtain walls, acoustic speech isolation, fire containment barriers, and ionoplast structural fins. Sourced and processed with world-class European technology.',
+          'Engineered for high-rise curtain walls, acoustic speech isolation, fire containment barriers, and ionoplast structural fins.',
       },
       topFeaturedEyebrow: 'TOP 3 FEATURED SYSTEMS',
       topFeaturedTag: 'FLAGSHIP FAÇADES',
@@ -411,31 +412,31 @@ async function seed() {
         {
           productSlug: 'sentry-laminated-glass',
           title: 'Sentry Laminated Glass',
-          categoryLabel: 'Structural & Exterior Glazing',
-          badgeText: 'STRUCTURAL FIN / CANOPY',
+          categoryLabel: 'Laminated Glass',
+          badgeText: 'IONOPLAST STRUCTURAL',
           description:
             'Ultra-rigid Ionoplast interlayer delivering 5x tear strength and 100x stiffness for structural fins and high-impact facades.',
-          featuredImageUrl: '/images/craft-laminated.jpg',
+          featuredImageUrl: '/images/products/sentry-laminated-glass.png',
           link: '/products/sentry-laminated-glass',
         },
         {
           productSlug: 'skn-ultra-high-performance-glass',
           title: 'SKN-Ultra High-Performance Glass',
-          categoryLabel: 'Structural & Exterior Glazing',
+          categoryLabel: 'Reflective Glass',
           badgeText: 'SOLAR CONTROL LOW-E',
           description:
-            'Advanced solar control coatings offering ultra-low SHGC (< 0.23) with maximum neutral daylight transmission.',
-          featuredImageUrl: '/images/prod-structural.jpg',
+            'Advanced solar control coatings offering ultra-low SHGC with maximum neutral daylight transmission.',
+          featuredImageUrl: '/images/products/skn-ultra-high-performance-glass.jpg',
           link: '/products/skn-ultra-high-performance-glass',
         },
         {
           productSlug: 'insulated-glass-dgu',
           title: 'DGU (Insulated Glass)',
-          categoryLabel: 'Structural & Exterior Glazing',
-          badgeText: 'THERMAL & ACOUSTIC',
+          categoryLabel: 'Insulated Glass',
+          badgeText: 'HERMETIC DUAL PANE',
           description:
-            'Dual-sealed argon filled double glazing units delivering superior thermal insulation (U-value < 1.1 W/m²K).',
-          featuredImageUrl: '/images/craft-dgu.jpg',
+            'Dual-sealed argon filled double glazing units delivering superior thermal insulation and acoustic dampening.',
+          featuredImageUrl: '/images/products/insulated-glass-dgu.png',
           link: '/products/insulated-glass-dgu',
         },
       ],
@@ -530,66 +531,85 @@ async function seed() {
   })
 
   // ---------------------------------------------------------------------------
-  // 10. Seed Products Collection (11+ Complete Architectural Glass PDPs)
+  // 10. Seed Products Collection (16 Authentic Architectural Systems)
   // ---------------------------------------------------------------------------
-  console.log('📦 Seeding Products Collection (11+ Architectural Glass Records)...')
-  for (const [slug, prod] of Object.entries(PDP_MOCK_DATA)) {
+  console.log('📦 Seeding Products Collection (16 Authentic Architectural Systems)...')
+  const validSlugs = Object.keys(PDP_MOCK_DATA)
+
+  // Clean up any stale / obsolete products in CMS that are not in the authentic 16
+  const existingProducts = await payload.find({
+    collection: 'products',
+    limit: 100,
+  })
+  for (const doc of existingProducts.docs) {
+    if (!validSlugs.includes(doc.slug as string)) {
+      console.log(`   🗑️ Deleting stale/invalid product: ${doc.title} (${doc.slug})`)
+      await payload.delete({
+        collection: 'products',
+        id: doc.id,
+      })
+    }
+  }
+
+  for (const [pSlug, pData] of Object.entries(PDP_MOCK_DATA)) {
     const existing = await payload.find({
       collection: 'products',
-      where: { slug: { equals: slug } },
+      where: { slug: { equals: pSlug } },
       limit: 1,
     })
 
-    const prodData = {
-      slug: slug,
-      indexNumber: prod.indexNumber || '01',
-      title: prod.title,
-      subheading: prod.subheading || '',
-      category: prod.category || 'structural',
-      heroImageUrl: prod.heroImage || '/images/hero-bg.jpg',
-      introSummary: prod.introSummary || '',
-      secondaryText: prod.secondaryText || '',
-      detailImages: [
-        { imageUrl: prod.detailImages?.[0] || '/images/hero-bg.jpg' },
-        { imageUrl: prod.detailImages?.[1] || '/images/craft-dgu.jpg' },
-      ],
-      characteristics: (prod.characteristics || []).map((char: string) => ({ item: char })),
-      specs: (prod.specs || []).map((s: any) => ({
-        icon: s.icon || '',
-        label: s.label || '',
-        value: s.value || '',
+    const payloadProductData: any = {
+      slug: pSlug,
+      indexNumber: pData.indexNumber,
+      title: pData.title,
+      subheading: pData.subheading,
+      category: pData.category,
+      heroImageUrl: pData.heroImage,
+      introSummary: pData.introSummary,
+      secondaryText: pData.secondaryText,
+      detailImages: (pData.detailImages || []).map((img) => ({ imageUrl: img })),
+      characteristics: (pData.characteristics || []).map((c) => ({ item: c })),
+      specs: (pData.specs || []).map((s) => ({
+        icon: s.icon,
+        label: s.label,
+        value: s.value,
       })),
-      galleryTitle: prod.galleryTitle || 'Glass Applications',
-      galleryImages: (prod.galleryImageItems || []).map((g: any) => ({
+      galleryTitle: pData.galleryTitle || 'Glass Applications',
+      galleryImages: (pData.galleryImageItems || []).map((g: any) => ({
+        title: g.title || '',
         src: g.src,
-        title: g.title,
       })),
-      industries: (prod.industries || []).map((ind: any) => ({
+      industries: (pData.industries || []).map((ind) => ({
         title: ind.title,
         description: ind.description,
-        imageUrl: ind.image || '/images/apps/windows.png',
+        imageUrl: ind.image,
       })),
-      sliderImages: (prod.sliderImages || []).map((imgSrc: string) => ({
-        src: imgSrc,
-      })),
-      relatedProductSlugs: (prod.relatedProductIds || []).map((relSlug: string) => ({
-        slug: relSlug,
-      })),
+      sliderImages: (pData.sliderImages || []).map((s) => {
+        const p = resolveProjectInfo(s)
+        return {
+          src: p.src,
+          title: p.title,
+          developer: p.developer,
+          location: p.location,
+          category: p.category,
+        }
+      }),
+      relatedProductSlugs: (pData.relatedProductIds || []).map((r) => ({ slug: r })),
     }
 
     if (existing.docs.length > 0) {
       await payload.update({
         collection: 'products',
         id: existing.docs[0].id,
-        data: prodData,
+        data: payloadProductData,
       })
-      console.log(`   ✓ Updated Product: ${prod.title} (${slug})`)
+      console.log(`   ✓ Updated Product: ${pData.title} (${pSlug})`)
     } else {
       await payload.create({
         collection: 'products',
-        data: prodData,
+        data: payloadProductData,
       })
-      console.log(`   + Created Product: ${prod.title} (${slug})`)
+      console.log(`   + Created Product: ${pData.title} (${pSlug})`)
     }
   }
 
@@ -635,7 +655,30 @@ async function seed() {
   }
 
   // ---------------------------------------------------------------------------
-  // 12. Seed Staff & Management Users (Admin & Manager Roles)
+  // 12. Seed Projects Page Global (Hero Featured Projects)
+  // ---------------------------------------------------------------------------
+  console.log('📦 Seeding Projects Page Global (Hero Carousel Config)...')
+  const heroFeaturedProjects = await payload.find({
+    collection: 'projects',
+    where: { heroFeatured: { equals: true } },
+    limit: 10,
+  })
+
+  await payload.updateGlobal({
+    slug: 'projects-page',
+    data: {
+      hero: {
+        headline: 'FEATURED ARCHITECTURAL FAÇADES',
+        tagline:
+          'Pioneering structural glass engineering across landmark transit hubs, commercial towers, and luxury developments.',
+        featuredProjects: heroFeaturedProjects.docs.map((p) => p.id),
+      },
+    },
+  })
+  console.log(`   ✓ Linked ${heroFeaturedProjects.docs.length} Featured Projects in projects-page Global`)
+
+  // ---------------------------------------------------------------------------
+  // 13. Seed Staff & Management Users (Admin & Manager Roles)
   // ---------------------------------------------------------------------------
   console.log('📦 Seeding Staff & Management Users (Admin & Manager)...')
   const defaultUsers = [

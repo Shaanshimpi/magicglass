@@ -5,7 +5,6 @@ import Image from 'next/image'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { PdpHero } from '@/components/PDP/PdpHero'
-import { TrustBanner } from '@/components/TrustBanner/TrustBanner'
 import { useLayoutContext } from '@/components/Shell/ClientLayoutShell'
 import mockData from '@/data/infrastructure_mock.json'
 import styles from '@/components/IndustrySolution/IndustrySolution.module.css'
@@ -479,11 +478,6 @@ export const InfrastructureContent: React.FC<InfrastructureContentProps> = ({ cm
               })}
             </div>
           </div>
-        </section>
-
-        {/* 4. Client Slider from Homepage */}
-        <section style={{ backgroundColor: 'var(--color-black)', paddingBottom: '3rem' }}>
-          <TrustBanner />
         </section>
       </div>
   )

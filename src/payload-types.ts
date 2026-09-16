@@ -100,6 +100,7 @@ export interface Config {
     'home-page': HomePage;
     'about-page': AboutPage;
     'products-page': ProductsPage;
+    'projects-page': ProjectsPage;
     'industry-solution-page': IndustrySolutionPage;
     'infrastructure-page': InfrastructurePage;
     'contact-us-page': ContactUsPage;
@@ -111,6 +112,7 @@ export interface Config {
     'home-page': HomePageSelect<false> | HomePageSelect<true>;
     'about-page': AboutPageSelect<false> | AboutPageSelect<true>;
     'products-page': ProductsPageSelect<false> | ProductsPageSelect<true>;
+    'projects-page': ProjectsPageSelect<false> | ProjectsPageSelect<true>;
     'industry-solution-page': IndustrySolutionPageSelect<false> | IndustrySolutionPageSelect<true>;
     'infrastructure-page': InfrastructurePageSelect<false> | InfrastructurePageSelect<true>;
     'contact-us-page': ContactUsPageSelect<false> | ContactUsPageSelect<true>;
@@ -203,6 +205,7 @@ export interface Product {
   title: string;
   subheading?: string | null;
   category: string;
+  isFeatured?: boolean | null;
   heroImage?: (number | null) | Media;
   heroImageUrl?: string | null;
   introSummary?: string | null;
@@ -248,6 +251,10 @@ export interface Product {
     | null;
   sliderImages?:
     | {
+        title?: string | null;
+        developer?: string | null;
+        location?: string | null;
+        category?: string | null;
         image?: (number | null) | Media;
         src?: string | null;
         id?: string | null;
@@ -447,6 +454,7 @@ export interface ProductsSelect<T extends boolean = true> {
   title?: T;
   subheading?: T;
   category?: T;
+  isFeatured?: T;
   heroImage?: T;
   heroImageUrl?: T;
   introSummary?: T;
@@ -493,6 +501,10 @@ export interface ProductsSelect<T extends boolean = true> {
   sliderImages?:
     | T
     | {
+        title?: T;
+        developer?: T;
+        location?: T;
+        category?: T;
         image?: T;
         src?: T;
         id?: T;
@@ -893,6 +905,23 @@ export interface ProductsPage {
         id?: string | null;
       }[]
     | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "projects-page".
+ */
+export interface ProjectsPage {
+  id: number;
+  hero?: {
+    /**
+     * Select projects featured in the /projects page hero carousel.
+     */
+    featuredProjects?: (number | Project)[] | null;
+    headline?: string | null;
+    tagline?: string | null;
+  };
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -1310,6 +1339,22 @@ export interface ProductsPageSelect<T extends boolean = true> {
         title?: T;
         description?: T;
         id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "projects-page_select".
+ */
+export interface ProjectsPageSelect<T extends boolean = true> {
+  hero?:
+    | T
+    | {
+        featuredProjects?: T;
+        headline?: T;
+        tagline?: T;
       };
   updatedAt?: T;
   createdAt?: T;

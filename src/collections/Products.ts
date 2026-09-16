@@ -20,6 +20,7 @@ export const Products: CollectionConfig = {
     { name: 'title', type: 'text', required: true },
     { name: 'subheading', type: 'text' },
     { name: 'category', type: 'text', required: true },
+    { name: 'isFeatured', type: 'checkbox', defaultValue: false },
     { name: 'heroImage', type: 'upload', relationTo: 'media' },
     { name: 'heroImageUrl', type: 'text' },
     { name: 'introSummary', type: 'textarea' },
@@ -70,6 +71,10 @@ export const Products: CollectionConfig = {
       name: 'sliderImages',
       type: 'array',
       fields: [
+        { name: 'title', type: 'text' },
+        { name: 'developer', type: 'text' },
+        { name: 'location', type: 'text' },
+        { name: 'category', type: 'text' },
         { name: 'image', type: 'upload', relationTo: 'media' },
         { name: 'src', type: 'text' },
       ],
