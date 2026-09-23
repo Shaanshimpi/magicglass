@@ -60,29 +60,24 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
         "value": "4mm to 19mm"
       },
       {
-        "icon": "/images/products/details/icons/Group-2288.png",
-        "label": "DGU unit thickness",
-        "value": "14mm to 48 mm"
-      },
-      {
-        "icon": "/images/products/details/icons/Group-2267.png",
-        "label": "Butyl Make",
-        "value": "Fenzi (Italy)"
-      },
-      {
-        "icon": "/images/products/details/icons/Group-2268.png",
-        "label": "Desiccant Make",
-        "value": "Netragy"
-      },
-      {
-        "icon": "/images/products/details/icons/Group-2269.png",
-        "label": "Silicon Make",
-        "value": "ealande, Dow(USA)"
-      },
-      {
         "icon": "/images/products/details/icons/process-type.png",
         "label": "Process Type",
-        "value": "Vertically fully automated robotic sealing process"
+        "value": "Horizontal roller-hearth forced convection tempering with high-pressure air quenching"
+      },
+      {
+        "icon": "/images/products/details/icons/standard.png",
+        "label": "Standard",
+        "value": "IS 2553 (Part 1), EN 12150-1, ASTM C1048"
+      },
+      {
+        "icon": "/images/products/details/icons/clarity.png",
+        "label": "Mechanical Strength",
+        "value": "4x to 5x higher mechanical resilience than standard annealed float glass"
+      },
+      {
+        "icon": "/images/products/details/icons/max-size.png",
+        "label": "Max size",
+        "value": "Jumbo panels up to 9 × 16 ft."
       }
     ],
     "galleryTitle": "Glass Applications",
@@ -553,7 +548,12 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
       {
         "icon": "/images/products/details/icons/process-type.png",
         "label": "Process Type",
-        "value": "Horizontal Assembly line with Press Rollers under controlled room conditions followed by autoclaving"
+        "value": "Horizontal cleanroom assembly with press rollers, high-pressure autoclave curing, and specialized vacuum bag lamination"
+      },
+      {
+        "icon": "/images/products/details/icons/max-size.png",
+        "label": "Max size",
+        "value": "4000 × 2500 mm"
       }
     ],
     "galleryTitle": "Glass Applications",
@@ -651,7 +651,12 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
       {
         "icon": "/images/products/details/icons/process-type.png",
         "label": "Process Type",
-        "value": "Horizontal Assembly line with Press Rollers under controlled room conditions followed by autoclaving"
+        "value": "Horizontal cleanroom assembly with press rollers, high-pressure autoclave curing, and specialized vacuum bag lamination"
+      },
+      {
+        "icon": "/images/products/details/icons/max-size.png",
+        "label": "Max size",
+        "value": "4000 × 2500 mm"
       }
     ],
     "galleryTitle": "Glass Applications",
@@ -746,7 +751,12 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
       {
         "icon": "/images/products/details/icons/process-type.png",
         "label": "Process Type",
-        "value": "Horizontal Assembly line with Press Rollers under controlled room conditions followed by autoclaving"
+        "value": "Horizontal cleanroom assembly with press rollers, high-pressure autoclave curing, and specialized vacuum bag lamination"
+      },
+      {
+        "icon": "/images/products/details/icons/max-size.png",
+        "label": "Max size",
+        "value": "4000 × 2500 mm"
       }
     ],
     "galleryTitle": "Glass Applications",
@@ -815,7 +825,7 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
     ],
     "characteristics": [
       "Robotic Sealing with Fenzi Butyl & Dow Silicone",
-      "Argon Gas Thermal Barrier (U-value < 1.1)",
+      "Argon Gas Thermal Barrier (≥90% Fill, U-value < 1.1)",
       "Warm-Edge Spacer System",
       "Certified to international standards EN, ASTM, and IS",
       "Custom fabricated to precise structural engineering specifications"
@@ -825,6 +835,11 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
         "icon": "/images/products/details/icons/process-type.png",
         "label": "Process type",
         "value": "vertically fully automated robotic sealing process"
+      },
+      {
+        "icon": "/images/products/details/icons/max-size.png",
+        "label": "Max size",
+        "value": "3600 × 2400 mm (Robotic Sealant)"
       },
       {
         "icon": "/images/products/details/icons/Group-2258.png",
@@ -839,7 +854,12 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
       {
         "icon": "/images/products/details/icons/Group-2265.png",
         "label": "Airfill type",
-        "value": "Air or Argon Glass"
+        "value": "Air or Argon Gas (≥90% filling concentration per EN 1279)"
+      },
+      {
+        "icon": "/images/products/details/icons/standard.png",
+        "label": "Argon Filling Concentration",
+        "value": "≥90% target (EN 1279 certified, min. 85% initial requirement)"
       },
       {
         "icon": "/images/products/details/icons/Group-2266.png",
@@ -865,11 +885,6 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
         "icon": "/images/products/details/icons/standard.png",
         "label": "Standard",
         "value": "EN 1279"
-      },
-      {
-        "icon": "/images/products/details/icons/standard.png",
-        "label": "Butyl Make",
-        "value": "Fenzi (Italy)"
       }
     ],
     "galleryTitle": "Glass Applications",
@@ -947,6 +962,11 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
         "value": "vertically fully automated robotic sealing process"
       },
       {
+        "icon": "/images/products/details/icons/max-size.png",
+        "label": "Max size",
+        "value": "3600 × 2400 mm (Robotic Sealant)"
+      },
+      {
         "icon": "/images/products/details/icons/Group-2258.png",
         "label": "Glass thickness range",
         "value": "4mm to 19mm"
@@ -959,7 +979,7 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
       {
         "icon": "/images/products/details/icons/Group-2265.png",
         "label": "Airfill type",
-        "value": "Air or Argon Glass"
+        "value": "Air or Argon Gas (≥90% concentration per EN 1279)"
       },
       {
         "icon": "/images/products/details/icons/Group-2266.png",

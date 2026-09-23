@@ -10,7 +10,7 @@
     "ctaText": "Enquire Now",
     "eyebrow": "◆ OUR INFRASTRUCTURE",
     "subheading": "HIGHLIGHTS OF INFRASTRUCTURE & CUTTING-EDGE FACILITIES",
-    "introDescription": "We firmly uphold the pinnacle of quality and efficiency, achieved through the use of exceptional raw materials and unmatched facilities. Since our inception, we have exclusively invested in cutting-edge machinery."
+    "introDescription": "We uphold the pinnacle of manufacturing resilience, quality, and operational continuity. Equipped with cutting-edge machinery, redundant backup processing lines, and uninterrupted power protocols from CNC cutting to forced-convection tempering, we guarantee reliable project execution without single-point failure risks."
   },
   "industries": [
     {
@@ -18,32 +18,32 @@
       "title": "Cutting & Processing",
       "subtitle": "PRECISION CNC GLASS CUTTING",
       "image": "/images/infrastructure/infra-banner.jpg",
-      "specs": "Automated CNC Cutting & Precision Edge Handling",
-      "description": "We firmly uphold the pinnacle of quality and efficiency, achieved through the use of exceptional raw materials and unmatched facilities. Since our inception, we have exclusively invested in cutting-edge machinery.\n\nFrom the very inception of our raw materials to the seamless integration of advanced facilities in our assembly line, our dedication to providing you with the best remains steadfast."
+      "specs": "Dual CNC Cutting Lines & Automatic Loading Bridges (Full Backup Redundancy)",
+      "description": "Our processing floor operates dual automated CNC glass cutting lines equipped with automatic loading bridges and dedicated backup cutting tables.\n\nThis redundant configuration guarantees 100% operational continuity during scheduled maintenance and volume surges, eliminating single points of failure from raw float cutting through precision edge processing."
     },
     {
       "id": "toughening-plant",
       "title": "Toughening Plant",
       "subtitle": "FORCED CONVECTION FURNACE",
       "image": "/images/infrastructure/infra-banner-1.jpg",
-      "specs": "High-Speed Convection Tempering & Optical Clarity",
-      "description": "We’ve embarked on a comprehensive transformation, adopting state-of-the-art equipment — a clear testament to our unwavering commitment to uncompromising quality.\n\nOur advanced forced-convection tempering furnaces process toughened glass designed for maximum structural safety and flawless optical performance."
+      "specs": "Twin Forced-Convection Furnaces & Dedicated Generator Backup",
+      "description": "Our tempering infrastructure features twin advanced forced-convection furnaces, providing immediate contingency load rerouting and eliminating production bottlenecks.\n\nBacked by dedicated uninterrupted power supply (UPS), industrial diesel generators, and redundant high-pressure air compressor banks, our furnaces safeguard critical air-quench cycles against any power or equipment interruption."
     },
     {
       "id": "lamination-cleanroom",
       "title": "Lamination & Cleanroom",
       "subtitle": "PVB & SENTRYGLAS® LAMINATING",
       "image": "/images/infrastructure/infra-banner-3.jpg",
-      "specs": "Climate-Controlled Cleanroom & Autoclave Assembly",
-      "description": "Our dust-free, climate-controlled cleanroom facilities and high-pressure autoclave lines ensure flawless bonding of PVB, EVA, and SentryGlas® interlayers.\n\nThis guarantees high-impact security glass for prestigious architectural facades and high-security structural installations."
+      "specs": "Cleanroom Autoclave & Vacuum Bag Lamination (Max 4000 × 2500 mm)",
+      "description": "Our dust-free, climate-controlled cleanroom facilities feature high-pressure autoclave lines and specialized vacuum bag lamination (up to 4000 × 2500 mm), ensuring flawless bonding of PVB, EVA, and SentryGlas® interlayers.\n\nThis dual-method capability guarantees high-impact security glass for prestigious architectural facades and oversized structural installations."
     },
     {
       "id": "double-glazing-dgu",
       "title": "Double Glazing (DGU)",
       "subtitle": "INSULATED GLASS MANUFACTURING",
       "image": "/images/infrastructure/infra-banner-2.jpg",
-      "specs": "Automatic Spacer Application & Argon Gas Filling",
-      "description": "Equipped with automated DGU assembly lines, we manufacture double-glazed unit solutions offering optimal thermal insulation, soundproofing, and energy efficiency.\n\nDesigned to withstand harsh environmental conditions while reducing building HVAC energy load."
+      "specs": "Robotic DGU Sealing Line (Max 3600 × 2400 mm) & ≥90% Argon Gas Filling",
+      "description": "Equipped with automated robotic DGU assembly lines handling units up to 3600 × 2400 mm, we provide precision dual structural silicone sealing and high-concentration argon gas filling (≥90% per EN 1279).\n\nEngineered to withstand harsh environmental conditions while drastically reducing building HVAC energy load."
     },
     {
       "id": "quality-control",

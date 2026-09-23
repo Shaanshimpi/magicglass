@@ -121,7 +121,7 @@ export const TOP_3_FEATURED: ProductItem[] = [
     "description": "Insulated glass is a combination of two or more panels that are spaced apart and sealed with sealant to appear as a single unit. At Magic Glass, we have state-of-the-art fully automatic Insulating lines with robot sealing. We were also the first company to manufacture Insulated glass in Pune. With such long experience and an excellent team, we have mastered the art of making the highest quality Insulated panels.",
     "features": [
       "Robotic Sealing with Fenzi Butyl & Dow Silicone",
-      "Argon Gas Thermal Barrier (U-value < 1.1)",
+      "Argon Gas Thermal Barrier (≥90% Fill, U-value < 1.1)",
       "Warm-Edge Spacer System"
     ],
     "image": "/images/products/insulated-glass-dgu.png",
@@ -249,7 +249,7 @@ export const ALL_PRODUCTS: ProductItem[] = [
     "categoryLabel": "Laminated Glass",
     "badgeText": "IMPACT SAFETY LAMINATE",
     "thicknessRange": "4mm - 19mm (Unit: 8.38mm - 80mm)",
-    "description": "PVB Laminated Glass is made by combining layers of interlayer film with two or more panes of glass through a meticulous lamination process. Utilizing high temperature and pressure in an autoclave, we ensure exceptional adhesion and impact resistance.",
+    "description": "PVB Laminated Glass is made by combining layers of interlayer film with two or more panes of glass through cleanroom assembly, autoclave curing, and specialized vacuum bag lamination (up to 4000 × 2500 mm), ensuring exceptional adhesion and impact resistance.",
     "features": [
       "Polyvinyl Butyral (PVB) High-Tension Interlayer",
       "Fall-Through Protection Upon Breakage",
@@ -268,7 +268,7 @@ export const ALL_PRODUCTS: ProductItem[] = [
     "description": "Insulated glass is a combination of two or more panels that are spaced apart and sealed with sealant to appear as a single unit. At Magic Glass, we have state-of-the-art fully automatic Insulating lines with robot sealing. We were also the first company to manufacture Insulated glass in Pune. With such long experience and an excellent team, we have mastered the art of making the highest quality Insulated panels.",
     "features": [
       "Robotic Sealing with Fenzi Butyl & Dow Silicone",
-      "Argon Gas Thermal Barrier (U-value < 1.1)",
+      "Argon Gas Thermal Barrier (≥90% Fill, U-value < 1.1)",
       "Warm-Edge Spacer System"
     ],
     "image": "/images/products/insulated-glass-dgu.png",

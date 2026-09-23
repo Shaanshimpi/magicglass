@@ -11,7 +11,7 @@ const WHY_MAGIC_GLASS = [
   {
     num: '01',
     title: 'Certified Excellence',
-    desc: 'Adhering to rigorous international standards (IS 2553, IS 14900, ISO 9001) for uncompromising architectural glass quality and safety.',
+    desc: 'Adhering to rigorous national and international standards including BIS (IS 2553), European Norms (EN), and ISO 9001, reinforced by certified primary supplier validation for uncompromising architectural glass quality and safety.',
   },
   {
     num: '02',

@@ -19,8 +19,8 @@ interface CraftsmanshipProps {
 }
 
 const DEFAULT_CARDS: CraftCard[] = [
-  { title: 'Precision Lamination Polish', description: 'Extra clear multi-layer PVB & SentryGlas® edge grinding and polish inspection ensuring zero optical distortion.', image: '/images/craft-laminated.jpg' },
-  { title: 'Robotic DGU Spacer Assembly', description: 'Double glazed unit secondary structural silicone sealant application with argon gas fill for thermal insulation.', image: '/images/craft-dgu.jpg' },
+  { title: 'Precision Lamination Polish', description: 'Cleanroom autoclave & vacuum bag lamination (up to 4000 × 2500 mm) with PVB & SentryGlas® ensuring zero optical distortion.', image: '/images/craft-laminated.jpg' },
+  { title: 'Robotic DGU Spacer Assembly', description: 'Double glazed unit secondary structural silicone sealant application with ≥90% argon gas filling (EN 1279 compliant) for optimal thermal insulation.', image: '/images/craft-dgu.jpg' },
   { title: 'Custom Ceramic Frit Patterns', description: 'High-temperature ceramic enamel screen-printed privacy dot matrix fused permanently into tempered glass.', image: '/images/craft-ceramic.jpg' },
 ]
 

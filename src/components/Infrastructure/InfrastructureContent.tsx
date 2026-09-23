@@ -283,10 +283,10 @@ export const InfrastructureContent: React.FC<InfrastructureContentProps> = ({ cm
 
               <div ref={row1TextRef} className={styles.row1TextContent}>
                 <p className={styles.topDescription}>
-                  We firmly uphold the <strong>pinnacle of quality and efficiency</strong>, achieved through the use of exceptional raw materials and unmatched facilities. Since our inception, we have exclusively invested in cutting-edge machinery.
+                  We uphold the <strong>pinnacle of manufacturing resilience, quality, and operational continuity</strong>. Backed by dual automated CNC cutting lines, twin forced-convection tempering furnaces, and dedicated generator backups, our production eliminates single-point downtime risks.
                 </p>
                 <p className={styles.topDescription} style={{ fontSize: '1.05rem', opacity: 0.9 }}>
-                  We’ve embarked on a comprehensive transformation, adopting state-of-the-art equipment — a clear testament to our unwavering commitment to uncompromising quality.
+                  Every stage from precision float cutting to high-pressure air quenching features built-in contingency architecture, ensuring uncompromising structural quality and on-time project execution.
                 </p>
                 <div className={styles.ctaWrapper}>
                   <button type="button" className="btn-black" onClick={openQuoteDrawer}>

@@ -295,8 +295,8 @@ export async function getHomePageCmsData() {
       eyebrow: 'MISSION & CRAFTSMANSHIP',
       heading: '"Delivering precision-engineered glass solutions for commercial facades and luxury interiors, crafted with uncompromising quality control from raw cut to final lamination."',
       cards: [
-        { title: 'Precision Lamination Polish', description: 'Extra clear multi-layer PVB & SentryGlas® edge grinding and polish inspection ensuring zero optical distortion.', image: '/images/craft-laminated.jpg' },
-        { title: 'Robotic DGU Spacer Assembly', description: 'Double glazed unit secondary structural silicone sealant application with argon gas fill for thermal insulation.', image: '/images/craft-dgu.jpg' },
+        { title: 'Precision Lamination Polish', description: 'Cleanroom autoclave & vacuum bag lamination (up to 4000 × 2500 mm) with PVB & SentryGlas® ensuring zero optical distortion.', image: '/images/craft-laminated.jpg' },
+        { title: 'Robotic DGU Spacer Assembly', description: 'Double glazed unit secondary structural silicone sealant application with ≥90% argon gas filling (EN 1279 compliant) for optimal thermal insulation.', image: '/images/craft-dgu.jpg' },
         { title: 'Custom Ceramic Frit Patterns', description: 'High-temperature ceramic enamel screen-printed privacy dot matrix fused permanently into tempered glass.', image: '/images/craft-ceramic.jpg' },
       ],
     },
@@ -387,7 +387,7 @@ export async function getAboutPageCmsData() {
       missionDesc: 'To solidify our position as global leaders in the glass processing industry by consistently delivering exceptional quality, leveraging cutting-edge technology, and nurturing a culture of innovation.',
     },
     whyMagicGlass: [
-      { number: '01', title: 'Certified Excellence', description: 'Adhering to rigorous international standards (IS 2553, IS 14900, ISO 9001) for uncompromising architectural glass quality and safety.' },
+      { number: '01', title: 'Certified Excellence', description: 'Adhering to rigorous national and international standards including BIS (IS 2553), European Norms (EN), and ISO 9001, reinforced by certified primary supplier validation for uncompromising architectural glass quality and safety.' },
       { number: '02', title: 'Quality Driven Innovation', description: 'Continuously adopting state-of-the-art European processing machinery, CNC edging, and advanced glass tempering technology.' },
       { number: '03', title: 'State-of-the-Art Facility', description: 'Spanning 150,000+ sq. ft. equipped with automated double-chamber furnaces and cleanroom lamination setups.' },
       { number: '04', title: 'Customer Focus', description: 'Dedicated technical consultation, custom BOQ engineering, and reliable nationwide project delivery for architects and builders.' },

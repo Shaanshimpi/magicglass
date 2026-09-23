@@ -208,12 +208,12 @@ async function seed() {
         cards: [
           {
             title: 'Precision Lamination Polish',
-            description: 'Advanced cleanroom autoclave lamination with PVB, SentryGlas®, and EVA interlayers ensuring optical clarity and safety.',
+            description: 'Advanced cleanroom autoclave and vacuum bag lamination (up to 4000 × 2500 mm) with PVB, SentryGlas®, and EVA interlayers ensuring optical clarity and safety.',
             imageUrl: '/images/craft-laminated.jpg',
           },
           {
             title: 'Robotic DGU Spacer Assembly',
-            description: 'Automatic robotic spacer application, 99.9% argon gas filling, and dual structural silicone sealing for thermal efficiency.',
+            description: 'Automatic robotic spacer application, ≥90% argon gas filling (EN 1279 compliant, min. 85%), and dual structural silicone sealing for thermal efficiency.',
             imageUrl: '/images/craft-dgu.jpg',
           },
           {
@@ -345,7 +345,7 @@ async function seed() {
         {
           number: '01',
           title: 'Certified Excellence',
-          description: 'Adhering to rigorous international standards (IS 2553, IS 14900, ISO 9001) for uncompromising architectural glass quality and safety.',
+          description: 'Adhering to rigorous national and international standards including BIS (IS 2553), European Norms (EN), and ISO 9001, reinforced by certified primary supplier validation for uncompromising architectural glass quality and safety.',
         },
         {
           number: '02',

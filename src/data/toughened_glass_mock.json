@@ -27,29 +27,21 @@
         "value": "4mm to 19mm"
       },
       {
-        "icon": "https://magicglass.co.in/wp-content/uploads/2023/11/Group-2288.png",
-        "label": "DGU Unit Thickness",
-        "value": "14mm to 48 mm"
-      },
-      {
-        "icon": "https://magicglass.co.in/wp-content/uploads/2023/11/Group-2267.png",
-        "label": "Butyl Make",
-        "value": "Fenzi (Italy)"
-      },
-      {
-        "icon": "https://magicglass.co.in/wp-content/uploads/2023/11/Group-2268.png",
-        "label": "Desiccant Make",
-        "value": "Netragy"
-      },
-      {
-        "icon": "https://magicglass.co.in/wp-content/uploads/2023/11/Group-2269.png",
-        "label": "Silicon Make",
-        "value": "Sealande, Dow(USA)"
-      },
-      {
         "icon": "https://magicglass.co.in/wp-content/uploads/2023/10/process-type.png",
         "label": "Process Type",
-        "value": "Vertically fully automated robotic sealing process"
+        "value": "Horizontal roller-hearth forced convection tempering with high-pressure air quenching"
+      },
+      {
+        "label": "Standard",
+        "value": "IS 2553 (Part 1), EN 12150-1, ASTM C1048"
+      },
+      {
+        "label": "Mechanical Strength",
+        "value": "4x to 5x higher mechanical resilience than standard annealed float glass"
+      },
+      {
+        "label": "Max Size",
+        "value": "Jumbo panels up to 9 × 16 ft."
       },
       {
         "label": "Thermal Processing",
