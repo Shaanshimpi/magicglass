@@ -145,7 +145,7 @@ export const PdpGeneralInfo: React.FC<PdpGeneralInfoProps> = ({
               TECHNICAL SPECIFICATIONS & PERFORMANCE
             </div>
 
-            {specs && specs.length > 0 ? (
+            {specs && specs.length > 0 && (
               <div className={styles.specsTable}>
                 {specs.map((spec, index) => (
                   <div key={index} className={styles.specTableRow}>
@@ -172,15 +172,25 @@ export const PdpGeneralInfo: React.FC<PdpGeneralInfoProps> = ({
                   </div>
                 ))}
               </div>
-            ) : (
-              <ul className={styles.specList}>
-                {characteristics.map((spec, index) => (
-                  <li key={index} className={styles.specItem}>
-                    <span className={styles.specDot} />
-                    <span>{spec}</span>
-                  </li>
-                ))}
-              </ul>
+            )}
+
+            {characteristics && characteristics.length > 0 && (
+              <div style={{ marginTop: specs && specs.length > 0 ? '2rem' : 0 }}>
+                <div
+                  className={styles.caratteristicheTag}
+                  style={{ marginBottom: '1.25rem', fontSize: '1.05rem', color: '#38bdf8' }}
+                >
+                  ENGINEERING HIGHLIGHTS & KEY ATTRIBUTES
+                </div>
+                <ul className={styles.specList}>
+                  {characteristics.map((spec, index) => (
+                    <li key={index} className={styles.specItem}>
+                      <span className={styles.specDot} />
+                      <span>{spec}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             )}
           </div>
         </div>

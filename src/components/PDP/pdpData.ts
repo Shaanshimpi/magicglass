@@ -382,13 +382,21 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
       {
         "src": "/images/products/details/EXTERIOR-WINDOWS.png",
         "title": "EXTERIOR (WINDOWS)"
+      },
+      {
+        "src": "/images/products/details/high-rise-buildings.png",
+        "title": "CURTAIN WALLS & HIGH-RISE"
+      },
+      {
+        "src": "/images/products/details/balconies.png",
+        "title": "SPANDREL & BALCONIES"
       }
     ],
     "galleryImages": [
       "/images/products/details/FACADES-REFLECTIVE-GLASS.png",
       "/images/products/details/EXTERIOR-WINDOWS.png",
-      "/images/products/details/FACADES-REFLECTIVE-GLASS.png",
-      "/images/products/details/FACADES-REFLECTIVE-GLASS.png"
+      "/images/products/details/high-rise-buildings.png",
+      "/images/products/details/balconies.png"
     ],
     "industries": [
       {
@@ -430,46 +438,55 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
     ],
     "specs": [
       {
-        "icon": "/images/products/details/icons/Group-2258.png",
-        "label": "Glass Thickness Range",
-        "value": "4 mm – 19 mm"
-      },
-      {
-        "icon": "/images/products/details/icons/Group-2270.png",
-        "label": "Design Type",
-        "value": "Full flood coat or a wide range of custom designs."
-      },
-      {
-        "icon": "/images/products/details/icons/Group-2261.png",
-        "label": "Glass Type",
-        "value": "Clear, extra clear, COLOR Options: All colours in the RAL colour scheme."
+        "icon": "/images/products/details/icons/standard.png",
+        "label": "Test Standard",
+        "value": "EN 14179-1, DIN 18516-4"
       },
       {
         "icon": "/images/products/details/icons/process-type.png",
-        "label": "Process Type",
-        "value": "Automatic Screen Printing in controlled room conditions with IR Drying System and Multicolour options."
+        "label": "Heat Soak Test Cycle",
+        "value": "Controlled convection test holding at 290°C ± 10°C for 2 hours to eliminate nickel sulfide (NiS) inclusions"
+      },
+      {
+        "icon": "/images/products/details/icons/Group-2258.png",
+        "label": "Glass Thickness Range",
+        "value": "4mm to 19mm Toughened Glass"
+      },
+      {
+        "icon": "/images/products/details/icons/max-size.png",
+        "label": "Max Panel Size",
+        "value": "Up to 2850 × 6000 mm"
+      },
+      {
+        "icon": "/images/products/details/icons/clarity.png",
+        "label": "Spontaneous Breakage Rate",
+        "value": "Virtually eliminated (< 1 in 10,000 panels)"
       }
     ],
     "galleryTitle": "Glass Applications",
     "galleryImageItems": [
       {
         "src": "/images/products/details/INTERIOR-DECOR-1.png",
-        "title": "INTERIORS"
+        "title": "INTERIOR SAFETY PARTITIONS"
       },
       {
         "src": "/images/products/details/FACADES-REFLECTIVE-GLASS.png",
-        "title": "FACADE"
+        "title": "STRUCTURAL FACADES"
       },
       {
         "src": "/images/products/details/HIGH-RISE-BUILDINGS.png",
-        "title": "HIGH-RISE BUILDINGS"
+        "title": "HIGH-RISE TOWERS"
+      },
+      {
+        "src": "/images/products/details/OVERHEAD-SPACES-1.png",
+        "title": "OVERHEAD SKYLIGHTS & CANOPIES"
       }
     ],
     "galleryImages": [
       "/images/products/details/INTERIOR-DECOR-1.png",
       "/images/products/details/FACADES-REFLECTIVE-GLASS.png",
       "/images/products/details/HIGH-RISE-BUILDINGS.png",
-      "/images/products/details/INTERIOR-DECOR-1.png"
+      "/images/products/details/OVERHEAD-SPACES-1.png"
     ],
     "industries": [
       {
@@ -1010,19 +1027,27 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
     "galleryTitle": "Glass Applications",
     "galleryImageItems": [
       {
-        "src": "/images/products/details/WINDOWS-2.png",
-        "title": "WINDOWS"
+        "src": "/images/products/details/windows-2.png",
+        "title": "ENERGY-EFFICIENT WINDOWS"
       },
       {
-        "src": "/images/products/details/FACADES-3.png",
-        "title": "FACADES"
+        "src": "/images/products/details/facades-3.png",
+        "title": "ACOUSTIC FACADES"
+      },
+      {
+        "src": "/images/products/details/Airports.png",
+        "title": "AIRPORTS & TRANSIT HUBS"
+      },
+      {
+        "src": "/images/products/details/hospitality-1-2.png",
+        "title": "LUXURY HOSPITALITY ENCLOSURES"
       }
     ],
     "galleryImages": [
-      "/images/products/details/WINDOWS-2.png",
-      "/images/products/details/FACADES-3.png",
-      "/images/products/details/WINDOWS-2.png",
-      "/images/products/details/WINDOWS-2.png"
+      "/images/products/details/windows-2.png",
+      "/images/products/details/facades-3.png",
+      "/images/products/details/Airports.png",
+      "/images/products/details/hospitality-1-2.png"
     ],
     "industries": [
       {
@@ -1097,15 +1122,27 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
     "galleryTitle": "Glass Applications",
     "galleryImageItems": [
       {
-        "src": "/images/products/details/FACADES-1.png",
-        "title": "FACADES"
+        "src": "/images/products/details/facades-1.png",
+        "title": "ENERGY-EFFICIENT FACADES"
+      },
+      {
+        "src": "/images/products/details/windows-2.png",
+        "title": "COMMERCIAL WINDOW SYSTEMS"
+      },
+      {
+        "src": "/images/products/details/high-rise-buildings.png",
+        "title": "HIGH-RISE CURTAIN WALLS"
+      },
+      {
+        "src": "/images/products/details/partitions-1.png",
+        "title": "ACOUSTIC & THERMAL PARTITIONS"
       }
     ],
     "galleryImages": [
-      "/images/products/details/FACADES-1.png",
-      "/images/products/details/FACADES-1.png",
-      "/images/products/details/FACADES-1.png",
-      "/images/products/details/FACADES-1.png"
+      "/images/products/details/facades-1.png",
+      "/images/products/details/windows-2.png",
+      "/images/products/details/high-rise-buildings.png",
+      "/images/products/details/partitions-1.png"
     ],
     "industries": [
       {
@@ -1185,15 +1222,27 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
     "galleryTitle": "Glass Applications",
     "galleryImageItems": [
       {
-        "src": "/images/products/details/FACADES-1.png",
-        "title": "FACADES"
+        "src": "/images/products/details/facades-1.png",
+        "title": "COMMERCIAL FACADES"
+      },
+      {
+        "src": "/images/products/details/windows-1.png",
+        "title": "EXTERIOR WINDOWS"
+      },
+      {
+        "src": "/images/products/details/high-rise-buildings.png",
+        "title": "HIGH-RISE ARCHITECTURE"
+      },
+      {
+        "src": "/images/products/details/OVERHEAD-SPACES-1.png",
+        "title": "OVERHEAD CANOPIES & SKYLIGHTS"
       }
     ],
     "galleryImages": [
-      "/images/products/details/FACADES-1.png",
-      "/images/products/details/FACADES-1.png",
-      "/images/products/details/FACADES-1.png",
-      "/images/products/details/FACADES-1.png"
+      "/images/products/details/facades-1.png",
+      "/images/products/details/windows-1.png",
+      "/images/products/details/high-rise-buildings.png",
+      "/images/products/details/OVERHEAD-SPACES-1.png"
     ],
     "industries": [
       {
@@ -1268,19 +1317,27 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
     "galleryTitle": "Glass Applications",
     "galleryImageItems": [
       {
-        "src": "/images/products/details/ARCHITECTURE-HOSPITALS.png",
-        "title": "ARCHITECTURE (HOSPITALS)"
+        "src": "/images/products/details/architecture-hospitals.png",
+        "title": "HEALTHCARE & HOSPITALS"
       },
       {
-        "src": "/images/products/details/SAFETY-DOORS.png",
-        "title": "SAFETY DOORS"
+        "src": "/images/products/details/safety-doors.png",
+        "title": "FIRE RATED SAFETY DOORS"
+      },
+      {
+        "src": "/images/products/details/partitions-1.png",
+        "title": "COMPARTMENTATION PARTITIONS"
+      },
+      {
+        "src": "/images/products/details/Public-Spaces.png",
+        "title": "PUBLIC SPACES & ATRIUMS"
       }
     ],
     "galleryImages": [
-      "/images/products/details/ARCHITECTURE-HOSPITALS.png",
-      "/images/products/details/SAFETY-DOORS.png",
-      "/images/products/details/ARCHITECTURE-HOSPITALS.png",
-      "/images/products/details/ARCHITECTURE-HOSPITALS.png"
+      "/images/products/details/architecture-hospitals.png",
+      "/images/products/details/safety-doors.png",
+      "/images/products/details/partitions-1.png",
+      "/images/products/details/Public-Spaces.png"
     ],
     "industries": [
       {
@@ -1350,19 +1407,27 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
     "galleryTitle": "Glass Applications",
     "galleryImageItems": [
       {
-        "src": "/images/products/details/INTERIOR-DECOR-1.png",
-        "title": "INTERIORS"
+        "src": "/images/products/details/interiors.png",
+        "title": "INTERIOR DECORATIVE PANELS"
       },
       {
-        "src": "/images/products/details/FACADES-REFLECTIVE-GLASS.png",
-        "title": "FACADE"
+        "src": "/images/products/details/facades-1.png",
+        "title": "SOLAR-CONTROL FACADES"
+      },
+      {
+        "src": "/images/products/details/high-rise-buildings.png",
+        "title": "HIGH-RISE SPANDRELS"
+      },
+      {
+        "src": "/images/products/details/shopfronts.png",
+        "title": "RETAIL CANOPIES & STOREFRONTS"
       }
     ],
     "galleryImages": [
-      "/images/products/details/INTERIOR-DECOR-1.png",
-      "/images/products/details/FACADES-REFLECTIVE-GLASS.png",
-      "/images/products/details/INTERIOR-DECOR-1.png",
-      "/images/products/details/INTERIOR-DECOR-1.png"
+      "/images/products/details/interiors.png",
+      "/images/products/details/facades-1.png",
+      "/images/products/details/high-rise-buildings.png",
+      "/images/products/details/shopfronts.png"
     ],
     "industries": [
       {
@@ -1500,8 +1565,33 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
     "specs": [
       {
         "icon": "/images/products/details/icons/thickness.png",
-        "label": "Thickness",
-        "value": "4mm to 6mm"
+        "label": "Glass Thickness Range",
+        "value": "4mm to 8mm"
+      },
+      {
+        "icon": "/images/products/details/icons/process-type.png",
+        "label": "Mirror Coating",
+        "value": "Copper-free, lead-free eco-friendly silvering with dual protective back coating"
+      },
+      {
+        "icon": "/images/products/details/icons/clarity.png",
+        "label": "Reflectance",
+        "value": "> 90% optical clarity & distortion-free reflection"
+      },
+      {
+        "icon": "/images/products/details/icons/Group-2263.png",
+        "label": "Edge Processing",
+        "value": "Flat polished, beveled edges (5mm to 35mm), pencil edge, and CNC shape routing"
+      },
+      {
+        "icon": "/images/products/details/icons/max-size.png",
+        "label": "Max Sheet Size",
+        "value": "Up to 3660 × 2440 mm jumbo mirror sheets"
+      },
+      {
+        "icon": "/images/products/details/icons/standard.png",
+        "label": "Standard",
+        "value": "EN 1036-1, IS 3438, ASTM C1503"
       },
       {
         "icon": "/images/products/details/icons/Group-2264.png",
@@ -1513,20 +1603,42 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
     "galleryImageItems": [
       {
         "src": "/images/products/details/INTERIOR-DECOR.png",
-        "title": "INTERIOR (DECOR)"
+        "title": "INTERIOR & DECOR"
+      },
+      {
+        "src": "/images/products/details/bathrooms.png",
+        "title": "BATHROOMS & VANITIES"
+      },
+      {
+        "src": "/images/products/details/furniture.png",
+        "title": "FURNITURE & WARDROBES"
+      },
+      {
+        "src": "/images/products/details/shopfronts.png",
+        "title": "COMMERCIAL & DISPLAY"
       }
     ],
     "galleryImages": [
       "/images/products/details/INTERIOR-DECOR.png",
-      "/images/products/details/INTERIOR-DECOR.png",
-      "/images/products/details/INTERIOR-DECOR.png",
-      "/images/products/details/INTERIOR-DECOR.png"
+      "/images/products/details/bathrooms.png",
+      "/images/products/details/furniture.png",
+      "/images/products/details/shopfronts.png"
     ],
     "industries": [
       {
-        "title": "ARCHITECTURE",
+        "title": "HOSPITALITY & LUXURY HOTELS",
+        "image": "/images/products/details/hospitality-1.png",
+        "description": "Premium anti-corrosion, humidity-resistant mirror installations for luxury hotel suites, lobbies, and spa bathrooms."
+      },
+      {
+        "title": "ARCHITECTURE & INTERIORS",
         "image": "/images/products/details/architecture.png",
-        "description": "Mirror Glass is a preferred choice for architects and designers, enhancing the aesthetics of structures with its luxurious and refined reflections. From grand entrances to stylish interior designs, these mirrors leave a lasting impression and elevate the visual impact of architectural spaces."
+        "description": "Full-height mirrored walls, custom vanity mirrors, and wardrobe cladding delivering spacious depth and elegance."
+      },
+      {
+        "title": "COMMERCIAL & RETAIL",
+        "image": "/images/products/details/shopfronts.png",
+        "description": "High-reflectance accent mirrors and display fixtures for fashion boutiques, fitness studios, and luxury showrooms."
       }
     ],
     "sliderImages": [

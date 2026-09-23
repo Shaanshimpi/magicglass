@@ -10,7 +10,9 @@ export const LivePreviewListener: React.FC = () => {
         if (!fieldPath) return
 
         // Direct DOM update for live visual feedback in preview mode
-        const targetElement = document.querySelector(`[data-cms-field="${fieldPath}"]`)
+        const cleanField = fieldPath.replace(/^hero_/, '')
+        const selector = `[data-cms-field="${fieldPath}"], [data-cms-field="hero_${cleanField}"], [data-cms-field="${cleanField}"]`
+        const targetElement = document.querySelector(selector)
         if (targetElement) {
           targetElement.textContent = value
           targetElement.classList.add('cms-field-highlight')
