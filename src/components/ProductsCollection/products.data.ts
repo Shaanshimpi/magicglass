@@ -1,5 +1,25 @@
 export type ProductCategory = 'toughened' | 'laminated' | 'insulated' | 'reflective' | 'other'
 
+export const CATEGORY_LABELS: Record<ProductCategory, string> = {
+  toughened: 'Toughened Glass',
+  laminated: 'Laminated Glass',
+  insulated: 'Insulated Glass',
+  reflective: 'Reflective Glass',
+  other: 'Other Glass',
+}
+
+export function normalizeCategory(cat?: string | null): string {
+  if (!cat) return 'other'
+  const c = String(cat).toLowerCase().trim()
+  if (c === 'all' || c.includes('all')) return 'all'
+  if (c.includes('tough') || c.includes('temper')) return 'toughened'
+  if (c.includes('lamin') || c.includes('sentry') || c.includes('pvb')) return 'laminated'
+  if (c.includes('insulat') || c.includes('dgu')) return 'insulated'
+  if (c.includes('reflect') || c.includes('low-e') || c.includes('skn') || c.includes('solar')) return 'reflective'
+  if (c.includes('other') || c.includes('ceramic') || c.includes('frosted') || c.includes('mirror') || c.includes('fire')) return 'other'
+  return c
+}
+
 export interface ProductItem {
   id: string
   title: string

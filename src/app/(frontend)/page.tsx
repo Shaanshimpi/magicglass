@@ -9,6 +9,9 @@ import { Testimonials } from '@/components/Testimonials/Testimonials'
 import { CategorySwitcher } from '@/components/CategorySwitcher/CategorySwitcher'
 import { getHomePageCmsData } from '@/lib/cms'
 
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
 export default async function HomePage() {
   const cmsData = await getHomePageCmsData()
 

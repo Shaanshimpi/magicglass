@@ -8,10 +8,15 @@ const dirname = path.dirname(__filename)
 
 const nextConfig: NextConfig = {
   images: {
+    qualities: [75, 85, 90],
     remotePatterns: [
       {
         protocol: 'https',
         hostname: 'magicglass.co.in',
+      },
+      {
+        protocol: 'https',
+        hostname: 'media.magicglass.co.in',
       },
       {
         protocol: 'https',

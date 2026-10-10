@@ -5,7 +5,13 @@ import industrySolutionsMock from '@/data/industry_solutions_mock.json'
 import infrastructureMock from '@/data/infrastructure_mock.json'
 import projectsMock from '@/data/projects_mock.json'
 import { PDP_MOCK_DATA, PdpProductDetail } from '@/components/PDP/pdpData'
-import { CATEGORIES_INFO, ALL_PRODUCTS, TOP_3_FEATURED } from '@/components/ProductsCollection/products.data'
+import {
+  CATEGORIES_INFO,
+  ALL_PRODUCTS,
+  TOP_3_FEATURED,
+  normalizeCategory,
+  CATEGORY_LABELS,
+} from '@/components/ProductsCollection/products.data'
 
 // Helper to safely get payload client
 export async function getPayloadClient() {
@@ -422,30 +428,27 @@ export async function getProductsPageCmsData() {
 
       const dynamicProducts =
         productsRes.docs && productsRes.docs.length > 0
-          ? productsRes.docs.map((doc: any) => ({
-            id: doc.slug,
-            title: doc.title,
-            category: doc.category,
-            categoryLabel:
-              doc.category === 'toughened'
-                ? 'Toughened Glass'
-                : doc.category === 'laminated'
-                  ? 'Laminated Glass'
-                  : doc.category === 'insulated'
-                    ? 'Insulated Glass'
-                    : doc.category === 'reflective'
-                      ? 'Reflective Glass'
-                      : doc.category === 'other'
-                        ? 'Other Glass'
-                        : 'Architectural Glazing',
-            badgeText: doc.subheading || doc.category?.toUpperCase() || 'ARCHITECTURAL GLASS',
-            thicknessRange:
-              doc.specs?.find((s: any) => s.label?.toLowerCase().includes('thickness'))?.value ||
-              'Custom Specifications',
-            description: doc.introSummary || doc.secondaryText || '',
-            features: doc.characteristics?.map((c: any) => c.item || c) || [],
-            image: getMediaUrl(doc.heroImage, doc.heroImageUrl || '/images/prod-structural.jpg'),
-          }))
+          ? productsRes.docs.map((doc: any) => {
+            const normCat = normalizeCategory(doc.category)
+            const catLabel =
+              CATEGORY_LABELS[normCat as keyof typeof CATEGORY_LABELS] ||
+              doc.category ||
+              'Architectural Glazing'
+
+            return {
+              id: doc.slug,
+              title: doc.title,
+              category: normCat,
+              categoryLabel: catLabel,
+              badgeText: doc.subheading || catLabel.toUpperCase() || 'ARCHITECTURAL GLASS',
+              thicknessRange:
+                doc.specs?.find((s: any) => s.label?.toLowerCase().includes('thickness'))?.value ||
+                'Custom Specifications',
+              description: doc.introSummary || doc.secondaryText || '',
+              features: doc.characteristics?.map((c: any) => c.item || c) || [],
+              image: getMediaUrl(doc.heroImage, doc.heroImageUrl || '/images/prod-structural.jpg'),
+            }
+          })
           : ALL_PRODUCTS
 
       if (data && data.hero?.title) {

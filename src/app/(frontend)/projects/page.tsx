@@ -3,6 +3,9 @@ import { getProjectsPageCmsData, getHomePageCmsData } from '@/lib/cms'
 import { ProjectsClientContent } from '@/components/Projects/ProjectsClientContent'
 import { ProjectItem } from '@/types/projects.types'
 
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
 export const metadata = {
   title: 'Architectural Projects Portfolio | Magic Glass',
   description:

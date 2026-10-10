@@ -11,6 +11,7 @@ import {
   TOP_3_FEATURED,
   CATEGORIES_INFO,
   ProductItem,
+  normalizeCategory,
 } from './products.data'
 
 interface ProductsCollectionProps {
@@ -38,7 +39,10 @@ export const ProductsCollection: React.FC<ProductsCollectionProps> = ({ cmsData 
   const filteredProducts: ProductItem[] =
     activeCategory === 'all'
       ? productsList
-      : productsList.filter((p: any) => p.category?.toLowerCase() === activeCategory.toLowerCase())
+      : productsList.filter((p: any) => {
+          const productCategory = normalizeCategory(p.category)
+          return productCategory === activeCategory
+        })
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger)
@@ -117,9 +121,11 @@ export const ProductsCollection: React.FC<ProductsCollectionProps> = ({ cmsData 
 
       // 4. Product Cards Scroll Entrance
       if (productGridRef.current) {
-        gsap.from(
-          productGridRef.current.querySelectorAll('.' + styles.productCard),
-          {
+        const initialCards = productGridRef.current.querySelectorAll(
+          '.' + styles.productCard
+        )
+        if (initialCards.length > 0) {
+          gsap.from(initialCards, {
             y: 30,
             opacity: 0,
             duration: 0.8,
@@ -130,8 +136,8 @@ export const ProductsCollection: React.FC<ProductsCollectionProps> = ({ cmsData 
               start: 'top 85%',
               toggleActions: 'play none none none',
             },
-          }
-        )
+          })
+        }
       }
     }, containerRef)
 
@@ -144,11 +150,13 @@ export const ProductsCollection: React.FC<ProductsCollectionProps> = ({ cmsData 
     const cards = productGridRef.current.querySelectorAll(
       '.' + styles.productCard
     )
-    gsap.fromTo(
-      cards,
-      { y: 20, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.45, stagger: 0.04, ease: 'power2.out' }
-    )
+    if (cards.length > 0) {
+      gsap.fromTo(
+        cards,
+        { y: 20, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.45, stagger: 0.04, ease: 'power2.out' }
+      )
+    }
   }, [activeCategory])
 
   const rawSubtitle =
@@ -264,18 +272,23 @@ export const ProductsCollection: React.FC<ProductsCollectionProps> = ({ cmsData 
           <div className={styles.rightScrollPane}>
             {/* Top Right Inline Category Filter Buttons */}
             <div className={styles.inlineCategoryPills}>
-              {categoriesList.map((cat: any) => (
-                <button
-                  key={cat.id}
-                  type="button"
-                  className={`${styles.inlinePillBtn} ${
-                    activeCategory === cat.id ? styles.inlinePillActive : ''
-                  }`}
-                  onClick={() => setActiveCategory(cat.id)}
-                >
-                  {cat.label}
-                </button>
-              ))}
+              {categoriesList.map((cat: any) => {
+                const catNormId = normalizeCategory(cat.id || cat.code || cat.label)
+                const isActive = activeCategory === catNormId
+
+                return (
+                  <button
+                    key={cat.id || cat.code || cat.label}
+                    type="button"
+                    className={`${styles.inlinePillBtn} ${
+                      isActive ? styles.inlinePillActive : ''
+                    }`}
+                    onClick={() => setActiveCategory(catNormId)}
+                  >
+                    {cat.label}
+                  </button>
+                )
+              })}
             </div>
 
             {/* Product Grid */}
@@ -302,6 +315,12 @@ export const ProductsCollection: React.FC<ProductsCollectionProps> = ({ cmsData 
                 </Link>
               ))}
             </div>
+
+            {filteredProducts.length === 0 && (
+              <div className={styles.emptyGridState}>
+                <p>No products found in this category.</p>
+              </div>
+            )}
           </div>
         </div>
       </section>

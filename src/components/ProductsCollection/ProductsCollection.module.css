@@ -445,3 +445,11 @@
     gap: 2.5rem;
   }
 }
+
+.emptyGridState {
+  padding: 4rem 2rem;
+  text-align: center;
+  color: var(--color-taupe);
+  font-family: var(--font-outfit), sans-serif;
+  font-size: 1.1rem;
+}
