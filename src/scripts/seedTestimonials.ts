@@ -57,10 +57,10 @@ export const AUTHENTIC_TESTIMONIALS = [
   {
     id: 'glazon-india',
     quote:
-      'Partnering with Magic Glass on Bioaltus Gujarat (6mm ST 750) and the ICL Supa MIDC facility demonstrated their mastery over robotic DGU assembly and rapid bulk order processing.',
+      'Partnering with Magic Glass on Bioaltus Gujarat (6mm ST 750) demonstrated their mastery over robotic DGU assembly, solar control glass processing, and rapid bulk order execution.',
     author: 'Ketan Patel',
     title: 'Managing Director, Glazon India Pvt Ltd',
-    avatarUrl: 'https://media.magicglass.co.in/icl-project-supa-midc.jpg',
+    avatarUrl: 'https://media.magicglass.co.in/bioaltus-gujarat.jpg',
   },
   {
     id: 'alumine-dabolim-airport',

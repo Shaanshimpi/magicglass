@@ -130,19 +130,6 @@
     "tagline": "Architectural Residential Tower"
   },
   {
-    "id": "icl-project-supa-midc",
-    "title": "ICL Industrial Facility",
-    "category": "Commercial",
-    "developer": "Glazon India Pvt Ltd",
-    "location": "Supa MIDC, Ahmednagar, Maharashtra",
-    "application": "Industrial Curtain Wall & Thermal Insulated Factory Façade",
-    "glassDescription": "ST 750 Double Glazed Unit (DGU) Glass",
-    "areaSqMtr": 4200,
-    "image": "https://media.magicglass.co.in/icl-project-supa-midc.jpg",
-    "heroFeatured": false,
-    "tagline": "Heavy Industrial Complex Glazing"
-  },
-  {
     "id": "pune-peoples-cooperative-bank",
     "title": "Pune People’s Co-operative Bank",
     "category": "Commercial",
