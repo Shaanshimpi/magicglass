@@ -5,8 +5,7 @@ import Image from 'next/image'
 import gsap from 'gsap'
 import styles from './PdpHero.module.css'
 
-const DEFAULT_HERO_FALLBACK =
-  'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1600&q=80'
+const DEFAULT_HERO_FALLBACK = '/images/products/toughened-glass.png'
 
 interface PdpHeroProps {
   indexNumber: string

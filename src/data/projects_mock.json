@@ -390,15 +390,15 @@
     "tagline": "Commercial Glazing Project"
   },
   {
-    "id": "soliatre-business-hub",
-    "title": "Soliatre business hub",
+    "id": "solitaire-business-hub",
+    "title": "Solitaire Business Hub",
     "category": "Commercial",
-    "developer": "Soliatre",
-    "location": "Balewadi",
+    "developer": "Solitaire Group",
+    "location": "Balewadi, Pune",
     "application": "Façade",
     "glassDescription": "6mm N34 SGU",
     "areaSqMtr": 4000,
-    "image": "/images/projects/soliatre-business-hub.jpg",
+    "image": "/images/projects/solitaire-business-hub.jpg",
     "heroFeatured": false,
     "tagline": "Commercial Glazing Project"
   },

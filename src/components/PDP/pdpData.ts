@@ -43,8 +43,8 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
     "introSummary": "Toughened glass, commonly referred to as ‘Tempered glass,’ stands as fortified safety glass, its strength amplified through meticulous thermal processes. This involves subjecting annealed glass to temperatures of around 650⁰C followed by swift cooling, culminating in a glass that possesses fourfold the strength of regular glass.",
     "secondaryText": "This intense heat treatment and rapid cooling induce distinct physical attributes, notably instilling surface compressive stress and enhancing the glass’s flexural potency. Preceding toughening, the glass is intricately cut to precise dimensions or expertly shaped, setting the stage for its exceptional attributes.",
     "detailImages": [
-      "/images/products/details/SAFETY-DOORS.png",
-      "/images/products/details/automotive.png"
+      "/images/products/details/high-rise-buildings.png",
+      "/images/products/details/windows.png"
     ],
     "characteristics": [
       "4x Strength of Annealed Float Glass",
@@ -83,27 +83,27 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
     "galleryTitle": "Glass Applications",
     "galleryImageItems": [
       {
-        "src": "/images/products/details/SAFETY-DOORS.png",
-        "title": "BUILDING AND CONSTRUCTION"
+        "src": "/images/products/details/safety-doors.png",
+        "title": "COMMERCIAL SAFETY DOORS"
       },
       {
         "src": "/images/products/details/automotive.png",
-        "title": "AUTOMOTIVE INDUSTRY"
+        "title": "AUTOMOTIVE GLASS"
       },
       {
-        "src": "/images/products/details/FURNITURE.png",
-        "title": "FURNITURE AND DECOR"
+        "src": "/images/products/details/furniture.png",
+        "title": "FURNITURE & TABLETOPS"
       },
       {
-        "src": "/images/products/details/HIGH-RISE-BUILDINGS.png",
-        "title": "SOLAR ENERGY"
+        "src": "/images/products/details/facades.png",
+        "title": "CURTAIN WALL FAÇADES"
       }
     ],
     "galleryImages": [
-      "/images/products/details/SAFETY-DOORS.png",
+      "/images/products/details/safety-doors.png",
       "/images/products/details/automotive.png",
-      "/images/products/details/FURNITURE.png",
-      "/images/products/details/HIGH-RISE-BUILDINGS.png"
+      "/images/products/details/furniture.png",
+      "/images/products/details/facades.png"
     ],
     "industries": [
       {
@@ -123,10 +123,10 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
       }
     ],
     "sliderImages": [
-      "/images/products/details/balmoral-by-riverside.jpg",
-      "/images/products/details/the-ark-tribeca.jpg",
-      "/images/products/details/varde-abil.jpg",
-      "/images/products/details/ganga-platino.jpg"
+      "/images/projects/balmoral-by-riverside.jpg",
+      "/images/projects/the-ark.jpg",
+      "/images/projects/verde.jpg",
+      "/images/projects/ganga-platino.jpg"
     ],
     "relatedProductIds": [
       "clear-glass",
@@ -143,8 +143,8 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
     "introSummary": "Discover the extraordinary clarity and purity of Clear Glass. This exceptional product is manufactured by Saint Gobain using state-of-the-art techniques, guaranteeing unparalleled transparency without any tint. With its crystal-clear finish, Clear Glass provides an unobstructed view, allowing you to experience the true colors of your surroundings.",
     "secondaryText": "Clear Glass is a versatile solution that seamlessly integrates into various applications. Whether it’s partitions, doors, furniture, or display cabinets, this glass is designed to enhance and elevate any space it adorns. Clear glass can be toughened or heat strengthened",
     "detailImages": [
-      "/images/products/details/partitions.png",
-      "/images/products/details/Shower.png"
+      "/images/products/details/interiors.png",
+      "/images/products/details/staircase.png"
     ],
     "characteristics": [
       "Saint Gobain Premium Float Glass",
@@ -184,30 +184,26 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
     "galleryImageItems": [
       {
         "src": "/images/products/details/partitions.png",
-        "title": "PARTITIONS"
+        "title": "OFFICE PARTITIONS"
       },
       {
         "src": "/images/products/details/Shower.png",
-        "title": "SHOWER CUBICLES"
+        "title": "LUXURY SHOWER CUBICLES"
       },
       {
         "src": "/images/products/details/balconies.png",
-        "title": "BALCONIES"
+        "title": "BALCONY BALUSTRADES"
       },
       {
-        "src": "/images/products/details/staircase.png",
-        "title": "STAIRCASE"
-      },
-      {
-        "src": "/images/products/details/interiors.png",
-        "title": "INTERIORS"
+        "src": "/images/products/details/display-showcases.png",
+        "title": "SHOWCASES & DISPLAY"
       }
     ],
     "galleryImages": [
       "/images/products/details/partitions.png",
       "/images/products/details/Shower.png",
       "/images/products/details/balconies.png",
-      "/images/products/details/staircase.png"
+      "/images/products/details/display-showcases.png"
     ],
     "industries": [
       {
@@ -222,10 +218,10 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
       }
     ],
     "sliderImages": [
-      "/images/products/details/balmoral-by-riverside.jpg",
-      "/images/products/details/the-ark-tribeca.jpg",
-      "/images/products/details/varde-abil.jpg",
-      "/images/products/details/ganga-platino.jpg"
+      "/images/projects/apostrophe.jpg",
+      "/images/projects/nyati-elysia.jpg",
+      "/images/projects/eon-homes.jpg",
+      "/images/projects/balmoral-by-riverside.jpg"
     ],
     "relatedProductIds": [
       "extra-clear-glass",
@@ -242,8 +238,8 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
     "introSummary": "The Extra clear glass is a type of Float glass that has low iron content (lower than clear glass), which reduces the greenish-blue tint and therefore makes it extra clear. It is also called low iron glass.",
     "secondaryText": "With its unparalleled clarity and transparency, Extra Clear Glass creates an environment that is bathed in natural light, showcasing true colors and creating an atmosphere of purity and refinement. Experience a new level of sophistication with Extra Clear Glass, where visual clarity is elevated to an art form.",
     "detailImages": [
-      "/images/products/details/KITCHENS.png",
-      "/images/products/details/TABLETOPS.png"
+      "/images/products/details/shopfronts.png",
+      "/images/products/details/display-showcases.png"
     ],
     "characteristics": [
       "Ultra-Low Ferric Oxide Substrate",
@@ -282,31 +278,27 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
     "galleryTitle": "Glass Applications",
     "galleryImageItems": [
       {
-        "src": "/images/products/details/KITCHENS.png",
-        "title": "KITCHENS"
+        "src": "/images/products/details/kitchens.png",
+        "title": "LUXURY KITCHEN SPLASHBACKS"
       },
       {
-        "src": "/images/products/details/TABLETOPS.png",
-        "title": "TABLETOPS"
+        "src": "/images/products/details/tabletops.png",
+        "title": "CRYSTAL TABLETOPS"
       },
       {
-        "src": "/images/products/details/PARTITIONS.png",
-        "title": "PARTITIONS"
+        "src": "/images/products/details/partitions.png",
+        "title": "SEAMLESS PARTITIONS"
       },
       {
-        "src": "/images/products/details/DISPLAY-SHOWCASES.png",
-        "title": "DISPLAY SHOWCASES"
-      },
-      {
-        "src": "/images/products/details/SHOPFRONTS.png",
-        "title": "SHOPFRONTS"
+        "src": "/images/products/details/Shower.png",
+        "title": "PREMIUM SHOWER ENCLOSURES"
       }
     ],
     "galleryImages": [
-      "/images/products/details/KITCHENS.png",
-      "/images/products/details/TABLETOPS.png",
-      "/images/products/details/PARTITIONS.png",
-      "/images/products/details/DISPLAY-SHOWCASES.png"
+      "/images/products/details/kitchens.png",
+      "/images/products/details/tabletops.png",
+      "/images/products/details/partitions.png",
+      "/images/products/details/Shower.png"
     ],
     "industries": [
       {
@@ -316,10 +308,10 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
       }
     ],
     "sliderImages": [
-      "/images/products/details/balmoral-by-riverside.jpg",
-      "/images/products/details/the-ark-tribeca.jpg",
-      "/images/products/details/varde-abil.jpg",
-      "/images/products/details/ganga-platino.jpg"
+      "/images/projects/verde.jpg",
+      "/images/projects/the-ark.jpg",
+      "/images/projects/solitaire-business-hub.jpg",
+      "/images/projects/nyati-empress.jpg"
     ],
     "relatedProductIds": [
       "clear-glass",
@@ -336,8 +328,8 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
     "introSummary": "Heat-strengthened glass is heat-treated glass that retains the distinctive properties of ordinary float glass. The glass is manufactured in one of the two electric horizontal roller-hearth tempering lines, where the glass is first heated and then cooled down with much less pressure. The machines are equipped with an advanced convection system to produce the best optical quality glass with a significant energy consumption reduction. Along with this, the super flat spotless technology ensures minimum iridescence and produces high-quality glass. Heat-strengthened glass is popular among design professionals for curtain wall façades of buildings, in both the vision and spandrel applications. It is valued for its mechanical strength, higher optical clarity, and flatter finish, and the probability of nickel sulfide inclusions inducing spontaneous breakages in the heat-strengthened glass is practically non-existent.",
     "secondaryText": "Heat-strengthened glass is heat-treated glass that retains the distinctive properties of ordinary float glass. The glass is manufactured in one of the two electric horizontal roller-hearth tempering lines, where the glass is first heated and then cooled down with much less pressure. The machines are equipped with an advanced convection system to produce the best optical quality glass with a significant energy consumption reduction. Along with this, the super flat spotless technology ensures minimum iridescence and produces high-quality glass. Heat-strengthened glass is popular among design professionals for curtain wall façades of buildings, in both the vision and spandrel applications. It is valued for its mechanical strength, higher optical clarity, and flatter finish, and the probability of nickel sulfide inclusions inducing spontaneous breakages in the heat-strengthened glass is practically non-existent.",
     "detailImages": [
-      "/images/products/details/FACADES-REFLECTIVE-GLASS.png",
-      "/images/products/details/EXTERIOR-WINDOWS.png"
+      "/images/products/details/high-rise-buildings.png",
+      "/images/products/details/balconies.png"
     ],
     "characteristics": [
       "2x Mechanical Strength of Float Glass",
@@ -376,27 +368,27 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
     "galleryTitle": "Glass Applications",
     "galleryImageItems": [
       {
-        "src": "/images/products/details/FACADES-REFLECTIVE-GLASS.png",
-        "title": "FACADES (REFLECTIVE GLASS)"
+        "src": "/images/products/details/facades-reflective.png",
+        "title": "REFLECTIVE FAÇADES"
       },
       {
-        "src": "/images/products/details/EXTERIOR-WINDOWS.png",
-        "title": "EXTERIOR (WINDOWS)"
+        "src": "/images/products/details/exterior-windows.png",
+        "title": "EXTERIOR ENVELOPE WINDOWS"
       },
       {
-        "src": "/images/products/details/high-rise-buildings.png",
-        "title": "CURTAIN WALLS & HIGH-RISE"
+        "src": "/images/products/details/windows-2.png",
+        "title": "ARCHITECTURAL WINDOWS"
       },
       {
-        "src": "/images/products/details/balconies.png",
-        "title": "SPANDREL & BALCONIES"
+        "src": "/images/products/details/facades-1.png",
+        "title": "STRUCTURAL SPANDREL FAÇADES"
       }
     ],
     "galleryImages": [
-      "/images/products/details/FACADES-REFLECTIVE-GLASS.png",
-      "/images/products/details/EXTERIOR-WINDOWS.png",
-      "/images/products/details/high-rise-buildings.png",
-      "/images/products/details/balconies.png"
+      "/images/products/details/facades-reflective.png",
+      "/images/products/details/exterior-windows.png",
+      "/images/products/details/windows-2.png",
+      "/images/products/details/facades-1.png"
     ],
     "industries": [
       {
@@ -406,10 +398,10 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
       }
     ],
     "sliderImages": [
-      "/images/products/details/balmoral-by-riverside.jpg",
-      "/images/products/details/the-ark-tribeca.jpg",
-      "/images/products/details/varde-abil.jpg",
-      "/images/products/details/ganga-platino.jpg"
+      "/images/projects/ganga-trueno.jpg",
+      "/images/projects/kushwal-wall-street.jpg",
+      "/images/projects/solitaire-business-hub.jpg",
+      "/images/projects/aradhya-square.jpg"
     ],
     "relatedProductIds": [
       "toughened-glass",
@@ -426,8 +418,8 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
     "introSummary": "Float glass used in windows and doors often contains microscopic nickel sulfide inclusions that can expand over time and cause panes of tempered glass to suddenly and unexpectedly break—an effect known as spontaneous breakage. This poses serious risks, as shattered glass can injure anyone nearby. Our Heat Soaked Glass to help eliminate this threat.",
     "secondaryText": "Through Magic Glass, we reheat fully tempered panes of glass in special heating chambers, accelerating any expansion of nickel sulfide that may occur naturally over the years. This controlled expansion causes any prone-to-break glass to fail safely inside the chamber rather than unexpectedly in the field. Once cooled, the resulting glass carries a dramatically reduced risk of spontaneous shattering.",
     "detailImages": [
-      "/images/products/details/INTERIOR-DECOR-1.png",
-      "/images/products/details/FACADES-REFLECTIVE-GLASS.png"
+      "/images/products/details/high-rise-buildings.png",
+      "/images/products/details/OVERHEAD-SPACES-1.png"
     ],
     "characteristics": [
       "Accelerated Hold Cycle in Oven (EN 14179)",
@@ -466,50 +458,50 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
     "galleryTitle": "Glass Applications",
     "galleryImageItems": [
       {
-        "src": "/images/products/details/INTERIOR-DECOR-1.png",
-        "title": "INTERIOR SAFETY PARTITIONS"
+        "src": "/images/products/details/facades-3.png",
+        "title": "TALL TOWER FAÇADES"
       },
       {
-        "src": "/images/products/details/FACADES-REFLECTIVE-GLASS.png",
-        "title": "STRUCTURAL FACADES"
+        "src": "/images/products/details/glass-lifts-1.png",
+        "title": "PANORAMIC GLASS LIFTS"
       },
       {
-        "src": "/images/products/details/HIGH-RISE-BUILDINGS.png",
-        "title": "HIGH-RISE TOWERS"
+        "src": "/images/products/details/Public-Spaces.png",
+        "title": "PUBLIC INFRASTRUCTURE"
       },
       {
-        "src": "/images/products/details/OVERHEAD-SPACES-1.png",
-        "title": "OVERHEAD SKYLIGHTS & CANOPIES"
+        "src": "/images/products/details/safety-doors.png",
+        "title": "CERTIFIED SAFETY ENTRANCES"
       }
     ],
     "galleryImages": [
-      "/images/products/details/INTERIOR-DECOR-1.png",
-      "/images/products/details/FACADES-REFLECTIVE-GLASS.png",
-      "/images/products/details/HIGH-RISE-BUILDINGS.png",
-      "/images/products/details/OVERHEAD-SPACES-1.png"
+      "/images/products/details/facades-3.png",
+      "/images/products/details/glass-lifts-1.png",
+      "/images/products/details/Public-Spaces.png",
+      "/images/products/details/safety-doors.png"
     ],
     "industries": [
       {
-        "title": "TRANSPORT",
-        "image": "/images/products/details/Transport.png",
-        "description": "Enhance the passenger experience in transport hubs with Ceramic Glass. Applied to glass walls, partitions, and panels, the coating offers both practicality and aesthetics, elevating the visual appeal and creating an inviting environment in train stations, airports, and other transportation settings."
+        "title": "HIGH-RISE TOWERS",
+        "image": "/images/products/details/high-rise-buildings.png",
+        "description": "Heat Soak Testing (HST) eliminates spontaneous breakage caused by nickel sulfide (NiS) inclusions, making it essential for overhead structural canopies and high-rise curtain walls."
       },
       {
-        "title": "PUBLIC SPACES",
+        "title": "PUBLIC INFRASTRUCTURE & TRANSIT",
         "image": "/images/products/details/Public-Spaces.png",
-        "description": "Enchant public spaces with Ceramic Glass, whether it&#8217;s shopping centers, museums, or educational institutions. The coating can be used to create privacy screens, captivating decorative elements, or elegant signage, captivating visitors while maintaining a flawless appearance."
+        "description": "Installed across metro rail stations, passenger terminals, and sports stadiums where public safety and zero spontaneous shatter risk are strictly mandated."
       },
       {
-        "title": "ARCHITECTURE",
-        "image": "/images/products/details/architecture.png",
-        "description": "Architects and designers choose Ceramic Glass to create architectural marvels that stand the test of time. From residential complexes to commercial buildings, this glass solution combines enduring beauty with unmatched durability, setting a new benchmark for excellence."
+        "title": "OVERHEAD CANOPIES & SKYLIGHTS",
+        "image": "/images/products/details/OVERHEAD-SPACES-1.png",
+        "description": "Critical for overhead skylights, glass bridges, and atrium roofs where glass must endure extreme thermal cycling without spontaneous failure."
       }
     ],
     "sliderImages": [
-      "/images/products/details/balmoral-by-riverside.jpg",
-      "/images/products/details/the-ark-tribeca.jpg",
-      "/images/products/details/varde-abil.jpg",
-      "/images/products/details/ganga-platino.jpg"
+      "/images/projects/solitaire-business-hub.jpg",
+      "/images/projects/aradhya-square.jpg",
+      "/images/projects/gera-imperium-gateway.jpg",
+      "/images/projects/pune-airport.jpg"
     ],
     "relatedProductIds": [
       "toughened-glass",
@@ -526,8 +518,8 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
     "introSummary": "Sentry Laminated Glass by Magic Glass elevates strength and durability to newer heights. Designed to surpass the strength of traditional PVB films, Sentry Laminated Glass employs the superior SGP (Sentry Glass Plus) film to offer unparalleled resistance.",
     "secondaryText": "Sentry Laminated Glass is engineered to withstand the toughest challenges, ensuring the safety and security of your spaces. With its robust SGP film, it offers increased resistance to impacts, breakage, and forced entry. Be it for commercial or residential purposes, sentry laminated glass provides security and delivers ultimate peace of mind, fortifying your surroundings with unyielding strength.",
     "detailImages": [
-      "/images/products/details/WINDOWS-2.png",
-      "/images/products/details/OVERHEAD-SPACES-1.png"
+      "/images/products/details/sentry-fins.jpg",
+      "/images/products/details/glass-lifts-1.png"
     ],
     "characteristics": [
       "5x Tear Strength & 100x Stiffness",
@@ -576,35 +568,27 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
     "galleryTitle": "Glass Applications",
     "galleryImageItems": [
       {
-        "src": "/images/products/details/WINDOWS-2.png",
-        "title": "WINDOWS"
-      },
-      {
         "src": "/images/products/details/OVERHEAD-SPACES-1.png",
-        "title": "OVERHEAD SPACES"
-      },
-      {
-        "src": "/images/products/details/GLASS-LIFTS-1.png",
-        "title": "GLASS LIFTS"
+        "title": "STRUCTURAL CANOPIES"
       },
       {
         "src": "/images/products/details/RAILINGS-STAIRCASE-AND-PARTITIONS-2.png",
-        "title": "RAILINGS, STAIRCASE, AND PARTITIONS"
+        "title": "CANTILEVERED BALUSTRADES"
       },
       {
-        "src": "/images/products/details/DOORS-1.png",
-        "title": "DOORS"
+        "src": "/images/products/details/doors-1.png",
+        "title": "HURRICANE & IMPACT DOORS"
       },
       {
-        "src": "/images/products/details/FACADES.png",
-        "title": "FACADES"
+        "src": "/images/products/details/facades.png",
+        "title": "POINT-SUPPORTED CURTAIN WALLS"
       }
     ],
     "galleryImages": [
-      "/images/products/details/WINDOWS-2.png",
       "/images/products/details/OVERHEAD-SPACES-1.png",
-      "/images/products/details/GLASS-LIFTS-1.png",
-      "/images/products/details/RAILINGS-STAIRCASE-AND-PARTITIONS-2.png"
+      "/images/products/details/RAILINGS-STAIRCASE-AND-PARTITIONS-2.png",
+      "/images/products/details/doors-1.png",
+      "/images/products/details/facades.png"
     ],
     "industries": [
       {
@@ -614,10 +598,10 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
       }
     ],
     "sliderImages": [
-      "/images/products/details/balmoral-by-riverside.jpg",
-      "/images/products/details/the-ark-tribeca.jpg",
-      "/images/products/details/varde-abil.jpg",
-      "/images/products/details/ganga-platino.jpg"
+      "/images/projects/pune-airport.jpg",
+      "/images/projects/goa-airport.jpg",
+      "/images/projects/solitaire-business-hub.jpg",
+      "/images/projects/aradhya-square.jpg"
     ],
     "relatedProductIds": [
       "pvb-laminated-glass",
@@ -634,8 +618,8 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
     "introSummary": "Designed to provide superior acoustic insulation and noise control, Acoustic Lami Glass plays a crucial role in creating a soothing and peaceful environment in both living and working spaces.",
     "secondaryText": "Acoustic Lami Glass is a revolution in sound control, consisting of multiple layers of glass bonded together by acoustic polyvinyl butyral (PVB) interlayers. This configuration acts as a noise dampener, weakening sound waves as they travel through the glass. By incorporating Acoustic Lami Glass, you can significantly reduce exterior noise, ensuring a peaceful atmosphere within your space. Additionally, the laminated glass provides an added safety benefit, as it remains intact even when broken, reducing the risk of injury.",
     "detailImages": [
-      "/images/products/details/WINDOWS-2.png",
-      "/images/products/details/PARTITIONS-1.png"
+      "/images/products/details/acoustic-boardroom.jpg",
+      "/images/products/details/acoustic-hero-wide.jpg"
     ],
     "characteristics": [
       "Superior Sound Insulation up to STC 42dB",
@@ -679,27 +663,27 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
     "galleryTitle": "Glass Applications",
     "galleryImageItems": [
       {
-        "src": "/images/products/details/WINDOWS-2.png",
-        "title": "WINDOWS"
+        "src": "/images/products/details/windows-2.png",
+        "title": "SOUND-DAMPENING WINDOWS"
       },
       {
-        "src": "/images/products/details/PARTITIONS-1.png",
-        "title": "PARTITIONS"
+        "src": "/images/products/details/partitions-1.png",
+        "title": "OFFICE PRIVACY PARTITIONS"
       },
       {
-        "src": "/images/products/details/DOORS-2.png",
-        "title": "DOORS"
+        "src": "/images/products/details/doors-2.png",
+        "title": "ACOUSTIC GLAZED DOORS"
       },
       {
-        "src": "/images/products/details/ARCHITECTURAL-INTERIOR.png",
-        "title": "ARCHITECTURAL INTERIOR"
+        "src": "/images/products/details/architectural-interior.png",
+        "title": "CONFERENCE AUDITORIUMS"
       }
     ],
     "galleryImages": [
-      "/images/products/details/WINDOWS-2.png",
-      "/images/products/details/PARTITIONS-1.png",
-      "/images/products/details/DOORS-2.png",
-      "/images/products/details/ARCHITECTURAL-INTERIOR.png"
+      "/images/products/details/windows-2.png",
+      "/images/products/details/partitions-1.png",
+      "/images/products/details/doors-2.png",
+      "/images/products/details/architectural-interior.png"
     ],
     "industries": [
       {
@@ -709,10 +693,10 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
       }
     ],
     "sliderImages": [
-      "/images/products/details/balmoral-by-riverside.jpg",
-      "/images/products/details/the-ark-tribeca.jpg",
-      "/images/products/details/varde-abil.jpg",
-      "/images/products/details/ganga-platino.jpg"
+      "/images/projects/pune-airport.jpg",
+      "/images/projects/srinagar-airport.jpg",
+      "/images/projects/aurangabad-airport.jpg",
+      "/images/projects/goa-airport.jpg"
     ],
     "relatedProductIds": [
       "pvb-laminated-glass",
@@ -729,8 +713,8 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
     "introSummary": "PVB Laminated Glass is made by combining layers of interlayer film with two or more panes of glass through a meticulous lamination process. Utilizing high temperature and pressure in an autoclave, we ensure exceptional adhesion and impact resistance.",
     "secondaryText": "With a range of interlayers including PVB, SGP, colored, and acoustic options, PVB Laminated Glass is the natural choice for applications requiring safety, security, solar control, UV protection, and noise reduction.",
     "detailImages": [
-      "/images/products/details/WINDOWS-1.png",
-      "/images/products/details/OVERHEAD-SPACES-1.png"
+      "/images/products/details/OVERHEAD-SPACES-1.png",
+      "/images/products/details/glass-lifts-1.png"
     ],
     "characteristics": [
       "Polyvinyl Butyral (PVB) High-Tension Interlayer",
@@ -779,35 +763,27 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
     "galleryTitle": "Glass Applications",
     "galleryImageItems": [
       {
-        "src": "/images/products/details/WINDOWS-1.png",
-        "title": "WINDOWS"
+        "src": "/images/products/details/windows-1.png",
+        "title": "SECURITY WINDOWS"
       },
       {
-        "src": "/images/products/details/OVERHEAD-SPACES-1.png",
-        "title": "OVERHEAD SPACES"
+        "src": "/images/products/details/railings-staircase-partitions.png",
+        "title": "STAIRCASE & BALUSTRADES"
       },
       {
-        "src": "/images/products/details/GLASS-LIFTS-1.png",
-        "title": "GLASS LIFTS"
+        "src": "/images/products/details/doors-2.png",
+        "title": "SAFETY ENTRANCE DOORS"
       },
       {
-        "src": "/images/products/details/RAILINGS-STAIRCASE-AND-PARTITIONS-2.png",
-        "title": "RAILINGS, STAIRCASE, AND PARTITIONS"
-      },
-      {
-        "src": "/images/products/details/DOORS-2.png",
-        "title": "DOORS"
-      },
-      {
-        "src": "/images/products/details/FACADES-1.png",
-        "title": "FACADES"
+        "src": "/images/products/details/facades-1.png",
+        "title": "LAMINATED FAÇADE PANELS"
       }
     ],
     "galleryImages": [
-      "/images/products/details/WINDOWS-1.png",
-      "/images/products/details/OVERHEAD-SPACES-1.png",
-      "/images/products/details/GLASS-LIFTS-1.png",
-      "/images/products/details/RAILINGS-STAIRCASE-AND-PARTITIONS-2.png"
+      "/images/products/details/windows-1.png",
+      "/images/products/details/railings-staircase-partitions.png",
+      "/images/products/details/doors-2.png",
+      "/images/products/details/facades-1.png"
     ],
     "industries": [
       {
@@ -817,10 +793,10 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
       }
     ],
     "sliderImages": [
-      "/images/products/details/balmoral-by-riverside.jpg",
-      "/images/products/details/the-ark-tribeca.jpg",
-      "/images/products/details/varde-abil.jpg",
-      "/images/products/details/ganga-platino.jpg"
+      "/images/projects/balmoral-by-riverside.jpg",
+      "/images/projects/ganga-trueno.jpg",
+      "/images/projects/eon-homes.jpg",
+      "/images/projects/nyati-elysia.jpg"
     ],
     "relatedProductIds": [
       "sentry-laminated-glass",
@@ -837,8 +813,8 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
     "introSummary": "Insulated glass is a combination of two or more panels that are spaced apart and sealed with sealant to appear as a single unit. At Magic Glass, we have state-of-the-art fully automatic Insulating lines with robot sealing. We were also the first company to manufacture Insulated glass in Pune. With such long experience and an excellent team, we have mastered the art of making the highest quality Insulated panels.",
     "secondaryText": "By harnessing the power of Insulated Glass (DGU) by Magic Glass, you can create a comfortable and sustainable environment while significantly lowering your energy costs.",
     "detailImages": [
-      "/images/products/details/FACADES-3.png",
-      "/images/products/details/PARTITIONS-1.png"
+      "/images/products/details/dgu-facade.jpg",
+      "/images/products/details/high-rise-buildings.png"
     ],
     "characteristics": [
       "Robotic Sealing with Fenzi Butyl & Dow Silicone",
@@ -907,27 +883,27 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
     "galleryTitle": "Glass Applications",
     "galleryImageItems": [
       {
-        "src": "/images/products/details/FACADES-3.png",
-        "title": "FACADES"
+        "src": "/images/products/details/facades-3.png",
+        "title": "ENERGY-EFFICIENT FAÇADES"
       },
       {
-        "src": "/images/products/details/PARTITIONS-1.png",
-        "title": "PARTITIONS"
+        "src": "/images/products/details/partitions-1.png",
+        "title": "CLIMATE CONTROLLED PARTITIONS"
       },
       {
-        "src": "/images/products/details/HIGH-RISE-BUILDINGS.png",
-        "title": "HIGH-RISE BUILDINGS"
+        "src": "/images/products/details/windows-2.png",
+        "title": "DUAL PANE CASEMENT WINDOWS"
       },
       {
-        "src": "/images/products/details/WINDOWS-2.png",
-        "title": "WINDOWS"
+        "src": "/images/products/details/Airports.png",
+        "title": "AIRPORT TERMINALS"
       }
     ],
     "galleryImages": [
-      "/images/products/details/FACADES-3.png",
-      "/images/products/details/PARTITIONS-1.png",
-      "/images/products/details/HIGH-RISE-BUILDINGS.png",
-      "/images/products/details/WINDOWS-2.png"
+      "/images/products/details/facades-3.png",
+      "/images/products/details/partitions-1.png",
+      "/images/products/details/windows-2.png",
+      "/images/products/details/Airports.png"
     ],
     "industries": [
       {
@@ -942,10 +918,10 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
       }
     ],
     "sliderImages": [
-      "/images/products/details/balmoral-by-riverside.jpg",
-      "/images/products/details/the-ark-tribeca.jpg",
-      "/images/products/details/varde-abil.jpg",
-      "/images/products/details/ganga-platino.jpg"
+      "/images/projects/solitaire-business-hub.jpg",
+      "/images/projects/aradhya-square.jpg",
+      "/images/projects/atrium-mall.jpg",
+      "/images/projects/gera-imperium-gateway.jpg"
     ],
     "relatedProductIds": [
       "dgu-laminated-glass",
@@ -962,8 +938,8 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
     "introSummary": "Indulge in the world of DGU Laminated Glass by Magic Glass, where luxury and elegance intertwine flawlessly. Crafted to elevate premium spaces to unprecedented heights, DGU Laminated Glass is the epitome of super luxurious glass.",
     "secondaryText": "From its impeccable appearance to its exceptional performance, DGU Laminated Glass emanates opulence and refinement, making it the ultimate choice for prestigious venues including airports and 5-star hotels.",
     "detailImages": [
-      "/images/products/details/WINDOWS-2.png",
-      "/images/products/details/FACADES-3.png"
+      "/images/products/details/dgu-facade.jpg",
+      "/images/products/details/hospitality-1-2.png"
     ],
     "characteristics": [
       "Laminated Safety Outer Pane + Low-E DGU Unit",
@@ -1028,26 +1004,26 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
     "galleryImageItems": [
       {
         "src": "/images/products/details/windows-2.png",
-        "title": "ENERGY-EFFICIENT WINDOWS"
+        "title": "ACOUSTIC THERMAL WINDOWS"
       },
       {
         "src": "/images/products/details/facades-3.png",
-        "title": "ACOUSTIC FACADES"
+        "title": "STRUCTURAL DGU FAÇADES"
       },
       {
         "src": "/images/products/details/Airports.png",
-        "title": "AIRPORTS & TRANSIT HUBS"
+        "title": "AIRPORT CONCOURSE WALLS"
       },
       {
-        "src": "/images/products/details/hospitality-1-2.png",
-        "title": "LUXURY HOSPITALITY ENCLOSURES"
+        "src": "/images/products/details/high-rise-buildings.png",
+        "title": "HIGH-RISE SKYLINE ENVELOPES"
       }
     ],
     "galleryImages": [
       "/images/products/details/windows-2.png",
       "/images/products/details/facades-3.png",
       "/images/products/details/Airports.png",
-      "/images/products/details/hospitality-1-2.png"
+      "/images/products/details/high-rise-buildings.png"
     ],
     "industries": [
       {
@@ -1062,10 +1038,10 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
       }
     ],
     "sliderImages": [
-      "/images/products/details/balmoral-by-riverside.jpg",
-      "/images/products/details/the-ark-tribeca.jpg",
-      "/images/products/details/varde-abil.jpg",
-      "/images/products/details/ganga-platino.jpg"
+      "/images/projects/pune-airport.jpg",
+      "/images/projects/goa-airport.jpg",
+      "/images/projects/solitaire-business-hub.jpg",
+      "/images/projects/aradhya-square.jpg"
     ],
     "relatedProductIds": [
       "insulated-glass-dgu",
@@ -1082,8 +1058,8 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
     "introSummary": "High-Performance Low-E Glass leverages cutting-edge technology to provide superior thermal performance. Designed as an advanced thermal insulation glass (Low-E), High-Performance Low-E Glass revolutionizes energy efficiency in buildings, setting new benchmarks in the glass manufacturing industry in India.",
     "secondaryText": "Manufactured using state-of-the-art magnetron sputtering processes under vacuum conditions, this coated glass reflects long-wave heat radiation, ensuring exceptional thermal insulation and maximum occupant comfort. With outstanding light transmission and minimal reflection, High-Performance Low-E Glass allows ample natural light to penetrate while providing unparalleled clarity.",
     "detailImages": [
-      "/images/products/details/FACADES-1.png",
-      "/images/products/details/architecture.png"
+      "/images/products/details/high-rise-buildings.png",
+      "/images/products/details/windows-2.png"
     ],
     "characteristics": [
       "Off-Line Vacuum Sputtered Magnetron Coating",
@@ -1123,25 +1099,25 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
     "galleryImageItems": [
       {
         "src": "/images/products/details/facades-1.png",
-        "title": "ENERGY-EFFICIENT FACADES"
+        "title": "SOLAR CONTROL FAÇADES"
       },
       {
-        "src": "/images/products/details/windows-2.png",
-        "title": "COMMERCIAL WINDOW SYSTEMS"
+        "src": "/images/products/details/Public-Spaces.png",
+        "title": "PUBLIC INFRASTRUCTURE ENVELOPES"
       },
       {
-        "src": "/images/products/details/high-rise-buildings.png",
-        "title": "HIGH-RISE CURTAIN WALLS"
+        "src": "/images/products/details/facades-3.png",
+        "title": "COMMERCIAL GLAZED TOWERS"
       },
       {
         "src": "/images/products/details/partitions-1.png",
-        "title": "ACOUSTIC & THERMAL PARTITIONS"
+        "title": "DAYLIGHT ATRIUMS"
       }
     ],
     "galleryImages": [
       "/images/products/details/facades-1.png",
-      "/images/products/details/windows-2.png",
-      "/images/products/details/high-rise-buildings.png",
+      "/images/products/details/Public-Spaces.png",
+      "/images/products/details/facades-3.png",
       "/images/products/details/partitions-1.png"
     ],
     "industries": [
@@ -1162,10 +1138,10 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
       }
     ],
     "sliderImages": [
-      "/images/products/details/balmoral-by-riverside.jpg",
-      "/images/products/details/the-ark-tribeca.jpg",
-      "/images/products/details/varde-abil.jpg",
-      "/images/products/details/ganga-platino.jpg"
+      "/images/projects/gera-imperium-gateway.jpg",
+      "/images/projects/solitaire-business-hub.jpg",
+      "/images/projects/kushwal-wall-street.jpg",
+      "/images/projects/nyati-empress.jpg"
     ],
     "relatedProductIds": [
       "skn-ultra-high-performance-glass",
@@ -1182,8 +1158,8 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
     "introSummary": "Ultra-high-performance glass provides natural light transmission while helping to limit heat gain and thermal energy transfer. Through continuous improvements in its thermal insulation and solar control performance, glass has become a flexible building material that can improve buildings&#8217; energy efficiency. High-performance coated glass is a critical part of our glazing system. Coated glass allows building occupants to engage visually with the external environment from a comfortable interior.",
     "secondaryText": "High-performance glass works by controlling how it interacts with the electromagnetic spectrum. Solar energy from the sun includes ultraviolet, visible, and near-infrared wavelengths ranging from 300 to 2,500 nm. Solar control-coated glass can block a significant portion of this energy by reflecting and absorbing it. High-performance coatings on glass are designed to slow radiant heat transfer by reflecting longwave radiation (heat) into the building structure during cooler periods.",
     "detailImages": [
-      "/images/products/details/FACADES-1.png",
-      "/images/products/details/architecture.png"
+      "/images/products/details/high-rise-buildings.png",
+      "/images/products/details/OVERHEAD-SPACES-1.png"
     ],
     "characteristics": [
       "Double & Triple Silver Coated Chemistry",
@@ -1223,26 +1199,26 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
     "galleryImageItems": [
       {
         "src": "/images/products/details/facades-1.png",
-        "title": "COMMERCIAL FACADES"
+        "title": "FLAGSHIP COMMERCIAL CURTAIN WALLS"
       },
       {
         "src": "/images/products/details/windows-1.png",
-        "title": "EXTERIOR WINDOWS"
+        "title": "HIGH-TRANSMISSION WINDOWS"
       },
       {
-        "src": "/images/products/details/high-rise-buildings.png",
-        "title": "HIGH-RISE ARCHITECTURE"
+        "src": "/images/products/details/facades-3.png",
+        "title": "PREMIER OFFICE TOWERS"
       },
       {
-        "src": "/images/products/details/OVERHEAD-SPACES-1.png",
-        "title": "OVERHEAD CANOPIES & SKYLIGHTS"
+        "src": "/images/products/details/Public-Spaces.png",
+        "title": "METRO & TRANSPORT HUBS"
       }
     ],
     "galleryImages": [
       "/images/products/details/facades-1.png",
       "/images/products/details/windows-1.png",
-      "/images/products/details/high-rise-buildings.png",
-      "/images/products/details/OVERHEAD-SPACES-1.png"
+      "/images/products/details/facades-3.png",
+      "/images/products/details/Public-Spaces.png"
     ],
     "industries": [
       {
@@ -1262,10 +1238,10 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
       }
     ],
     "sliderImages": [
-      "/images/products/details/balmoral-by-riverside.jpg",
-      "/images/products/details/the-ark-tribeca.jpg",
-      "/images/products/details/varde-abil.jpg",
-      "/images/products/details/ganga-platino.jpg"
+      "/images/projects/solitaire-business-hub.jpg",
+      "/images/projects/aradhya-square.jpg",
+      "/images/projects/atrium-mall.jpg",
+      "/images/projects/ganga-trueno.jpg"
     ],
     "relatedProductIds": [
       "high-performance-low-e-glass",
@@ -1282,8 +1258,8 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
     "introSummary": "In the face of unpredictable natural calamities such as fire, Fire & Safety Glass by Magic Glass emerges as a crucial line of defense for residential and commercial spaces. With its exceptional fire-resistant properties, this specially laminated glass is designed to withstand high temperatures, preventing the spread of fire and containing it within a specific location. By installing Fire & Safety Glass, you proactively minimize damage and enhance the safety of your property and its occupants.",
     "secondaryText": "Fire & Safety Glass by Magic Glass is more than just a protective barrier—it is a lifeline during critical moments. Its robust composition acts as a shield, preventing the fire from spreading through the glass and minimizing the risk of smoke inhalation. By confining the fire and limiting the spread of smoke, Fire & Safety Glass provides precious time for occupants to call for help and evacuate safely. It is a testament to our commitment to saving lives and protecting properties, offering unmatched peace of mind in the face of fire-related emergencies.",
     "detailImages": [
-      "/images/products/details/ARCHITECTURE-HOSPITALS.png",
-      "/images/products/details/SAFETY-DOORS.png"
+      "/images/products/details/fire-doors.jpg",
+      "/images/products/details/architecture-hospitals.png"
     ],
     "characteristics": [
       "Laminated Fire-Resistive Composition",
@@ -1317,27 +1293,27 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
     "galleryTitle": "Glass Applications",
     "galleryImageItems": [
       {
-        "src": "/images/products/details/architecture-hospitals.png",
-        "title": "HEALTHCARE & HOSPITALS"
-      },
-      {
         "src": "/images/products/details/safety-doors.png",
-        "title": "FIRE RATED SAFETY DOORS"
+        "title": "FIRE RATED CORRIDOR DOORS"
       },
       {
         "src": "/images/products/details/partitions-1.png",
-        "title": "COMPARTMENTATION PARTITIONS"
+        "title": "COMPARTMENTAL FIRE PARTITIONS"
       },
       {
         "src": "/images/products/details/Public-Spaces.png",
-        "title": "PUBLIC SPACES & ATRIUMS"
+        "title": "TRANSIT & PUBLIC EVACUATION ZONES"
+      },
+      {
+        "src": "/images/products/details/hospitality-1.png",
+        "title": "HOTEL STAIRWELL ENCLOSURES"
       }
     ],
     "galleryImages": [
-      "/images/products/details/architecture-hospitals.png",
       "/images/products/details/safety-doors.png",
       "/images/products/details/partitions-1.png",
-      "/images/products/details/Public-Spaces.png"
+      "/images/products/details/Public-Spaces.png",
+      "/images/products/details/hospitality-1.png"
     ],
     "industries": [
       {
@@ -1352,10 +1328,10 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
       }
     ],
     "sliderImages": [
-      "/images/products/details/balmoral-by-riverside.jpg",
-      "/images/products/details/the-ark-tribeca.jpg",
-      "/images/products/details/varde-abil.jpg",
-      "/images/products/details/ganga-platino.jpg"
+      "/images/projects/aurangabad-airport.jpg",
+      "/images/projects/srinagar-airport.jpg",
+      "/images/projects/pune-airport.jpg",
+      "/images/projects/33-keshavkung.jpg"
     ],
     "relatedProductIds": [
       "toughened-glass",
@@ -1372,8 +1348,8 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
     "introSummary": "Step into the world of Ceramic Glass by Magic Glass, where artistry meets durability. Through the innovative process of Ceramic fritting, glass enamel is fused onto the glass surface, creating a permanent coating that withstands the test of time. Light frit colors and pattern designs enhance brightness, while dark frit colors reduce glare, offering a harmonious balance of aesthetics and functionality.",
     "secondaryText": "Ceramic Glass unlocks boundless possibilities in interior and façade design. Its versatile application allows for privacy, background concealment, product enhancement, and pure aesthetic appeal. The coating remains impervious to moisture, oil, soaps, chemicals, or detergents, ensuring a pristine appearance throughout the glass’s lifespan. With Ceramic Glass, you can redefine the boundaries of design, making a lasting impression with enduring elegance.",
     "detailImages": [
-      "/images/products/details/INTERIOR-DECOR-1.png",
-      "/images/products/details/FACADES-REFLECTIVE-GLASS.png"
+      "/images/products/details/ceramic-frit.jpg",
+      "/images/products/details/INTERIOR-DECOR-1.png"
     ],
     "characteristics": [
       "Ceramic Enamel Permanently Fused at 650°C",
@@ -1408,19 +1384,19 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
     "galleryImageItems": [
       {
         "src": "/images/products/details/interiors.png",
-        "title": "INTERIOR DECORATIVE PANELS"
+        "title": "CERAMIC ENAMELLED WALLS"
       },
       {
         "src": "/images/products/details/facades-1.png",
-        "title": "SOLAR-CONTROL FACADES"
+        "title": "FRITTED SOLAR CONTROL FAÇADES"
       },
       {
         "src": "/images/products/details/high-rise-buildings.png",
-        "title": "HIGH-RISE SPANDRELS"
+        "title": "SPANDREL GLASS PANELS"
       },
       {
         "src": "/images/products/details/shopfronts.png",
-        "title": "RETAIL CANOPIES & STOREFRONTS"
+        "title": "BRANDED RETAIL SHOPFRONTS"
       }
     ],
     "galleryImages": [
@@ -1447,10 +1423,10 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
       }
     ],
     "sliderImages": [
-      "/images/products/details/balmoral-by-riverside.jpg",
-      "/images/products/details/the-ark-tribeca.jpg",
-      "/images/products/details/varde-abil.jpg",
-      "/images/products/details/ganga-platino.jpg"
+      "/images/projects/atrium-mall.jpg",
+      "/images/projects/solitaire-business-hub.jpg",
+      "/images/projects/nyati-empress.jpg",
+      "/images/projects/kushwal-wall-street.jpg"
     ],
     "relatedProductIds": [
       "frosted-glass",
@@ -1467,8 +1443,8 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
     "introSummary": "With its distinct appearance, Frosted Glass adds a touch of sophistication to any space. Using techniques like sandblasting, the transparent sheet of glass is transformed into an opaque masterpiece. Light scattering during transmission creates a translucent effect, allowing the glass to transmit light while obscuring visibility.",
     "secondaryText": "This type of glass is widely used in interior applications and gives a great aesthetic appeal. In furniture, it adds a layer of elegance, whether as cabinet doors, tabletops, or shelving units, transforming ordinary pieces into extraordinary statements. In bathrooms, Frosted Glass provides privacy while still allowing natural light to filter through, creating a serene and soothing atmosphere. Railings adorned with Frosted Glass elevate safety and design, adding a touch of sophistication to staircases, balconies, or any architectural element.",
     "detailImages": [
-      "/images/products/details/FURNITURE.png",
-      "/images/products/details/BATHROOMS.png"
+      "/images/products/details/frosted-office.jpg",
+      "/images/products/details/frosted-bathroom.jpg"
     ],
     "characteristics": [
       "Non-Fingerprint Translucent Acid-Etched Surface",
@@ -1502,27 +1478,27 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
     "galleryTitle": "Glass Applications",
     "galleryImageItems": [
       {
-        "src": "/images/products/details/FURNITURE.png",
-        "title": "FURNITURE"
+        "src": "/images/products/details/furniture.png",
+        "title": "FURNITURE & TABLETOPS"
       },
       {
-        "src": "/images/products/details/BATHROOMS.png",
-        "title": "BATHROOMS"
+        "src": "/images/products/details/bathrooms.png",
+        "title": "LUXURY BATHROOMS"
       },
       {
-        "src": "/images/products/details/RAILINGS.png",
-        "title": "RAILINGS"
+        "src": "/images/products/details/frosted-railing.jpg",
+        "title": "PRIVACY BALCONY BALUSTRADES"
       },
       {
-        "src": "/images/products/details/WALL-PARTITIONS-DOORS.png",
-        "title": "WALL PARTITIONS, DOORS"
+        "src": "/images/products/details/wall-partitions-doors.png",
+        "title": "SLIDING DOORS & PARTITIONS"
       }
     ],
     "galleryImages": [
-      "/images/products/details/FURNITURE.png",
-      "/images/products/details/BATHROOMS.png",
-      "/images/products/details/RAILINGS.png",
-      "/images/products/details/WALL-PARTITIONS-DOORS.png"
+      "/images/products/details/furniture.png",
+      "/images/products/details/bathrooms.png",
+      "/images/products/details/frosted-railing.jpg",
+      "/images/products/details/wall-partitions-doors.png"
     ],
     "industries": [
       {
@@ -1532,10 +1508,10 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
       }
     ],
     "sliderImages": [
-      "/images/products/details/balmoral-by-riverside.jpg",
-      "/images/products/details/the-ark-tribeca.jpg",
-      "/images/products/details/varde-abil.jpg",
-      "/images/products/details/ganga-platino.jpg"
+      "/images/projects/balmoral-by-riverside.jpg",
+      "/images/projects/verde.jpg",
+      "/images/projects/the-ark.jpg",
+      "/images/projects/ganga-platino.jpg"
     ],
     "relatedProductIds": [
       "mirror-glass",
@@ -1552,8 +1528,8 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
     "introSummary": "Mirrored glass adds a living quality to your design. Whether you want a glamorous, full reflection effect, specific reflectivity with light-diffusing etched or patterned surfaces, or a custom luminous color, we can help. Pair graphics with a mirror to achieve depth, or add an etched layer for a soft, welcoming glow.",
     "secondaryText": "Discover the widest range of designs, shapes, and colors to maximise the room’s lighting, making the details look more prominent than ever",
     "detailImages": [
-      "/images/products/details/INTERIOR-DECOR.png",
-      "/images/products/details/architecture.png"
+      "/images/products/details/mirror-vanity.jpg",
+      "/images/products/details/mirror-wall.jpg"
     ],
     "characteristics": [
       "Copper-Free & Lead-Free Environmental Backing",
@@ -1603,7 +1579,7 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
     "galleryImageItems": [
       {
         "src": "/images/products/details/INTERIOR-DECOR.png",
-        "title": "INTERIOR & DECOR"
+        "title": "INTERIOR & LUXURY DECOR"
       },
       {
         "src": "/images/products/details/bathrooms.png",
@@ -1642,10 +1618,10 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
       }
     ],
     "sliderImages": [
-      "/images/products/details/balmoral-by-riverside.jpg",
-      "/images/products/details/the-ark-tribeca.jpg",
-      "/images/products/details/varde-abil.jpg",
-      "/images/products/details/ganga-platino.jpg"
+      "/images/projects/the-ark.jpg",
+      "/images/projects/verde.jpg",
+      "/images/projects/balmoral-by-riverside.jpg",
+      "/images/projects/apostrophe.jpg"
     ],
     "relatedProductIds": [
       "extra-clear-glass",

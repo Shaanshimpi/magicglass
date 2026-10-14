@@ -10,8 +10,7 @@ if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger)
 }
 
-const DEFAULT_FALLBACK_IMG =
-  'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1200&q=80'
+const DEFAULT_FALLBACK_IMG = '/images/projects/balmoral-by-riverside.jpg'
 
 interface PdpScrubbedImageProps {
   src: string
