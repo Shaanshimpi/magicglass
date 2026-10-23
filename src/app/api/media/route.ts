@@ -4,6 +4,7 @@ import path from 'path'
 import sharp from 'sharp'
 import { getPayload } from 'payload'
 import configPromise from '@payload-config'
+import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3'
 
 export interface MediaItemDto {
   id: string
@@ -17,6 +18,23 @@ export interface MediaItemDto {
   format: string
   createdAt: string
 }
+
+// Cloudflare R2 Configuration with safe fallback defaults
+const R2_BUCKET = process.env.R2_BUCKET_NAME || 'magicglassmedia'
+const R2_ENDPOINT = process.env.R2_ENDPOINT || 'https://e8946ac9629a61bbcaf129fe511e6976.r2.cloudflarestorage.com'
+const R2_ACCESS_KEY = process.env.R2_ACCESS_KEY_ID || 'f5b19787302bb8af2fc4e6f7ec6b268c'
+const R2_SECRET_KEY = process.env.R2_SECRET_ACCESS_KEY || '73ec9aac097a21ed10bd35d829bb51351524976e9d5eeb726ba7dd121e70c1a9'
+const R2_PUBLIC_BASE = (process.env.R2_PUBLIC_URL || 'https://media.magicglass.co.in').replace(/\/+$/, '')
+
+const r2Client = new S3Client({
+  endpoint: R2_ENDPOINT,
+  region: 'auto',
+  credentials: {
+    accessKeyId: R2_ACCESS_KEY,
+    secretAccessKey: R2_SECRET_KEY,
+  },
+  forcePathStyle: true,
+})
 
 // In-memory cache for fast metadata lookup
 const metadataCache = new Map<string, { width: number; height: number; size: number; aspect: string; format: string }>()
@@ -59,8 +77,43 @@ export async function GET(req: Request) {
     const searchFilter = searchParams.get('search')?.toLowerCase()
 
     const results: MediaItemDto[] = []
+    const visitedUrls = new Set<string>()
 
-    // 1. Scan directory structures in public/images
+    // 1. Fetch from Payload CMS Media collection (Backed by Cloudflare R2)
+    try {
+      const payload = await getPayload({ config: configPromise })
+      if (payload) {
+        const payloadMedia = await payload.find({
+          collection: 'media',
+          limit: 250,
+          sort: '-createdAt',
+        })
+        for (const doc of payloadMedia.docs) {
+          const docUrl = doc.url || (doc.filename ? `${R2_PUBLIC_BASE}/${doc.filename}` : '')
+          if (docUrl && !visitedUrls.has(docUrl)) {
+            visitedUrls.add(docUrl)
+            const width = doc.width || 0
+            const height = doc.height || 0
+            results.push({
+              id: String(doc.id),
+              name: doc.alt || doc.filename || 'Cloudflare R2 Media',
+              url: docUrl,
+              category: 'User Uploads',
+              width,
+              height,
+              size: doc.filesize || 0,
+              aspect: width && height ? (width / height).toFixed(2) + ':1' : '1:1',
+              format: (doc.mimeType?.split('/')[1] || 'IMAGE').toUpperCase(),
+              createdAt: doc.createdAt || new Date().toISOString(),
+            })
+          }
+        }
+      }
+    } catch (err) {
+      console.warn('Payload CMS media collection query skipped:', err)
+    }
+
+    // 2. Safe local directory scan in public/images (works on both local & Vercel bundled output)
     const scannedDirs = [
       { dir: 'public/images/products/heroes', category: 'Heroes & Banners' },
       { dir: 'public/images/products', category: 'Products' },
@@ -72,71 +125,41 @@ export async function GET(req: Request) {
       { dir: 'public/images', category: 'General' },
     ]
 
-    const visitedUrls = new Set<string>()
-
     for (const item of scannedDirs) {
-      const absDir = path.resolve(item.dir)
-      if (!fs.existsSync(absDir)) continue
+      try {
+        const absDir = path.resolve(item.dir)
+        if (!fs.existsSync(absDir)) continue
 
-      const files = fs.readdirSync(absDir, { withFileTypes: true })
-      for (const f of files) {
-        if (!f.isFile() || !/\.(png|jpe?g|webp|svg|gif|avif)$/i.test(f.name)) continue
+        const files = fs.readdirSync(absDir, { withFileTypes: true })
+        for (const f of files) {
+          if (!f.isFile() || !/\.(png|jpe?g|webp|svg|gif|avif)$/i.test(f.name)) continue
 
-        const relativeUrl = '/' + path.relative('public', path.join(absDir, f.name)).replace(/\\/g, '/')
-        if (visitedUrls.has(relativeUrl)) continue
-        visitedUrls.add(relativeUrl)
+          const relativeUrl = '/' + path.relative('public', path.join(absDir, f.name)).replace(/\\/g, '/')
+          if (visitedUrls.has(relativeUrl)) continue
+          visitedUrls.add(relativeUrl)
 
-        const meta = await getFileMeta(path.join(absDir, f.name))
-        const cleanName = f.name
-          .replace(/\.[^/.]+$/, '')
-          .replace(/[-_]+/g, ' ')
-          .replace(/\b\w/g, (c) => c.toUpperCase())
+          const meta = await getFileMeta(path.join(absDir, f.name))
+          const cleanName = f.name
+            .replace(/\.[^/.]+$/, '')
+            .replace(/[-_]+/g, ' ')
+            .replace(/\b\w/g, (c) => c.toUpperCase())
 
-        results.push({
-          id: relativeUrl,
-          name: cleanName,
-          url: relativeUrl,
-          category: item.category,
-          width: meta.width,
-          height: meta.height,
-          size: meta.size,
-          aspect: meta.aspect,
-          format: meta.format,
-          createdAt: new Date().toISOString(),
-        })
-      }
-    }
-
-    // 2. Fetch from Payload CMS Media collection if available
-    try {
-      const payload = await getPayload({ config: configPromise })
-      if (payload) {
-        const payloadMedia = await payload.find({
-          collection: 'media',
-          limit: 100,
-          sort: '-createdAt',
-        })
-        for (const doc of payloadMedia.docs) {
-          const docUrl = doc.url || (doc.filename ? `/media/${doc.filename}` : '')
-          if (docUrl && !visitedUrls.has(docUrl)) {
-            visitedUrls.add(docUrl)
-            results.unshift({
-              id: String(doc.id),
-              name: doc.alt || doc.filename || 'CMS Upload',
-              url: docUrl,
-              category: 'CMS Uploads',
-              width: doc.width || 0,
-              height: doc.height || 0,
-              size: doc.filesize || 0,
-              aspect: doc.width && doc.height ? (doc.width / doc.height).toFixed(2) + ':1' : '1:1',
-              format: (doc.mimeType?.split('/')[1] || 'IMAGE').toUpperCase(),
-              createdAt: doc.createdAt || new Date().toISOString(),
-            })
-          }
+          results.push({
+            id: relativeUrl,
+            name: cleanName,
+            url: relativeUrl,
+            category: item.category,
+            width: meta.width,
+            height: meta.height,
+            size: meta.size,
+            aspect: meta.aspect,
+            format: meta.format,
+            createdAt: new Date().toISOString(),
+          })
         }
+      } catch {
+        // Skip directory read errors safely in serverless
       }
-    } catch {
-      // Ignore Payload fetch error, local scan is already populated
     }
 
     // Filter results
@@ -182,11 +205,6 @@ export async function POST(req: Request) {
       return NextResponse.json({ success: false, error: 'No files provided for upload' }, { status: 400 })
     }
 
-    const uploadsDir = path.resolve('public/images/uploads')
-    if (!fs.existsSync(uploadsDir)) {
-      fs.mkdirSync(uploadsDir, { recursive: true })
-    }
-
     const uploadedItems: MediaItemDto[] = []
 
     for (const file of allUploads) {
@@ -195,14 +213,21 @@ export async function POST(req: Request) {
         .toLowerCase()
         .replace(/[^a-z0-9._-]/g, '-')
         .replace(/-+/g, '-')
-      
+
       const ext = path.extname(safeName)
       const baseName = path.basename(safeName, ext)
       const uniqueFilename = `${baseName}-${Date.now()}${ext}`
-      const targetPath = path.join(uploadsDir, uniqueFilename)
+      const mimeType =
+        file.type ||
+        (ext === '.png'
+          ? 'image/png'
+          : ext === '.webp'
+          ? 'image/webp'
+          : ext === '.svg'
+          ? 'image/svg+xml'
+          : 'image/jpeg')
 
-      fs.writeFileSync(targetPath, buffer)
-
+      // 1. Calculate natural image dimensions via Sharp
       let width = 0
       let height = 0
       let format = ext.replace('.', '').toUpperCase()
@@ -214,13 +239,23 @@ export async function POST(req: Request) {
       } catch {}
 
       const aspect = height > 0 ? (width / height).toFixed(2) + ':1' : '1:1'
-      const relativeUrl = `/images/uploads/${uniqueFilename}`
-
       const cleanName = baseName
         .replace(/[-_]+/g, ' ')
         .replace(/\b\w/g, (c) => c.toUpperCase())
 
-      // Also register in Payload CMS if available
+      // 2. Direct upload to Cloudflare R2
+      const r2Key = uniqueFilename
+      await r2Client.send(
+        new PutObjectCommand({
+          Bucket: R2_BUCKET,
+          Key: r2Key,
+          Body: buffer,
+          ContentType: mimeType,
+        })
+      )
+      const publicUrl = `${R2_PUBLIC_BASE}/${r2Key}`
+
+      // 3. Register in Payload CMS media collection (Uses s3Storage with disableLocalStorage: true)
       try {
         const payload = await getPayload({ config: configPromise })
         if (payload) {
@@ -231,21 +266,33 @@ export async function POST(req: Request) {
             },
             file: {
               data: buffer,
-              mimetype: file.type || 'image/jpeg',
+              mimetype: mimeType,
               name: uniqueFilename,
               size: buffer.length,
             },
           })
         }
       } catch (cmsErr) {
-        // Fallback: local file is saved regardless
-        console.warn('Payload CMS media create fallback to local file:', cmsErr)
+        console.warn('Payload CMS media create fallback (R2 upload already succeeded):', cmsErr)
+      }
+
+      // 4. Safe optional local disk write (only on local dev, NEVER on Vercel)
+      if (!process.env.VERCEL) {
+        try {
+          const uploadsDir = path.resolve('public/images/uploads')
+          if (!fs.existsSync(uploadsDir)) {
+            fs.mkdirSync(uploadsDir, { recursive: true })
+          }
+          fs.writeFileSync(path.join(uploadsDir, uniqueFilename), buffer)
+        } catch {
+          // Ignore read-only filesystem errors silently
+        }
       }
 
       const item: MediaItemDto = {
-        id: relativeUrl,
+        id: publicUrl,
         name: cleanName,
-        url: relativeUrl,
+        url: publicUrl,
         category: 'User Uploads',
         width,
         height,
@@ -260,7 +307,7 @@ export async function POST(req: Request) {
 
     return NextResponse.json({
       success: true,
-      message: `Successfully uploaded ${uploadedItems.length} file(s)`,
+      message: `Successfully uploaded ${uploadedItems.length} file(s) to Cloudflare R2`,
       uploaded: uploadedItems,
       items: uploadedItems,
       item: uploadedItems[0] || null,
