@@ -5,7 +5,7 @@ import Image from 'next/image'
 import gsap from 'gsap'
 import styles from './PdpHero.module.css'
 
-const DEFAULT_HERO_FALLBACK = '/images/products/toughened-glass.png'
+const DEFAULT_HERO_FALLBACK = '/images/products/heroes/toughened-glass.png'
 
 interface PdpHeroProps {
   indexNumber: string
@@ -25,6 +25,10 @@ export const PdpHero: React.FC<PdpHeroProps> = ({
   const [src, setSrc] = useState<string>(heroImage || DEFAULT_HERO_FALLBACK)
   const heroInnerRef = useRef<HTMLDivElement>(null)
   const frameRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    setSrc(heroImage || DEFAULT_HERO_FALLBACK)
+  }, [heroImage])
 
   useEffect(() => {
     if (!heroInnerRef.current) return
@@ -82,6 +86,7 @@ export const PdpHero: React.FC<PdpHeroProps> = ({
             fill
             priority
             sizes="100vw"
+            quality={90}
             onError={() => setSrc(DEFAULT_HERO_FALLBACK)}
           />
         </div>

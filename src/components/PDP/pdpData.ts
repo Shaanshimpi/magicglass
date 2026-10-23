@@ -39,7 +39,7 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
     "title": "Toughened Glass",
     "subheading": "Fortified Safety Glass Quadruple (4x) Strength",
     "category": "Toughened Glass",
-    "heroImage": "/images/products/toughened-glass.png",
+    "heroImage": "/images/products/heroes/toughened-glass.png",
     "introSummary": "Toughened glass, commonly referred to as ‘Tempered glass,’ stands as fortified safety glass, its strength amplified through meticulous thermal processes. This involves subjecting annealed glass to temperatures of around 650⁰C followed by swift cooling, culminating in a glass that possesses fourfold the strength of regular glass.",
     "secondaryText": "This intense heat treatment and rapid cooling induce distinct physical attributes, notably instilling surface compressive stress and enhancing the glass’s flexural potency. Preceding toughening, the glass is intricately cut to precise dimensions or expertly shaped, setting the stage for its exceptional attributes.",
     "detailImages": [
@@ -139,7 +139,7 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
     "title": "Clear Glass",
     "subheading": "BUILT TO LAST — Unsurpassed Optical Transparency",
     "category": "Toughened Glass",
-    "heroImage": "/images/products/clear-glass.png",
+    "heroImage": "/images/products/heroes/clear-glass.jpg",
     "introSummary": "Discover the extraordinary clarity and purity of Clear Glass. This exceptional product is manufactured by Saint Gobain using state-of-the-art techniques, guaranteeing unparalleled transparency without any tint. With its crystal-clear finish, Clear Glass provides an unobstructed view, allowing you to experience the true colors of your surroundings.",
     "secondaryText": "Clear Glass is a versatile solution that seamlessly integrates into various applications. Whether it’s partitions, doors, furniture, or display cabinets, this glass is designed to enhance and elevate any space it adorns. Clear glass can be toughened or heat strengthened",
     "detailImages": [
@@ -234,7 +234,7 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
     "title": "Extra Clear Glass",
     "subheading": "Pure Light Transmission & True Color Rendering",
     "category": "Toughened Glass",
-    "heroImage": "/images/products/extra-clear-glass.png",
+    "heroImage": "/images/products/heroes/extra-clear-glass.jpg",
     "introSummary": "The Extra clear glass is a type of Float glass that has low iron content (lower than clear glass), which reduces the greenish-blue tint and therefore makes it extra clear. It is also called low iron glass.",
     "secondaryText": "With its unparalleled clarity and transparency, Extra Clear Glass creates an environment that is bathed in natural light, showcasing true colors and creating an atmosphere of purity and refinement. Experience a new level of sophistication with Extra Clear Glass, where visual clarity is elevated to an art form.",
     "detailImages": [
@@ -324,7 +324,7 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
     "title": "HS Glass",
     "subheading": "High Mechanical & Thermal Stress Resistance",
     "category": "Toughened Glass",
-    "heroImage": "/images/products/hs-glass.png",
+    "heroImage": "/images/products/heroes/hs-glass.jpg",
     "introSummary": "Heat-strengthened glass is heat-treated glass that retains the distinctive properties of ordinary float glass. The glass is manufactured in one of the two electric horizontal roller-hearth tempering lines, where the glass is first heated and then cooled down with much less pressure. The machines are equipped with an advanced convection system to produce the best optical quality glass with a significant energy consumption reduction. Along with this, the super flat spotless technology ensures minimum iridescence and produces high-quality glass. Heat-strengthened glass is popular among design professionals for curtain wall façades of buildings, in both the vision and spandrel applications. It is valued for its mechanical strength, higher optical clarity, and flatter finish, and the probability of nickel sulfide inclusions inducing spontaneous breakages in the heat-strengthened glass is practically non-existent.",
     "secondaryText": "Heat-strengthened glass is heat-treated glass that retains the distinctive properties of ordinary float glass. The glass is manufactured in one of the two electric horizontal roller-hearth tempering lines, where the glass is first heated and then cooled down with much less pressure. The machines are equipped with an advanced convection system to produce the best optical quality glass with a significant energy consumption reduction. Along with this, the super flat spotless technology ensures minimum iridescence and produces high-quality glass. Heat-strengthened glass is popular among design professionals for curtain wall façades of buildings, in both the vision and spandrel applications. It is valued for its mechanical strength, higher optical clarity, and flatter finish, and the probability of nickel sulfide inclusions inducing spontaneous breakages in the heat-strengthened glass is practically non-existent.",
     "detailImages": [
@@ -414,7 +414,7 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
     "title": "Heat Soaked Glass",
     "subheading": "Zero Spontaneous Breakage for High-Rise Glazing",
     "category": "Toughened Glass",
-    "heroImage": "/images/products/heat-soaked-glass.jpg",
+    "heroImage": "/images/products/heroes/heat-soaked-glass.jpg",
     "introSummary": "Float glass used in windows and doors often contains microscopic nickel sulfide inclusions that can expand over time and cause panes of tempered glass to suddenly and unexpectedly break—an effect known as spontaneous breakage. This poses serious risks, as shattered glass can injure anyone nearby. Our Heat Soaked Glass to help eliminate this threat.",
     "secondaryText": "Through Magic Glass, we reheat fully tempered panes of glass in special heating chambers, accelerating any expansion of nickel sulfide that may occur naturally over the years. This controlled expansion causes any prone-to-break glass to fail safely inside the chamber rather than unexpectedly in the field. Once cooled, the resulting glass carries a dramatically reduced risk of spontaneous shattering.",
     "detailImages": [
@@ -514,7 +514,7 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
     "title": "Sentry Laminated Glass",
     "subheading": "High-Security Structural Glazing & Overhead Canopies",
     "category": "Laminated Glass",
-    "heroImage": "/images/products/sentry-laminated-glass.png",
+    "heroImage": "/images/products/heroes/sentry-laminated-glass.jpg",
     "introSummary": "Sentry Laminated Glass by Magic Glass elevates strength and durability to newer heights. Designed to surpass the strength of traditional PVB films, Sentry Laminated Glass employs the superior SGP (Sentry Glass Plus) film to offer unparalleled resistance.",
     "secondaryText": "Sentry Laminated Glass is engineered to withstand the toughest challenges, ensuring the safety and security of your spaces. With its robust SGP film, it offers increased resistance to impacts, breakage, and forced entry. Be it for commercial or residential purposes, sentry laminated glass provides security and delivers ultimate peace of mind, fortifying your surroundings with unyielding strength.",
     "detailImages": [
@@ -614,7 +614,7 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
     "title": "Acoustic Lami Glass",
     "subheading": "Revolutionary Sound Control & Acoustic Isolation",
     "category": "Laminated Glass",
-    "heroImage": "/images/products/acoustic-lami-glass.png",
+    "heroImage": "/images/products/heroes/acoustic-lami-glass.jpg",
     "introSummary": "Designed to provide superior acoustic insulation and noise control, Acoustic Lami Glass plays a crucial role in creating a soothing and peaceful environment in both living and working spaces.",
     "secondaryText": "Acoustic Lami Glass is a revolution in sound control, consisting of multiple layers of glass bonded together by acoustic polyvinyl butyral (PVB) interlayers. This configuration acts as a noise dampener, weakening sound waves as they travel through the glass. By incorporating Acoustic Lami Glass, you can significantly reduce exterior noise, ensuring a peaceful atmosphere within your space. Additionally, the laminated glass provides an added safety benefit, as it remains intact even when broken, reducing the risk of injury.",
     "detailImages": [
@@ -709,7 +709,7 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
     "title": "PVB Laminated Glass",
     "subheading": "Comprehensive Impact Protection & Safety Glazing",
     "category": "Laminated Glass",
-    "heroImage": "/images/products/pvb-laminated-glass.png",
+    "heroImage": "/images/products/heroes/pvb-laminated-glass.jpg",
     "introSummary": "PVB Laminated Glass is made by combining layers of interlayer film with two or more panes of glass through a meticulous lamination process. Utilizing high temperature and pressure in an autoclave, we ensure exceptional adhesion and impact resistance.",
     "secondaryText": "With a range of interlayers including PVB, SGP, colored, and acoustic options, PVB Laminated Glass is the natural choice for applications requiring safety, security, solar control, UV protection, and noise reduction.",
     "detailImages": [
@@ -809,7 +809,7 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
     "title": "DGU (Insulated Glass)",
     "subheading": "Thermal Comfort & Energy Efficient Architecture",
     "category": "Insulated Glass",
-    "heroImage": "/images/products/insulated-glass-dgu.png",
+    "heroImage": "/images/products/heroes/insulated-glass-dgu.jpg",
     "introSummary": "Insulated glass is a combination of two or more panels that are spaced apart and sealed with sealant to appear as a single unit. At Magic Glass, we have state-of-the-art fully automatic Insulating lines with robot sealing. We were also the first company to manufacture Insulated glass in Pune. With such long experience and an excellent team, we have mastered the art of making the highest quality Insulated panels.",
     "secondaryText": "By harnessing the power of Insulated Glass (DGU) by Magic Glass, you can create a comfortable and sustainable environment while significantly lowering your energy costs.",
     "detailImages": [
@@ -934,7 +934,7 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
     "title": "DGU Laminated Glass",
     "subheading": "Indulgent Luxury & Multi-Performance Shielding",
     "category": "Insulated Glass",
-    "heroImage": "/images/products/dgu-laminated-glass.png",
+    "heroImage": "/images/products/heroes/dgu-laminated-glass.png",
     "introSummary": "Indulge in the world of DGU Laminated Glass by Magic Glass, where luxury and elegance intertwine flawlessly. Crafted to elevate premium spaces to unprecedented heights, DGU Laminated Glass is the epitome of super luxurious glass.",
     "secondaryText": "From its impeccable appearance to its exceptional performance, DGU Laminated Glass emanates opulence and refinement, making it the ultimate choice for prestigious venues including airports and 5-star hotels.",
     "detailImages": [
@@ -1054,7 +1054,7 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
     "title": "High Performance LOW-E Glass",
     "subheading": "Advanced Thermal Insulation & Infrared Control",
     "category": "Reflective Glass",
-    "heroImage": "/images/products/high-performance-low-e-glass.png",
+    "heroImage": "/images/products/heroes/high-performance-low-e-glass.jpg",
     "introSummary": "High-Performance Low-E Glass leverages cutting-edge technology to provide superior thermal performance. Designed as an advanced thermal insulation glass (Low-E), High-Performance Low-E Glass revolutionizes energy efficiency in buildings, setting new benchmarks in the glass manufacturing industry in India.",
     "secondaryText": "Manufactured using state-of-the-art magnetron sputtering processes under vacuum conditions, this coated glass reflects long-wave heat radiation, ensuring exceptional thermal insulation and maximum occupant comfort. With outstanding light transmission and minimal reflection, High-Performance Low-E Glass allows ample natural light to penetrate while providing unparalleled clarity.",
     "detailImages": [
@@ -1154,7 +1154,7 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
     "title": "SKN-Ultra High-Performance Glass",
     "subheading": "Next-Generation Green Building Solar Glazing",
     "category": "Reflective Glass",
-    "heroImage": "/images/products/skn-ultra-high-performance-glass.jpg",
+    "heroImage": "/images/products/heroes/skn-ultra-high-performance-glass.jpg",
     "introSummary": "Ultra-high-performance glass provides natural light transmission while helping to limit heat gain and thermal energy transfer. Through continuous improvements in its thermal insulation and solar control performance, glass has become a flexible building material that can improve buildings&#8217; energy efficiency. High-performance coated glass is a critical part of our glazing system. Coated glass allows building occupants to engage visually with the external environment from a comfortable interior.",
     "secondaryText": "High-performance glass works by controlling how it interacts with the electromagnetic spectrum. Solar energy from the sun includes ultraviolet, visible, and near-infrared wavelengths ranging from 300 to 2,500 nm. Solar control-coated glass can block a significant portion of this energy by reflecting and absorbing it. High-performance coatings on glass are designed to slow radiant heat transfer by reflecting longwave radiation (heat) into the building structure during cooler periods.",
     "detailImages": [
@@ -1254,7 +1254,7 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
     "title": "Fire & Safety Glass",
     "subheading": "Protecting Lives and Properties with Fire Resistance",
     "category": "Other Glass",
-    "heroImage": "/images/products/fire-safety-glass.png",
+    "heroImage": "/images/products/heroes/fire-safety-glass.jpg",
     "introSummary": "In the face of unpredictable natural calamities such as fire, Fire & Safety Glass by Magic Glass emerges as a crucial line of defense for residential and commercial spaces. With its exceptional fire-resistant properties, this specially laminated glass is designed to withstand high temperatures, preventing the spread of fire and containing it within a specific location. By installing Fire & Safety Glass, you proactively minimize damage and enhance the safety of your property and its occupants.",
     "secondaryText": "Fire & Safety Glass by Magic Glass is more than just a protective barrier—it is a lifeline during critical moments. Its robust composition acts as a shield, preventing the fire from spreading through the glass and minimizing the risk of smoke inhalation. By confining the fire and limiting the spread of smoke, Fire & Safety Glass provides precious time for occupants to call for help and evacuate safely. It is a testament to our commitment to saving lives and protecting properties, offering unmatched peace of mind in the face of fire-related emergencies.",
     "detailImages": [
@@ -1344,7 +1344,7 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
     "title": "Ceramic Glass",
     "subheading": "Permanent Architectural Graphics & Sun Shading",
     "category": "Other Glass",
-    "heroImage": "/images/products/ceramic-glass.png",
+    "heroImage": "/images/products/heroes/ceramic-glass.jpg",
     "introSummary": "Step into the world of Ceramic Glass by Magic Glass, where artistry meets durability. Through the innovative process of Ceramic fritting, glass enamel is fused onto the glass surface, creating a permanent coating that withstands the test of time. Light frit colors and pattern designs enhance brightness, while dark frit colors reduce glare, offering a harmonious balance of aesthetics and functionality.",
     "secondaryText": "Ceramic Glass unlocks boundless possibilities in interior and façade design. Its versatile application allows for privacy, background concealment, product enhancement, and pure aesthetic appeal. The coating remains impervious to moisture, oil, soaps, chemicals, or detergents, ensuring a pristine appearance throughout the glass’s lifespan. With Ceramic Glass, you can redefine the boundaries of design, making a lasting impression with enduring elegance.",
     "detailImages": [
@@ -1439,7 +1439,7 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
     "title": "Frosted Glass",
     "subheading": "Sophisticated Privacy & Translucent Light Quality",
     "category": "Other Glass",
-    "heroImage": "/images/products/frosted-glass.png",
+    "heroImage": "/images/products/heroes/frosted-glass.jpg",
     "introSummary": "With its distinct appearance, Frosted Glass adds a touch of sophistication to any space. Using techniques like sandblasting, the transparent sheet of glass is transformed into an opaque masterpiece. Light scattering during transmission creates a translucent effect, allowing the glass to transmit light while obscuring visibility.",
     "secondaryText": "This type of glass is widely used in interior applications and gives a great aesthetic appeal. In furniture, it adds a layer of elegance, whether as cabinet doors, tabletops, or shelving units, transforming ordinary pieces into extraordinary statements. In bathrooms, Frosted Glass provides privacy while still allowing natural light to filter through, creating a serene and soothing atmosphere. Railings adorned with Frosted Glass elevate safety and design, adding a touch of sophistication to staircases, balconies, or any architectural element.",
     "detailImages": [
@@ -1524,7 +1524,7 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
     "title": "Mirror Glass",
     "subheading": "Maximized Room Dimensions & Living Light Reflections",
     "category": "Other Glass",
-    "heroImage": "/images/products/mirror-glass.png",
+    "heroImage": "/images/products/heroes/mirror-glass.jpg",
     "introSummary": "Mirrored glass adds a living quality to your design. Whether you want a glamorous, full reflection effect, specific reflectivity with light-diffusing etched or patterned surfaces, or a custom luminous color, we can help. Pair graphics with a mirror to achieve depth, or add an etched layer for a soft, welcoming glow.",
     "secondaryText": "Discover the widest range of designs, shapes, and colors to maximise the room’s lighting, making the details look more prominent than ever",
     "detailImages": [

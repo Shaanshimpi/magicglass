@@ -5,6 +5,7 @@ import styles from './Dashboard.module.css'
 import { LeftPageNav, STATIC_PAGE_NAV_CONFIG, PageRoute } from './LeftPageNav'
 import { RightSectionInspector } from './RightSectionInspector'
 import { InquiriesInboxView } from './InquiriesInboxView'
+import { MediaLibraryView } from './MediaLibraryView'
 import {
   FiMonitor,
   FiSmartphone,
@@ -23,6 +24,8 @@ export const DashboardShell: React.FC = () => {
   const iframeRef = useRef<HTMLIFrameElement>(null)
 
   const isInboxActive = activePage.id === 'inquiries-inbox'
+  const isMediaLibraryActive = activePage.id === 'media-library'
+  const isFullCanvasView = isInboxActive || isMediaLibraryActive
 
   const handlePostMessageUpdate = (fieldPath: string, value: string) => {
     if (iframeRef.current?.contentWindow) {
@@ -51,7 +54,7 @@ export const DashboardShell: React.FC = () => {
 
   const handleSelectPage = (page: PageRoute) => {
     setActivePage(page)
-    if (page.id === 'inquiries-inbox') {
+    if (page.id === 'inquiries-inbox' || page.id === 'media-library') {
       setOpenSidebar('left')
     } else {
       setOpenSidebar('right')
@@ -68,7 +71,7 @@ export const DashboardShell: React.FC = () => {
     <div
       data-lenis-prevent
       className={`${styles.dashboardContainer} ${
-        isInboxActive
+        isFullCanvasView
           ? styles.layoutInbox
           : openSidebar === 'left'
           ? styles.layoutLeftOpen
@@ -76,7 +79,7 @@ export const DashboardShell: React.FC = () => {
       }`}
     >
       {/* Left Column */}
-      {openSidebar === 'left' || isInboxActive ? (
+      {openSidebar === 'left' || isFullCanvasView ? (
         <LeftPageNav activePageId={activePage.id} onSelectPage={handleSelectPage} />
       ) : (
         <div
@@ -93,6 +96,10 @@ export const DashboardShell: React.FC = () => {
       {isInboxActive ? (
         <main className={styles.inboxMainCanvas}>
           <InquiriesInboxView />
+        </main>
+      ) : isMediaLibraryActive ? (
+        <main className={styles.inboxMainCanvas}>
+          <MediaLibraryView />
         </main>
       ) : (
         <>

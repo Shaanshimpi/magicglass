@@ -25,6 +25,7 @@ import {
   FiShield,
   FiLock,
   FiInbox,
+  FiImage,
 } from 'react-icons/fi'
 
 export interface PageRoute {
@@ -44,6 +45,15 @@ export const INQUIRIES_PAGE_ROUTE: PageRoute = {
   cmsType: 'collection',
   cmsSlug: 'inquiries',
   icon: <FiInbox />,
+}
+
+export const MEDIA_LIBRARY_PAGE_ROUTE: PageRoute = {
+  id: 'media-library',
+  label: 'Media & Asset Hub',
+  path: '/media',
+  cmsType: 'collection',
+  cmsSlug: 'media',
+  icon: <FiImage />,
 }
 
 const DEFAULT_INITIAL_PRODUCTS = ALL_PRODUCTS.map((p) => ({
@@ -214,7 +224,25 @@ export const LeftPageNav: React.FC<LeftPageNavProps> = ({
           )}
         </div>
 
-        {/* 2. Primary Site Pages */}
+        {/* 2. Media & Asset Hub */}
+        <div className={styles.sectionGroupTitle} style={{ marginTop: '16px' }}>Assets & CDN</div>
+        <div
+          className={`${styles.navItem} ${styles.inquiriesNavItem} ${
+            activePageId === 'media-library' ? styles.navItemActive : ''
+          }`}
+          onClick={() => onSelectPage(MEDIA_LIBRARY_PAGE_ROUTE)}
+          title="Media Library & Asset Hub (Upload, View, Copy Links, Share)"
+        >
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <span style={{ fontSize: '16px', color: activePageId === 'media-library' ? '#fff' : '#38bdf8' }}>
+              <FiImage />
+            </span>
+            <span style={{ fontWeight: 600 }}>Media & Asset Hub</span>
+          </div>
+          <FiChevronRight style={{ fontSize: '14px', opacity: activePageId === 'media-library' ? 1 : 0.4 }} />
+        </div>
+
+        {/* 3. Primary Site Pages */}
         <div className={styles.sectionGroupTitle} style={{ marginTop: '18px' }}>
           Site Pages
         </div>

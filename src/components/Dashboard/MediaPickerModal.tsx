@@ -1,16 +1,34 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
-import { FiX, FiSearch, FiCheck, FiImage } from 'react-icons/fi'
+import { FiX, FiSearch, FiCheck, FiImage, FiUploadCloud, FiLoader } from 'react-icons/fi'
 
 interface MediaItem {
   name: string
   url: string
-  category: 'General' | 'Products' | 'Industries' | 'Applications' | 'Projects' | 'Craftsmanship' | 'Leadership'
+  category: string
 }
 
 const PRESET_MEDIA_LIBRARY: MediaItem[] = [
+  // High-Resolution PDP Hero Banners (2732x1280 & 1920x890)
+  { name: 'Toughened Glass PDP Banner (HD)', url: '/images/products/heroes/toughened-glass.png', category: 'Heroes' },
+  { name: 'Clear Glass PDP Banner (HD)', url: '/images/products/heroes/clear-glass.png', category: 'Heroes' },
+  { name: 'Extra Clear Glass PDP Banner (HD)', url: '/images/products/heroes/extra-clear-glass.png', category: 'Heroes' },
+  { name: 'HS Glass PDP Banner (HD)', url: '/images/products/heroes/hs-glass.png', category: 'Heroes' },
+  { name: 'Heat Soaked Glass PDP Banner (HD)', url: '/images/products/heroes/heat-soaked-glass.png', category: 'Heroes' },
+  { name: 'Sentry Laminated PDP Banner (HD)', url: '/images/products/heroes/sentry-laminated-glass.png', category: 'Heroes' },
+  { name: 'Acoustic Lami PDP Banner (HD)', url: '/images/products/heroes/acoustic-lami-glass.png', category: 'Heroes' },
+  { name: 'PVB Laminated PDP Banner (HD)', url: '/images/products/heroes/pvb-laminated-glass.png', category: 'Heroes' },
+  { name: 'DGU Insulated PDP Banner (HD)', url: '/images/products/heroes/insulated-glass-dgu.png', category: 'Heroes' },
+  { name: 'DGU Laminated PDP Banner (HD)', url: '/images/products/heroes/dgu-laminated-glass.png', category: 'Heroes' },
+  { name: 'Low-E Glass PDP Banner (HD)', url: '/images/products/heroes/high-performance-low-e-glass.png', category: 'Heroes' },
+  { name: 'SKN Ultra PDP Banner (HD)', url: '/images/products/heroes/skn-ultra-high-performance-glass.png', category: 'Heroes' },
+  { name: 'Fire Safety PDP Banner (HD)', url: '/images/products/heroes/fire-safety-glass.png', category: 'Heroes' },
+  { name: 'Ceramic Glass PDP Banner (HD)', url: '/images/products/heroes/ceramic-glass.png', category: 'Heroes' },
+  { name: 'Frosted Glass PDP Banner (HD)', url: '/images/products/heroes/frosted-glass.png', category: 'Heroes' },
+  { name: 'Mirror Glass PDP Banner (HD)', url: '/images/products/heroes/mirror-glass.png', category: 'Heroes' },
+
   // Authentic Products (All 16)
   { name: 'Toughened Glass (Hero)', url: '/images/products/toughened-glass.png', category: 'Products' },
   { name: 'Clear Glass (Hero)', url: '/images/products/clear-glass.png', category: 'Products' },
@@ -99,13 +117,84 @@ export const MediaPickerModal: React.FC<MediaPickerModalProps> = ({
   const [searchQuery, setSearchQuery] = useState<string>('')
   const [customUrlInput, setCustomUrlInput] = useState<string>(currentValue || '')
   const [hoveredUrl, setHoveredUrl] = useState<string | null>(null)
+  const [dynamicMedia, setDynamicMedia] = useState<MediaItem[]>([])
+  const [isUploading, setIsUploading] = useState<boolean>(false)
+  const fileInputRef = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    if (!isOpen) return
+    fetch('/api/media')
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success && Array.isArray(data.items)) {
+          const mapped: MediaItem[] = data.items.map((it: any) => ({
+            name: it.name || it.filename,
+            url: it.url,
+            category: it.category || 'General',
+          }))
+          setDynamicMedia(mapped)
+        }
+      })
+      .catch((err) => console.warn('Could not load dynamic media in picker:', err))
+  }, [isOpen])
+
+  const handleQuickUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+
+    setIsUploading(true)
+    try {
+      const formData = new FormData()
+      formData.append('file', file)
+      formData.append('category', activeCategory === 'All' ? 'General' : activeCategory)
+      const res = await fetch('/api/media', {
+        method: 'POST',
+        body: formData,
+      })
+      const data = await res.json()
+      if (data.success && data.item) {
+        setDynamicMedia((prev) => [
+          {
+            name: data.item.name || data.item.filename,
+            url: data.item.url,
+            category: data.item.category || 'General',
+          },
+          ...prev,
+        ])
+        onSelect(data.item.url)
+        onClose()
+      }
+    } catch (err) {
+      console.error('Failed to quick upload:', err)
+    } finally {
+      setIsUploading(false)
+      if (fileInputRef.current) fileInputRef.current.value = ''
+    }
+  }
 
   if (!isOpen) return null
 
-  const categories = ['All', 'Products', 'Industries', 'General', 'Applications', 'Craftsmanship', 'Leadership', 'Projects']
+  const categories = [
+    'All',
+    'Heroes',
+    'Products',
+    'Industries',
+    'General',
+    'Applications',
+    'Craftsmanship',
+    'Leadership',
+    'Projects',
+    'Uploads',
+  ]
 
-  const filteredMedia = PRESET_MEDIA_LIBRARY.filter((item) => {
-    const matchesCategory = activeCategory === 'All' || item.category === activeCategory
+  const allMedia = [
+    ...PRESET_MEDIA_LIBRARY,
+    ...dynamicMedia.filter((d) => !PRESET_MEDIA_LIBRARY.some((p) => p.url === d.url)),
+  ]
+
+  const filteredMedia = allMedia.filter((item) => {
+    const matchesCategory =
+      activeCategory === 'All' || item.category?.toLowerCase() === activeCategory.toLowerCase()
     const matchesSearch =
       item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       item.url.toLowerCase().includes(searchQuery.toLowerCase())
@@ -217,38 +306,80 @@ export const MediaPickerModal: React.FC<MediaPickerModalProps> = ({
             flexShrink: 0,
           }}
         >
-          {/* Search bar */}
+          {/* Search bar & Upload Action */}
           <div
             style={{
-              position: 'relative',
               display: 'flex',
               alignItems: 'center',
+              gap: 10,
             }}
           >
-            <FiSearch
+            <div
               style={{
-                position: 'absolute',
-                left: 14,
-                color: '#64748b',
-                fontSize: 14,
+                position: 'relative',
+                display: 'flex',
+                alignItems: 'center',
+                flex: 1,
               }}
-            />
+            >
+              <FiSearch
+                style={{
+                  position: 'absolute',
+                  left: 14,
+                  color: '#64748b',
+                  fontSize: 14,
+                }}
+              />
+              <input
+                type="text"
+                placeholder="Search images by name or file path..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                style={{
+                  width: '100%',
+                  padding: '9px 14px 9px 38px',
+                  background: 'rgba(255, 255, 255, 0.04)',
+                  border: '1px solid rgba(255, 255, 255, 0.1)',
+                  borderRadius: '8px',
+                  color: '#fff',
+                  fontSize: '13px',
+                  outline: 'none',
+                }}
+              />
+            </div>
+
             <input
-              type="text"
-              placeholder="Search images by name or file path..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              style={{
-                width: '100%',
-                padding: '9px 14px 9px 38px',
-                background: 'rgba(255, 255, 255, 0.04)',
-                border: '1px solid rgba(255, 255, 255, 0.1)',
-                borderRadius: '8px',
-                color: '#fff',
-                fontSize: '13px',
-                outline: 'none',
-              }}
+              type="file"
+              ref={fileInputRef}
+              style={{ display: 'none' }}
+              accept="image/png,image/jpeg,image/webp,image/svg+xml"
+              onChange={handleQuickUpload}
             />
+
+            <button
+              type="button"
+              disabled={isUploading}
+              onClick={() => fileInputRef.current?.click()}
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 6,
+                padding: '9px 16px',
+                background: '#c5a880',
+                color: '#000',
+                border: 'none',
+                borderRadius: '8px',
+                fontSize: '13px',
+                fontWeight: 600,
+                cursor: isUploading ? 'not-allowed' : 'pointer',
+                opacity: isUploading ? 0.7 : 1,
+                whiteSpace: 'nowrap',
+                transition: 'all 0.2s ease',
+              }}
+            >
+              {isUploading ? <FiLoader /> : <FiUploadCloud />}
+              <span>{isUploading ? 'Uploading...' : 'Upload Image'}</span>
+            </button>
           </div>
 
           {/* Category Tabs */}
