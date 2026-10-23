@@ -1,8 +1,8 @@
 'use client'
 
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import styles from './Dashboard.module.css'
-import { LeftPageNav, STATIC_PAGE_NAV_CONFIG, PageRoute } from './LeftPageNav'
+import { LeftPageNav, PageRoute, resolveDashboardRoute } from './LeftPageNav'
 import { RightSectionInspector } from './RightSectionInspector'
 import { InquiriesInboxView } from './InquiriesInboxView'
 import { MediaLibraryView } from './MediaLibraryView'
@@ -17,15 +17,64 @@ import {
   FiLayers,
 } from 'react-icons/fi'
 
-export const DashboardShell: React.FC = () => {
-  const [activePage, setActivePage] = useState<PageRoute>(STATIC_PAGE_NAV_CONFIG[0])
+interface DashboardShellProps {
+  initialSlug?: string[]
+}
+
+export const DashboardShell: React.FC<DashboardShellProps> = ({ initialSlug }) => {
+  const [activePage, setActivePage] = useState<PageRoute>(() => resolveDashboardRoute(initialSlug))
   const [viewportMode, setViewportMode] = useState<'desktop' | 'tablet' | 'mobile'>('desktop')
-  const [openSidebar, setOpenSidebar] = useState<'left' | 'right'>('left')
+  const [openSidebar, setOpenSidebar] = useState<'left' | 'right'>(() => {
+    const init = resolveDashboardRoute(initialSlug)
+    return init.id === 'inquiries-inbox' || init.id === 'media-library' ? 'left' : 'right'
+  })
   const iframeRef = useRef<HTMLIFrameElement>(null)
 
   const isInboxActive = activePage.id === 'inquiries-inbox'
   const isMediaLibraryActive = activePage.id === 'media-library'
   const isFullCanvasView = isInboxActive || isMediaLibraryActive
+
+  // Synchronize route state with browser back/forward buttons (popstate)
+  useEffect(() => {
+    const handlePopState = () => {
+      if (typeof window === 'undefined') return
+      const path = window.location.pathname
+      const sub = path.replace(/^\/dashboard\/?/, '')
+      const parts = sub ? sub.split('/').filter(Boolean) : []
+      const resolved = resolveDashboardRoute(parts)
+      setActivePage(resolved)
+      document.title = `${resolved.label} | Live CMS Dashboard | Magic Glass`
+      if (resolved.id === 'inquiries-inbox' || resolved.id === 'media-library') {
+        setOpenSidebar('left')
+      } else {
+        setOpenSidebar('right')
+        if (iframeRef.current) {
+          iframeRef.current.src = `${resolved.path}?preview=true`
+        }
+      }
+    }
+
+    window.addEventListener('popstate', handlePopState)
+    return () => window.removeEventListener('popstate', handlePopState)
+  }, [])
+
+  // Sync initial title and handle any direct client-side deep links
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const path = window.location.pathname
+      if (path.startsWith('/dashboard')) {
+        const sub = path.replace(/^\/dashboard\/?/, '')
+        const parts = sub ? sub.split('/').filter(Boolean) : []
+        if (parts.length > 0 && (!initialSlug || initialSlug.length === 0)) {
+          const resolved = resolveDashboardRoute(parts)
+          setActivePage(resolved)
+          document.title = `${resolved.label} | Live CMS Dashboard | Magic Glass`
+          return
+        }
+      }
+      document.title = `${activePage.label} | Live CMS Dashboard | Magic Glass`
+    }
+  }, [activePage.label, initialSlug])
 
   const handlePostMessageUpdate = (fieldPath: string, value: string) => {
     if (iframeRef.current?.contentWindow) {
@@ -54,6 +103,12 @@ export const DashboardShell: React.FC = () => {
 
   const handleSelectPage = (page: PageRoute) => {
     setActivePage(page)
+    const targetUrl = page.dashboardPath || '/dashboard'
+    if (typeof window !== 'undefined' && window.location.pathname !== targetUrl) {
+      window.history.pushState({ pageId: page.id, dashboardPath: targetUrl }, '', targetUrl)
+      document.title = `${page.label} | Live CMS Dashboard | Magic Glass`
+    }
+
     if (page.id === 'inquiries-inbox' || page.id === 'media-library') {
       setOpenSidebar('left')
     } else {
@@ -80,7 +135,11 @@ export const DashboardShell: React.FC = () => {
     >
       {/* Left Column */}
       {openSidebar === 'left' || isFullCanvasView ? (
-        <LeftPageNav activePageId={activePage.id} onSelectPage={handleSelectPage} />
+        <LeftPageNav
+          activePageId={activePage.id}
+          activeItemSlug={activePage.itemSlug}
+          onSelectPage={handleSelectPage}
+        />
       ) : (
         <div
           className={styles.collapsedRail}

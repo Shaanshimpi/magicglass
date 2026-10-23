@@ -139,6 +139,7 @@
   cursor: pointer;
   transition: all 0.2s ease;
   margin-bottom: 4px;
+  text-decoration: none;
 }
 
 .navItem:hover {

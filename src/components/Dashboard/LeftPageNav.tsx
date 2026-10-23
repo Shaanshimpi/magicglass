@@ -6,6 +6,16 @@ import styles from './Dashboard.module.css'
 import { ProductCreateModal } from './ProductCreateModal'
 import { ALL_PRODUCTS } from '@/components/ProductsCollection/products.data'
 import {
+  PageRoute,
+  INQUIRIES_PAGE_ROUTE,
+  MEDIA_LIBRARY_PAGE_ROUTE,
+  STATIC_PAGE_NAV_CONFIG,
+  GLOBAL_SHELL_NAV_CONFIG,
+  createProductPageRoute,
+  resolveDashboardRoute,
+  formatSlugToTitle,
+} from './dashboardRoutes'
+import {
   FiHome,
   FiInfo,
   FiGrid,
@@ -28,32 +38,47 @@ import {
   FiImage,
 } from 'react-icons/fi'
 
-export interface PageRoute {
-  id: string
-  label: string
-  path: string
-  cmsType: 'global' | 'collection'
-  cmsSlug: string
-  itemSlug?: string
-  icon?: React.ReactNode
+export type { PageRoute }
+export {
+  INQUIRIES_PAGE_ROUTE,
+  MEDIA_LIBRARY_PAGE_ROUTE,
+  STATIC_PAGE_NAV_CONFIG,
+  GLOBAL_SHELL_NAV_CONFIG,
+  createProductPageRoute,
+  resolveDashboardRoute,
+  formatSlugToTitle,
 }
 
-export const INQUIRIES_PAGE_ROUTE: PageRoute = {
-  id: 'inquiries-inbox',
-  label: 'Inquiries & Leads',
-  path: '/inquiries',
-  cmsType: 'collection',
-  cmsSlug: 'inquiries',
-  icon: <FiInbox />,
-}
-
-export const MEDIA_LIBRARY_PAGE_ROUTE: PageRoute = {
-  id: 'media-library',
-  label: 'Media & Asset Hub',
-  path: '/media',
-  cmsType: 'collection',
-  cmsSlug: 'media',
-  icon: <FiImage />,
+export function getPageIcon(id: string): React.ReactNode {
+  switch (id) {
+    case 'home':
+      return <FiHome />
+    case 'about':
+      return <FiInfo />
+    case 'products':
+      return <FiGrid />
+    case 'projects':
+      return <FiFolder />
+    case 'industry':
+      return <FiBriefcase />
+    case 'infrastructure':
+      return <FiCpu />
+    case 'contact':
+      return <FiPhoneCall />
+    case 'header-shell':
+      return <FiMenu />
+    case 'footer-shell':
+      return <FiLayout />
+    case 'quote-drawer-shell':
+      return <FiSliders />
+    case 'inquiries-inbox':
+      return <FiInbox />
+    case 'media-library':
+      return <FiImage />
+    default:
+      if (id.startsWith('pdp-')) return <FiBox />
+      return <FiLayout />
+  }
 }
 
 const DEFAULT_INITIAL_PRODUCTS = ALL_PRODUCTS.map((p) => ({
@@ -62,22 +87,6 @@ const DEFAULT_INITIAL_PRODUCTS = ALL_PRODUCTS.map((p) => ({
   title: p.title,
   category: p.category,
 }))
-
-export const STATIC_PAGE_NAV_CONFIG: PageRoute[] = [
-  { id: 'home', label: 'Homepage', path: '/', cmsType: 'global', cmsSlug: 'home-page', icon: <FiHome /> },
-  { id: 'about', label: 'About Us', path: '/about', cmsType: 'global', cmsSlug: 'about-page', icon: <FiInfo /> },
-  { id: 'products', label: 'Products Overview', path: '/products', cmsType: 'global', cmsSlug: 'products-page', icon: <FiGrid /> },
-  { id: 'projects', label: 'Projects Portfolio', path: '/projects', cmsType: 'collection', cmsSlug: 'projects', icon: <FiFolder /> },
-  { id: 'industry', label: 'Industry Solution', path: '/industry-solution', cmsType: 'global', cmsSlug: 'industry-solution-page', icon: <FiBriefcase /> },
-  { id: 'infrastructure', label: 'Infrastructure', path: '/infrastructure', cmsType: 'global', cmsSlug: 'infrastructure-page', icon: <FiCpu /> },
-  { id: 'contact', label: 'Contact Us', path: '/contact-us', cmsType: 'global', cmsSlug: 'contact-us-page', icon: <FiPhoneCall /> },
-]
-
-export const GLOBAL_SHELL_NAV_CONFIG: PageRoute[] = [
-  { id: 'header-shell', label: 'Header & Loader', path: '/', cmsType: 'global', cmsSlug: 'header', icon: <FiMenu /> },
-  { id: 'footer-shell', label: 'Footer & Offices', path: '/', cmsType: 'global', cmsSlug: 'footer', icon: <FiLayout /> },
-  { id: 'quote-drawer-shell', label: 'Quote Drawer', path: '/', cmsType: 'global', cmsSlug: 'quote-drawer', icon: <FiSliders /> },
-]
 
 interface LeftPageNavProps {
   activePageId: string
@@ -173,20 +182,16 @@ export const LeftPageNav: React.FC<LeftPageNavProps> = ({
     fetchInquiriesCount()
   }, [])
 
-  const prodSlugToPath = (slug: string) =>
-    slug === 'toughened-glass' ? '/toughened-glass' : `/products/${slug}`
+  useEffect(() => {
+    if (activeItemSlug || activePageId.startsWith('pdp-')) {
+      setIsProductsOpen(true)
+    }
+  }, [activeItemSlug, activePageId])
 
   const handleProductCreated = (newProd: { slug: string; title: string; category: string }) => {
     fetchProducts()
-    onSelectPage({
-      id: `pdp-${newProd.slug}`,
-      label: newProd.title,
-      path: prodSlugToPath(newProd.slug),
-      cmsType: 'collection',
-      cmsSlug: 'products',
-      itemSlug: newProd.slug,
-      icon: <FiBox />,
-    })
+    const pageObj = createProductPageRoute(newProd.slug, newProd.title)
+    onSelectPage(pageObj)
   }
 
   return (
@@ -202,11 +207,15 @@ export const LeftPageNav: React.FC<LeftPageNavProps> = ({
 
         {/* 1. Form Submissions */}
         <div className={styles.sectionGroupTitle}>Submissions</div>
-        <div
+        <a
+          href={INQUIRIES_PAGE_ROUTE.dashboardPath}
           className={`${styles.navItem} ${styles.inquiriesNavItem} ${
             activePageId === 'inquiries-inbox' ? styles.navItemActive : ''
           }`}
-          onClick={() => onSelectPage(INQUIRIES_PAGE_ROUTE)}
+          onClick={(e) => {
+            e.preventDefault()
+            onSelectPage(INQUIRIES_PAGE_ROUTE)
+          }}
           title="View Form Submissions and Inquiries"
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
@@ -222,15 +231,19 @@ export const LeftPageNav: React.FC<LeftPageNavProps> = ({
           ) : (
             <FiChevronRight style={{ fontSize: '14px', opacity: activePageId === 'inquiries-inbox' ? 1 : 0.4 }} />
           )}
-        </div>
+        </a>
 
         {/* 2. Media & Asset Hub */}
         <div className={styles.sectionGroupTitle} style={{ marginTop: '16px' }}>Assets & CDN</div>
-        <div
+        <a
+          href={MEDIA_LIBRARY_PAGE_ROUTE.dashboardPath}
           className={`${styles.navItem} ${styles.inquiriesNavItem} ${
             activePageId === 'media-library' ? styles.navItemActive : ''
           }`}
-          onClick={() => onSelectPage(MEDIA_LIBRARY_PAGE_ROUTE)}
+          onClick={(e) => {
+            e.preventDefault()
+            onSelectPage(MEDIA_LIBRARY_PAGE_ROUTE)
+          }}
           title="Media Library & Asset Hub (Upload, View, Copy Links, Share)"
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
@@ -240,7 +253,7 @@ export const LeftPageNav: React.FC<LeftPageNavProps> = ({
             <span style={{ fontWeight: 600 }}>Media & Asset Hub</span>
           </div>
           <FiChevronRight style={{ fontSize: '14px', opacity: activePageId === 'media-library' ? 1 : 0.4 }} />
-        </div>
+        </a>
 
         {/* 3. Primary Site Pages */}
         <div className={styles.sectionGroupTitle} style={{ marginTop: '18px' }}>
@@ -249,21 +262,25 @@ export const LeftPageNav: React.FC<LeftPageNavProps> = ({
         {STATIC_PAGE_NAV_CONFIG.map((page) => {
           const isSelected = activePageId === page.id && !activeItemSlug
           return (
-            <div
+            <a
               key={page.id}
+              href={page.dashboardPath}
               className={`${styles.navItem} ${isSelected ? styles.navItemActive : ''}`}
-              onClick={() => onSelectPage(page)}
+              onClick={(e) => {
+                e.preventDefault()
+                onSelectPage(page)
+              }}
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <span style={{ fontSize: '15px' }}>{page.icon}</span>
+                <span style={{ fontSize: '15px' }}>{page.icon || getPageIcon(page.id)}</span>
                 <span>{page.label}</span>
               </div>
               <FiChevronRight style={{ fontSize: '14px', opacity: isSelected ? 1 : 0.4 }} />
-            </div>
+            </a>
           )
         })}
 
-        {/* 3. Products PDP Catalog */}
+        {/* 4. Products PDP Catalog */}
         <div
           className={styles.sectionGroupTitle}
           style={{
@@ -310,22 +327,18 @@ export const LeftPageNav: React.FC<LeftPageNavProps> = ({
         {isProductsOpen && (
           <div className={styles.productsNavScroll}>
             {productsList.map((prod) => {
-              const pageObj: PageRoute = {
-                id: `pdp-${prod.slug}`,
-                label: prod.title,
-                path: prodSlugToPath(prod.slug),
-                cmsType: 'collection',
-                cmsSlug: 'products',
-                itemSlug: prod.slug,
-                icon: <FiBox />,
-              }
+              const pageObj = createProductPageRoute(prod.slug, prod.title)
               const isSelected = activeItemSlug === prod.slug || activePageId === `pdp-${prod.slug}`
 
               return (
-                <div
+                <a
                   key={prod.slug}
+                  href={pageObj.dashboardPath}
                   className={`${styles.navItem} ${styles.productNavItem} ${isSelected ? styles.navItemActive : ''}`}
-                  onClick={() => onSelectPage(pageObj)}
+                  onClick={(e) => {
+                    e.preventDefault()
+                    onSelectPage(pageObj)
+                  }}
                   title={`Edit PDP: ${prod.title}`}
                 >
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px', overflow: 'hidden' }}>
@@ -335,34 +348,38 @@ export const LeftPageNav: React.FC<LeftPageNavProps> = ({
                   <span className={styles.productNavBadge}>
                     {prod.category?.slice(0, 4).toUpperCase()}
                   </span>
-                </div>
+                </a>
               )
             })}
           </div>
         )}
 
-        {/* 4. Site Globals & Shell */}
+        {/* 5. Site Globals & Shell */}
         <div className={styles.sectionGroupTitle} style={{ marginTop: '18px' }}>
           Site Globals & Shell
         </div>
         {GLOBAL_SHELL_NAV_CONFIG.map((page) => {
           const isSelected = activePageId === page.id
           return (
-            <div
+            <a
               key={page.id}
+              href={page.dashboardPath}
               className={`${styles.navItem} ${isSelected ? styles.navItemActive : ''}`}
-              onClick={() => onSelectPage(page)}
+              onClick={(e) => {
+                e.preventDefault()
+                onSelectPage(page)
+              }}
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <span style={{ fontSize: '15px' }}>{page.icon}</span>
+                <span style={{ fontSize: '15px' }}>{page.icon || getPageIcon(page.id)}</span>
                 <span>{page.label}</span>
               </div>
               <FiChevronRight style={{ fontSize: '14px', opacity: isSelected ? 1 : 0.4 }} />
-            </div>
+            </a>
           )
         })}
 
-        {/* 5. Active User & Auth Controls */}
+        {/* 6. Active User & Auth Controls */}
         <div className={styles.userProfileFooter}>
           {currentUser ? (
             <>
