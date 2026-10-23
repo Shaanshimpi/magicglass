@@ -113,12 +113,12 @@ export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {
       },
       {
         "title": "FURNITURE AND DECOR",
-        "image": "/images/products/details/FURNITURE.png",
+        "image": "/images/products/details/furniture.png",
         "description": "Elegant toughened glass tables, shelves, display counters, and interior partition panels crafted for modern residences and retail spaces."
       },
       {
         "title": "SOLAR ENERGY",
-        "image": "/images/products/details/HIGH-RISE-BUILDINGS.png",
+        "image": "/images/products/details/high-rise-buildings.png",
         "description": "Specialized low-iron toughened glass panels offering high solar transmittance and enduring durability for photovoltaic solar modules and collectors."
       }
     ],

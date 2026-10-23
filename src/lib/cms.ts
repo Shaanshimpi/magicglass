@@ -23,15 +23,34 @@ export async function getPayloadClient() {
   }
 }
 
+// Known uppercase or alias paths mapped to exact Linux filenames
+const KNOWN_IMAGE_CASING_MAP: Record<string, string> = {
+  '/images/products/details/FURNITURE.png': '/images/products/details/furniture.png',
+  '/images/products/details/HIGH-RISE-BUILDINGS.png': '/images/products/details/high-rise-buildings.png',
+  '/images/products/details/FACADES-REFLECTIVE-GLASS.png': '/images/products/details/facades-reflective.png',
+  '/images/products/details/INTERIOR-DECOR.png': '/images/products/details/interiors.png',
+  '/images/products/details/INTERIOR-DECOR-1.png': '/images/products/details/interiors.png',
+  '/images/products/details/OVERHEAD-SPACES-1.png': '/images/apps/overhead-spaces.png',
+  '/images/products/details/RAILINGS-STAIRCASE-AND-PARTITIONS-2.png': '/images/products/details/railings-staircase-partitions.png',
+  '/images/projects/soliatre-business-hub.jpg': '/images/projects/solitaire-business-hub.jpg',
+}
+
 // Extract string URL from Payload media upload or fallback string
 export function getMediaUrl(mediaField: any, fallbackUrl?: string): string {
+  let url = ''
   if (typeof mediaField === 'string' && mediaField.length > 0) {
-    return mediaField
+    url = mediaField
+  } else if (mediaField && typeof mediaField === 'object' && mediaField.url) {
+    url = mediaField.url
+  } else {
+    url = fallbackUrl || ''
   }
-  if (mediaField && typeof mediaField === 'object' && mediaField.url) {
-    return mediaField.url
+
+  if (url && KNOWN_IMAGE_CASING_MAP[url]) {
+    return KNOWN_IMAGE_CASING_MAP[url]
   }
-  return fallbackUrl || ''
+
+  return url
 }
 
 // Map alias route slugs to canonical PDP dataset keys

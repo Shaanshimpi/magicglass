@@ -57,6 +57,42 @@ const nextConfig: NextConfig = {
       },
     ]
   },
+  async rewrites() {
+    return [
+      {
+        source: '/images/products/details/FURNITURE.png',
+        destination: '/images/products/details/furniture.png',
+      },
+      {
+        source: '/images/products/details/HIGH-RISE-BUILDINGS.png',
+        destination: '/images/products/details/high-rise-buildings.png',
+      },
+      {
+        source: '/images/products/details/FACADES-REFLECTIVE-GLASS.png',
+        destination: '/images/products/details/facades-reflective.png',
+      },
+      {
+        source: '/images/products/details/INTERIOR-DECOR.png',
+        destination: '/images/products/details/interiors.png',
+      },
+      {
+        source: '/images/products/details/INTERIOR-DECOR-1.png',
+        destination: '/images/products/details/interiors.png',
+      },
+      {
+        source: '/images/products/details/OVERHEAD-SPACES-1.png',
+        destination: '/images/apps/overhead-spaces.png',
+      },
+      {
+        source: '/images/products/details/RAILINGS-STAIRCASE-AND-PARTITIONS-2.png',
+        destination: '/images/products/details/railings-staircase-partitions.png',
+      },
+      {
+        source: '/images/projects/soliatre-business-hub.jpg',
+        destination: '/images/projects/solitaire-business-hub.jpg',
+      },
+    ]
+  },
 }
 
 export default withPayload(nextConfig, { devBundleServerPackages: false })
