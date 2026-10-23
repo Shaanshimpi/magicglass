@@ -45,6 +45,69 @@ const CATEGORIES = [
   'User Uploads',
 ]
 
+/**
+ * Resolves any media URL into a canonical, valid full URL.
+ * Prevents double-origin concatenation (e.g. https://domain.comhttps://media.magicglass.co.in/...)
+ */
+export function getAbsoluteMediaUrl(rawUrl: string): string {
+  if (!rawUrl) return ''
+  let cleaned = rawUrl.trim()
+
+  // 1. Detect if an origin got prefixed to an already full URL:
+  // e.g. "https://magicglass-five.vercel.apphttps/media.magicglass.co.in/..." or "https://magicglass-five.vercel.apphttps://..."
+  const secondHttpMatch = cleaned.slice(8).match(/(https?:\/\/.+|https?:\/.+|https\/.+)/i)
+  if (secondHttpMatch && secondHttpMatch[1]) {
+    cleaned = secondHttpMatch[1]
+  }
+
+  // 2. Fix malformed protocol without colon or single slash: e.g. "https/media..." or "https:/media..."
+  cleaned = cleaned.replace(/^https?\/+/i, 'https://')
+  cleaned = cleaned.replace(/^https?:\/\/?/i, 'https://')
+
+  // 3. If it already starts with https:// or http://, return it
+  if (/^https?:\/\//i.test(cleaned)) {
+    return cleaned
+  }
+
+  // 4. If protocol-relative (//media.magicglass.co.in/...)
+  if (cleaned.startsWith('//')) {
+    return `https:${cleaned}`
+  }
+
+  // 5. If relative path (/images/...)
+  const origin =
+    typeof window !== 'undefined' && window.location.origin
+      ? window.location.origin
+      : 'https://magicglass.co.in'
+
+  const normalizedPath = cleaned.startsWith('/') ? cleaned : `/${cleaned}`
+  return `${origin}${normalizedPath}`
+}
+
+/**
+ * Returns a clean relative path or CDN URL for the asset
+ */
+export function getRelativeMediaUrl(rawUrl: string): string {
+  if (!rawUrl) return ''
+  const absUrl = getAbsoluteMediaUrl(rawUrl)
+
+  try {
+    const parsed = new URL(absUrl)
+    // If hosted on current origin without CDN subdomain
+    if (
+      typeof window !== 'undefined' &&
+      (parsed.origin === window.location.origin || parsed.hostname === 'magicglass.co.in') &&
+      !parsed.hostname.startsWith('media.')
+    ) {
+      return parsed.pathname + parsed.search
+    }
+    // If on external CDN (like media.magicglass.co.in or R2), the full URL is canonical
+    return absUrl
+  } catch {
+    return absUrl
+  }
+}
+
 export const MediaLibraryView: React.FC = () => {
   const [mediaList, setMediaList] = useState<MediaItem[]>([])
   const [loading, setLoading] = useState<boolean>(true)
@@ -138,10 +201,7 @@ export const MediaLibraryView: React.FC = () => {
 
   // Native share or dialog
   const handleShare = async (item: MediaItem) => {
-    const fullUrl =
-      typeof window !== 'undefined'
-        ? `${window.location.origin}${item.url}`
-        : item.url
+    const fullUrl = getAbsoluteMediaUrl(item.url)
 
     if (navigator.share) {
       try {
@@ -383,7 +443,7 @@ export const MediaLibraryView: React.FC = () => {
                   <button
                     type="button"
                     className={styles.actionBtn}
-                    onClick={() => handleCopy(item.url, 'Relative link')}
+                    onClick={() => handleCopy(getRelativeMediaUrl(item.url), 'Relative link')}
                     title="Copy Relative Link"
                   >
                     <FiCopy />
@@ -405,7 +465,7 @@ export const MediaLibraryView: React.FC = () => {
                     <FiMaximize2 />
                   </button>
                   <a
-                    href={item.url}
+                    href={getAbsoluteMediaUrl(item.url)}
                     download={item.name}
                     className={styles.actionBtn}
                     title="Download Original"
@@ -425,10 +485,10 @@ export const MediaLibraryView: React.FC = () => {
                 </div>
                 <div
                   className={styles.cardUrlSnippet}
-                  onClick={() => handleCopy(item.url, 'URL')}
-                  title="Click to copy path"
+                  onClick={() => handleCopy(getAbsoluteMediaUrl(item.url), 'Full URL')}
+                  title="Click to copy full asset URL"
                 >
-                  {item.url}
+                  {getAbsoluteMediaUrl(item.url)}
                 </div>
               </div>
             </div>
@@ -483,8 +543,8 @@ export const MediaLibraryView: React.FC = () => {
                   <td style={{ fontFamily: 'monospace' }}>{item.aspect}</td>
                   <td>{formatFileSize(item.size)}</td>
                   <td>{item.format}</td>
-                  <td style={{ fontFamily: 'monospace', fontSize: '0.75rem', color: '#8b949e' }}>
-                    {item.url}
+                  <td style={{ fontFamily: 'monospace', fontSize: '0.75rem', color: '#8b949e', maxWidth: '240px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }} title={getAbsoluteMediaUrl(item.url)}>
+                    {getAbsoluteMediaUrl(item.url)}
                   </td>
                   <td style={{ textAlign: 'right' }}>
                     <div style={{ display: 'inline-flex', gap: '0.4rem' }}>
@@ -492,8 +552,8 @@ export const MediaLibraryView: React.FC = () => {
                         type="button"
                         className={styles.actionBtn}
                         style={{ width: 30, height: 30 }}
-                        onClick={() => handleCopy(item.url, 'Link')}
-                        title="Copy Link"
+                        onClick={() => handleCopy(getAbsoluteMediaUrl(item.url), 'Full URL')}
+                        title="Copy Full URL"
                       >
                         <FiCopy style={{ fontSize: '0.75rem' }} />
                       </button>
@@ -573,7 +633,7 @@ export const MediaLibraryView: React.FC = () => {
                   <button
                     type="button"
                     className={styles.secondaryBtn}
-                    onClick={() => handleCopy(inspectItem.url, 'Relative URL')}
+                    onClick={() => handleCopy(getRelativeMediaUrl(inspectItem.url), 'Relative URL')}
                   >
                     <FiCopy /> Copy Relative URL
                   </button>
@@ -581,8 +641,7 @@ export const MediaLibraryView: React.FC = () => {
                     type="button"
                     className={styles.secondaryBtn}
                     onClick={() => {
-                      const origin = typeof window !== 'undefined' ? window.location.origin : 'https://magicglass.co.in'
-                      handleCopy(`${origin}${inspectItem.url}`, 'Full CDN URL')
+                      handleCopy(getAbsoluteMediaUrl(inspectItem.url), 'Full URL')
                     }}
                   >
                     <FiExternalLink /> Copy Full URL
@@ -598,7 +657,16 @@ export const MediaLibraryView: React.FC = () => {
                     <FiShare2 /> Share
                   </button>
                   <a
-                    href={inspectItem.url}
+                    href={getAbsoluteMediaUrl(inspectItem.url)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.secondaryBtn}
+                    title="Open Full Image in New Tab"
+                  >
+                    <FiExternalLink /> Open in Tab
+                  </a>
+                  <a
+                    href={getAbsoluteMediaUrl(inspectItem.url)}
                     download={inspectItem.name}
                     className={styles.secondaryBtn}
                   >
@@ -635,13 +703,13 @@ export const MediaLibraryView: React.FC = () => {
 
             {/* Direct Link */}
             <div className={styles.snippetBlock}>
-              <span className={styles.snippetTitle}>Direct URL</span>
+              <span className={styles.snippetTitle}>Direct Full URL</span>
               <div className={styles.snippetBox}>
-                <span className={styles.snippetCode}>{shareItem.url}</span>
+                <span className={styles.snippetCode}>{getAbsoluteMediaUrl(shareItem.url)}</span>
                 <button
                   type="button"
                   className={styles.copySnippetBtn}
-                  onClick={() => handleCopy(shareItem.url, 'URL')}
+                  onClick={() => handleCopy(getAbsoluteMediaUrl(shareItem.url), 'Full URL')}
                 >
                   Copy
                 </button>
@@ -653,14 +721,14 @@ export const MediaLibraryView: React.FC = () => {
               <span className={styles.snippetTitle}>Next.js Image Tag</span>
               <div className={styles.snippetBox}>
                 <span className={styles.snippetCode}>
-                  {`<Image src="${shareItem.url}" alt="${shareItem.name}" fill sizes="100vw" quality={90} />`}
+                  {`<Image src="${getAbsoluteMediaUrl(shareItem.url)}" alt="${shareItem.name}" fill sizes="100vw" quality={90} />`}
                 </span>
                 <button
                   type="button"
                   className={styles.copySnippetBtn}
                   onClick={() =>
                     handleCopy(
-                      `<Image src="${shareItem.url}" alt="${shareItem.name}" fill sizes="100vw" quality={90} />`,
+                      `<Image src="${getAbsoluteMediaUrl(shareItem.url)}" alt="${shareItem.name}" fill sizes="100vw" quality={90} />`,
                       'Next.js code'
                     )
                   }
@@ -675,13 +743,13 @@ export const MediaLibraryView: React.FC = () => {
               <span className={styles.snippetTitle}>Markdown Embed</span>
               <div className={styles.snippetBox}>
                 <span className={styles.snippetCode}>
-                  {`![${shareItem.name}](${shareItem.url})`}
+                  {`![${shareItem.name}](${getAbsoluteMediaUrl(shareItem.url)})`}
                 </span>
                 <button
                   type="button"
                   className={styles.copySnippetBtn}
                   onClick={() =>
-                    handleCopy(`![${shareItem.name}](${shareItem.url})`, 'Markdown')
+                    handleCopy(`![${shareItem.name}](${getAbsoluteMediaUrl(shareItem.url)})`, 'Markdown')
                   }
                 >
                   Copy
@@ -694,14 +762,14 @@ export const MediaLibraryView: React.FC = () => {
               <span className={styles.snippetTitle}>HTML Image Tag</span>
               <div className={styles.snippetBox}>
                 <span className={styles.snippetCode}>
-                  {`<img src="${shareItem.url}" alt="${shareItem.name}" loading="lazy" />`}
+                  {`<img src="${getAbsoluteMediaUrl(shareItem.url)}" alt="${shareItem.name}" loading="lazy" />`}
                 </span>
                 <button
                   type="button"
                   className={styles.copySnippetBtn}
                   onClick={() =>
                     handleCopy(
-                      `<img src="${shareItem.url}" alt="${shareItem.name}" loading="lazy" />`,
+                      `<img src="${getAbsoluteMediaUrl(shareItem.url)}" alt="${shareItem.name}" loading="lazy" />`,
                       'HTML tag'
                     )
                   }
