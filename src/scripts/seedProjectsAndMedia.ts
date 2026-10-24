@@ -136,7 +136,7 @@ async function seed() {
     console.log(`\n📌 Processing: ${proj.title} (${slug})...`)
 
     let mediaDocId: string | number | null = null
-    let publicImageUrl = `https://media.magicglass.co.in/${filename}`
+    let publicImageUrl = proj.image
 
     if (localPath && fs.existsSync(localPath)) {
       const fileBuffer = fs.readFileSync(localPath)
@@ -152,7 +152,9 @@ async function seed() {
 
       if (existingMedia.docs.length > 0) {
         mediaDocId = existingMedia.docs[0].id
-        publicImageUrl = (existingMedia.docs[0] as any).url || publicImageUrl
+        if (!proj.image || !proj.image.includes('?')) {
+          publicImageUrl = (existingMedia.docs[0] as any).url || publicImageUrl
+        }
         console.log(`   ✓ Found existing Media doc: ID ${mediaDocId}`)
         // Update alt text to match latest metadata
         try {

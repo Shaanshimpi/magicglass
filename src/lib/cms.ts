@@ -38,7 +38,10 @@ const KNOWN_IMAGE_CASING_MAP: Record<string, string> = {
 // Extract string URL from Payload media upload or fallback string
 export function getMediaUrl(mediaField: any, fallbackUrl?: string): string {
   let url = ''
-  if (typeof mediaField === 'string' && mediaField.length > 0) {
+  if (fallbackUrl && fallbackUrl.includes('?')) {
+    // If fallbackUrl contains explicit cache-busting query params, prioritize it
+    url = fallbackUrl
+  } else if (typeof mediaField === 'string' && mediaField.length > 0) {
     url = mediaField
   } else if (mediaField && typeof mediaField === 'object' && mediaField.url) {
     url = mediaField.url
