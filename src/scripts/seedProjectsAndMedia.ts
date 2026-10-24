@@ -6,251 +6,33 @@ import fs from 'fs'
 import path from 'path'
 import { getPayload } from 'payload'
 import configPromise from '../payload.config'
-import { S3Client, PutObjectCommand, HeadObjectCommand } from '@aws-sdk/client-s3'
+import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3'
+import projectsSeedData from '../data/projects_mock.json'
 
-interface ProjectSeedData {
-  slug: string
+interface ProjectItem {
+  id: string
   title: string
   category: 'Commercial' | 'Residential' | 'Airports'
-  developer: string
-  location: string
-  application: string
-  glassDescription: string
-  areaSqMtr: number
-  heroFeatured: boolean
-  tagline: string
-  sourceImagePath: string
-  targetFilename: string
+  developer?: string
+  location?: string
+  application?: string
+  glassDescription?: string
+  areaSqMtr?: number | null
+  image: string
+  heroFeatured?: boolean
+  tagline?: string
 }
 
-const EXTRACTED_BASE = path.resolve(process.cwd(), 'temp_extracted_images')
+const PROCESSED_BASE = path.resolve(process.cwd(), 'processed_spreadsheet_images')
+const PUBLIC_BASE = path.resolve(process.cwd(), 'public/images/projects')
 
-const WHATSAPP_PROJECTS: ProjectSeedData[] = [
-  {
-    slug: 'the-oberoi-nariman-point',
-    title: 'The Oberoi',
-    category: 'Commercial',
-    developer: 'Oberoi Hotels & Resorts',
-    location: 'Nariman Point, Mumbai',
-    application: 'Luxury Hospitality Façade & Sea-Facing Suites',
-    glassDescription: '39.52 SKN 176 High-Performance Laminated DGU (Double Glazed Unit)',
-    areaSqMtr: 12000,
-    heroFeatured: true,
-    tagline: 'Ultra-Luxury Marine-Front Hospitality Glazing',
-    sourceImagePath: path.join(EXTRACTED_BASE, 'The Oberoi Nariman Point Mumbai.jpg'),
-    targetFilename: 'the-oberoi-nariman-point.jpg',
-  },
-  {
-    slug: 'hotel-trident-nariman-point',
-    title: 'Hotel Trident',
-    category: 'Commercial',
-    developer: 'Trident Hotels',
-    location: 'Nariman Point, Mumbai',
-    application: 'Hospitality Exterior Façade & Acoustic Window Systems',
-    glassDescription: '39.52 Laminated DGU SKN 176 High Performance Glass',
-    areaSqMtr: 14500,
-    heroFeatured: true,
-    tagline: 'Iconic Marine Drive Hospitality Tower',
-    sourceImagePath: path.join(EXTRACTED_BASE, 'Hotel Trident Nariman Point.jpg'),
-    targetFilename: 'hotel-trident-nariman-point.jpg',
-  },
-  {
-    slug: 'dabolim-airport-goa',
-    title: 'Dabolim International Airport',
-    category: 'Airports',
-    developer: 'Alumine Fabricator Pvt Ltd / AAI',
-    location: 'Dabolim, Goa',
-    application: 'Terminal Façade, Security Glazing & Airside Glass Partitions',
-    glassDescription: '12mm Heavy Toughened & High-Impact Safety Glasses',
-    areaSqMtr: 9500,
-    heroFeatured: true,
-    tagline: 'Aviation Infrastructure & Transit Hub Façade',
-    sourceImagePath: path.join(EXTRACTED_BASE, 'Dabolim Airport', 'WhatsApp Image 2026-10-02 at 1.35.21 PM.jpeg'),
-    targetFilename: 'dabolim-airport-goa.jpg',
-  },
-  {
-    slug: 'runwal-central-park-chinchwad',
-    title: 'Runwal Central Park',
-    category: 'Residential',
-    developer: 'Runwal Realty',
-    location: 'Chinchwad, Pune',
-    application: 'High-Rise Residential Glazing & Acoustic Balcony Partitions',
-    glassDescription: '13.52mm Acoustic Laminated Safety Glasses',
-    areaSqMtr: 11000,
-    heroFeatured: true,
-    tagline: 'Landmark Residential Township Glazing',
-    sourceImagePath: path.join(EXTRACTED_BASE, 'Runwal Ceteal Park.jpg'),
-    targetFilename: 'runwal-central-park-chinchwad.jpg',
-  },
-  {
-    slug: 'bioaltus-gujarat',
-    title: 'Bioaltus Gujarat',
-    category: 'Commercial',
-    developer: 'Glazon India Pvt Ltd',
-    location: 'Valsad, Gujarat',
-    application: 'Corporate Headquarters Façade & Curtain Wall Glazing',
-    glassDescription: '6mm ST 750 High-Performance Solar Control Glass',
-    areaSqMtr: 4500,
-    heroFeatured: true,
-    tagline: 'Corporate Industrial & Commercial Façade',
-    sourceImagePath: path.join(EXTRACTED_BASE, 'Bioaltus Gujrat.jpg'),
-    targetFilename: 'bioaltus-gujarat.jpg',
-  },
-  {
-    slug: 'dnk-square-viman-nagar',
-    title: 'DNK Square',
-    category: 'Commercial',
-    developer: 'Alcorp',
-    location: 'Airport Road, Viman Nagar, Pune',
-    application: 'Commercial Corporate Façade & Architectural Fenestration',
-    glassDescription: '6mm HD Grey DGU (Double Glazed Unit) Glass',
-    areaSqMtr: 6200,
-    heroFeatured: true,
-    tagline: 'Premium Airport Road Corporate Hub',
-    sourceImagePath: path.join(EXTRACTED_BASE, 'DNK Square Airport Road Viman Nagar.jpg'),
-    targetFilename: 'dnk-square-viman-nagar.jpg',
-  },
-  {
-    slug: 'riverdale-grove-kharadi',
-    title: 'Riverdale Grove',
-    category: 'Residential',
-    developer: 'Shree Enterprises',
-    location: 'Kharadi, Pune',
-    application: 'Luxury High-Rise Windows & Structural Railings',
-    glassDescription: 'SCN 145 High-Performance Solar Control Glass',
-    areaSqMtr: 8500,
-    heroFeatured: true,
-    tagline: 'Luxury Waterfront Residential Towers',
-    sourceImagePath: path.join(EXTRACTED_BASE, 'Shree enterprises', 'WhatsApp Image 2026-09-30 at 1.50.21 PM (1).jpeg'),
-    targetFilename: 'riverdale-grove-kharadi.jpg',
-  },
-  {
-    slug: 'malpani-m-soulstrings-baner',
-    title: 'Malpani M Soulstrings',
-    category: 'Residential',
-    developer: 'Alufacade / Malpani Group',
-    location: 'Baner, Pune',
-    application: 'Residential Windows, French Doors & Balcony Balustrades',
-    glassDescription: 'N45 & ST 750 High-Performance Double Glazed Units',
-    areaSqMtr: 7200,
-    heroFeatured: true,
-    tagline: 'Contemporary Luxury High-Rise Living',
-    sourceImagePath: path.join(EXTRACTED_BASE, 'Malpani M soulstrings.jpg'),
-    targetFilename: 'malpani-soulstrings-baner.jpg',
-  },
-  {
-    slug: 'bajaj-auto-office-sambhaji-nagar',
-    title: 'Bajaj Auto Corporate Office',
-    category: 'Commercial',
-    developer: 'Bajaj Auto Ltd',
-    location: 'Chhatrapati Sambhaji Nagar, Maharashtra',
-    application: 'Corporate Offices, Executive Suites & Curtain Wall Façade',
-    glassDescription: '6mm SCN 145 Toughened Glass',
-    areaSqMtr: 7800,
-    heroFeatured: true,
-    tagline: 'Automotive Global Brand Corporate Hub',
-    sourceImagePath: path.join(EXTRACTED_BASE, 'Bajaj Auto office', 'WhatsApp Image 2026-10-02 at 1.39.08 PM.jpeg'),
-    targetFilename: 'bajaj-auto-sambhaji-nagar.jpg',
-  },
-  {
-    slug: 'attalika-pune',
-    title: 'Attalika',
-    category: 'Residential',
-    developer: 'Art and Vision Façade',
-    location: 'Pune, Maharashtra',
-    application: 'Architectural Windows, Balcony Railings & Louver Glazing',
-    glassDescription: 'Silver Grey 32 Toughened & Solar Reflective Glass',
-    areaSqMtr: 5000,
-    heroFeatured: false,
-    tagline: 'Architectural Residential Tower',
-    sourceImagePath: path.join(EXTRACTED_BASE, 'Art And vision Facade.jpg'),
-    targetFilename: 'attalika-pune.jpg',
-  },
-  {
-    slug: 'pune-peoples-cooperative-bank',
-    title: 'Pune People’s Co-operative Bank',
-    category: 'Commercial',
-    developer: 'Pune People’s Co-operative Bank',
-    location: 'Pune, Maharashtra',
-    application: 'Headquarters Façade, Entrance Lobby & Security Partitions',
-    glassDescription: 'KT 144 Double Glazed Unit (DGU) Glass',
-    areaSqMtr: 3200,
-    heroFeatured: false,
-    tagline: 'Financial Institution Headquarters',
-    sourceImagePath: path.join(EXTRACTED_BASE, 'Pune people cooperative Bank.jpg'),
-    targetFilename: 'pune-peoples-cooperative-bank.jpg',
-  },
-  {
-    slug: 'exotic-fruits-nashik',
-    title: 'Exotic Fruits Facility',
-    category: 'Commercial',
-    developer: 'Glaztech',
-    location: 'MIDC Vinchur, Nashik, Maharashtra',
-    application: 'Agro-Processing Corporate Center & Cold-Insulated Facade',
-    glassDescription: 'Solar Control DGU & Toughened Safety Glass',
-    areaSqMtr: 3800,
-    heroFeatured: false,
-    tagline: 'Agro-Industrial Commercial Complex',
-    sourceImagePath: path.join(EXTRACTED_BASE, 'Exotic Fruits , MIDC Vinchur,Nasik.jpg'),
-    targetFilename: 'exotic-fruits-nashik.jpg',
-  },
-  {
-    slug: 'vaidya-spaces-andheri-mumbai',
-    title: 'Vaidya Spaces',
-    category: 'Commercial',
-    developer: 'Vaidya Spaces',
-    location: 'Andheri East, Mumbai',
-    application: 'Commercial Office Tower Façade & Entrance Glazing',
-    glassDescription: '6mm ST136 and ST 467 Toughened Architectural Glass',
-    areaSqMtr: 5400,
-    heroFeatured: false,
-    tagline: 'Boutique Commercial Center Façade',
-    sourceImagePath: path.join(EXTRACTED_BASE, 'Vaidya Spaces', 'WhatsApp Image 2026-10-02 at 1.49.50 PM.jpeg'),
-    targetFilename: 'vaidya-spaces-andheri-mumbai.jpg',
-  },
-  {
-    slug: 'endurance-technologies-sambhaji-nagar',
-    title: 'Endurance Technologies Ltd',
-    category: 'Commercial',
-    developer: 'Endurance Technologies Ltd',
-    location: 'Chhatrapati Sambhaji Nagar, Maharashtra',
-    application: 'Industrial Headquarters & Advanced R&D Center Façade',
-    glassDescription: 'High-Performance Low-E Toughened Glazing',
-    areaSqMtr: 6800,
-    heroFeatured: false,
-    tagline: 'Automotive Engineering R&D Center',
-    sourceImagePath: path.join(EXTRACTED_BASE, 'Endurance Technologies LTD', 'WhatsApp Image 2026-10-02 at 1.35.19 PM.jpeg'),
-    targetFilename: 'endurance-technologies-sambhaji-nagar.jpg',
-  },
-  {
-    slug: 'bbm-muller-pirangut',
-    title: 'BBM Müller',
-    category: 'Commercial',
-    developer: 'BBM Müller',
-    location: 'Pirangut, Pune',
-    application: 'Manufacturing Headquarters & Administrative Façade',
-    glassDescription: 'Architectural Solar Control & Safety Toughened Glass',
-    areaSqMtr: 5800,
-    heroFeatured: false,
-    tagline: 'German Engineering Plant Façade',
-    sourceImagePath: path.join(EXTRACTED_BASE, 'Glaztech', 'WhatsApp Image 2026-10-02 at 10.38.37 AM.jpeg'),
-    targetFilename: 'bbm-muller-pirangut.jpg',
-  },
-  {
-    slug: 'cn-water-taloja',
-    title: 'CN Water Facility',
-    category: 'Commercial',
-    developer: 'Glaztech',
-    location: 'Taloja MIDC, Navi Mumbai',
-    application: 'Industrial Purification Plant Façade & Partitions',
-    glassDescription: 'High-Performance Solar Reflective Toughened Glass',
-    areaSqMtr: 4100,
-    heroFeatured: false,
-    tagline: 'Industrial & Manufacturing Infrastructure',
-    sourceImagePath: path.join(EXTRACTED_BASE, 'Glaztech', 'WhatsApp Image 2026-10-02 at 10.38.36 AM.jpeg'),
-    targetFilename: 'cn-water-taloja.jpg',
-  },
-]
+function resolveLocalImagePath(filename: string): string | null {
+  const p1 = path.join(PROCESSED_BASE, filename)
+  if (fs.existsSync(p1)) return p1
+  const p2 = path.join(PUBLIC_BASE, filename)
+  if (fs.existsSync(p2)) return p2
+  return null
+}
 
 const AI_TESTIMONIALS = [
   {
@@ -314,24 +96,29 @@ async function uploadDirectToR2(filePath: string, targetKey: string, contentType
       Key: targetKey,
       Body: fileBuffer,
       ContentType: contentType,
+      CacheControl: 'public, max-age=31536000, immutable',
     })
   )
   console.log(`   ☁️ [R2 S3 Direct] Uploaded "${targetKey}" (${Math.round(fileBuffer.length / 1024)} KB)`)
 }
 
 async function seed() {
-  console.log('🚀 Starting Comprehensive WhatsApp Projects & Cloudflare R2 Media Seeding...')
-  
-  // 1. Direct R2 uploads for all extracted images first
-  console.log('\n📦 Step 1: Uploading/Syncing All WhatsApp Photos directly to Cloudflare R2 Bucket...')
-  for (const proj of WHATSAPP_PROJECTS) {
-    if (fs.existsSync(proj.sourceImagePath)) {
-      const ext = path.extname(proj.targetFilename).toLowerCase()
-      const contentType = ext === '.png' ? 'image/png' : 'image/jpeg'
+  console.log('🚀 Starting Comprehensive Projects & Cloudflare R2 Media Seeding...')
+  const projects = projectsSeedData as ProjectItem[]
+  console.log(`📋 Total Projects to Seed: ${projects.length}`)
+
+  // 1. Direct R2 uploads for all available images first
+  console.log('\n📦 Step 1: Uploading/Syncing All Project Photos directly to Cloudflare R2 Bucket...')
+  for (const proj of projects) {
+    const filename = path.basename(proj.image.split('?')[0])
+    const localPath = resolveLocalImagePath(filename)
+    if (localPath) {
+      const ext = path.extname(filename).toLowerCase()
+      const contentType = ext === '.png' ? 'image/png' : ext === '.webp' ? 'image/webp' : 'image/jpeg'
       try {
-        await uploadDirectToR2(proj.sourceImagePath, proj.targetFilename, contentType)
+        await uploadDirectToR2(localPath, filename, contentType)
       } catch (err: any) {
-        console.warn(`   ⚠️ Direct R2 upload warning for ${proj.targetFilename}:`, err.message)
+        console.warn(`   ⚠️ Direct R2 upload warning for ${filename}:`, err.message)
       }
     }
   }
@@ -340,25 +127,26 @@ async function seed() {
   console.log('\n📦 Step 2: Initializing Payload CMS & Connecting to PostgreSQL Database...')
   const payload = await getPayload({ config: configPromise })
 
-  const seededProjectsListForMock: any[] = []
-
   // 3. Upsert Projects & Media in Payload
   console.log('\n📦 Step 3: Registering Media & Projects into PostgreSQL...')
-  for (const proj of WHATSAPP_PROJECTS) {
-    console.log(`\n📌 Processing: ${proj.title} (${proj.slug})...`)
+  for (const proj of projects) {
+    const filename = path.basename(proj.image.split('?')[0])
+    const localPath = resolveLocalImagePath(filename)
+    const slug = proj.id
+    console.log(`\n📌 Processing: ${proj.title} (${slug})...`)
 
     let mediaDocId: string | number | null = null
-    let publicImageUrl = `https://media.magicglass.co.in/${proj.targetFilename}`
+    let publicImageUrl = `https://media.magicglass.co.in/${filename}`
 
-    if (fs.existsSync(proj.sourceImagePath)) {
-      const fileBuffer = fs.readFileSync(proj.sourceImagePath)
-      const ext = path.extname(proj.targetFilename).toLowerCase()
-      const mimetype = ext === '.png' ? 'image/png' : 'image/jpeg'
+    if (localPath && fs.existsSync(localPath)) {
+      const fileBuffer = fs.readFileSync(localPath)
+      const ext = path.extname(filename).toLowerCase()
+      const mimetype = ext === '.png' ? 'image/png' : ext === '.webp' ? 'image/webp' : 'image/jpeg'
 
       // Check if media already exists in Payload collection
       const existingMedia = await payload.find({
         collection: 'media',
-        where: { filename: { equals: proj.targetFilename } },
+        where: { filename: { equals: filename } },
         limit: 1,
       })
 
@@ -366,17 +154,29 @@ async function seed() {
         mediaDocId = existingMedia.docs[0].id
         publicImageUrl = (existingMedia.docs[0] as any).url || publicImageUrl
         console.log(`   ✓ Found existing Media doc: ID ${mediaDocId}`)
+        // Update alt text to match latest metadata
+        try {
+          await payload.update({
+            collection: 'media',
+            id: mediaDocId,
+            data: {
+              alt: `${proj.title} - ${proj.glassDescription || proj.category} by Magic Glass`,
+            },
+          })
+        } catch (e: any) {
+          // silently continue
+        }
       } else {
         try {
           const newMedia = await payload.create({
             collection: 'media',
             data: {
-              alt: `${proj.title} - ${proj.glassDescription} by Magic Glass`,
+              alt: `${proj.title} - ${proj.glassDescription || proj.category} by Magic Glass`,
             },
             file: {
               data: fileBuffer,
               mimetype,
-              name: proj.targetFilename,
+              name: filename,
               size: fileBuffer.length,
             },
           })
@@ -384,30 +184,30 @@ async function seed() {
           publicImageUrl = newMedia.url || publicImageUrl
           console.log(`   ✅ Media Uploaded to Collection! Doc ID: ${mediaDocId}`)
         } catch (mediaErr: any) {
-          console.warn(`   ⚠️ Payload media create warning for ${proj.targetFilename}:`, mediaErr.message)
+          console.warn(`   ⚠️ Payload media create warning for ${filename}:`, mediaErr.message)
         }
       }
     }
 
     // Upsert Project into Payload PostgreSQL Collection
     const projectPayloadData = {
-      slug: proj.slug,
+      slug,
       title: proj.title,
       category: proj.category,
-      developer: proj.developer,
-      location: proj.location,
-      application: proj.application,
-      glassDescription: proj.glassDescription,
-      areaSqMtr: proj.areaSqMtr,
+      developer: proj.developer || '',
+      location: proj.location || '',
+      application: proj.application || '',
+      glassDescription: proj.glassDescription || '',
+      areaSqMtr: proj.areaSqMtr || 0,
       image: mediaDocId || undefined,
       imageUrl: publicImageUrl,
-      heroFeatured: proj.heroFeatured,
-      tagline: proj.tagline,
+      heroFeatured: Boolean(proj.heroFeatured),
+      tagline: proj.tagline || '',
     }
 
     const existingProj = await payload.find({
       collection: 'projects',
-      where: { slug: { equals: proj.slug } },
+      where: { slug: { equals: slug } },
       limit: 1,
     })
 
@@ -425,50 +225,14 @@ async function seed() {
       })
       console.log(`   + Created DB Project record: ${proj.title}`)
     }
-
-    seededProjectsListForMock.push({
-      id: proj.slug,
-      title: proj.title,
-      category: proj.category,
-      developer: proj.developer,
-      location: proj.location,
-      application: proj.application,
-      glassDescription: proj.glassDescription,
-      areaSqMtr: proj.areaSqMtr,
-      image: publicImageUrl,
-      heroFeatured: proj.heroFeatured,
-      tagline: proj.tagline,
-    })
   }
 
-  // 4. Update projects_mock.json so mock fallback is fully updated
-  const mockPath = path.resolve(process.cwd(), 'src/data/projects_mock.json')
-  let existingMock: any[] = []
-  if (fs.existsSync(mockPath)) {
-    try {
-      existingMock = JSON.parse(fs.readFileSync(mockPath, 'utf8'))
-    } catch (e) {}
-  }
-
-  const finalMockMap = new Map<string, any>()
-  for (const item of seededProjectsListForMock) {
-    finalMockMap.set(item.id, item)
-  }
-  for (const item of existingMock) {
-    if (!finalMockMap.has(item.id)) {
-      finalMockMap.set(item.id, item)
-    }
-  }
-  const finalMockArray = Array.from(finalMockMap.values())
-  fs.writeFileSync(mockPath, JSON.stringify(finalMockArray, null, 2), 'utf8')
-  console.log(`\n📄 Updated src/data/projects_mock.json with ${finalMockArray.length} total projects.`)
-
-  // 5. Update Projects Page Global Hero Carousel
+  // 4. Update Projects Page Global Hero Carousel
   console.log('\n🌟 Updating Projects Page Global (Hero Featured Projects)...')
   const heroFeaturedDocs = await payload.find({
     collection: 'projects',
     where: { heroFeatured: { equals: true } },
-    limit: 12,
+    limit: 20,
   })
 
   await payload.updateGlobal({
@@ -484,8 +248,8 @@ async function seed() {
   })
   console.log(`   ✓ Linked ${heroFeaturedDocs.docs.length} Featured Projects in projects-page Global`)
 
-  // 6. Update Home Page Global Testimonials
-  console.log('\n💬 Updating Home Page Global with AI Testimonials (Godrej, My Windows, Mantra, Vantara, Oberoi)...')
+  // 5. Update Home Page Global Testimonials
+  console.log('\n💬 Updating Home Page Global with Testimonials (Godrej, My Windows, Mantra, Vantara, Oberoi)...')
   try {
     const currentHome = await payload.findGlobal({ slug: 'home-page' })
     await payload.updateGlobal({
@@ -500,7 +264,7 @@ async function seed() {
     console.warn('   ⚠️ Could not update home-page global testimonials:', err.message)
   }
 
-  console.log('\n🎉 ALL 17 WHATSAPP PROJECTS & MEDIA SEEDED SUCCESSFULLY IN CLOUDFLARE R2 & POSTGRESQL!')
+  console.log(`\n🎉 ALL ${projects.length} PROJECTS & MEDIA SEEDED SUCCESSFULLY IN CLOUDFLARE R2 & POSTGRESQL!`)
 }
 
 seed()

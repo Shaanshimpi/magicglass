@@ -107,14 +107,14 @@
     "id": "bajaj-auto-office-sambhaji-nagar",
     "title": "Bajaj Auto Corporate Office",
     "category": "Commercial",
-    "developer": "Bajaj Auto Ltd",
+    "developer": "Endurance Technologies LTD",
     "location": "Chhatrapati Sambhaji Nagar, Maharashtra",
     "application": "Corporate Offices, Executive Suites & Curtain Wall Façade",
     "glassDescription": "6mm SCN 145 Toughened Glass",
     "areaSqMtr": 7800,
     "image": "https://media.magicglass.co.in/bajaj-auto-sambhaji-nagar.jpg",
     "heroFeatured": true,
-    "tagline": "Automotive Global Brand Corporate Hub"
+    "tagline": "Endurance Technologies - Bajaj Auto Corporate Office"
   },
   {
     "id": "attalika-pune",
@@ -216,7 +216,7 @@
     "application": "Interior partition and door glass",
     "glassDescription": "6mm st 408 and Laminated glass",
     "areaSqMtr": 8000,
-    "image": "/images/projects/goa-airport.jpg",
+    "image": "https://media.magicglass.co.in/goa-airport.jpg",
     "heroFeatured": false,
     "tagline": "Commercial Glazing Project"
   },
@@ -229,7 +229,7 @@
     "application": "Windows",
     "glassDescription": "6mm Grey 27 Guardian glass Double glazez unit",
     "areaSqMtr": 5000,
-    "image": "/images/projects/balmoral-by-riverside.jpg",
+    "image": "https://media.magicglass.co.in/balmoral-by-riverside.jpg",
     "heroFeatured": true,
     "tagline": "Residential Glazing Project"
   },
@@ -242,7 +242,7 @@
     "application": "Façade & Windows",
     "glassDescription": "6mm Clear reflective saint gobain",
     "areaSqMtr": 6000,
-    "image": "/images/projects/the-ark.jpg",
+    "image": "https://media.magicglass.co.in/the-ark.jpg",
     "heroFeatured": true,
     "tagline": "Residential Glazing Project"
   },
@@ -255,7 +255,7 @@
     "application": "Windows",
     "glassDescription": "8mm clear toughened",
     "areaSqMtr": 3000,
-    "image": "/images/projects/verde.jpg",
+    "image": "https://media.magicglass.co.in/verde.jpg",
     "heroFeatured": true,
     "tagline": "Residential Glazing Project"
   },
@@ -268,7 +268,7 @@
     "application": "Windows",
     "glassDescription": "6mm clear toughened",
     "areaSqMtr": 5000,
-    "image": "/images/projects/apostrophe.jpg",
+    "image": "https://media.magicglass.co.in/apostrophe.jpg",
     "heroFeatured": false,
     "tagline": "Residential Glazing Project"
   },
@@ -281,7 +281,7 @@
     "application": "Window and Railings",
     "glassDescription": "5mm & Laminated",
     "areaSqMtr": 10000,
-    "image": "/images/projects/ganga-platino.jpg",
+    "image": "https://media.magicglass.co.in/ganga-platino.jpg",
     "heroFeatured": false,
     "tagline": "Residential Glazing Project"
   },
@@ -294,7 +294,7 @@
     "application": "Windows",
     "glassDescription": "5mm and 6mm clear toughened",
     "areaSqMtr": 7000,
-    "image": "/images/projects/nyati-elysia.jpg",
+    "image": "https://media.magicglass.co.in/nyati-elysia.jpg",
     "heroFeatured": false,
     "tagline": "Residential Glazing Project"
   },
@@ -307,7 +307,7 @@
     "application": "Windows",
     "glassDescription": "66mm",
     "areaSqMtr": 6500,
-    "image": "/images/projects/eon-homes.jpg",
+    "image": "https://media.magicglass.co.in/eon-homes.jpg",
     "heroFeatured": false,
     "tagline": "Residential Glazing Project"
   },
@@ -315,14 +315,14 @@
     "id": "ganga-trueno",
     "title": "Ganga Trueno",
     "category": "Commercial",
-    "developer": "Goel ganga developments",
-    "location": "Vimanagar",
-    "application": "Façade",
-    "glassDescription": "6mm ET125 DGU",
+    "developer": "Goel Ganga Developments",
+    "location": "Viman Nagar, Pune, Maharashtra",
+    "application": "Corporate Headquarters Curtain Wall Façade & Glazing",
+    "glassDescription": "6mm ET125 DGU (Double Glazed Unit) Solar Control Glass",
     "areaSqMtr": 5500,
-    "image": "/images/projects/ganga-trueno.jpg",
+    "image": "https://media.magicglass.co.in/ganga-trueno.jpg",
     "heroFeatured": true,
-    "tagline": "Commercial Glazing Project"
+    "tagline": "Premium Commercial Corporate Landmark"
   },
   {
     "id": "kushwal-wall-street",
@@ -333,7 +333,7 @@
     "application": "Façade",
     "glassDescription": "6mm grey 35 SGU",
     "areaSqMtr": 7500,
-    "image": "/images/projects/kushwal-wall-street.jpg",
+    "image": "https://media.magicglass.co.in/kushwal-wall-street.jpg",
     "heroFeatured": false,
     "tagline": "Commercial Glazing Project"
   },
@@ -346,7 +346,7 @@
     "application": "Façade",
     "glassDescription": "6mm RB20 DGU",
     "areaSqMtr": 10000,
-    "image": "/images/projects/aradhya-square.jpg",
+    "image": "https://media.magicglass.co.in/aradhya-square.jpg",
     "heroFeatured": false,
     "tagline": "Commercial Glazing Project"
   },
@@ -359,7 +359,7 @@
     "application": "Façade",
     "glassDescription": "6mm Blue 27 SGU",
     "areaSqMtr": 25000,
-    "image": "/images/projects/gera-imperium-gateway.jpg",
+    "image": "https://media.magicglass.co.in/gera-imperium-gateway.jpg",
     "heroFeatured": false,
     "tagline": "Commercial Glazing Project"
   },
@@ -372,7 +372,7 @@
     "application": "Façade",
     "glassDescription": "6mm Blue 27",
     "areaSqMtr": 5500,
-    "image": "/images/projects/nyati-empress.jpg",
+    "image": "https://media.magicglass.co.in/nyati-empress.jpg",
     "heroFeatured": false,
     "tagline": "Commercial Glazing Project"
   },
@@ -385,7 +385,7 @@
     "application": "Façade",
     "glassDescription": "6mm st 767",
     "areaSqMtr": 2000,
-    "image": "/images/projects/33-keshavkung.jpg",
+    "image": "https://media.magicglass.co.in/33-keshavkung.jpg",
     "heroFeatured": false,
     "tagline": "Commercial Glazing Project"
   },
@@ -398,7 +398,7 @@
     "application": "Façade",
     "glassDescription": "6mm N34 SGU",
     "areaSqMtr": 4000,
-    "image": "/images/projects/solitaire-business-hub.jpg",
+    "image": "https://media.magicglass.co.in/solitaire-business-hub.jpg",
     "heroFeatured": false,
     "tagline": "Commercial Glazing Project"
   },
@@ -406,27 +406,27 @@
     "id": "atrium-mall",
     "title": "Atrium Mall",
     "category": "Commercial",
-    "developer": "VTP",
-    "location": "Magarpatta",
-    "application": "Façade and Raling",
-    "glassDescription": "6mm st 408 and Laminated glass",
+    "developer": "VTP Realty",
+    "location": "Magarpatta, Pune, Maharashtra",
+    "application": "Commercial Façade, Atrium Skylights & Balustrade Railings",
+    "glassDescription": "6mm ST 408 High-Performance & Laminated Safety Glass",
     "areaSqMtr": 8000,
-    "image": "/images/projects/atrium-mall.jpg",
+    "image": "https://media.magicglass.co.in/atrium-mall.jpg",
     "heroFeatured": true,
-    "tagline": "Commercial Glazing Project"
+    "tagline": "Premier Retail & Commercial Mall Center"
   },
   {
     "id": "pune-airport",
     "title": "Pune Airport",
     "category": "Airports",
     "developer": "Airports Authority of India",
-    "location": "",
-    "application": "Façade and Glass doors",
+    "location": "Lohegaon, Pune, Maharashtra",
+    "application": "Terminal Façade, Security Glazing & Airside Glass Doors",
     "glassDescription": "High Performance Toughened & Laminated Structural Glass",
-    "areaSqMtr": null,
-    "image": "/images/projects/pune-airport.jpg",
+    "areaSqMtr": 14000,
+    "image": "https://media.magicglass.co.in/pune-airport.jpg",
     "heroFeatured": true,
-    "tagline": "Airports Glazing Project"
+    "tagline": "Aviation Infrastructure & Transit Hub Façade"
   },
   {
     "id": "srinagar-airport",
@@ -437,7 +437,7 @@
     "application": "Façade and Glass doors",
     "glassDescription": "High Performance Toughened & Laminated Structural Glass",
     "areaSqMtr": null,
-    "image": "/images/projects/srinagar-airport.jpg",
+    "image": "https://media.magicglass.co.in/srinagar-airport.jpg",
     "heroFeatured": false,
     "tagline": "Airports Glazing Project"
   },
@@ -450,7 +450,7 @@
     "application": "Façade and Glass doors",
     "glassDescription": "High Performance Toughened & Laminated Structural Glass",
     "areaSqMtr": null,
-    "image": "/images/projects/aurangabad-airport.jpg",
+    "image": "https://media.magicglass.co.in/aurangabad-airport.jpg",
     "heroFeatured": false,
     "tagline": "Airports Glazing Project"
   }
