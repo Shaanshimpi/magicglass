@@ -59,7 +59,7 @@ const DEFAULT_TESTIMONIALS: Testimonial[] = [
       'The specialized heavy-duty safety glass and custom acoustic laminated panels supplied by Magic Glass met our stringent architectural, environmental, and animal safety specifications with zero compromise.',
     author: 'Anand Shinde',
     title: 'Head of Infrastructure, Vantara Project',
-    avatar: 'https://media.magicglass.co.in/bioaltus-gujarat.jpg',
+    avatar: 'https://media.magicglass.co.in/bioaltus-gujarat.jpg?v=20261026',
   },
   {
     id: 'alcorp-dnk-square',
@@ -75,7 +75,7 @@ const DEFAULT_TESTIMONIALS: Testimonial[] = [
       'Partnering with Magic Glass on Bioaltus Gujarat (6mm ST 750) demonstrated their mastery over robotic DGU assembly, solar control glass processing, and rapid bulk order execution.',
     author: 'Ketan Patel',
     title: 'Managing Director, Glazon India Pvt Ltd',
-    avatar: 'https://media.magicglass.co.in/bioaltus-gujarat.jpg',
+    avatar: 'https://media.magicglass.co.in/bioaltus-gujarat.jpg?v=20261026',
   },
   {
     id: 'alumine-dabolim-airport',
