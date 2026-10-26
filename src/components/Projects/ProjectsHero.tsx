@@ -65,9 +65,8 @@ export const ProjectsHero: React.FC<ProjectsHeroProps> = ({
           alt={activeProject.title}
           fill
           priority
-          sizes="100vw"
+          unoptimized
           style={{ objectFit: 'cover' }}
-          quality={90}
         />
       </div>
 

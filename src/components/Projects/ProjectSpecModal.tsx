@@ -62,10 +62,9 @@ export const ProjectSpecModal: React.FC<ProjectSpecModalProps> = ({
             src={imgSrc || project.image}
             alt={project.title}
             fill
-            sizes="(max-width: 768px) 100vw, 50vw"
+            unoptimized
             className={styles.modalImage}
             onError={() => setImgSrc('/images/projects/balmoral-by-riverside.jpg')}
-            quality={90}
           />
         </div>
 

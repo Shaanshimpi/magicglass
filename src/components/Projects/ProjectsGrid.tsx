@@ -44,10 +44,9 @@ export const ProjectsGrid: React.FC<ProjectsGridProps> = ({ projects, onSelectPr
                   src={imgSrc}
                   alt={project.title}
                   fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  unoptimized
                   className={styles.cardImage}
                   onError={() => handleImageError(project.id)}
-                  quality={85}
                 />
                 <div className={styles.hoverOverlay}>
                   <span className={styles.viewBadge}>VIEW SPECS</span>

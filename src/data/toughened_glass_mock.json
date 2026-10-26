@@ -75,7 +75,7 @@
     ],
     "sliderImages": [
       "https://magicglass.co.in/wp-content/uploads/2023/12/Balmoral-by-riverside.jpg",
-      "https://media.magicglass.co.in/the-ark.jpg?v=20261026",
+      "https://media.magicglass.co.in/the-ark.webp?v=20261026",
       "https://magicglass.co.in/wp-content/uploads/2023/12/VARDE-ABIL.jpg",
       "https://magicglass.co.in/wp-content/uploads/2023/12/Ganga-Platino-.jpg"
     ],
@@ -93,7 +93,7 @@
     {
       "id": "the-ark",
       "title": "The Ark Tribeca Developers",
-      "image": "https://media.magicglass.co.in/the-ark.jpg?v=20261026"
+      "image": "https://media.magicglass.co.in/the-ark.webp?v=20261026"
     },
     {
       "id": "verde",
