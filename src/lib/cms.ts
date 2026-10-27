@@ -430,7 +430,7 @@ export async function getHomePageCmsData() {
           'The 6mm SCN 145 toughened glass for our Sambhaji Nagar corporate office has zero roller-wave distortion and remarkable thermal performance. Magic Glass is our gold standard for architectural glazing.',
         author: 'Nitin Deshmukh',
         title: 'Facilities & Infrastructure Lead, Bajaj Auto Ltd',
-        avatar: 'https://media.magicglass.co.in/bajaj-auto-sambhaji-nagar.jpg',
+        avatar: 'https://media.magicglass.co.in/bajaj-auto-sambhaji-nagar.jpg?v=20261027',
       },
     ],
     categorySwitcher: [
