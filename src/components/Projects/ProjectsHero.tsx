@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import Image from 'next/image'
 import { ProjectItem } from '@/types/projects.types'
+import { getProjectFallbackImage } from '@/lib/projectImages'
 import styles from './ProjectsHero.module.css'
 
 interface ProjectsHeroProps {
@@ -25,9 +26,14 @@ export const ProjectsHero: React.FC<ProjectsHeroProps> = ({
 
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isTransitioning, setIsTransitioning] = useState(false)
+  const [heroImageErrorCounts, setHeroImageErrorCounts] = useState<Record<string, number>>({})
 
   const totalCount = Math.max(heroProjects.length, 1)
   const activeProject = heroProjects[currentIndex] || projects[0]
+
+  const handleHeroImageError = (id: string) => {
+    setHeroImageErrorCounts((prev) => ({ ...prev, [id]: (prev[id] || 0) + 1 }))
+  }
 
   const handleNext = useCallback(() => {
     if (heroProjects.length <= 1) return
@@ -54,6 +60,14 @@ export const ProjectsHero: React.FC<ProjectsHeroProps> = ({
 
   if (!activeProject) return null
 
+  const errCount = heroImageErrorCounts[activeProject.id] || 0
+  let heroImgSrc = activeProject.image
+  if (errCount === 1) {
+    heroImgSrc = getProjectFallbackImage(activeProject)
+  } else if (errCount > 1) {
+    heroImgSrc = '/images/projects/the-oberoi-nariman-point.jpg'
+  }
+
   return (
     <section className={styles.heroSection}>
       <div
@@ -61,12 +75,15 @@ export const ProjectsHero: React.FC<ProjectsHeroProps> = ({
         style={{ opacity: isTransitioning ? 0.4 : 1 }}
       >
         <Image
-          src={activeProject.image}
+          key={activeProject.id}
+          src={heroImgSrc}
           alt={activeProject.title}
           fill
           priority
-          unoptimized
+          sizes="100vw"
+          quality={90}
           style={{ objectFit: 'cover' }}
+          onError={() => handleHeroImageError(activeProject.id)}
         />
       </div>
 

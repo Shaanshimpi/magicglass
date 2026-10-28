@@ -12,6 +12,7 @@ import {
   normalizeCategory,
   CATEGORY_LABELS,
 } from '@/components/ProductsCollection/products.data'
+import { getProjectFallbackImage } from '@/lib/projectImages'
 
 // Helper to safely get payload client
 export async function getPayloadClient() {
@@ -699,7 +700,7 @@ export async function getProjectsCmsData() {
           application: doc.application || '',
           glassDescription: doc.glassDescription || '',
           areaSqMtr: doc.areaSqMtr || 0,
-          image: getMediaUrl(doc.image, doc.imageUrl),
+          image: getMediaUrl(doc.image, doc.imageUrl) || getProjectFallbackImage({ id: doc.slug, title: doc.title }),
           heroFeatured: Boolean(doc.heroFeatured),
           tagline: doc.tagline || '',
         }))
@@ -746,7 +747,7 @@ export async function getProjectsPageCmsData() {
                 application: item.application || '',
                 glassDescription: item.glassDescription || '',
                 areaSqMtr: item.areaSqMtr || 0,
-                image: getMediaUrl(item.image, item.imageUrl),
+                image: getMediaUrl(item.image, item.imageUrl) || getProjectFallbackImage({ id: item.slug || item.id, title: item.title }),
                 heroFeatured: true,
                 tagline: item.tagline || '',
               }

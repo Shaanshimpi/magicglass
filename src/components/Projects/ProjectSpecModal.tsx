@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { ProjectItem } from '@/types/projects.types'
+import { getProjectFallbackImage } from '@/lib/projectImages'
 import styles from './ProjectSpecModal.module.css'
 
 interface ProjectSpecModalProps {
@@ -62,9 +63,15 @@ export const ProjectSpecModal: React.FC<ProjectSpecModalProps> = ({
             src={imgSrc || project.image}
             alt={project.title}
             fill
-            unoptimized
+            sizes="(max-width: 768px) 100vw, 50vw"
+            quality={90}
             className={styles.modalImage}
-            onError={() => setImgSrc('/images/projects/balmoral-by-riverside.jpg')}
+            onError={() => {
+              const fallback = getProjectFallbackImage(project)
+              if (imgSrc !== fallback) {
+                setImgSrc(fallback)
+              }
+            }}
           />
         </div>
 

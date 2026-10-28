@@ -3,6 +3,7 @@
 import React, { useState } from 'react'
 import Image from 'next/image'
 import { ProjectItem } from '@/types/projects.types'
+import { getProjectFallbackImage } from '@/lib/projectImages'
 import styles from './ProjectsGrid.module.css'
 
 interface ProjectsGridProps {
@@ -11,20 +12,26 @@ interface ProjectsGridProps {
 }
 
 export const ProjectsGrid: React.FC<ProjectsGridProps> = ({ projects, onSelectProject }) => {
-  const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({})
+  const [imageErrorCounts, setImageErrorCounts] = useState<Record<string, number>>({})
 
   const handleImageError = (id: string) => {
-    setImageErrors((prev) => ({ ...prev, [id]: true }))
+    setImageErrorCounts((prev) => ({ ...prev, [id]: (prev[id] || 0) + 1 }))
   }
 
   return (
     <section className={styles.gridSection}>
       <div className={styles.gridContainer}>
         {projects.map((project) => {
-          const hasError = imageErrors[project.id]
-          const imgSrc = hasError
-            ? '/images/projects/balmoral-by-riverside.jpg'
-            : project.image
+          const errorCount = imageErrorCounts[project.id] || 0
+          // If 0 errors: try primary image
+          // If 1 error: fall back to this project's authentic local image
+          // If >1 errors: fall back to safe local hero image
+          let imgSrc = project.image
+          if (errorCount === 1) {
+            imgSrc = getProjectFallbackImage(project)
+          } else if (errorCount > 1) {
+            imgSrc = '/images/projects/the-oberoi-nariman-point.jpg'
+          }
 
           return (
             <div
@@ -44,7 +51,8 @@ export const ProjectsGrid: React.FC<ProjectsGridProps> = ({ projects, onSelectPr
                   src={imgSrc}
                   alt={project.title}
                   fill
-                  unoptimized
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  quality={85}
                   className={styles.cardImage}
                   onError={() => handleImageError(project.id)}
                 />
@@ -67,3 +75,4 @@ export const ProjectsGrid: React.FC<ProjectsGridProps> = ({ projects, onSelectPr
     </section>
   )
 }
+

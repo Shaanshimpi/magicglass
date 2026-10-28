@@ -8,7 +8,7 @@
     "application": "Luxury Hospitality Façade & Sea-Facing Suites",
     "glassDescription": "39.52 SKN 176 High-Performance Laminated DGU (Double Glazed Unit)",
     "areaSqMtr": 12000,
-    "image": "https://media.magicglass.co.in/the-oberoi-nariman-point.jpg?v=20261024",
+    "image": "/images/projects/the-oberoi-nariman-point.jpg",
     "heroFeatured": true,
     "tagline": "Ultra-Luxury Marine-Front Hospitality Glazing"
   },
@@ -21,7 +21,7 @@
     "application": "Hospitality Exterior Façade & Acoustic Window Systems",
     "glassDescription": "39.52 Laminated DGU SKN 176 High Performance Glass",
     "areaSqMtr": 14500,
-    "image": "https://media.magicglass.co.in/hotel-trident-nariman-point.jpg?v=20261024",
+    "image": "/images/projects/hotel-trident-nariman-point.jpg",
     "heroFeatured": true,
     "tagline": "Iconic Marine Drive Hospitality Tower"
   },
@@ -34,7 +34,7 @@
     "application": "Terminal Façade, Security Glazing & Airside Glass Partitions",
     "glassDescription": "12mm Heavy Toughened & High-Impact Safety Glasses",
     "areaSqMtr": 9500,
-    "image": "https://media.magicglass.co.in/dabolim-airport-goa.jpg?v=20261024",
+    "image": "/images/projects/dabolim-airport-goa.jpg",
     "heroFeatured": true,
     "tagline": "Aviation Infrastructure & Transit Hub Façade"
   },
@@ -47,7 +47,7 @@
     "application": "High-Rise Residential Glazing & Acoustic Balcony Partitions",
     "glassDescription": "13.52mm Acoustic Laminated Safety Glasses",
     "areaSqMtr": 11000,
-    "image": "https://media.magicglass.co.in/runwal-central-park-chinchwad.jpg?v=20261024",
+    "image": "/images/projects/runwal-central-park-chinchwad.jpg",
     "heroFeatured": true,
     "tagline": "Landmark Residential Township Glazing"
   },
@@ -60,7 +60,7 @@
     "application": "Corporate Headquarters Façade & Curtain Wall Glazing",
     "glassDescription": "6mm ST 750 High-Performance Solar Control Glass",
     "areaSqMtr": 4500,
-    "image": "https://media.magicglass.co.in/bioaltus-gujarat.jpg?v=20261026",
+    "image": "/images/projects/bioaltus-gujarat.jpg",
     "heroFeatured": true,
     "tagline": "Corporate Industrial & Commercial Façade"
   },
@@ -73,7 +73,7 @@
     "application": "Commercial Corporate Façade & Architectural Fenestration",
     "glassDescription": "6mm HD Grey DGU (Double Glazed Unit) Glass",
     "areaSqMtr": 6200,
-    "image": "https://media.magicglass.co.in/dnk-square-viman-nagar.jpg?v=20261024",
+    "image": "/images/projects/dnk-square-viman-nagar.jpg",
     "heroFeatured": true,
     "tagline": "Premium Airport Road Corporate Hub"
   },
@@ -86,7 +86,7 @@
     "application": "Luxury High-Rise Windows & Structural Railings",
     "glassDescription": "SCN 145 High-Performance Solar Control Glass",
     "areaSqMtr": 8500,
-    "image": "https://media.magicglass.co.in/riverdale-grove-kharadi.jpg?v=20261024",
+    "image": "/images/projects/riverdale-grove-kharadi.jpg",
     "heroFeatured": true,
     "tagline": "Luxury Waterfront Residential Towers"
   },
@@ -99,7 +99,7 @@
     "application": "Residential Windows, French Doors & Balcony Balustrades",
     "glassDescription": "N45 & ST 750 High-Performance Double Glazed Units",
     "areaSqMtr": 7200,
-    "image": "https://media.magicglass.co.in/malpani-soulstrings-baner.jpg?v=20261024",
+    "image": "/images/projects/malpani-soulstrings-baner.jpg",
     "heroFeatured": true,
     "tagline": "Contemporary Luxury High-Rise Living"
   },
@@ -112,7 +112,7 @@
     "application": "Corporate Offices, Executive Suites & Curtain Wall Façade",
     "glassDescription": "6mm SCN 145 Toughened Glass",
     "areaSqMtr": 7800,
-    "image": "https://media.magicglass.co.in/bajaj-auto-sambhaji-nagar.jpg?v=20261027",
+    "image": "/images/projects/bajaj-auto-sambhaji-nagar.jpg",
     "heroFeatured": true,
     "tagline": "Endurance Technologies - Bajaj Auto Corporate Office"
   },
@@ -125,7 +125,7 @@
     "application": "Architectural Windows, Balcony Railings & Louver Glazing",
     "glassDescription": "Silver Grey 32 Toughened & Solar Reflective Glass",
     "areaSqMtr": 5000,
-    "image": "https://media.magicglass.co.in/attalika-pune.jpg",
+    "image": "/images/projects/attalika-pune.jpg",
     "heroFeatured": false,
     "tagline": "Architectural Residential Tower"
   },
@@ -138,7 +138,7 @@
     "application": "Headquarters Façade, Entrance Lobby & Security Partitions",
     "glassDescription": "KT 144 Double Glazed Unit (DGU) Glass",
     "areaSqMtr": 3200,
-    "image": "https://media.magicglass.co.in/pune-peoples-cooperative-bank.jpg",
+    "image": "/images/projects/pune-peoples-cooperative-bank.jpg",
     "heroFeatured": false,
     "tagline": "Financial Institution Headquarters"
   },
@@ -151,7 +151,7 @@
     "application": "Agro-Processing Corporate Center & Cold-Insulated Facade",
     "glassDescription": "Solar Control DGU & Toughened Safety Glass",
     "areaSqMtr": 3800,
-    "image": "https://media.magicglass.co.in/exotic-fruits-nashik.jpg",
+    "image": "/images/projects/exotic-fruits-nashik.jpg",
     "heroFeatured": false,
     "tagline": "Agro-Industrial Commercial Complex"
   },
@@ -164,7 +164,7 @@
     "application": "Commercial Office Tower Façade & Entrance Glazing",
     "glassDescription": "6mm ST136 and ST 467 Toughened Architectural Glass",
     "areaSqMtr": 5400,
-    "image": "https://media.magicglass.co.in/vaidya-spaces-andheri-mumbai.jpg",
+    "image": "/images/projects/vaidya-spaces-andheri-mumbai.jpg",
     "heroFeatured": false,
     "tagline": "Boutique Commercial Center Façade"
   },
@@ -177,7 +177,7 @@
     "application": "Industrial Headquarters & Advanced R&D Center Façade",
     "glassDescription": "High-Performance Low-E Toughened Glazing",
     "areaSqMtr": 6800,
-    "image": "https://media.magicglass.co.in/endurance-technologies-sambhaji-nagar.jpg",
+    "image": "/images/projects/endurance-technologies-sambhaji-nagar.jpg",
     "heroFeatured": false,
     "tagline": "Automotive Engineering R&D Center"
   },
@@ -190,7 +190,7 @@
     "application": "Manufacturing Headquarters & Administrative Façade",
     "glassDescription": "Architectural Solar Control & Safety Toughened Glass",
     "areaSqMtr": 5800,
-    "image": "https://media.magicglass.co.in/bbm-muller-pirangut.jpg",
+    "image": "/images/projects/bbm-muller-pirangut.jpg",
     "heroFeatured": false,
     "tagline": "German Engineering Plant Façade"
   },
@@ -203,7 +203,7 @@
     "application": "Industrial Purification Plant Façade & Partitions",
     "glassDescription": "High-Performance Solar Reflective Toughened Glass",
     "areaSqMtr": 4100,
-    "image": "https://media.magicglass.co.in/cn-water-taloja.jpg",
+    "image": "/images/projects/cn-water-taloja.jpg",
     "heroFeatured": false,
     "tagline": "Industrial & Manufacturing Infrastructure"
   },
@@ -216,7 +216,7 @@
     "application": "Interior partition and door glass",
     "glassDescription": "6mm st 408 and Laminated glass",
     "areaSqMtr": 8000,
-    "image": "https://media.magicglass.co.in/goa-airport.jpg",
+    "image": "/images/projects/goa-airport.jpg",
     "heroFeatured": false,
     "tagline": "Commercial Glazing Project"
   },
@@ -229,7 +229,7 @@
     "application": "Windows",
     "glassDescription": "6mm Grey 27 Guardian glass Double glazez unit",
     "areaSqMtr": 5000,
-    "image": "https://media.magicglass.co.in/balmoral-by-riverside.jpg",
+    "image": "/images/projects/balmoral-by-riverside.jpg",
     "heroFeatured": true,
     "tagline": "Residential Glazing Project"
   },
@@ -242,7 +242,7 @@
     "application": "Façade & Windows",
     "glassDescription": "6mm Clear reflective saint gobain",
     "areaSqMtr": 6000,
-    "image": "https://media.magicglass.co.in/the-ark.webp?v=20261026",
+    "image": "/images/projects/the-ark.webp",
     "heroFeatured": true,
     "tagline": "Residential Glazing Project"
   },
@@ -255,7 +255,7 @@
     "application": "Windows",
     "glassDescription": "8mm clear toughened",
     "areaSqMtr": 3000,
-    "image": "https://media.magicglass.co.in/verde.jpg",
+    "image": "/images/projects/verde.jpg",
     "heroFeatured": true,
     "tagline": "Residential Glazing Project"
   },
@@ -268,7 +268,7 @@
     "application": "Windows",
     "glassDescription": "6mm clear toughened",
     "areaSqMtr": 5000,
-    "image": "https://media.magicglass.co.in/apostrophe.jpg",
+    "image": "/images/projects/apostrophe.jpg",
     "heroFeatured": false,
     "tagline": "Residential Glazing Project"
   },
@@ -281,7 +281,7 @@
     "application": "Window and Railings",
     "glassDescription": "5mm & Laminated",
     "areaSqMtr": 10000,
-    "image": "https://media.magicglass.co.in/ganga-platino.jpg",
+    "image": "/images/projects/ganga-platino.jpg",
     "heroFeatured": false,
     "tagline": "Residential Glazing Project"
   },
@@ -294,7 +294,7 @@
     "application": "Windows",
     "glassDescription": "5mm and 6mm clear toughened",
     "areaSqMtr": 7000,
-    "image": "https://media.magicglass.co.in/nyati-elysia.jpg",
+    "image": "/images/projects/nyati-elysia.jpg",
     "heroFeatured": false,
     "tagline": "Residential Glazing Project"
   },
@@ -307,7 +307,7 @@
     "application": "Windows",
     "glassDescription": "66mm",
     "areaSqMtr": 6500,
-    "image": "https://media.magicglass.co.in/eon-homes.jpg",
+    "image": "/images/projects/eon-homes.jpg",
     "heroFeatured": false,
     "tagline": "Residential Glazing Project"
   },
@@ -320,7 +320,7 @@
     "application": "Corporate Headquarters Curtain Wall Façade & Glazing",
     "glassDescription": "6mm ET125 DGU (Double Glazed Unit) Solar Control Glass",
     "areaSqMtr": 5500,
-    "image": "https://media.magicglass.co.in/ganga-trueno.jpg?v=20261024",
+    "image": "/images/projects/ganga-trueno.jpg",
     "heroFeatured": true,
     "tagline": "Premium Commercial Corporate Landmark"
   },
@@ -333,7 +333,7 @@
     "application": "Façade",
     "glassDescription": "6mm grey 35 SGU",
     "areaSqMtr": 7500,
-    "image": "https://media.magicglass.co.in/kushwal-wall-street.jpg",
+    "image": "/images/projects/kushwal-wall-street.jpg",
     "heroFeatured": false,
     "tagline": "Commercial Glazing Project"
   },
@@ -346,7 +346,7 @@
     "application": "Façade",
     "glassDescription": "6mm RB20 DGU",
     "areaSqMtr": 10000,
-    "image": "https://media.magicglass.co.in/aradhya-square.jpg",
+    "image": "/images/projects/aradhya-square.jpg",
     "heroFeatured": false,
     "tagline": "Commercial Glazing Project"
   },
@@ -359,7 +359,7 @@
     "application": "Façade",
     "glassDescription": "6mm Blue 27 SGU",
     "areaSqMtr": 25000,
-    "image": "https://media.magicglass.co.in/gera-imperium-gateway.jpg",
+    "image": "/images/projects/gera-imperium-gateway.jpg",
     "heroFeatured": false,
     "tagline": "Commercial Glazing Project"
   },
@@ -372,7 +372,7 @@
     "application": "Façade",
     "glassDescription": "6mm Blue 27",
     "areaSqMtr": 5500,
-    "image": "https://media.magicglass.co.in/nyati-empress.jpg",
+    "image": "/images/projects/nyati-empress.jpg",
     "heroFeatured": false,
     "tagline": "Commercial Glazing Project"
   },
@@ -385,7 +385,7 @@
     "application": "Façade",
     "glassDescription": "6mm st 767",
     "areaSqMtr": 2000,
-    "image": "https://media.magicglass.co.in/33-keshavkung.jpg",
+    "image": "/images/projects/33-keshavkung.jpg",
     "heroFeatured": false,
     "tagline": "Commercial Glazing Project"
   },
@@ -398,7 +398,7 @@
     "application": "Façade",
     "glassDescription": "6mm N34 SGU",
     "areaSqMtr": 4000,
-    "image": "https://media.magicglass.co.in/solitaire-business-hub.jpg",
+    "image": "/images/projects/solitaire-business-hub.jpg",
     "heroFeatured": false,
     "tagline": "Commercial Glazing Project"
   },
@@ -411,7 +411,7 @@
     "application": "Commercial Façade, Atrium Skylights & Balustrade Railings",
     "glassDescription": "6mm ST 408 High-Performance & Laminated Safety Glass",
     "areaSqMtr": 8000,
-    "image": "https://media.magicglass.co.in/atrium-mall.jpg?v=20261024",
+    "image": "/images/projects/atrium-mall.jpg",
     "heroFeatured": true,
     "tagline": "Premier Retail & Commercial Mall Center"
   },
@@ -424,7 +424,7 @@
     "application": "Terminal Façade, Security Glazing & Airside Glass Doors",
     "glassDescription": "High Performance Toughened & Laminated Structural Glass",
     "areaSqMtr": 14000,
-    "image": "https://media.magicglass.co.in/pune-airport.jpg?v=20261024",
+    "image": "/images/projects/pune-airport.jpg",
     "heroFeatured": true,
     "tagline": "Aviation Infrastructure & Transit Hub Façade"
   },
@@ -437,7 +437,7 @@
     "application": "Façade and Glass doors",
     "glassDescription": "High Performance Toughened & Laminated Structural Glass",
     "areaSqMtr": null,
-    "image": "https://media.magicglass.co.in/srinagar-airport.jpg",
+    "image": "/images/projects/srinagar-airport.jpg",
     "heroFeatured": false,
     "tagline": "Airports Glazing Project"
   },
@@ -450,7 +450,7 @@
     "application": "Façade and Glass doors",
     "glassDescription": "High Performance Toughened & Laminated Structural Glass",
     "areaSqMtr": null,
-    "image": "https://media.magicglass.co.in/aurangabad-airport.jpg",
+    "image": "/images/projects/aurangabad-airport.jpg",
     "heroFeatured": false,
     "tagline": "Airports Glazing Project"
   }
