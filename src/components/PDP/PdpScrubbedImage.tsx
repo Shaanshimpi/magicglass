@@ -4,6 +4,7 @@ import React, { useRef, useEffect, useState } from 'react'
 import Image from 'next/image'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { getWatermarkedUrl } from '@/lib/watermark'
 import styles from './PdpScrubbedImage.module.css'
 
 if (typeof window !== 'undefined') {
@@ -21,6 +22,7 @@ interface PdpScrubbedImageProps {
   marginTop?: string
   className?: string
   fallbackSrc?: string
+  showWatermark?: boolean
 }
 
 export const PdpScrubbedImage: React.FC<PdpScrubbedImageProps> = ({
@@ -32,6 +34,7 @@ export const PdpScrubbedImage: React.FC<PdpScrubbedImageProps> = ({
   marginTop = '0px',
   className = '',
   fallbackSrc = DEFAULT_FALLBACK_IMG,
+  showWatermark = true,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null)
   const [imgSrc, setImgSrc] = useState<string>(src || fallbackSrc)
@@ -94,7 +97,7 @@ export const PdpScrubbedImage: React.FC<PdpScrubbedImageProps> = ({
       }}
     >
       <Image
-        src={imgSrc}
+        src={showWatermark ? getWatermarkedUrl(imgSrc) : imgSrc}
         alt={alt}
         fill
         className={styles.scrubbedImage}

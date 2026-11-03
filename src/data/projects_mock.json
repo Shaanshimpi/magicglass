@@ -104,19 +104,6 @@
     "tagline": "Contemporary Luxury High-Rise Living"
   },
   {
-    "id": "bajaj-auto-office-sambhaji-nagar",
-    "title": "Bajaj Auto Corporate Office",
-    "category": "Commercial",
-    "developer": "Endurance Technologies LTD",
-    "location": "Chhatrapati Sambhaji Nagar, Maharashtra",
-    "application": "Corporate Offices, Executive Suites & Curtain Wall Façade",
-    "glassDescription": "6mm SCN 145 Toughened Glass",
-    "areaSqMtr": 7800,
-    "image": "/images/projects/bajaj-auto-sambhaji-nagar.jpg",
-    "heroFeatured": true,
-    "tagline": "Endurance Technologies - Bajaj Auto Corporate Office"
-  },
-  {
     "id": "attalika-pune",
     "title": "Attalika",
     "category": "Residential",

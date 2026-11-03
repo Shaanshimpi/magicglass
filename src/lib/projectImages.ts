@@ -13,7 +13,6 @@ export const LOCAL_PROJECT_IMAGES: Record<string, string> = {
   'dnk-square-viman-nagar': '/images/projects/dnk-square-viman-nagar.jpg',
   'riverdale-grove-kharadi': '/images/projects/riverdale-grove-kharadi.jpg',
   'malpani-m-soulstrings-baner': '/images/projects/malpani-soulstrings-baner.jpg',
-  'bajaj-auto-office-sambhaji-nagar': '/images/projects/bajaj-auto-sambhaji-nagar.jpg',
   'attalika-pune': '/images/projects/attalika-pune.jpg',
   'pune-peoples-cooperative-bank': '/images/projects/pune-peoples-cooperative-bank.jpg',
   'exotic-fruits-nashik': '/images/projects/exotic-fruits-nashik.jpg',

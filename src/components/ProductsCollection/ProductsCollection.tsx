@@ -13,6 +13,7 @@ import {
   ProductItem,
   normalizeCategory,
 } from './products.data'
+import { getWatermarkedUrl } from '@/lib/watermark'
 
 interface ProductsCollectionProps {
   cmsData?: any
@@ -209,7 +210,7 @@ export const ProductsCollection: React.FC<ProductsCollectionProps> = ({ cmsData 
                 >
                   <div className={styles.featuredCardImage}>
                     <Image
-                      src={item.image || item.featuredImageUrl || '/images/craft-laminated.jpg'}
+                      src={getWatermarkedUrl(item.image || item.featuredImageUrl || '/images/craft-laminated.jpg')}
                       alt={item.title}
                       fill
                       sizes="(max-width: 1024px) 100vw, 33vw"
@@ -301,7 +302,7 @@ export const ProductsCollection: React.FC<ProductsCollectionProps> = ({ cmsData 
                 >
                   <div className={styles.productImageFrame}>
                     <Image
-                      src={product.image}
+                      src={getWatermarkedUrl(product.image)}
                       alt={product.title}
                       fill
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 30vw"
