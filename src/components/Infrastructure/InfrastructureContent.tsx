@@ -14,6 +14,7 @@ interface InfrastructureItem {
   title: string
   subtitle: string
   image: string
+  objectPosition?: string
   specs: string
   description: string
 }
@@ -299,13 +300,14 @@ export const InfrastructureContent: React.FC<InfrastructureContentProps> = ({ cm
             {/* ROW 2: 2 Cards (Toughening Plant & Lamination Cleanroom) */}
             <div className={styles.row2Grid}>
               {row2Items[0] && (
-                <div ref={row2Card1Ref} className={`${styles.collectionCard} ${styles.row2Card1}`}>
+                <div ref={row2Card1Ref} className={`${styles.collectionCard} ${styles.row2Card1} ${styles.rightCenterImg}`}>
                   <div className={styles.imageWrapper}>
                     <Image
                       src={row2Items[0].image}
                       alt={row2Items[0].title}
                       fill
                       sizes="440px"
+                      style={{ objectPosition: row2Items[0].objectPosition || 'right center' }}
                       unoptimized={row2Items[0].image.startsWith('http')}
                     />
                     <div className={styles.cardOverlay} />
@@ -448,6 +450,11 @@ export const InfrastructureContent: React.FC<InfrastructureContentProps> = ({ cm
                         sizes="92vw"
                         priority={i === 0}
                         className={styles.mobileTileImage}
+                        style={{
+                          objectPosition:
+                            ind.objectPosition ||
+                            (ind.id === 'toughening-plant' ? 'right center' : undefined),
+                        }}
                         unoptimized={ind.image.startsWith('http')}
                       />
                       <div className={styles.cardOverlay} />

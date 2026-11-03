@@ -851,6 +851,7 @@ export async function getInfrastructureCmsData() {
             title: item.title,
             subtitle: item.subtitle || '',
             image: getMediaUrl(item.image, item.imageUrl),
+            objectPosition: item.objectPosition || (item.id === 'toughening-plant' ? 'right center' : undefined),
             specs: item.specs || '',
             description: item.description || '',
           })),

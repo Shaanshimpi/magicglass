@@ -26,6 +26,7 @@
       "title": "Toughening Plant",
       "subtitle": "FORCED CONVECTION FURNACE",
       "image": "/images/infrastructure/toughening.jpg",
+      "objectPosition": "right center",
       "specs": "Twin Forced-Convection Furnaces & Dedicated Generator Backup",
       "description": "Our tempering infrastructure features twin advanced forced-convection furnaces, providing immediate contingency load rerouting and eliminating production bottlenecks.\n\nBacked by dedicated uninterrupted power supply (UPS), industrial diesel generators, and redundant high-pressure air compressor banks, our furnaces safeguard critical air-quench cycles against any power or equipment interruption."
     },

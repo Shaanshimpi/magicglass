@@ -127,6 +127,10 @@
   height: 620px;
 }
 
+.rightCenterImg img {
+  object-position: right center !important;
+}
+
 .row2Card2 {
   width: 520px;
   margin-top: 0rem;
