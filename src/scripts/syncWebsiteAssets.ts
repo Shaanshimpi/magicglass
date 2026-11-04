@@ -67,6 +67,8 @@ const PROJECT_FILE_MAP: Record<string, string> = {
   'srinagar-airport.jpg.jpeg': 'srinagar-airport.jpg',
   'the-ark.jpg.jpeg': 'the-ark.jpg',
   'verde.jpg.jpeg': 'verde.jpg',
+  'DNK square.jpeg': 'dnk-square-viman-nagar.jpg',
+  'dnk square.jpeg': 'dnk-square-viman-nagar.jpg',
   'WhatsApp Image 2026-11-03 at 9.56.03 AM.jpeg': 'dnk-square-viman-nagar.jpg',
 }
 
@@ -278,6 +280,7 @@ async function main() {
         imageUrl: fac.image,
         specs: fac.specs,
         description: fac.description,
+        objectPosition: fac.objectPosition,
       })),
     },
   })
@@ -295,10 +298,13 @@ async function main() {
 
     let avatarUrl = t.avatarUrl
     if (isRunwal) {
-      avatarUrl = 'https://media.magicglass.co.in/runwal-central-park-chinchwad.jpg'
+      avatarUrl = 'https://media.magicglass.co.in/runwal-central-park-chinchwad.jpg?v=20261104'
       updatedTestimonialCount++
     } else if (isDnk) {
-      avatarUrl = 'https://media.magicglass.co.in/dnk-square-viman-nagar.jpg'
+      avatarUrl = 'https://media.magicglass.co.in/dnk-square-viman-nagar.jpg?v=20261104'
+      updatedTestimonialCount++
+    } else if (avatarUrl && avatarUrl.includes('media.magicglass.co.in') && !avatarUrl.includes('?v=')) {
+      avatarUrl = `${avatarUrl}?v=20261104`
       updatedTestimonialCount++
     }
 
@@ -384,7 +390,7 @@ async function main() {
       application: proj.application || '',
       glassDescription: proj.glassDescription || '',
       areaSqMtr: proj.areaSqMtr || null,
-      imageUrl: proj.image,
+      imageUrl: proj.image.startsWith('http') ? proj.image : `https://media.magicglass.co.in/${filename}?v=20261104`,
       heroFeatured: !!proj.heroFeatured,
       tagline: proj.tagline || '',
     }
