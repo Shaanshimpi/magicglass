@@ -10,5 +10,5 @@ export function getWatermarkedUrl(src: string | undefined | null): string {
   // If data URI or blob, return untouched
   if (src.startsWith('data:') || src.startsWith('blob:')) return src
 
-  return `/api/watermark?src=${encodeURIComponent(src)}`
+  return `/api/watermark?src=${encodeURIComponent(src)}&v=40`
 }

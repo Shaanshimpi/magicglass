@@ -14,6 +14,7 @@ interface CacheEntry {
 }
 
 // In-memory cache for ultra-fast subsequent responses (LRU-style with max 150 items)
+const WATERMARK_VERSION = 'v2_40pct'
 const memoryCache = new Map<string, CacheEntry>()
 const MAX_CACHE_ITEMS = 150
 
@@ -51,7 +52,7 @@ export async function GET(request: NextRequest) {
     }
 
     const acceptsWebp = request.headers.get('accept')?.includes('image/webp') ?? true
-    const cacheKey = `${src}:${acceptsWebp ? 'webp' : 'raw'}`
+    const cacheKey = `${src}:${acceptsWebp ? 'webp' : 'raw'}:${WATERMARK_VERSION}`
 
     // Check memory cache
     const cachedItem = memoryCache.get(cacheKey)
@@ -157,7 +158,7 @@ export async function GET(request: NextRequest) {
       contentType = 'image/jpeg'
     }
 
-    const etag = `W/"${Buffer.from(src).toString('base64url')}-${outputBuffer.length}"`
+    const etag = `W/"${Buffer.from(src).toString('base64url')}-${WATERMARK_VERSION}-${outputBuffer.length}"`
 
     // Store in memory cache
     if (memoryCache.size >= MAX_CACHE_ITEMS) {
