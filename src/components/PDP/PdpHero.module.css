@@ -16,21 +16,6 @@
   gap: 1.25rem;
 }
 
-.indexBadge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 3.5rem;
-  height: 3.5rem;
-  background-color: var(--color-crimson);
-  color: #ffffff;
-  font-family: var(--font-mono), monospace;
-  font-size: 1.25rem;
-  font-weight: 700;
-  border-radius: 50%;
-  box-shadow: 0 4px 20px rgba(226, 7, 20, 0.4);
-}
-
 .heroTitle {
   font-family: var(--font-outfit), sans-serif;
   font-size: clamp(2.4rem, 5vw, 4.2rem);

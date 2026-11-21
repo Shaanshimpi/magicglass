@@ -9,7 +9,7 @@ import styles from './PdpHero.module.css'
 const DEFAULT_HERO_FALLBACK = '/images/products/heroes/toughened-glass.png'
 
 interface PdpHeroProps {
-  indexNumber: string
+  indexNumber?: string
   title: string
   subheading?: string
   category: string
@@ -37,7 +37,7 @@ export const PdpHero: React.FC<PdpHeroProps> = ({
     const ctx = gsap.context(() => {
       // PDP Hero Text Entrance Animation
       const textElements = heroInnerRef.current?.querySelectorAll(
-        `.${styles.indexBadge}, .${styles.heroCategoryBadge}, .${styles.heroTitle}, .${styles.heroSubheading}`
+        `.${styles.heroCategoryBadge}, .${styles.heroTitle}, .${styles.heroSubheading}`
       )
       if (textElements && textElements.length > 0) {
         gsap.from(textElements, {
@@ -75,7 +75,6 @@ export const PdpHero: React.FC<PdpHeroProps> = ({
   return (
     <section className={styles.heroSection}>
       <div ref={heroInnerRef} className={styles.heroInner}>
-        <div className={styles.indexBadge} data-cms-field="indexNumber">{indexNumber}</div>
         <div className={styles.heroCategoryBadge} data-cms-field="category">{category}</div>
         <h1 className={styles.heroTitle} data-cms-field="title">{title}</h1>
         {subheading && <p className={styles.heroSubheading} data-cms-field="subheading">{subheading}</p>}

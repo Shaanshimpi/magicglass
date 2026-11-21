@@ -211,17 +211,21 @@
   .desktopNav {
     display: none;
   }
+
   .mobileMenuBtn {
     display: flex;
   }
+
   .headerContainer {
     width: 92%;
     padding: 0.3rem 0.85rem;
     top: 0.65rem;
   }
+
   .logoLink {
     padding: 0.15rem 0.45rem;
   }
+
   .logoImage {
     height: 26px;
   }
