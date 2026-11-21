@@ -181,9 +181,12 @@ export const Loader: React.FC<LoaderProps> = ({ onComplete, cmsData }) => {
           <div className={styles.centerLogoWrapper}>
             <svg
               ref={logoSvgRef}
-              viewBox="65 155 290 120"
+              viewBox="57 135 310 155"
+              preserveAspectRatio="xMidYMid meet"
               className={styles.centerLogoSvg}
               xmlns="http://www.w3.org/2000/svg"
+              aria-label="Magic Glass Logo"
+              style={{ objectFit: 'contain', overflow: 'visible' }}
             >
               <g id="Layer1000">
                 <path

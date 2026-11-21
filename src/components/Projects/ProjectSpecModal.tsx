@@ -30,13 +30,16 @@ export const ProjectSpecModal: React.FC<ProjectSpecModalProps> = ({
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose()
     }
+    const lenis = typeof window !== 'undefined' ? (window as any).__lenis : null
     if (project) {
       document.body.style.overflow = 'hidden'
       window.addEventListener('keydown', handleKeyDown)
+      if (lenis) lenis.stop()
     }
     return () => {
       document.body.style.overflow = ''
       window.removeEventListener('keydown', handleKeyDown)
+      if (lenis) lenis.start()
     }
   }, [project, onClose])
 
@@ -48,8 +51,14 @@ export const ProjectSpecModal: React.FC<ProjectSpecModalProps> = ({
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose()
       }}
+      data-lenis-prevent
     >
-      <div className={styles.modalCard}>
+      <div
+        className={styles.modalCard}
+        data-lenis-prevent
+        data-lenis-prevent-wheel
+        data-lenis-prevent-touch
+      >
         <button
           type="button"
           className={styles.closeButton}

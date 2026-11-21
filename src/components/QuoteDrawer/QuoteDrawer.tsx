@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from './QuoteDrawer.module.css'
 
 interface QuoteDrawerProps {
@@ -51,6 +51,32 @@ export const QuoteDrawer: React.FC<QuoteDrawerProps> = ({ isOpen, onClose, cmsDa
     phone: '',
     message: '',
   })
+
+  // Lock body scroll and stop Lenis while drawer is open, enable ESC key close
+  useEffect(() => {
+    if (!isOpen) return
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose()
+    }
+
+    const prevOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    window.addEventListener('keydown', handleKeyDown)
+
+    const lenis = typeof window !== 'undefined' ? (window as any).__lenis : null
+    if (lenis) {
+      lenis.stop()
+    }
+
+    return () => {
+      document.body.style.overflow = prevOverflow
+      window.removeEventListener('keydown', handleKeyDown)
+      if (lenis) {
+        lenis.start()
+      }
+    }
+  }, [isOpen, onClose])
 
   const toggleGlassType = (type: string) => {
     if (selectedTypes.includes(type)) {
@@ -114,10 +140,14 @@ export const QuoteDrawer: React.FC<QuoteDrawerProps> = ({ isOpen, onClose, cmsDa
       <div
         className={`${styles.drawerOverlay} ${isOpen ? styles.drawerOverlayOpen : ''}`}
         onClick={onClose}
+        data-lenis-prevent
       >
         <div
           className={`${styles.drawerPanel} ${isOpen ? styles.drawerPanelOpen : ''}`}
           onClick={(e) => e.stopPropagation()}
+          data-lenis-prevent
+          data-lenis-prevent-wheel
+          data-lenis-prevent-touch
         >
           <div className={styles.drawerHeader}>
             <div>
@@ -155,7 +185,7 @@ export const QuoteDrawer: React.FC<QuoteDrawerProps> = ({ isOpen, onClose, cmsDa
               </button>
             </div>
           ) : (
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className={styles.drawerForm}>
               {errorMessage && (
                 <div className={styles.errorBanner}>
                   ⚠️ {errorMessage}

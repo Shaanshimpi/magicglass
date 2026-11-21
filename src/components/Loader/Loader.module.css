@@ -91,12 +91,18 @@
   border-radius: 0;
   border: none;
   box-shadow: none;
+  width: 100%;
+  max-width: 100%;
+  overflow: visible;
 }
 
 .centerLogoSvg {
-  height: 64px;
+  height: 68px;
   width: auto;
-  max-width: 320px;
+  max-width: min(320px, 85vw);
+  aspect-ratio: 310 / 155;
+  object-fit: contain;
+  overflow: visible;
   display: block;
   filter: drop-shadow(0 4px 20px rgba(0, 0, 0, 0.5));
   will-change: transform, opacity, filter;
@@ -161,8 +167,9 @@
     padding: 2rem 1.5rem;
   }
   .centerLogoSvg {
-    height: 46px;
-    max-width: 240px;
+    height: 48px;
+    max-width: min(240px, 80vw);
+    object-fit: contain;
   }
   .ringWrapper {
     width: 56px;
