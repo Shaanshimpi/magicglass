@@ -22,6 +22,7 @@ import { IndustrySolutionPageGlobal } from './globals/IndustrySolutionPageGlobal
 import { InfrastructurePageGlobal } from './globals/InfrastructurePageGlobal'
 import { ContactUsPageGlobal } from './globals/ContactUsPageGlobal'
 import { ProjectsPageGlobal } from './globals/ProjectsPageGlobal'
+import { InquirySettingsGlobal } from './globals/InquirySettingsGlobal'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -51,6 +52,7 @@ export default buildConfig({
     IndustrySolutionPageGlobal,
     InfrastructurePageGlobal,
     ContactUsPageGlobal,
+    InquirySettingsGlobal,
   ],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',

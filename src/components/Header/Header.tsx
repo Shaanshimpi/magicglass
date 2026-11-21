@@ -246,7 +246,7 @@ export const Header: React.FC<HeaderProps> = ({
             </li>
             <li>
               <Link
-                href="/toughened-glass"
+                href="/products/toughened-glass"
                 onClick={(e) => handleNavClick(e, 'toughened-glass')}
               >
                 Toughened Glass

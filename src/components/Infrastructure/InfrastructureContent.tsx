@@ -275,7 +275,6 @@ export const InfrastructureContent: React.FC<InfrastructureContentProps> = ({ cm
                           <p className={styles.hoverSpecs}>{row1Item.specs}</p>
                         </div>
                         <p className={styles.hoverDescription}>{row1Item.description}</p>
-                        <span className={styles.hoverLink}>EXPLORE FACILITY →</span>
                       </div>
                     </div>
                   </div>
@@ -322,7 +321,6 @@ export const InfrastructureContent: React.FC<InfrastructureContentProps> = ({ cm
                           <p className={styles.hoverSpecs}>{row2Items[0].specs}</p>
                         </div>
                         <p className={styles.hoverDescription}>{row2Items[0].description}</p>
-                        <span className={styles.hoverLink}>EXPLORE FACILITY →</span>
                       </div>
                     </div>
                   </div>
@@ -351,7 +349,6 @@ export const InfrastructureContent: React.FC<InfrastructureContentProps> = ({ cm
                           <p className={styles.hoverSpecs}>{row2Items[1].specs}</p>
                         </div>
                         <p className={styles.hoverDescription}>{row2Items[1].description}</p>
-                        <span className={styles.hoverLink}>EXPLORE FACILITY →</span>
                       </div>
                     </div>
                   </div>
@@ -383,7 +380,6 @@ export const InfrastructureContent: React.FC<InfrastructureContentProps> = ({ cm
                           <p className={styles.hoverSpecs}>{row3Items[0].specs}</p>
                         </div>
                         <p className={styles.hoverDescription}>{row3Items[0].description}</p>
-                        <span className={styles.hoverLink}>EXPLORE FACILITY →</span>
                       </div>
                     </div>
                   </div>
@@ -412,7 +408,6 @@ export const InfrastructureContent: React.FC<InfrastructureContentProps> = ({ cm
                           <p className={styles.hoverSpecs}>{row3Items[1].specs}</p>
                         </div>
                         <p className={styles.hoverDescription}>{row3Items[1].description}</p>
-                        <span className={styles.hoverLink}>EXPLORE FACILITY →</span>
                       </div>
                     </div>
                   </div>

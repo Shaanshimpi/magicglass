@@ -20,7 +20,6 @@ interface ApplicationCardProps {
   overlayClassName?: string
   hoverDetailsOverlayClassName?: string
   viewBadgeText?: string
-  ctaText?: string
   sizes?: string
   priority?: boolean
   stylesObj: Record<string, string>
@@ -31,7 +30,6 @@ export const ApplicationCard: React.FC<ApplicationCardProps> = ({
   cardRef,
   cardClassName = '',
   viewBadgeText = 'VIEW',
-  ctaText = 'EXPLORE SYSTEM →',
   sizes = '(max-width: 900px) 100vw, 450px',
   priority = false,
   stylesObj,
@@ -63,7 +61,6 @@ export const ApplicationCard: React.FC<ApplicationCardProps> = ({
             {item.description && (
               <p className={stylesObj.hoverDescription}>{item.description}</p>
             )}
-            <span className={stylesObj.hoverLink}>{ctaText}</span>
           </div>
         </div>
       </div>

@@ -35,7 +35,7 @@ export const Footer: React.FC<FooterProps> = ({ cmsData }) => {
   const glassSolutions = cmsData?.glassSolutionsLinks?.length
     ? cmsData.glassSolutionsLinks
     : [
-        { label: 'Toughened Glass', href: '/toughened-glass' },
+        { label: 'Toughened Glass', href: '/products/toughened-glass' },
         { label: 'Double Glazed Unit (DGU)', href: '/products/insulated-glass-dgu' },
         { label: 'Sentry Laminated Glass', href: '/products/sentry-laminated-glass' },
         { label: 'Acoustic Laminated Glass', href: '/products/acoustic-lami-glass' },

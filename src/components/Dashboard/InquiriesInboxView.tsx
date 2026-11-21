@@ -16,7 +16,9 @@ import {
   FiCode,
   FiChevronDown,
   FiChevronUp,
+  FiSettings,
 } from 'react-icons/fi'
+import { InquiryEmailSettingsModal } from './InquiryEmailSettingsModal'
 
 export interface InquiryRecord {
   id: string
@@ -44,6 +46,7 @@ export const InquiriesInboxView: React.FC = () => {
   const [formTypeFilter, setFormTypeFilter] = useState<'all' | 'quote_drawer' | 'contact_us' | 'pdp_inquiry'>('all')
   const [copied, setCopied] = useState(false)
   const [showRawJson, setShowRawJson] = useState(false)
+  const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false)
 
   // Fetch inquiries from database API
   const fetchInquiries = useCallback(async () => {
@@ -274,6 +277,20 @@ ${selectedRecord.message || 'No additional scope provided.'}
             title="Export CSV"
           >
             <FiDownload /> Export
+          </button>
+
+          <button
+            type="button"
+            className={styles.secondaryBtn}
+            onClick={() => setIsSettingsModalOpen(true)}
+            title="Configure inquiry email notifications (Hostinger SMTP)"
+            style={{
+              borderColor: 'rgba(239, 68, 68, 0.35)',
+              background: 'rgba(239, 68, 68, 0.08)',
+              color: '#fca5a5',
+            }}
+          >
+            <FiSettings style={{ color: '#ef4444' }} /> Alert Settings
           </button>
         </div>
       </header>
@@ -565,6 +582,12 @@ ${selectedRecord.message || 'No additional scope provided.'}
           )}
         </div>
       </div>
+
+      {/* Inquiry Email Alert Settings Modal */}
+      <InquiryEmailSettingsModal
+        isOpen={isSettingsModalOpen}
+        onClose={() => setIsSettingsModalOpen(false)}
+      />
     </div>
   )
 }

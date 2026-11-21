@@ -175,7 +175,6 @@ export const ProductSystems: React.FC<ProductSystemsProps> = ({ cmsData }) => {
                         <span className={styles.hoverCategory}>{prod.subtitle}</span>
                         <h4 className={styles.hoverTitle}>{prod.title}</h4>
                         <p className={styles.hoverSpecs}>{prod.specs}</p>
-                        <span className={styles.hoverLink}>EXPLORE SYSTEM →</span>
                       </div>
                     </div>
                   </div>

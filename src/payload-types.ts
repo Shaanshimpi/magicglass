@@ -104,6 +104,7 @@ export interface Config {
     'industry-solution-page': IndustrySolutionPage;
     'infrastructure-page': InfrastructurePage;
     'contact-us-page': ContactUsPage;
+    'inquiry-settings': InquirySetting;
   };
   globalsSelect: {
     header: HeaderSelect<false> | HeaderSelect<true>;
@@ -116,6 +117,7 @@ export interface Config {
     'industry-solution-page': IndustrySolutionPageSelect<false> | IndustrySolutionPageSelect<true>;
     'infrastructure-page': InfrastructurePageSelect<false> | InfrastructurePageSelect<true>;
     'contact-us-page': ContactUsPageSelect<false> | ContactUsPageSelect<true>;
+    'inquiry-settings': InquirySettingsSelect<false> | InquirySettingsSelect<true>;
   };
   locale: null;
   widgets: {
@@ -1017,6 +1019,31 @@ export interface ContactUsPage {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "inquiry-settings".
+ */
+export interface InquirySetting {
+  id: number;
+  /**
+   * Primary recipient email address for new inquiry and quote alerts.
+   */
+  notificationEmail: string;
+  /**
+   * Optional additional recipient emails (comma-separated).
+   */
+  additionalEmails?: string | null;
+  /**
+   * Enable or pause automatic email notifications for incoming inquiries.
+   */
+  enableNotifications?: boolean | null;
+  /**
+   * Subject line prefix for inquiry notification emails.
+   */
+  emailSubjectPrefix?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "header_select".
  */
 export interface HeaderSelect<T extends boolean = true> {
@@ -1454,6 +1481,19 @@ export interface ContactUsPageSelect<T extends boolean = true> {
         subtitle?: T;
         successMessage?: T;
       };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "inquiry-settings_select".
+ */
+export interface InquirySettingsSelect<T extends boolean = true> {
+  notificationEmail?: T;
+  additionalEmails?: T;
+  enableNotifications?: T;
+  emailSubjectPrefix?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

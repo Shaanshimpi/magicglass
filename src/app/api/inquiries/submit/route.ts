@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { getPayload } from 'payload'
 import configPromise from '@payload-config'
+import { sendInquiryNotification } from '@/lib/email'
 
 export async function POST(req: Request) {
   try {
@@ -50,10 +51,34 @@ export async function POST(req: Request) {
       },
     })
 
+    // Dispatch internal inquiry email alert via Hostinger SMTP (skip customer emails)
+    let emailStatus: any = null
+    try {
+      emailStatus = await sendInquiryNotification(
+        {
+          id: inquiry.id,
+          formType,
+          fullName: fullName.trim(),
+          companyName: (companyName || '').trim(),
+          email: email.trim().toLowerCase(),
+          phone: (phone || '').trim(),
+          subject: (subject || '').trim(),
+          projectCategory: (projectCategory || '').trim(),
+          glassTypes: formattedGlassTypes,
+          message: (message || '').trim(),
+          attachmentName: (attachmentName || '').trim(),
+        },
+        payload
+      )
+    } catch (mailErr) {
+      console.error('Non-critical: Failed to send inquiry email notification:', mailErr)
+    }
+
     return NextResponse.json({
       success: true,
       message: 'Inquiry received and recorded in database successfully.',
       id: inquiry.id,
+      emailDispatched: emailStatus?.success || false,
     })
   } catch (error: any) {
     console.error('Error recording form inquiry in Payload DB:', error)
