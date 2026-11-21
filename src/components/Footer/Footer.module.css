@@ -34,6 +34,39 @@
   }
 }
 
+.logoWrapper {
+  margin-bottom: 1.5rem;
+}
+
+.logoLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  padding: 0.35rem 0.85rem;
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.18);
+  transition: background 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.logoLink:hover {
+  background: #ffffff;
+  box-shadow: 0 6px 22px rgba(255, 255, 255, 0.35);
+  transform: translateY(-2px);
+}
+
+.logoImage {
+  height: 32px;
+  width: auto;
+  max-width: 150px;
+  object-fit: contain;
+  display: block;
+}
+
 .productsSubGrid {
   display: flex;
   flex-direction: column;

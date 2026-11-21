@@ -1,6 +1,8 @@
 'use client'
 
 import React from 'react'
+import Link from 'next/link'
+import Image from 'next/image'
 import styles from './Footer.module.css'
 
 interface FooterProps {
@@ -9,6 +11,7 @@ interface FooterProps {
 
 export const Footer: React.FC<FooterProps> = ({ cmsData }) => {
   const companyName = cmsData?.companyName || 'MAGIC GLASS PRIVATE LIMITED'
+  const logoSrc = cmsData?.logoUrl || cmsData?.logo?.url || '/images/logo.png'
   const corporateOffice = cmsData?.corporateOffice || {
     heading: 'CORPORATE OFFICE',
     address:
@@ -67,12 +70,16 @@ export const Footer: React.FC<FooterProps> = ({ cmsData }) => {
         <div className={styles.grid}>
           {/* Col 1: Corporate & Factory Offices & Contact Info */}
           <div>
-            <div
-              className="base-title"
-              style={{ marginBottom: '1.25rem', color: 'var(--color-crimson)' }}
-              data-cms-field="companyName"
-            >
-              {companyName}
+            <div className={styles.logoWrapper}>
+              <Link href="/" className={styles.logoLink} aria-label="Magic Glass Homepage">
+                <Image
+                  src={logoSrc}
+                  alt={companyName || 'Magic Glass'}
+                  width={160}
+                  height={44}
+                  className={styles.logoImage}
+                />
+              </Link>
             </div>
 
             <div className={styles.officeBlock}>
