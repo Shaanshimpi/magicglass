@@ -95,9 +95,9 @@ export const PdpRelatedProducts: React.FC<PdpRelatedProductsProps> = ({
               </div>
               <h3 className={styles.cardTitle}>{prod.title}</h3>
               <div className={styles.exploreBtn}>
-                <button type="button" className="button--red">
+                <span className="button--red">
                   EXPLORE →
-                </button>
+                </span>
               </div>
             </Link>
           ))}
