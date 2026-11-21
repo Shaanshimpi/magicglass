@@ -7,7 +7,14 @@ import { PdpHero } from '@/components/PDP/PdpHero'
 import { useLayoutContext } from '@/components/Shell/ClientLayoutShell'
 import mockData from '@/data/contact_us_mock.json'
 import styles from './ContactUs.module.css'
-
+import {
+  validateEmail,
+  validatePhone,
+  validateFullName,
+  validateMessage,
+  formatPhoneInput,
+  validateContactForm,
+} from '@/lib/formValidation'
 
 interface ContactCard {
   id: string
@@ -36,6 +43,11 @@ export const ContactUsContent: React.FC<ContactUsContentProps> = ({ cmsData }) =
     subject: '',
     message: '',
   })
+
+  const [errors, setErrors] = useState<Record<string, string>>({})
+  const [touched, setTouched] = useState<Record<string, boolean>>({})
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [formError, setFormError] = useState<string | null>(null)
 
   const data = cmsData || (mockData as {
     page: any
@@ -89,19 +101,70 @@ export const ContactUsContent: React.FC<ContactUsContentProps> = ({ cmsData }) =
     return () => ctx.revert()
   }, [])
 
+  const validateField = (name: string, value: string) => {
+    let errorMsg = ''
+    if (name === 'fullName') {
+      const res = validateFullName(value)
+      if (!res.isValid) errorMsg = res.error || ''
+    } else if (name === 'email') {
+      const res = validateEmail(value)
+      if (!res.isValid) errorMsg = res.error || ''
+    } else if (name === 'phone') {
+      const res = validatePhone(value, true)
+      if (!res.isValid) errorMsg = res.error || ''
+    } else if (name === 'message') {
+      const res = validateMessage(value, true, 10)
+      if (!res.isValid) errorMsg = res.error || ''
+    }
+    setErrors((prev) => ({ ...prev, [name]: errorMsg }))
+    return errorMsg
+  }
+
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    const { name, value } = e.target
+    let { name, value } = e.target
+    if (name === 'phone') {
+      value = formatPhoneInput(value)
+    }
     setFormData((prev) => ({ ...prev, [name]: value }))
+
+    if (touched[name]) {
+      validateField(name, value)
+    }
   }
 
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [formError, setFormError] = useState<string | null>(null)
+  const handleBlur = (
+    e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target
+    setTouched((prev) => ({ ...prev, [name]: true }))
+    validateField(name, value)
+  }
 
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!formData.fullName || !formData.email || !formData.message) return
+
+    // Mark required fields as touched
+    setTouched({
+      fullName: true,
+      email: true,
+      phone: true,
+      message: true,
+    })
+
+    const validation = validateContactForm({
+      fullName: formData.fullName,
+      email: formData.email,
+      phone: formData.phone,
+      message: formData.message,
+    })
+
+    if (!validation.isValid) {
+      setErrors(validation.errors)
+      setFormError('Please correct the highlighted fields before sending.')
+      return
+    }
 
     setIsSubmitting(true)
     setFormError(null)
@@ -127,6 +190,8 @@ export const ContactUsContent: React.FC<ContactUsContentProps> = ({ cmsData }) =
 
       setFormSubmitted(true)
       setFormData({ fullName: '', email: '', phone: '', subject: '', message: '' })
+      setErrors({})
+      setTouched({})
       setTimeout(() => {
         setFormSubmitted(false)
       }, 6000)
@@ -278,7 +343,7 @@ export const ContactUsContent: React.FC<ContactUsContentProps> = ({ cmsData }) =
                   </div>
                 )}
 
-                <form onSubmit={handleFormSubmit} className={styles.formGrid}>
+                <form onSubmit={handleFormSubmit} className={styles.formGrid} noValidate>
                   <div className={styles.inputRow}>
                     <div className={styles.inputGroup}>
                       <label className={styles.inputLabel}>FULL NAME *</label>
@@ -287,10 +352,15 @@ export const ContactUsContent: React.FC<ContactUsContentProps> = ({ cmsData }) =
                         name="fullName"
                         value={formData.fullName}
                         onChange={handleInputChange}
-                        required
+                        onBlur={handleBlur}
                         placeholder="e.g. Suraj Divate"
-                        className={styles.inputField}
+                        className={`${styles.inputField} ${touched.fullName && errors.fullName ? styles.inputError : ''}`}
                       />
+                      {touched.fullName && errors.fullName && (
+                        <div className={styles.fieldError}>
+                          <span>⚠️</span> {errors.fullName}
+                        </div>
+                      )}
                     </div>
                     <div className={styles.inputGroup}>
                       <label className={styles.inputLabel}>EMAIL ADDRESS *</label>
@@ -299,24 +369,40 @@ export const ContactUsContent: React.FC<ContactUsContentProps> = ({ cmsData }) =
                         name="email"
                         value={formData.email}
                         onChange={handleInputChange}
-                        required
+                        onBlur={handleBlur}
                         placeholder="name@company.com"
-                        className={styles.inputField}
+                        className={`${styles.inputField} ${touched.email && errors.email ? styles.inputError : ''}`}
                       />
+                      {touched.email && errors.email && (
+                        <div className={styles.fieldError}>
+                          <span>⚠️</span> {errors.email}
+                        </div>
+                      )}
                     </div>
                   </div>
 
                   <div className={styles.inputRow}>
                     <div className={styles.inputGroup}>
-                      <label className={styles.inputLabel}>PHONE NUMBER</label>
+                      <label className={styles.inputLabel}>PHONE NUMBER * (10 DIGITS)</label>
                       <input
                         type="tel"
                         name="phone"
                         value={formData.phone}
                         onChange={handleInputChange}
+                        onBlur={handleBlur}
                         placeholder="+91 98765 43210"
-                        className={styles.inputField}
+                        maxLength={17}
+                        className={`${styles.inputField} ${touched.phone && errors.phone ? styles.inputError : ''}`}
                       />
+                      {touched.phone && errors.phone ? (
+                        <div className={styles.fieldError}>
+                          <span>⚠️</span> {errors.phone}
+                        </div>
+                      ) : (
+                        <div className={styles.fieldHint}>
+                          10-digit mobile number (e.g. 98765 43210 or +91 98765 43210)
+                        </div>
+                      )}
                     </div>
                     <div className={styles.inputGroup}>
                       <label className={styles.inputLabel}>SUBJECT / PROJECT</label>
@@ -337,10 +423,15 @@ export const ContactUsContent: React.FC<ContactUsContentProps> = ({ cmsData }) =
                       name="message"
                       value={formData.message}
                       onChange={handleInputChange}
-                      required
+                      onBlur={handleBlur}
                       placeholder="Please specify your glass specs, quantities, or project details..."
-                      className={styles.textareaField}
+                      className={`${styles.textareaField} ${touched.message && errors.message ? styles.inputError : ''}`}
                     />
+                    {touched.message && errors.message && (
+                      <div className={styles.fieldError}>
+                        <span>⚠️</span> {errors.message}
+                      </div>
+                    )}
                   </div>
 
                   <button
@@ -359,4 +450,3 @@ export const ContactUsContent: React.FC<ContactUsContentProps> = ({ cmsData }) =
     </div>
   )
 }
-

@@ -33,6 +33,7 @@ docs/
 
 # local env files
 .env*.local
+scratch_*
 
 # vercel
 .vercel

@@ -250,7 +250,11 @@ export const IndustrySolutionContent: React.FC<IndustrySolutionContentProps> = (
             {/* ROW 1: Airport Card + Intro Text */}
             <div className={styles.row1Wrapper}>
               {row1Item && (
-                <div ref={row1CardRef} className={`${styles.collectionCard} ${styles.row1Card}`}>
+                <div
+                  ref={row1CardRef}
+                  className={`${styles.collectionCard} ${styles.row1Card} ${activeTapId === row1Item.id ? styles.cardActive : ''}`}
+                  onClick={() => handleTileTap(row1Item.id)}
+                >
                   <div className={styles.imageWrapper}>
                     <Image
                       src={row1Item.image}
@@ -294,7 +298,11 @@ export const IndustrySolutionContent: React.FC<IndustrySolutionContentProps> = (
             {/* ROW 2: 2 Cards (Architecture & Automobile - Asymmetrical Heights & Parallax) */}
             <div className={styles.row2Grid}>
               {row2Items[0] && (
-                <div ref={row2Card1Ref} className={`${styles.collectionCard} ${styles.row2Card1}`}>
+                <div
+                  ref={row2Card1Ref}
+                  className={`${styles.collectionCard} ${styles.row2Card1} ${activeTapId === row2Items[0].id ? styles.cardActive : ''}`}
+                  onClick={() => handleTileTap(row2Items[0].id)}
+                >
                   <div className={styles.imageWrapper}>
                     <Image
                       src={row2Items[0].image}
@@ -322,7 +330,11 @@ export const IndustrySolutionContent: React.FC<IndustrySolutionContentProps> = (
               )}
 
               {row2Items[1] && (
-                <div ref={row2Card2Ref} className={`${styles.collectionCard} ${styles.row2Card2}`}>
+                <div
+                  ref={row2Card2Ref}
+                  className={`${styles.collectionCard} ${styles.row2Card2} ${activeTapId === row2Items[1].id ? styles.cardActive : ''}`}
+                  onClick={() => handleTileTap(row2Items[1].id)}
+                >
                   <div className={styles.imageWrapper}>
                     <Image
                       src={row2Items[1].image}
@@ -353,7 +365,11 @@ export const IndustrySolutionContent: React.FC<IndustrySolutionContentProps> = (
             {/* ROW 3: 2 Cards (Hospitality & Transport - Asymmetrical Heights & Parallax) */}
             <div className={styles.row3Grid}>
               {row3Items[0] && (
-                <div ref={row3Card1Ref} className={`${styles.collectionCard} ${styles.row3Card1}`}>
+                <div
+                  ref={row3Card1Ref}
+                  className={`${styles.collectionCard} ${styles.row3Card1} ${activeTapId === row3Items[0].id ? styles.cardActive : ''}`}
+                  onClick={() => handleTileTap(row3Items[0].id)}
+                >
                   <div className={styles.imageWrapper}>
                     <Image
                       src={row3Items[0].image}
@@ -381,7 +397,11 @@ export const IndustrySolutionContent: React.FC<IndustrySolutionContentProps> = (
               )}
 
               {row3Items[1] && (
-                <div ref={row3Card2Ref} className={`${styles.collectionCard} ${styles.row3Card2}`}>
+                <div
+                  ref={row3Card2Ref}
+                  className={`${styles.collectionCard} ${styles.row3Card2} ${activeTapId === row3Items[1].id ? styles.cardActive : ''}`}
+                  onClick={() => handleTileTap(row3Items[1].id)}
+                >
                   <div className={styles.imageWrapper}>
                     <Image
                       src={row3Items[1].image}

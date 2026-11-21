@@ -23,7 +23,7 @@ async function seed() {
       navLinks: [
         { label: 'About', href: '/about' },
         { label: 'Products', href: '/products' },
-        { label: 'Toughened Glass', href: '/toughened-glass' },
+        { label: 'Toughened Glass', href: '/products/toughened-glass' },
         { label: 'Industry Solution', href: '/industry-solution' },
         { label: 'Infrastructure', href: '/infrastructure' },
         { label: 'Projects', href: '/projects' },

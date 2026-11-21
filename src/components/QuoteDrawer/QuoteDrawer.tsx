@@ -2,6 +2,13 @@
 
 import React, { useState, useEffect } from 'react'
 import styles from './QuoteDrawer.module.css'
+import {
+  validateEmail,
+  validatePhone,
+  validateFullName,
+  formatPhoneInput,
+  validateQuoteForm,
+} from '@/lib/formValidation'
 
 interface QuoteDrawerProps {
   isOpen: boolean
@@ -52,6 +59,9 @@ export const QuoteDrawer: React.FC<QuoteDrawerProps> = ({ isOpen, onClose, cmsDa
     message: '',
   })
 
+  const [errors, setErrors] = useState<Record<string, string>>({})
+  const [touched, setTouched] = useState<Record<string, boolean>>({})
+
   // Lock body scroll and stop Lenis while drawer is open, enable ESC key close
   useEffect(() => {
     if (!isOpen) return
@@ -78,23 +88,85 @@ export const QuoteDrawer: React.FC<QuoteDrawerProps> = ({ isOpen, onClose, cmsDa
     }
   }, [isOpen, onClose])
 
+  const validateField = (name: string, value: string) => {
+    let errorMsg = ''
+    if (name === 'fullName') {
+      const res = validateFullName(value)
+      if (!res.isValid) errorMsg = res.error || ''
+    } else if (name === 'email') {
+      const res = validateEmail(value)
+      if (!res.isValid) errorMsg = res.error || ''
+    } else if (name === 'phone') {
+      const res = validatePhone(value, true)
+      if (!res.isValid) errorMsg = res.error || ''
+    }
+    setErrors((prev) => ({ ...prev, [name]: errorMsg }))
+    return errorMsg
+  }
+
   const toggleGlassType = (type: string) => {
+    let updated: string[]
     if (selectedTypes.includes(type)) {
-      setSelectedTypes(selectedTypes.filter((t) => t !== type))
+      updated = selectedTypes.filter((t) => t !== type)
     } else {
-      setSelectedTypes([...selectedTypes, type])
+      updated = [...selectedTypes, type]
+    }
+    setSelectedTypes(updated)
+
+    if (touched.glassTypes) {
+      setErrors((prev) => ({
+        ...prev,
+        glassTypes: updated.length === 0 ? 'Please select at least one glass specification.' : '',
+      }))
     }
   }
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    const { name, value } = e.target
+    let { name, value } = e.target
+    if (name === 'phone') {
+      value = formatPhoneInput(value)
+    }
     setFormState((prev) => ({ ...prev, [name]: value }))
+
+    if (touched[name]) {
+      validateField(name, value)
+    }
+  }
+
+  const handleBlur = (
+    e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target
+    setTouched((prev) => ({ ...prev, [name]: true }))
+    validateField(name, value)
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+
+    // Touch all required fields
+    setTouched({
+      fullName: true,
+      email: true,
+      phone: true,
+      glassTypes: true,
+    })
+
+    const validation = validateQuoteForm({
+      fullName: formState.fullName,
+      email: formState.email,
+      phone: formState.phone,
+      glassTypes: selectedTypes,
+    })
+
+    if (!validation.isValid) {
+      setErrors(validation.errors)
+      setErrorMessage('Please correct the highlighted fields before submitting.')
+      return
+    }
+
     setIsSubmitting(true)
     setErrorMessage(null)
 
@@ -124,6 +196,8 @@ export const QuoteDrawer: React.FC<QuoteDrawerProps> = ({ isOpen, onClose, cmsDa
       setTimeout(() => {
         setSubmitted(false)
         setFormState({ fullName: '', companyName: '', email: '', phone: '', message: '' })
+        setErrors({})
+        setTouched({})
         onClose()
       }, 3500)
     } catch (err: any) {
@@ -185,7 +259,7 @@ export const QuoteDrawer: React.FC<QuoteDrawerProps> = ({ isOpen, onClose, cmsDa
               </button>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className={styles.drawerForm}>
+            <form onSubmit={handleSubmit} className={styles.drawerForm} noValidate>
               {errorMessage && (
                 <div className={styles.errorBanner}>
                   ⚠️ {errorMessage}
@@ -213,7 +287,7 @@ export const QuoteDrawer: React.FC<QuoteDrawerProps> = ({ isOpen, onClose, cmsDa
 
               {/* 2. Glass Types Checkboxes */}
               <div className={styles.formGroup}>
-                <label className={styles.label}>2. Glass Specifications Required</label>
+                <label className={styles.label}>2. Glass Specifications Required *</label>
                 <div className={styles.checkboxesGrid}>
                   {glassTypes.map((type) => (
                     <label key={type} className={styles.checkboxLabel}>
@@ -226,6 +300,11 @@ export const QuoteDrawer: React.FC<QuoteDrawerProps> = ({ isOpen, onClose, cmsDa
                     </label>
                   ))}
                 </div>
+                {touched.glassTypes && errors.glassTypes && (
+                  <div className={styles.fieldError}>
+                    <span>⚠️</span> {errors.glassTypes}
+                  </div>
+                )}
               </div>
 
               {/* 3. Contact Inputs */}
@@ -240,10 +319,15 @@ export const QuoteDrawer: React.FC<QuoteDrawerProps> = ({ isOpen, onClose, cmsDa
                     name="fullName"
                     value={formState.fullName}
                     onChange={handleInputChange}
-                    required
+                    onBlur={handleBlur}
                     placeholder="Architect / Developer Name"
-                    className={styles.inputField}
+                    className={`${styles.inputField} ${touched.fullName && errors.fullName ? styles.inputError : ''}`}
                   />
+                  {touched.fullName && errors.fullName && (
+                    <div className={styles.fieldError}>
+                      <span>⚠️</span> {errors.fullName}
+                    </div>
+                  )}
                 </div>
                 <div>
                   <label className={styles.label}>Company Name</label>
@@ -269,21 +353,37 @@ export const QuoteDrawer: React.FC<QuoteDrawerProps> = ({ isOpen, onClose, cmsDa
                     name="email"
                     value={formState.email}
                     onChange={handleInputChange}
-                    required
+                    onBlur={handleBlur}
                     placeholder="email@company.com"
-                    className={styles.inputField}
+                    className={`${styles.inputField} ${touched.email && errors.email ? styles.inputError : ''}`}
                   />
+                  {touched.email && errors.email && (
+                    <div className={styles.fieldError}>
+                      <span>⚠️</span> {errors.email}
+                    </div>
+                  )}
                 </div>
                 <div>
-                  <label className={styles.label}>Phone Number</label>
+                  <label className={styles.label}>Phone Number * (10 Digits)</label>
                   <input
                     type="tel"
                     name="phone"
                     value={formState.phone}
                     onChange={handleInputChange}
+                    onBlur={handleBlur}
                     placeholder="+91 98765 43210"
-                    className={styles.inputField}
+                    maxLength={17}
+                    className={`${styles.inputField} ${touched.phone && errors.phone ? styles.inputError : ''}`}
                   />
+                  {touched.phone && errors.phone ? (
+                    <div className={styles.fieldError}>
+                      <span>⚠️</span> {errors.phone}
+                    </div>
+                  ) : (
+                    <div className={styles.fieldHint}>
+                      10-digit mobile number (e.g. 98765 43210 or +91 98765 43210)
+                    </div>
+                  )}
                 </div>
               </div>
 

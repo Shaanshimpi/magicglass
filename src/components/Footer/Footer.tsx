@@ -61,8 +61,6 @@ export const Footer: React.FC<FooterProps> = ({ cmsData }) => {
     cmsData?.cityTagline ||
     'Pune, Maharashtra, India • Premier Architectural Glass Processing'
 
-  const wordmarkText = cmsData?.wordmarkText || 'MAGIC GLASS'
-
   return (
     <footer id="footer" className={styles.footerSection}>
       <div className={styles.container}>
@@ -153,7 +151,22 @@ export const Footer: React.FC<FooterProps> = ({ cmsData }) => {
         </div>
 
         <div className={styles.bottomRow}>
-          <p data-cms-field="copyrightText">{copyrightText}</p>
+          <div className={styles.copyrightBlock}>
+            <p data-cms-field="copyrightText" className={styles.copyrightText}>
+              {copyrightText}
+            </p>
+            <p className={styles.developerCredit}>
+              Built and Developed by{' '}
+              <a
+                href="https://firefist.co.in"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.developerLink}
+              >
+                FireFist Solutions
+              </a>
+            </p>
+          </div>
           <div className={styles.bottomCenterAction}>
             <a
               href="/login"
@@ -177,14 +190,10 @@ export const Footer: React.FC<FooterProps> = ({ cmsData }) => {
               <span>Staff Login / Dashboard</span>
             </a>
           </div>
-          <p data-cms-field="cityTagline">{cityTagline}</p>
+          <p data-cms-field="cityTagline" className={styles.cityTagline}>
+            {cityTagline}
+          </p>
         </div>
-      </div>
-
-      <div className={styles.giantWordmarkContainer} aria-hidden="true">
-        <span className={styles.giantWordmarkText} data-cms-field="wordmarkText">
-          {wordmarkText}
-        </span>
       </div>
     </footer>
   )

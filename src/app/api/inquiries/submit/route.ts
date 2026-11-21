@@ -2,6 +2,12 @@ import { NextResponse } from 'next/server'
 import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import { sendInquiryNotification } from '@/lib/email'
+import {
+  validateEmail,
+  validatePhone,
+  validateFullName,
+  validateMessage,
+} from '@/lib/formValidation'
 
 export async function POST(req: Request) {
   try {
@@ -19,11 +25,42 @@ export async function POST(req: Request) {
       attachmentName = '',
     } = body
 
-    if (!fullName || !fullName.trim() || !email || !email.trim()) {
+    // 1. Full name validation
+    const nameVal = validateFullName(fullName)
+    if (!nameVal.isValid) {
       return NextResponse.json(
-        { success: false, error: 'Full name and email address are required.' },
+        { success: false, error: nameVal.error },
         { status: 400 }
       )
+    }
+
+    // 2. Email address validation
+    const emailVal = validateEmail(email)
+    if (!emailVal.isValid) {
+      return NextResponse.json(
+        { success: false, error: emailVal.error },
+        { status: 400 }
+      )
+    }
+
+    // 3. Phone number 10-digit validation
+    const phoneVal = validatePhone(phone, true)
+    if (!phoneVal.isValid) {
+      return NextResponse.json(
+        { success: false, error: phoneVal.error },
+        { status: 400 }
+      )
+    }
+
+    // 4. Message validation for Contact Us form
+    if (formType === 'contact_us') {
+      const msgVal = validateMessage(message, true, 10)
+      if (!msgVal.isValid) {
+        return NextResponse.json(
+          { success: false, error: msgVal.error },
+          { status: 400 }
+        )
+      }
     }
 
     const payload = await getPayload({ config: configPromise })
@@ -34,15 +71,19 @@ export async function POST(req: Request) {
         }))
       : []
 
+    const cleanName = nameVal.cleanValue || fullName.trim()
+    const cleanEmail = emailVal.cleanValue || email.trim().toLowerCase()
+    const cleanPhone = phoneVal.cleanValue || phone.trim()
+
     const inquiry = await payload.create({
       collection: 'inquiries',
       data: {
         formType,
         status: 'new',
-        fullName: fullName.trim(),
+        fullName: cleanName,
         companyName: (companyName || '').trim(),
-        email: email.trim().toLowerCase(),
-        phone: (phone || '').trim(),
+        email: cleanEmail,
+        phone: cleanPhone,
         subject: (subject || '').trim(),
         projectCategory: (projectCategory || '').trim(),
         glassTypes: formattedGlassTypes,
@@ -58,10 +99,10 @@ export async function POST(req: Request) {
         {
           id: inquiry.id,
           formType,
-          fullName: fullName.trim(),
+          fullName: cleanName,
           companyName: (companyName || '').trim(),
-          email: email.trim().toLowerCase(),
-          phone: (phone || '').trim(),
+          email: cleanEmail,
+          phone: cleanPhone,
           subject: (subject || '').trim(),
           projectCategory: (projectCategory || '').trim(),
           glassTypes: formattedGlassTypes,

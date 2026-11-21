@@ -2329,15 +2329,6 @@ export const RightSectionInspector: React.FC<RightSectionInspectorProps> = ({
                           onChange={(e) => handleFieldChange('cityTagline', e.target.value)}
                         />
                       </div>
-                      <div className={styles.fieldGroup}>
-                        <label className={styles.fieldLabel}>Giant Wordmark Text</label>
-                        <input
-                          type="text"
-                          className={styles.inputControl}
-                          value={data?.wordmarkText || 'MAGIC GLASS'}
-                          onChange={(e) => handleFieldChange('wordmarkText', e.target.value)}
-                        />
-                      </div>
                     </div>
                   )}
                 </div>

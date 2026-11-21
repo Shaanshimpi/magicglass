@@ -4,6 +4,7 @@ import React, { useState, useEffect, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import styles from '../staff-login/StaffLogin.module.css'
+import { validateEmail } from '@/lib/formValidation'
 import {
   FiLock,
   FiMail,
@@ -61,6 +62,12 @@ function LoginFormContent() {
     e.preventDefault()
     if (!email || !password) {
       setError('Please enter both email and password.')
+      return
+    }
+
+    const emailCheck = validateEmail(email)
+    if (!emailCheck.isValid) {
+      setError(emailCheck.error || 'Please enter a valid email address.')
       return
     }
 

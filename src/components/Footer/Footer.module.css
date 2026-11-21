@@ -159,6 +159,44 @@
   flex-wrap: wrap;
 }
 
+.copyrightBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.copyrightText {
+  margin: 0;
+  color: #94a3b8;
+  font-size: 0.85rem;
+}
+
+.developerCredit {
+  margin: 0;
+  font-size: 0.8rem;
+  color: #94a3b8;
+}
+
+.developerLink {
+  color: #e2e8f0;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: rgba(225, 29, 72, 0.4);
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.developerLink:hover {
+  color: #ffffff;
+  text-decoration-color: var(--color-crimson, #e11d48);
+}
+
+.cityTagline {
+  margin: 0;
+  color: #94a3b8;
+  font-size: 0.85rem;
+}
+
 .bottomCenterAction {
   display: flex;
   align-items: center;
@@ -202,20 +240,10 @@
   transform: scale(1.1);
 }
 
-.wordmarkWrapper {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100%;
-  pointer-events: none;
-  opacity: 0.04;
-  user-select: none;
-  color: #ffffff;
-}
-
-.wordmarkSvg {
-  width: 100%;
-  height: auto;
-  display: block;
+@media (max-width: 768px) {
+  .bottomRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.25rem;
+  }
 }

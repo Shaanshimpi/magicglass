@@ -93,6 +93,31 @@ export const Header: React.FC<HeaderProps> = ({
     }
   }
 
+  const defaultNavLinks = [
+    { label: 'About', href: '/about' },
+    { label: 'Products', href: '/products' },
+    { label: 'Toughened Glass', href: '/products/toughened-glass' },
+    { label: 'Industry Solution', href: '/industry-solution' },
+    { label: 'Infrastructure', href: '/infrastructure' },
+    { label: 'Projects', href: '/projects' },
+    { label: 'Contact Us', href: '/contact-us' },
+  ]
+
+  const navItems = cmsData?.navLinks && cmsData.navLinks.length > 0
+    ? cmsData.navLinks
+    : defaultNavLinks
+
+  const getPageTab = (href: string) => {
+    if (href === '/about') return 'about'
+    if (href === '/products') return 'products'
+    if (href.includes('toughened-glass')) return 'toughened-glass'
+    if (href.includes('industry-solution')) return 'industry-solution'
+    if (href.includes('infrastructure')) return 'infrastructure'
+    if (href.includes('projects')) return 'projects'
+    if (href.includes('contact')) return 'contact-us'
+    return href.replace(/^\//, '')
+  }
+
   return (
     <>
       <header ref={headerRef} className={styles.headerContainer}>
@@ -114,84 +139,17 @@ export const Header: React.FC<HeaderProps> = ({
 
         <nav ref={navRef} className={styles.desktopNav}>
           <ul className={styles.navLinks}>
-            {cmsData?.navLinks ? (
-              cmsData.navLinks.map((item, idx) => (
-                <li key={idx}>
-                  <Link
-                    href={item.href}
-                    className={styles.navLink}
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              ))
-            ) : (
-              <>
-                <li>
-                  <Link
-                    href="/about"
-                    className={styles.navLink}
-                    onClick={(e) => handleNavClick(e, 'about')}
-                  >
-                    About
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/products"
-                    className={styles.navLink}
-                    onClick={(e) => handleNavClick(e, 'products')}
-                  >
-                    Products
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/products/toughened-glass"
-                    className={styles.navLink}
-                    onClick={(e) => handleNavClick(e, 'toughened-glass')}
-                  >
-                    Toughened Glass
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/industry-solution"
-                    className={styles.navLink}
-                    onClick={(e) => handleNavClick(e, 'industry-solution')}
-                  >
-                    Industry Solution
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/infrastructure"
-                    className={styles.navLink}
-                    onClick={(e) => handleNavClick(e, 'infrastructure')}
-                  >
-                    Infrastructure
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/projects"
-                    className={styles.navLink}
-                    onClick={(e) => handleNavClick(e, 'projects')}
-                  >
-                    Projects
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/contact-us"
-                    className={styles.navLink}
-                    onClick={(e) => handleNavClick(e, 'contact-us')}
-                  >
-                    Contact Us
-                  </Link>
-                </li>
-              </>
-            )}
+            {navItems.map((item, idx) => (
+              <li key={idx}>
+                <Link
+                  href={item.href}
+                  className={styles.navLink}
+                  onClick={(e) => handleNavClick(e, getPageTab(item.href))}
+                >
+                  {item.label}
+                </Link>
+              </li>
+            ))}
           </ul>
         </nav>
 
@@ -228,75 +186,16 @@ export const Header: React.FC<HeaderProps> = ({
 
         <div className={styles.menuContent}>
           <ul ref={menuLinksRef} className={styles.menuList}>
-            <li>
-              <Link
-                href="/about"
-                onClick={(e) => handleNavClick(e, 'about')}
-              >
-                About Us
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/products"
-                onClick={(e) => handleNavClick(e, 'products')}
-              >
-                Architectural Products
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/products/toughened-glass"
-                onClick={(e) => handleNavClick(e, 'toughened-glass')}
-              >
-                Toughened Glass
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/industry-solution"
-                onClick={(e) => handleNavClick(e, 'industry-solution')}
-              >
-                Industry Solutions
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/infrastructure"
-                onClick={(e) => handleNavClick(e, 'infrastructure')}
-              >
-                Infrastructure & BOQ
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/projects"
-                onClick={(e) => handleNavClick(e, 'projects')}
-              >
-                Featured Projects
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/contact-us"
-                onClick={(e) => handleNavClick(e, 'contact-us')}
-              >
-                Contact Us
-              </Link>
-            </li>
-            <li>
-              <button
-                type="button"
-                className="button--red"
-                onClick={() => {
-                  handleCloseMenu()
-                  onOpenQuoteDrawer?.()
-                }}
-                style={{ marginTop: '1.25rem' }}
-              >
-                REQUEST TECHNICAL QUOTE
-              </button>
-            </li>
+            {navItems.map((item, idx) => (
+              <li key={idx}>
+                <Link
+                  href={item.href}
+                  onClick={(e) => handleNavClick(e, getPageTab(item.href))}
+                >
+                  {item.label}
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
       </div>
