@@ -897,7 +897,10 @@ export async function getContactUsCmsData() {
             actionText: card.actionText || '',
             actionUrl: card.actionUrl || null,
           })),
-          mapEmbedUrl: data.mapEmbedUrl || contactUsMock.mapEmbedUrl,
+          mapEmbedUrl:
+            data.mapEmbedUrl && !data.mapEmbedUrl.includes('18.5204')
+              ? data.mapEmbedUrl
+              : contactUsMock.mapEmbedUrl,
         }
       }
     }
