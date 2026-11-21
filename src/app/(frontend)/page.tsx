@@ -1,4 +1,5 @@
 import React from 'react'
+import type { Metadata } from 'next'
 import { Hero } from '@/components/Hero/Hero'
 import { Heritage } from '@/components/Heritage/Heritage'
 import { ProductSystems } from '@/components/ProductSystems/ProductSystems'
@@ -11,6 +12,22 @@ import { getHomePageCmsData } from '@/lib/cms'
 
 export const dynamic = 'force-dynamic'
 export const revalidate = 0
+
+export const metadata: Metadata = {
+  title: 'Magic Glass — Architectural Glass Engineering & Processing Pune',
+  description:
+    'Leading architectural glass processor in Pune, India. Premium tempered, DGU Insulated, Sentry Laminated, Low-E, and Ceramic Fritted Glass for high-rise facades and luxury residences.',
+  alternates: {
+    canonical: 'https://magicglass.co.in',
+  },
+  openGraph: {
+    title: 'Magic Glass — Architectural Glass Engineering & Processing',
+    description:
+      'Precision architectural glass processing in Pune, India. Tempered, DGU Insulated, Sentry Laminated, Low-E, and Ceramic Fritted Glass.',
+    url: 'https://magicglass.co.in',
+    images: ['/images/hero-bg.jpg'],
+  },
+}
 
 export default async function HomePage() {
   const cmsData = await getHomePageCmsData()

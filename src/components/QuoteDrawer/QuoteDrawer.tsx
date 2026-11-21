@@ -320,6 +320,7 @@ export const QuoteDrawer: React.FC<QuoteDrawerProps> = ({ isOpen, onClose, cmsDa
                     value={formState.fullName}
                     onChange={handleInputChange}
                     onBlur={handleBlur}
+                    autoComplete="name"
                     placeholder="Architect / Developer Name"
                     className={`${styles.inputField} ${touched.fullName && errors.fullName ? styles.inputError : ''}`}
                   />
@@ -336,6 +337,7 @@ export const QuoteDrawer: React.FC<QuoteDrawerProps> = ({ isOpen, onClose, cmsDa
                     name="companyName"
                     value={formState.companyName}
                     onChange={handleInputChange}
+                    autoComplete="organization"
                     placeholder="Firm / Contractor Name"
                     className={styles.inputField}
                   />
@@ -354,6 +356,8 @@ export const QuoteDrawer: React.FC<QuoteDrawerProps> = ({ isOpen, onClose, cmsDa
                     value={formState.email}
                     onChange={handleInputChange}
                     onBlur={handleBlur}
+                    autoComplete="email"
+                    inputMode="email"
                     placeholder="email@company.com"
                     className={`${styles.inputField} ${touched.email && errors.email ? styles.inputError : ''}`}
                   />
@@ -364,15 +368,17 @@ export const QuoteDrawer: React.FC<QuoteDrawerProps> = ({ isOpen, onClose, cmsDa
                   )}
                 </div>
                 <div>
-                  <label className={styles.label}>Phone Number * (10 Digits)</label>
+                  <label className={styles.label}>Phone Number *</label>
                   <input
                     type="tel"
                     name="phone"
                     value={formState.phone}
                     onChange={handleInputChange}
                     onBlur={handleBlur}
+                    autoComplete="tel"
+                    inputMode="tel"
                     placeholder="+91 98765 43210"
-                    maxLength={17}
+                    maxLength={20}
                     className={`${styles.inputField} ${touched.phone && errors.phone ? styles.inputError : ''}`}
                   />
                   {touched.phone && errors.phone ? (
@@ -381,7 +387,7 @@ export const QuoteDrawer: React.FC<QuoteDrawerProps> = ({ isOpen, onClose, cmsDa
                     </div>
                   ) : (
                     <div className={styles.fieldHint}>
-                      10-digit mobile number (e.g. 98765 43210 or +91 98765 43210)
+                      Mobile, landline, or international number
                     </div>
                   )}
                 </div>

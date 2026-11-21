@@ -353,6 +353,7 @@ export const ContactUsContent: React.FC<ContactUsContentProps> = ({ cmsData }) =
                         value={formData.fullName}
                         onChange={handleInputChange}
                         onBlur={handleBlur}
+                        autoComplete="name"
                         placeholder="e.g. Suraj Divate"
                         className={`${styles.inputField} ${touched.fullName && errors.fullName ? styles.inputError : ''}`}
                       />
@@ -370,6 +371,8 @@ export const ContactUsContent: React.FC<ContactUsContentProps> = ({ cmsData }) =
                         value={formData.email}
                         onChange={handleInputChange}
                         onBlur={handleBlur}
+                        autoComplete="email"
+                        inputMode="email"
                         placeholder="name@company.com"
                         className={`${styles.inputField} ${touched.email && errors.email ? styles.inputError : ''}`}
                       />
@@ -383,15 +386,17 @@ export const ContactUsContent: React.FC<ContactUsContentProps> = ({ cmsData }) =
 
                   <div className={styles.inputRow}>
                     <div className={styles.inputGroup}>
-                      <label className={styles.inputLabel}>PHONE NUMBER * (10 DIGITS)</label>
+                      <label className={styles.inputLabel}>PHONE NUMBER *</label>
                       <input
                         type="tel"
                         name="phone"
                         value={formData.phone}
                         onChange={handleInputChange}
                         onBlur={handleBlur}
+                        autoComplete="tel"
+                        inputMode="tel"
                         placeholder="+91 98765 43210"
-                        maxLength={17}
+                        maxLength={20}
                         className={`${styles.inputField} ${touched.phone && errors.phone ? styles.inputError : ''}`}
                       />
                       {touched.phone && errors.phone ? (
@@ -400,7 +405,7 @@ export const ContactUsContent: React.FC<ContactUsContentProps> = ({ cmsData }) =
                         </div>
                       ) : (
                         <div className={styles.fieldHint}>
-                          10-digit mobile number (e.g. 98765 43210 or +91 98765 43210)
+                          Mobile, landline, or international number with country code
                         </div>
                       )}
                     </div>

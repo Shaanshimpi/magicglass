@@ -53,20 +53,20 @@ export function validateEmail(email: string): ValidationResult {
 }
 
 /**
- * Normalizes a phone number to extract its core 10 digits
- * Handles +91, 91 (when 12 digits), and 0 (when 11 digits)
+ * Normalizes phone number digits
+ * Strips non-digits, leading country code +91 or 91 when length is 12, or trunk 0 when length is 11
  */
 export function cleanPhoneNumber(phone: string): string {
   if (!phone) return ''
   // Strip all non-digit characters
   let digits = phone.replace(/\D/g, '')
 
-  // If 12 digits starting with 91 (India country code), strip 91
+  // If 12 digits starting with 91 (India country code), strip 91 for Indian domestic handling
   if (digits.length === 12 && digits.startsWith('91')) {
     digits = digits.slice(2)
   }
 
-  // If 11 digits starting with 0 (national trunk prefix), strip 0
+  // If 11 digits starting with 0 (national trunk prefix in India), strip 0
   if (digits.length === 11 && digits.startsWith('0')) {
     digits = digits.slice(1)
   }
@@ -82,19 +82,23 @@ export function formatPhoneInput(value: string): string {
   if (!value) return ''
   // Strip characters that cannot be part of a phone number
   const sanitized = value.replace(/[^0-9+\s\-()]/g, '')
-  // Limit length to 17 characters (e.g. "+91 98765 43210")
-  return sanitized.slice(0, 17)
+  // Allow up to 20 characters for international formats e.g. "+971 50 123 4567"
+  return sanitized.slice(0, 20)
 }
 
 /**
- * Validates a 10-digit mobile number
+ * Validates a mobile, landline, or international phone number
+ * Supports:
+ * - Indian Mobile (10 digits starting with 6, 7, 8, or 9)
+ * - Indian Landlines (STD code + local number, total 10 digits starting with 2-8)
+ * - International formats (7 to 15 digits according to ITU-T E.164 standard)
  */
 export function validatePhone(phone: string, required: boolean = true): ValidationResult {
   const trimmed = (phone || '').trim()
 
   if (!trimmed) {
     if (required) {
-      return { isValid: false, error: 'Phone number is required (10 digits).' }
+      return { isValid: false, error: 'Phone number is required.' }
     }
     return { isValid: true, cleanValue: '' }
   }
@@ -107,31 +111,47 @@ export function validatePhone(phone: string, required: boolean = true): Validati
     }
   }
 
+  const allDigits = trimmed.replace(/\D/g, '')
+
+  if (allDigits.length < 7) {
+    return {
+      isValid: false,
+      error: `Phone number is too short (${allDigits.length} digits). Please enter at least 7 to 10 digits.`,
+    }
+  }
+
+  if (allDigits.length > 15) {
+    return {
+      isValid: false,
+      error: `Phone number is too long (${allDigits.length} digits). Maximum 15 digits allowed.`,
+    }
+  }
+
+  const isInternationalPrefix = trimmed.startsWith('+') || (trimmed.startsWith('00') && allDigits.length > 10)
   const clean = cleanPhoneNumber(trimmed)
 
-  if (clean.length < 10) {
-    return {
-      isValid: false,
-      error: `Phone number is too short (${clean.length}/10 digits). Please enter 10 digits.`,
+  // 1. If user entered a 10-digit number (standard Indian mobile or landline)
+  if (clean.length === 10) {
+    // Valid Indian phone numbers start with 2 through 9 (6-9 for mobile, 2-5 for landlines)
+    if (!/^[2-9]/.test(clean)) {
+      return {
+        isValid: false,
+        error: 'Please enter a valid phone number starting with digits 2–9.',
+      }
     }
+    return { isValid: true, cleanValue: clean }
   }
 
-  if (clean.length > 10) {
-    return {
-      isValid: false,
-      error: `Phone number is too long (${clean.length} digits). Please enter a 10-digit number.`,
-    }
+  // 2. If it's an international number with '+' prefix or between 7 and 15 digits
+  if (isInternationalPrefix || (allDigits.length >= 7 && allDigits.length <= 15)) {
+    const formattedInternational = trimmed.startsWith('+') ? `+${allDigits}` : allDigits
+    return { isValid: true, cleanValue: formattedInternational }
   }
 
-  // Indian mobile numbering plan: numbers start with 6, 7, 8, or 9
-  if (!/^[6-9]/.test(clean)) {
-    return {
-      isValid: false,
-      error: 'Please enter a valid 10-digit mobile number starting with 6, 7, 8, or 9.',
-    }
+  return {
+    isValid: false,
+    error: 'Please enter a valid 10-digit phone number or international number with country code.',
   }
-
-  return { isValid: true, cleanValue: clean }
 }
 
 /**
