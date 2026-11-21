@@ -43,12 +43,12 @@
 
 .pillActive {
   background: var(--color-cream);
-  color: var(--color-black);
+  color: #ffffff;
   border-color: var(--color-cream);
 }
 
 .pillActive:hover {
-  color: var(--color-black);
+  color: #ffffff;
 }
 
 .displayCard {

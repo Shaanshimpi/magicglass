@@ -274,9 +274,8 @@ export const QuoteDrawer: React.FC<QuoteDrawerProps> = ({ isOpen, onClose, cmsDa
                     <button
                       key={cat}
                       type="button"
-                      className={`${styles.categoryPill} ${
-                        selectedCat === cat ? styles.categoryPillActive : ''
-                      }`}
+                      className={`${styles.categoryPill} ${selectedCat === cat ? styles.categoryPillActive : ''
+                        }`}
                       onClick={() => setSelectedCat(cat)}
                     >
                       {cat}

@@ -44,7 +44,7 @@
   font-family: var(--font-outfit), sans-serif;
   font-size: 1.15rem;
   line-height: 1.6;
-  color: #cbd5e1;
+  color: var(--color-taupe, #334155);
   max-width: 720px;
   font-weight: 400;
 }

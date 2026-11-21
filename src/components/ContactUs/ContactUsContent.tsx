@@ -239,219 +239,219 @@ export const ContactUsContent: React.FC<ContactUsContentProps> = ({ cmsData }) =
   return (
     <div className={styles.pageWrapper} style={{ paddingTop: '70px' }}>
 
-        {/* 1. PDP Hero Section */}
-        <PdpHero
-          indexNumber={page.indexNumber}
-          title={page.title}
-          subheading={page.subheading}
-          category={page.category}
-          heroImage={page.heroImage}
-        />
+      {/* 1. PDP Hero Section */}
+      <PdpHero
+        indexNumber={page.indexNumber}
+        title={page.title}
+        subheading={page.subheading}
+        category={page.category}
+        heroImage={page.heroImage}
+      />
 
-        {/* 2. Contact Information Cards Grid (4 Cards) */}
-        <section ref={cardsSectionRef} className={styles.cardsSection}>
-          <div className={styles.container}>
-            <div className={styles.cardsGrid}>
-              {contactCards.map((card, idx) => (
-                <div
-                  key={card.id}
-                  ref={(el) => {
-                    cardRefs.current[idx] = el
-                  }}
-                  className={styles.contactCard}
-                >
-                  <div className={styles.iconBadge}>{renderIcon(card.icon)}</div>
-                  <h3 className={styles.cardTitle}>
-                    {card.title.includes('@') ? (
-                      <>
-                        {card.title.split('@')[0]}@<wbr />{card.title.split('@')[1]}
-                      </>
-                    ) : (
-                      card.title
-                    )}
-                  </h3>
-                  <p className={styles.cardDetail}>
-                    <span>{card.detail}</span>
-                  </p>
-
-                  {card.actionUrl ? (
-                    <a
-                      href={card.actionUrl}
-                      target={card.actionUrl.startsWith('http') ? '_blank' : '_self'}
-                      rel="noopener noreferrer"
-                      className={styles.cardActionLink}
-                    >
-                      ↳ {card.actionText}
-                    </a>
+      {/* 2. Contact Information Cards Grid (4 Cards) */}
+      <section ref={cardsSectionRef} className={styles.cardsSection}>
+        <div className={styles.container}>
+          <div className={styles.cardsGrid}>
+            {contactCards.map((card, idx) => (
+              <div
+                key={card.id}
+                ref={(el) => {
+                  cardRefs.current[idx] = el
+                }}
+                className={styles.contactCard}
+              >
+                <div className={styles.iconBadge}>{renderIcon(card.icon)}</div>
+                <h3 className={styles.cardTitle}>
+                  {card.title.includes('@') ? (
+                    <>
+                      {card.title.split('@')[0]}@<wbr />{card.title.split('@')[1]}
+                    </>
                   ) : (
-                    <span className={styles.cardActionLink} style={{ opacity: 0.6, cursor: 'default' }}>
-                      {card.actionText}
-                    </span>
+                    card.title
                   )}
-                </div>
-              ))}
-            </div>
+                </h3>
+                <p className={styles.cardDetail}>
+                  <span>{card.detail}</span>
+                </p>
+
+                {card.actionUrl ? (
+                  <a
+                    href={card.actionUrl}
+                    target={card.actionUrl.startsWith('http') ? '_blank' : '_self'}
+                    rel="noopener noreferrer"
+                    className={styles.cardActionLink}
+                  >
+                    ↳ {card.actionText}
+                  </a>
+                ) : (
+                  <span className={styles.cardActionLink} style={{ opacity: 0.6, cursor: 'default' }}>
+                    {card.actionText}
+                  </span>
+                )}
+              </div>
+            ))}
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* 3. Interactive Split Section: Google Map + Contact Form */}
-        <section ref={splitSectionRef} className={styles.splitSection}>
-          <div className={styles.container}>
-            <div className={styles.sectionHeaderBlock}>
-              <span className={styles.eyebrow}>{page.eyebrow}</span>
-              <h2 className={styles.mainHeading}>
-                <span className={styles.redHeading}>{page.redTitle}</span> {page.mainTitle}
-              </h2>
+      {/* 3. Interactive Split Section: Google Map + Contact Form */}
+      <section ref={splitSectionRef} className={styles.splitSection}>
+        <div className={styles.container}>
+          <div className={styles.sectionHeaderBlock}>
+            <span className={styles.eyebrow}>{page.eyebrow}</span>
+            <h2 className={styles.mainHeading}>
+              <span className={styles.redHeading}>{page.redTitle}</span> {page.mainTitle}
+            </h2>
+          </div>
+
+          <div className={styles.splitGrid}>
+            {/* Left Column: Location Map Embed */}
+            <div className={styles.mapCard}>
+              <div className={styles.mapHeader}>
+                <h3 className={styles.mapTitle}>Corporate & Factory Facilities</h3>
+                <span className={styles.mapSubtitle}>PUNE & YAVAT, MAHARASHTRA</span>
+              </div>
+              <div className={styles.mapFrameWrapper}>
+                <iframe
+                  src={mapEmbedUrl}
+                  title="Magic Glass Pune Location Map"
+                  className={styles.mapIframe}
+                  loading="lazy"
+                  allowFullScreen
+                />
+              </div>
             </div>
 
-            <div className={styles.splitGrid}>
-              {/* Left Column: Location Map Embed */}
-              <div className={styles.mapCard}>
-                <div className={styles.mapHeader}>
-                  <h3 className={styles.mapTitle}>Corporate & Factory Facilities</h3>
-                  <span className={styles.mapSubtitle}>PUNE & YAVAT, MAHARASHTRA</span>
-                </div>
-                <div className={styles.mapFrameWrapper}>
-                  <iframe
-                    src={mapEmbedUrl}
-                    title="Magic Glass Pune Location Map"
-                    className={styles.mapIframe}
-                    loading="lazy"
-                    allowFullScreen
-                  />
-                </div>
+            {/* Right Column: Direct Contact Form */}
+            <div className={styles.formCard}>
+              <div className={styles.formHeader}>
+                <h3 className={styles.formTitle}>Send Us a Direct Message</h3>
+                <p className={styles.formDesc}>
+                  Fill out your details below and our technical sales engineers will contact you shortly.
+                </p>
               </div>
 
-              {/* Right Column: Direct Contact Form */}
-              <div className={styles.formCard}>
-                <div className={styles.formHeader}>
-                  <h3 className={styles.formTitle}>Send Us a Direct Message</h3>
-                  <p className={styles.formDesc}>
-                    Fill out your details below and our technical sales engineers will contact you shortly.
-                  </p>
+              {formSubmitted && (
+                <div className={styles.successMessage}>
+                  ✓ Thank you! Your message has been received. Our team will get back to you shortly.
                 </div>
+              )}
 
-                {formSubmitted && (
-                  <div className={styles.successMessage}>
-                    ✓ Thank you! Your message has been received. Our team will get back to you shortly.
-                  </div>
-                )}
+              {formError && (
+                <div style={{ background: 'rgba(239, 68, 68, 0.15)', border: '1px solid rgba(239, 68, 68, 0.3)', color: '#fca5a5', padding: '0.75rem 1rem', borderRadius: '6px', fontSize: '0.85rem', marginBottom: '1rem' }}>
+                  ⚠️ {formError}
+                </div>
+              )}
 
-                {formError && (
-                  <div style={{ background: 'rgba(239, 68, 68, 0.15)', border: '1px solid rgba(239, 68, 68, 0.3)', color: '#fca5a5', padding: '0.75rem 1rem', borderRadius: '6px', fontSize: '0.85rem', marginBottom: '1rem' }}>
-                    ⚠️ {formError}
-                  </div>
-                )}
-
-                <form onSubmit={handleFormSubmit} className={styles.formGrid} noValidate>
-                  <div className={styles.inputRow}>
-                    <div className={styles.inputGroup}>
-                      <label className={styles.inputLabel}>FULL NAME *</label>
-                      <input
-                        type="text"
-                        name="fullName"
-                        value={formData.fullName}
-                        onChange={handleInputChange}
-                        onBlur={handleBlur}
-                        autoComplete="name"
-                        placeholder="e.g. Suraj Divate"
-                        className={`${styles.inputField} ${touched.fullName && errors.fullName ? styles.inputError : ''}`}
-                      />
-                      {touched.fullName && errors.fullName && (
-                        <div className={styles.fieldError}>
-                          <span>⚠️</span> {errors.fullName}
-                        </div>
-                      )}
-                    </div>
-                    <div className={styles.inputGroup}>
-                      <label className={styles.inputLabel}>EMAIL ADDRESS *</label>
-                      <input
-                        type="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleInputChange}
-                        onBlur={handleBlur}
-                        autoComplete="email"
-                        inputMode="email"
-                        placeholder="name@company.com"
-                        className={`${styles.inputField} ${touched.email && errors.email ? styles.inputError : ''}`}
-                      />
-                      {touched.email && errors.email && (
-                        <div className={styles.fieldError}>
-                          <span>⚠️</span> {errors.email}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-
-                  <div className={styles.inputRow}>
-                    <div className={styles.inputGroup}>
-                      <label className={styles.inputLabel}>PHONE NUMBER *</label>
-                      <input
-                        type="tel"
-                        name="phone"
-                        value={formData.phone}
-                        onChange={handleInputChange}
-                        onBlur={handleBlur}
-                        autoComplete="tel"
-                        inputMode="tel"
-                        placeholder="+91 98765 43210"
-                        maxLength={20}
-                        className={`${styles.inputField} ${touched.phone && errors.phone ? styles.inputError : ''}`}
-                      />
-                      {touched.phone && errors.phone ? (
-                        <div className={styles.fieldError}>
-                          <span>⚠️</span> {errors.phone}
-                        </div>
-                      ) : (
-                        <div className={styles.fieldHint}>
-                          Mobile, landline, or international number with country code
-                        </div>
-                      )}
-                    </div>
-                    <div className={styles.inputGroup}>
-                      <label className={styles.inputLabel}>SUBJECT / PROJECT</label>
-                      <input
-                        type="text"
-                        name="subject"
-                        value={formData.subject}
-                        onChange={handleInputChange}
-                        placeholder="e.g. Architectural Facade Glass"
-                        className={styles.inputField}
-                      />
-                    </div>
-                  </div>
-
+              <form onSubmit={handleFormSubmit} className={styles.formGrid} noValidate>
+                <div className={styles.inputRow}>
                   <div className={styles.inputGroup}>
-                    <label className={styles.inputLabel}>MESSAGE / REQUIREMENTS *</label>
-                    <textarea
-                      name="message"
-                      value={formData.message}
+                    <label className={styles.inputLabel}>FULL NAME *</label>
+                    <input
+                      type="text"
+                      name="fullName"
+                      value={formData.fullName}
                       onChange={handleInputChange}
                       onBlur={handleBlur}
-                      placeholder="Please specify your glass specs, quantities, or project details..."
-                      className={`${styles.textareaField} ${touched.message && errors.message ? styles.inputError : ''}`}
+                      autoComplete="name"
+                      placeholder="e.g. Suraj Divate"
+                      className={`${styles.inputField} ${touched.fullName && errors.fullName ? styles.inputError : ''}`}
                     />
-                    {touched.message && errors.message && (
+                    {touched.fullName && errors.fullName && (
                       <div className={styles.fieldError}>
-                        <span>⚠️</span> {errors.message}
+                        <span>⚠️</span> {errors.fullName}
                       </div>
                     )}
                   </div>
+                  <div className={styles.inputGroup}>
+                    <label className={styles.inputLabel}>EMAIL ADDRESS *</label>
+                    <input
+                      type="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      onBlur={handleBlur}
+                      autoComplete="email"
+                      inputMode="email"
+                      placeholder="name@company.com"
+                      className={`${styles.inputField} ${touched.email && errors.email ? styles.inputError : ''}`}
+                    />
+                    {touched.email && errors.email && (
+                      <div className={styles.fieldError}>
+                        <span>⚠️</span> {errors.email}
+                      </div>
+                    )}
+                  </div>
+                </div>
 
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className={styles.submitBtn}
-                    style={{ opacity: isSubmitting ? 0.7 : 1, cursor: isSubmitting ? 'not-allowed' : 'pointer' }}
-                  >
-                    {isSubmitting ? 'TRANSMITTING MESSAGE...' : 'SEND MESSAGE →'}
-                  </button>
-                </form>
-              </div>
+                <div className={styles.inputRow}>
+                  <div className={styles.inputGroup}>
+                    <label className={styles.inputLabel}>PHONE NUMBER *</label>
+                    <input
+                      type="tel"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleInputChange}
+                      onBlur={handleBlur}
+                      autoComplete="tel"
+                      inputMode="tel"
+                      placeholder="+91 98765 43210"
+                      maxLength={20}
+                      className={`${styles.inputField} ${touched.phone && errors.phone ? styles.inputError : ''}`}
+                    />
+                    {touched.phone && errors.phone ? (
+                      <div className={styles.fieldError}>
+                        <span>⚠️</span> {errors.phone}
+                      </div>
+                    ) : (
+                      <div className={styles.fieldHint}>
+                        Mobile, landline, or international number with country code
+                      </div>
+                    )}
+                  </div>
+                  <div className={styles.inputGroup}>
+                    <label className={styles.inputLabel}>SUBJECT / PROJECT</label>
+                    <input
+                      type="text"
+                      name="subject"
+                      value={formData.subject}
+                      onChange={handleInputChange}
+                      placeholder="e.g. Architectural Facade Glass"
+                      className={styles.inputField}
+                    />
+                  </div>
+                </div>
+
+                <div className={styles.inputGroup}>
+                  <label className={styles.inputLabel}>MESSAGE / REQUIREMENTS *</label>
+                  <textarea
+                    name="message"
+                    value={formData.message}
+                    onChange={handleInputChange}
+                    onBlur={handleBlur}
+                    placeholder="Please specify your glass specs, quantities, or project details..."
+                    className={`${styles.textareaField} ${touched.message && errors.message ? styles.inputError : ''}`}
+                  />
+                  {touched.message && errors.message && (
+                    <div className={styles.fieldError}>
+                      <span>⚠️</span> {errors.message}
+                    </div>
+                  )}
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className={styles.submitBtn}
+                  style={{ opacity: isSubmitting ? 0.7 : 1, cursor: isSubmitting ? 'not-allowed' : 'pointer' }}
+                >
+                  {isSubmitting ? 'TRANSMITTING MESSAGE...' : 'SEND MESSAGE →'}
+                </button>
+              </form>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
     </div>
   )
 }
