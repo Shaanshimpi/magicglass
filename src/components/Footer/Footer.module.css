@@ -197,49 +197,6 @@
   font-size: 0.85rem;
 }
 
-.bottomCenterAction {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.staffLoginBtn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  padding: 0.45rem 1rem;
-  font-size: 0.78rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: #e2e8f0;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 9999px;
-  text-decoration: none;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-  backdrop-filter: blur(8px);
-}
-
-.staffLoginBtn:hover {
-  color: #ffffff;
-  background: rgba(225, 29, 72, 0.15);
-  border-color: rgba(225, 29, 72, 0.5);
-  box-shadow: 0 0 16px rgba(225, 29, 72, 0.25);
-  transform: translateY(-1px);
-}
-
-.staffLockIcon {
-  width: 13px;
-  height: 13px;
-  color: var(--color-crimson, #e11d48);
-  transition: transform 0.2s ease;
-}
-
-.staffLoginBtn:hover .staffLockIcon {
-  transform: scale(1.1);
-}
-
 @media (max-width: 768px) {
   .bottomRow {
     flex-direction: column;
