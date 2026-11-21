@@ -5,7 +5,6 @@ import Image from 'next/image'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import styles from './Testimonials.module.css'
-import { getWatermarkedUrl } from '@/lib/watermark'
 
 interface Testimonial {
   id?: string
@@ -133,8 +132,7 @@ export const Testimonials: React.FC<TestimonialsProps> = ({ cmsData }) => {
 
   const currentItem = testimonials[currentIndex]
   // Support both 'avatar' (CMS field) and 'image' (legacy)
-  const rawPortraitSrc = currentItem.avatar || currentItem.image || '/images/hero-bg.jpg'
-  const portraitSrc = getWatermarkedUrl(rawPortraitSrc)
+  const portraitSrc = currentItem.avatar || currentItem.image || '/images/hero-bg.jpg'
 
   return (
     <section ref={sectionRef} className={styles.testimonialsSection}>

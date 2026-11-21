@@ -4,7 +4,6 @@ import React, { useState } from 'react'
 import Image from 'next/image'
 import { ProjectItem } from '@/types/projects.types'
 import { getProjectFallbackImage } from '@/lib/projectImages'
-import { getWatermarkedUrl } from '@/lib/watermark'
 import styles from './ProjectsGrid.module.css'
 
 interface ProjectsGridProps {
@@ -49,7 +48,7 @@ export const ProjectsGrid: React.FC<ProjectsGridProps> = ({ projects, onSelectPr
             >
               <div className={styles.imageWrapper}>
                 <Image
-                  src={getWatermarkedUrl(imgSrc)}
+                  src={imgSrc}
                   alt={project.title}
                   fill
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

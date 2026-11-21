@@ -3,7 +3,6 @@
 import React, { useState, useRef, useEffect } from 'react'
 import Image from 'next/image'
 import gsap from 'gsap'
-import { getWatermarkedUrl } from '@/lib/watermark'
 import styles from './PdpHero.module.css'
 
 const DEFAULT_HERO_FALLBACK = '/images/products/heroes/toughened-glass.png'
@@ -81,7 +80,7 @@ export const PdpHero: React.FC<PdpHeroProps> = ({
 
         <div ref={frameRef} className={styles.heroImageFrame}>
           <Image
-            src={getWatermarkedUrl(src)}
+            src={src}
             alt={title}
             fill
             priority

@@ -80,6 +80,8 @@
   scrollbar-width: none;
   -ms-overflow-style: none;
   padding-bottom: 1rem;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
 }
 
 .slideTrack::-webkit-scrollbar {
@@ -96,6 +98,9 @@
   background-color: #12181f;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
   transition: transform 0.3s ease, border-color 0.3s ease;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  box-sizing: border-box;
 }
 
 .slideCard:hover {
@@ -224,18 +229,92 @@
 
 @media (max-width: 1024px) {
   .slideCard {
-    flex: 0 0 calc(50% - 1rem);
+    flex: 0 0 calc(50% - 0.75rem);
+    min-width: 280px;
   }
   .imageFrame {
     height: 280px;
   }
 }
 
-@media (max-width: 640px) {
-  .slideCard {
-    flex: 0 0 85vw;
+@media (max-width: 768px) {
+  .discoverSection {
+    padding: 3.5rem 1.25rem 4rem 1.25rem;
   }
+
+  .discoverHeader {
+    margin-bottom: 1.5rem;
+  }
+
+  .sectionBadge {
+    font-size: 0.95rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .sectionTitle {
+    font-size: clamp(1.6rem, 5.5vw, 2.2rem);
+  }
+
+  .arrowBtn {
+    width: 2.75rem;
+    height: 2.75rem;
+    font-size: 1.1rem;
+  }
+
+  .slideTrack {
+    gap: 1rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .slideCard {
+    flex: 0 0 100%;
+    width: 100%;
+    min-width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
   .imageFrame {
-    height: 240px;
+    height: 260px;
+  }
+
+  .cardFooter {
+    padding: 0.85rem 1rem;
+  }
+
+  .cardNumber {
+    font-size: 0.8rem;
+  }
+
+  .projectTag {
+    font-size: 0.9rem;
+  }
+
+  .projectSubtitle {
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .discoverSection {
+    padding: 3rem 1rem 3.5rem 1rem;
+  }
+
+  .discoverHeader {
+    margin-bottom: 1.25rem;
+  }
+
+  .imageFrame {
+    height: 220px;
+  }
+
+  .arrowBtn {
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 1rem;
+  }
+
+  .slideTrack {
+    gap: 0.75rem;
   }
 }

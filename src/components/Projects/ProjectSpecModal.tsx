@@ -4,7 +4,6 @@ import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { ProjectItem } from '@/types/projects.types'
 import { getProjectFallbackImage } from '@/lib/projectImages'
-import { getWatermarkedUrl } from '@/lib/watermark'
 import styles from './ProjectSpecModal.module.css'
 
 interface ProjectSpecModalProps {
@@ -70,7 +69,7 @@ export const ProjectSpecModal: React.FC<ProjectSpecModalProps> = ({
 
         <div className={styles.modalImageCol}>
           <Image
-            src={getWatermarkedUrl(imgSrc || project.image)}
+            src={imgSrc || project.image}
             alt={project.title}
             fill
             sizes="(max-width: 768px) 100vw, 50vw"

@@ -4,7 +4,6 @@ import React, { useState, useEffect, useCallback } from 'react'
 import Image from 'next/image'
 import { ProjectItem } from '@/types/projects.types'
 import { getProjectFallbackImage } from '@/lib/projectImages'
-import { getWatermarkedUrl } from '@/lib/watermark'
 import styles from './ProjectsHero.module.css'
 
 interface ProjectsHeroProps {
@@ -77,7 +76,7 @@ export const ProjectsHero: React.FC<ProjectsHeroProps> = ({
       >
         <Image
           key={activeProject.id}
-          src={getWatermarkedUrl(heroImgSrc)}
+          src={heroImgSrc}
           alt={activeProject.title}
           fill
           priority
