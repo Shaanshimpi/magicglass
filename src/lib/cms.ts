@@ -132,7 +132,7 @@ export async function getFooterCmsData() {
       const data = (await payload.findGlobal({ slug: 'footer' })) as any
       if (data && data.corporateOffice?.heading) {
         return {
-          logoUrl: getMediaUrl(data.logo, data.logoUrl || '/images/logo.png'),
+          logoUrl: getMediaUrl(data.logo, data.logoUrl || '/images/FINAL_LOGO_WHITE.svg'),
           companyName: data.companyName || 'MAGIC GLASS PRIVATE LIMITED',
           corporateOffice: data.corporateOffice,
           factoryOffice: data.factoryOffice,

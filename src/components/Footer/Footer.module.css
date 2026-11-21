@@ -32,37 +32,49 @@
   .grid {
     grid-template-columns: 1fr;
   }
+  .logoSvg {
+    height: 42px;
+    max-width: 180px;
+  }
 }
 
 .logoWrapper {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.75rem;
 }
 
 .logoLink {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  display: inline-block;
   text-decoration: none;
-  padding: 0.35rem 0.85rem;
-  background: rgba(255, 255, 255, 0.96);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-radius: 9999px;
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.18);
-  transition: background 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+  border: none;
+  box-shadow: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
 }
 
 .logoLink:hover {
-  background: #ffffff;
-  box-shadow: 0 6px 22px rgba(255, 255, 255, 0.35);
+  background: transparent;
+  box-shadow: none;
+  opacity: 0.85;
   transform: translateY(-2px);
 }
 
-.logoImage {
-  height: 32px;
+.logoSvg {
+  height: 52px;
   width: auto;
-  max-width: 150px;
+  max-width: 220px;
+  aspect-ratio: 310 / 155;
+  object-fit: contain;
+  overflow: visible;
+  display: block;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.45));
+}
+
+.logoImage {
+  height: 48px;
+  width: auto;
+  max-width: 180px;
   object-fit: contain;
   display: block;
 }
