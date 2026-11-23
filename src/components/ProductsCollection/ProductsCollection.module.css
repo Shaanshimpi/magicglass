@@ -138,7 +138,18 @@
   inset: 0;
   background: linear-gradient(180deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.85) 100%);
   z-index: 2;
-  transition: background 0.4s ease;
+  transition: background 0.4s ease, backdrop-filter 0.4s ease;
+}
+
+.featuredCard:hover .featuredCardOverlay {
+  background: linear-gradient(
+    180deg,
+    rgba(15, 23, 42, 0.12) 0%,
+    rgba(10, 16, 26, 0.48) 45%,
+    rgba(10, 16, 26, 0.85) 100%
+  );
+  backdrop-filter: blur(12px) saturate(160%);
+  -webkit-backdrop-filter: blur(12px) saturate(160%);
 }
 
 .featuredBadge {
