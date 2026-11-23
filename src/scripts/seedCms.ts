@@ -367,19 +367,19 @@ async function seed() {
         {
           name: 'Manik Kodre',
           role: 'Managing Director & Founder',
-          portraitUrl: 'https://magicglass.co.in/wp-content/uploads/2025/04/Manik-Kodre.png',
+          portraitUrl: '/images/about/manik-kodre.png',
           bio: 'Meet Manik Kodre, the visionary Managing Director and founder of Magic Glass. With roots in farming, he recognized the limitless potential of toughened glass in the modern world, founding our company in 2006. Under his leadership, Magic Glass has grown into a dominant force in Pune’s retail market and expanded swiftly, meeting surging demand in 2014. Manik’s strategic acumen and unwavering belief in the potential of toughened glass have propelled us to unprecedented heights, forging partnerships with major corporations across India and shaping our journey of excellence.',
         },
         {
           name: 'Anup Kodre',
           role: 'Director (Marketing & Finance)',
-          portraitUrl: 'https://magicglass.co.in/wp-content/uploads/2025/04/Anup-Kodre.png',
+          portraitUrl: '/images/about/anup-kodre.png',
           bio: 'Anup’s innate talent for marketing and finance, paired with his strong presence, eloquent communication, and visionary leadership, has been instrumental in Magic Glass’ rise in the Indian glass industry. Anup’s strategic acumen has strengthened our relationships with key stakeholders, expanding Magic Glass’s influence beyond Pune and Maharashtra to neighboring states. His expertise in marketing, finance, strategy, and business development continues to drive our success story. He holds an MBA (Finance) from the Sydney Institute of Technology.',
         },
         {
           name: 'Nitish Kodre',
           role: 'Director (Operations & R&D)',
-          portraitUrl: 'https://magicglass.co.in/wp-content/uploads/2025/04/Nitish-Kodre.png',
+          portraitUrl: '/images/about/nitish-kodre.png',
           bio: 'Nitish, a holder of a master’s degree in architecture from Kingston University London, embraced his role in the family enterprise right after completing his education. Taking the reins of production and operations, Nitish envisioned a pursuit of perfection, efficiency, and world-class glass quality. His dedication led him to extensively study machinery, glass processes, and production lines. Collaborating with diverse companies, he set new benchmarks for quality standards and operational efficiency. His meticulous planning and analysis of production lines have culminated in the establishment of a seamless, end-to-end production journey.',
         },
       ],

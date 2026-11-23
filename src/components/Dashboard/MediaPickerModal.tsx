@@ -82,9 +82,9 @@ const PRESET_MEDIA_LIBRARY: MediaItem[] = [
   { name: 'Ceramic Screen-Printed Frit', url: '/images/craft-ceramic.jpg', category: 'Craftsmanship' },
 
   // Leadership
-  { name: 'Manik Kodre (Managing Director)', url: 'https://magicglass.co.in/wp-content/uploads/2025/04/Manik-Kodre.png', category: 'Leadership' },
-  { name: 'Anup Kodre (Marketing & Finance)', url: 'https://magicglass.co.in/wp-content/uploads/2025/04/Anup-Kodre.png', category: 'Leadership' },
-  { name: 'Nitish Kodre (Operations & R&D)', url: 'https://magicglass.co.in/wp-content/uploads/2025/04/Nitish-Kodre.png', category: 'Leadership' },
+  { name: 'Manik Kodre (Managing Director)', url: '/images/about/manik-kodre.png', category: 'Leadership' },
+  { name: 'Anup Kodre (Marketing & Finance)', url: '/images/about/anup-kodre.png', category: 'Leadership' },
+  { name: 'Nitish Kodre (Operations & R&D)', url: '/images/about/nitish-kodre.png', category: 'Leadership' },
 
   // Projects
   { name: 'Balmoral by Riverside', url: '/images/projects/balmoral-by-riverside.jpg', category: 'Projects' },

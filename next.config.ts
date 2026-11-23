@@ -17,6 +17,10 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: 'https',
+        hostname: 'www.magicglass.co.in',
+      },
+      {
+        protocol: 'https',
         hostname: 'media.magicglass.co.in',
       },
       {
@@ -91,6 +95,38 @@ const nextConfig: NextConfig = {
       {
         source: '/images/projects/soliatre-business-hub.jpg',
         destination: '/images/projects/solitaire-business-hub.jpg',
+      },
+      {
+        source: '/wp-content/uploads/2025/04/Manik-Kodre.png',
+        destination: '/images/about/manik-kodre.png',
+      },
+      {
+        source: '/wp-content/uploads/2025/04/manik-kodre.png',
+        destination: '/images/about/manik-kodre.png',
+      },
+      {
+        source: '/wp-content/uploads/2025/04/Anup-Kodre.png',
+        destination: '/images/about/anup-kodre.png',
+      },
+      {
+        source: '/wp-content/uploads/2025/04/anup-kodre.png',
+        destination: '/images/about/anup-kodre.png',
+      },
+      {
+        source: '/wp-content/uploads/2025/04/Nitish-Kodre.png',
+        destination: '/images/about/nitish-kodre.png',
+      },
+      {
+        source: '/wp-content/uploads/2025/04/nitish-kodre.png',
+        destination: '/images/about/nitish-kodre.png',
+      },
+      {
+        source: '/wp-content/uploads/2023/11/Banner-2.png',
+        destination: '/images/contact/banner-2.png',
+      },
+      {
+        source: '/wp-content/uploads/2023/11/banner-2.png',
+        destination: '/images/contact/banner-2.png',
       },
     ]
   },

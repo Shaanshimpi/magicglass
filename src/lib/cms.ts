@@ -34,6 +34,18 @@ const KNOWN_IMAGE_CASING_MAP: Record<string, string> = {
   '/images/products/details/OVERHEAD-SPACES-1.png': '/images/apps/overhead-spaces.png',
   '/images/products/details/RAILINGS-STAIRCASE-AND-PARTITIONS-2.png': '/images/products/details/railings-staircase-partitions.png',
   '/images/projects/soliatre-business-hub.jpg': '/images/projects/solitaire-business-hub.jpg',
+  'https://magicglass.co.in/wp-content/uploads/2025/04/Manik-Kodre.png': '/images/about/manik-kodre.png',
+  'https://www.magicglass.co.in/wp-content/uploads/2025/04/Manik-Kodre.png': '/images/about/manik-kodre.png',
+  '/wp-content/uploads/2025/04/Manik-Kodre.png': '/images/about/manik-kodre.png',
+  'https://magicglass.co.in/wp-content/uploads/2025/04/Anup-Kodre.png': '/images/about/anup-kodre.png',
+  'https://www.magicglass.co.in/wp-content/uploads/2025/04/Anup-Kodre.png': '/images/about/anup-kodre.png',
+  '/wp-content/uploads/2025/04/Anup-Kodre.png': '/images/about/anup-kodre.png',
+  'https://magicglass.co.in/wp-content/uploads/2025/04/Nitish-Kodre.png': '/images/about/nitish-kodre.png',
+  'https://www.magicglass.co.in/wp-content/uploads/2025/04/Nitish-Kodre.png': '/images/about/nitish-kodre.png',
+  '/wp-content/uploads/2025/04/Nitish-Kodre.png': '/images/about/nitish-kodre.png',
+  'https://magicglass.co.in/wp-content/uploads/2023/11/Banner-2.png': '/images/contact/banner-2.png',
+  'https://www.magicglass.co.in/wp-content/uploads/2023/11/Banner-2.png': '/images/contact/banner-2.png',
+  '/wp-content/uploads/2023/11/Banner-2.png': '/images/contact/banner-2.png',
 }
 
 // Extract string URL from Payload media upload or fallback string
@@ -52,6 +64,20 @@ export function getMediaUrl(mediaField: any, fallbackUrl?: string): string {
 
   if (url && KNOWN_IMAGE_CASING_MAP[url]) {
     return KNOWN_IMAGE_CASING_MAP[url]
+  }
+
+  // Normalize legacy WordPress uploads and hostname variants
+  if (url.includes('Manik-Kodre.png') || url.includes('manik-kodre.png')) {
+    return '/images/about/manik-kodre.png'
+  }
+  if (url.includes('Anup-Kodre.png') || url.includes('anup-kodre.png')) {
+    return '/images/about/anup-kodre.png'
+  }
+  if (url.includes('Nitish-Kodre.png') || url.includes('nitish-kodre.png')) {
+    return '/images/about/nitish-kodre.png'
+  }
+  if (url.includes('Banner-2.png') || url.includes('banner-2.png')) {
+    return '/images/contact/banner-2.png'
   }
 
   return url
@@ -501,9 +527,9 @@ export async function getAboutPageCmsData() {
       { number: '04', title: 'Customer Focus', description: 'Dedicated technical consultation, custom BOQ engineering, and reliable nationwide project delivery for architects and builders.' },
     ],
     leadership: [
-      { name: 'Manik Kodre', role: 'Managing Director & Founder', image: 'https://magicglass.co.in/wp-content/uploads/2025/04/Manik-Kodre.png', bio: 'Meet Manik Kodre, the visionary Managing Director and founder of Magic Glass. With roots in farming, he recognized the limitless potential of toughened glass in the modern world, founding our company in 2006.' },
-      { name: 'Anup Kodre', role: 'Director (Marketing & Finance)', image: 'https://magicglass.co.in/wp-content/uploads/2025/04/Anup-Kodre.png', bio: 'Anup’s innate talent for marketing and finance, paired with his strong presence, eloquent communication, and visionary leadership, has been instrumental in Magic Glass’ rise in the Indian glass industry.' },
-      { name: 'Nitish Kodre', role: 'Director (Operations & R&D)', image: 'https://magicglass.co.in/wp-content/uploads/2025/04/Nitish-Kodre.png', bio: 'Nitish, a holder of a master’s degree in architecture from Kingston University London, embraced his role in the family enterprise right after completing his education.' },
+      { name: 'Manik Kodre', role: 'Managing Director & Founder', image: '/images/about/manik-kodre.png', bio: 'Meet Manik Kodre, the visionary Managing Director and founder of Magic Glass. With roots in farming, he recognized the limitless potential of toughened glass in the modern world, founding our company in 2006.' },
+      { name: 'Anup Kodre', role: 'Director (Marketing & Finance)', image: '/images/about/anup-kodre.png', bio: 'Anup’s innate talent for marketing and finance, paired with his strong presence, eloquent communication, and visionary leadership, has been instrumental in Magic Glass’ rise in the Indian glass industry.' },
+      { name: 'Nitish Kodre', role: 'Director (Operations & R&D)', image: '/images/about/nitish-kodre.png', bio: 'Nitish, a holder of a master’s degree in architecture from Kingston University London, embraced his role in the family enterprise right after completing his education.' },
     ],
     cta: {
       eyebrow: 'WHERE VISION MEETS EXECUTION',
