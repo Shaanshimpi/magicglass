@@ -449,15 +449,15 @@ export const MediaPickerModal: React.FC<MediaPickerModalProps> = ({
                     border: isSelected
                       ? '2px solid #c5a880'
                       : isHovered
-                      ? '1px solid rgba(197, 168, 128, 0.5)'
-                      : '1px solid rgba(255, 255, 255, 0.08)',
+                        ? '1px solid rgba(197, 168, 128, 0.5)'
+                        : '1px solid rgba(255, 255, 255, 0.08)',
                     overflow: 'hidden',
                     backgroundColor: '#111827',
                     boxShadow: isSelected
                       ? '0 0 16px rgba(197, 168, 128, 0.45)'
                       : isHovered
-                      ? '0 6px 16px rgba(0, 0, 0, 0.6)'
-                      : '0 2px 6px rgba(0, 0, 0, 0.3)',
+                        ? '0 6px 16px rgba(0, 0, 0, 0.6)'
+                        : '0 2px 6px rgba(0, 0, 0, 0.3)',
                     transition: 'all 0.2s ease',
                     transform: isHovered ? 'translateY(-2px)' : 'none',
                   }}
