@@ -39,10 +39,10 @@ export const Footer: React.FC<FooterProps> = ({ cmsData }) => {
     ? cmsData.glassSolutionsLinks
     : [
         { label: 'Toughened Glass', href: '/products/toughened-glass' },
-        { label: 'Double Glazed Unit (DGU)', href: '/products/insulated-glass-dgu' },
+        { label: 'DGU (Insulated Glass)', href: '/products/insulated-glass-dgu' },
         { label: 'Sentry Laminated Glass', href: '/products/sentry-laminated-glass' },
-        { label: 'Acoustic Laminated Glass', href: '/products/acoustic-lami-glass' },
-        { label: 'Low-E Glass Processing', href: '/products/high-performance-low-e-glass' },
+        { label: 'Acoustic Lami Glass', href: '/products/acoustic-lami-glass' },
+        { label: 'High Performance LOW-E Glass', href: '/products/high-performance-low-e-glass' },
         { label: 'SKN-Ultra High-Performance Glass', href: '/products/skn-ultra-high-performance-glass' },
         { label: 'Ceramic Glass', href: '/products/ceramic-glass' },
         { label: 'Fire & Safety Glass', href: '/products/fire-safety-glass' },
