@@ -74,16 +74,16 @@
 .navLinks {
   display: flex;
   align-items: center;
-  gap: clamp(0.6rem, 0.9vw, 0.85rem);
+  gap: clamp(1.15rem, 1.8vw, 2rem);
   list-style: none;
 }
 
 .navLink {
   font-family: var(--font-mono), monospace;
-  font-size: 1rem;
+  font-size: clamp(0.85rem, 0.95vw, 1rem);
   font-weight: 600;
   letter-spacing: 0.04em;
-  word-spacing: -0.12em;
+  word-spacing: -0.28em;
   text-transform: uppercase;
   color: #ffffff;
   opacity: 1;
