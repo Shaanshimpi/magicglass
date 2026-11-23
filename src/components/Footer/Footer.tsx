@@ -27,11 +27,12 @@ export const Footer: React.FC<FooterProps> = ({ cmsData }) => {
   const mainNav = cmsData?.mainNavLinks?.length
     ? cmsData.mainNavLinks
     : [
-        { label: 'About Us', href: '/about' },
+        { label: 'About', href: '/about' },
         { label: 'Products', href: '/products' },
+        { label: 'Toughened Glass', href: '/products/toughened-glass' },
         { label: 'Industry Solution', href: '/industry-solution' },
         { label: 'Infrastructure', href: '/infrastructure' },
-        { label: 'Projects Portfolio', href: '/projects' },
+        { label: 'Projects', href: '/projects' },
         { label: 'Contact Us', href: '/contact-us' },
       ]
 

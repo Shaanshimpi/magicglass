@@ -59,11 +59,12 @@ async function seed() {
         address: 'Gurukripa Ind. Estate, National Highway No. 9, Survey No.: 813/8 & 813/9, At-Post Yavat, Tal: Daund, Dist: Pune Pin Code – 412214',
       },
       mainNavLinks: [
-        { label: 'About Us', href: '/about' },
+        { label: 'About', href: '/about' },
         { label: 'Products', href: '/products' },
+        { label: 'Toughened Glass', href: '/products/toughened-glass' },
         { label: 'Industry Solution', href: '/industry-solution' },
         { label: 'Infrastructure', href: '/infrastructure' },
-        { label: 'Projects Portfolio', href: '/projects' },
+        { label: 'Projects', href: '/projects' },
         { label: 'Contact Us', href: '/contact-us' },
       ],
       glassSolutionsLinks: [
