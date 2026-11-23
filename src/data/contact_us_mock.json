@@ -26,7 +26,7 @@
       "detail": "Gurukripa Ind. Estate, National Highway No. 9, Survey No.: 813/8 & 813/9, At-Post Yavat, Tal: Daund, Dist: Pune Pin Code – 412214",
       "icon": "location",
       "actionText": "FACTORY DIRECTIONS",
-      "actionUrl": "https://maps.google.com/?q=Gurukripa+Industrial+Estate+Daund+Pune+412214"
+      "actionUrl": "https://www.google.com/maps/place/Magic+glass+Pvt+Ltd/@18.4782109,74.2494487,17z/data=!4m14!1m7!3m6!1s0x3bc31f0005e5d0e9:0xf6f243e0f19072ef!2sMagic+glass+Pvt+Ltd!8m2!3d18.4782109!4d74.2520236!16s%2Fg%2F11xspy9mxh!3m5!1s0x3bc31f0005e5d0e9:0xf6f243e0f19072ef!8m2!3d18.4782109!4d74.2520236!16s%2Fg%2F11xspy9mxh"
     },
     {
       "id": "email",
@@ -53,5 +53,5 @@
       "actionUrl": null
     }
   ],
-  "mapEmbedUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3783.056029283733!2d73.87321127519193!3d18.52661408256912!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2c1f55b86563b%3A0xe76bf0285653ddd5!2sBoulevard%20Towers%20by%20BramhaCorp!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+  "mapEmbedUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3784.814285885217!2d74.2494487!3d18.4782109!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc31f0005e5d0e9%3A0xf6f243e0f19072ef!2sMagic%20glass%20Pvt%20Ltd!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
 }

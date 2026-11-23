@@ -1,0 +1,257 @@
+/* -------------------------------------------------------------------------- */
+/* ProjectsSkeleton.module.css - Precision Loading Skeleton for Projects      */
+/* -------------------------------------------------------------------------- */
+
+.skeletonWrapper {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #121212;
+  overflow-x: hidden;
+}
+
+/* Shimmer Animation Keyframes */
+@keyframes darkShimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes lightShimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/* 1. Hero Skeleton (Dark Surface)                                            */
+/* -------------------------------------------------------------------------- */
+.heroSkeleton {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 650px;
+  background-color: #121212;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  overflow: hidden;
+}
+
+.heroBackground {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(18, 18, 18, 0.6) 0%,
+    rgba(18, 18, 18, 0.4) 40%,
+    rgba(18, 18, 18, 0.95) 100%
+  ),
+  linear-gradient(
+    90deg,
+    #181a1c 25%,
+    #25292e 37%,
+    #181a1c 63%
+  );
+  background-size: 100% 100%, 400% 100%;
+  animation: darkShimmer 2.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.heroContent {
+  position: relative;
+  z-index: 5;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 4rem 8rem 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+@media (max-width: 768px) {
+  .heroContent {
+    padding: 0 2rem 6rem 2rem;
+  }
+}
+
+.darkShimmerBox {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.05) 25%,
+    rgba(255, 255, 255, 0.14) 37%,
+    rgba(255, 255, 255, 0.05) 63%
+  );
+  background-size: 400% 100%;
+  animation: darkShimmer 1.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  border-radius: 4px;
+}
+
+.badgeSkeleton {
+  width: 240px;
+  height: 24px;
+  border-radius: 4px;
+}
+
+.titleSkeleton {
+  width: 60%;
+  max-width: 720px;
+  height: clamp(3rem, 5vw, 5rem);
+  border-radius: 6px;
+}
+
+.taglineSkeleton {
+  width: 40%;
+  max-width: 480px;
+  height: 22px;
+  border-radius: 4px;
+}
+
+.controlsSkeleton {
+  position: absolute;
+  bottom: 3.5rem;
+  right: 4rem;
+  z-index: 10;
+  width: 260px;
+  height: 38px;
+  border-radius: 9999px;
+}
+
+@media (max-width: 768px) {
+  .controlsSkeleton {
+    display: none;
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/* 2. Filter Nav Skeleton (Light Surface)                                     */
+/* -------------------------------------------------------------------------- */
+.filterNavSkeleton {
+  width: 100%;
+  background-color: #f7f6f2;
+  border-bottom: 1px solid rgba(18, 18, 18, 0.12);
+  padding: 1.25rem 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@media (max-width: 768px) {
+  .filterNavSkeleton {
+    padding: 1rem 1.5rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+}
+
+.lightShimmerBox {
+  background: linear-gradient(
+    90deg,
+    #e8e6df 25%,
+    #f2f1ec 37%,
+    #e8e6df 63%
+  );
+  background-size: 400% 100%;
+  animation: lightShimmer 1.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  border-radius: 4px;
+}
+
+.navLabelSkeleton {
+  width: 180px;
+  height: 22px;
+  border-radius: 4px;
+}
+
+.filterGroupSkeleton {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.pillSkeleton {
+  width: 110px;
+  height: 34px;
+  border-radius: 9999px;
+}
+
+/* -------------------------------------------------------------------------- */
+/* 3. Grid Skeleton (Light Surface)                                           */
+/* -------------------------------------------------------------------------- */
+.gridSectionSkeleton {
+  width: 100%;
+  background-color: #f7f6f2;
+  padding: 5rem 4rem 8rem 4rem;
+}
+
+@media (max-width: 900px) {
+  .gridSectionSkeleton {
+    padding: 3rem 1.5rem 5rem 1.5rem;
+  }
+}
+
+.gridContainer {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3rem 2rem;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+@media (max-width: 1100px) {
+  .gridContainer {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.5rem 1.5rem;
+  }
+}
+
+@media (max-width: 650px) {
+  .gridContainer {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+.cardSkeleton {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.imageSkeleton {
+  width: 100%;
+  aspect-ratio: 430 / 530;
+  border-radius: 2px;
+}
+
+.metaSkeleton {
+  margin-top: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.categorySkeleton {
+  width: 90px;
+  height: 14px;
+  border-radius: 3px;
+}
+
+.titleSkeletonCard {
+  width: 80%;
+  height: 22px;
+  border-radius: 4px;
+}
+
+.locationSkeleton {
+  width: 55%;
+  height: 15px;
+  border-radius: 3px;
+}

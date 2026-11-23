@@ -5,17 +5,50 @@ import Image from 'next/image'
 import { ProjectItem } from '@/types/projects.types'
 import { getProjectFallbackImage } from '@/lib/projectImages'
 import styles from './ProjectsGrid.module.css'
+import skeletonStyles from './ProjectsSkeleton.module.css'
 
 interface ProjectsGridProps {
   projects: ProjectItem[]
   onSelectProject: (project: ProjectItem) => void
+  isLoading?: boolean
 }
 
-export const ProjectsGrid: React.FC<ProjectsGridProps> = ({ projects, onSelectProject }) => {
+export const ProjectsGrid: React.FC<ProjectsGridProps> = ({ projects, onSelectProject, isLoading = false }) => {
   const [imageErrorCounts, setImageErrorCounts] = useState<Record<string, number>>({})
 
   const handleImageError = (id: string) => {
     setImageErrorCounts((prev) => ({ ...prev, [id]: (prev[id] || 0) + 1 }))
+  }
+
+  if (isLoading) {
+    return (
+      <section className={styles.gridSection} aria-busy="true">
+        <div className={styles.gridContainer}>
+          {Array.from({ length: 6 }).map((_, index) => (
+            <div key={`grid-skeleton-${index}`} className={skeletonStyles.cardSkeleton}>
+              <div className={`${skeletonStyles.imageSkeleton} ${skeletonStyles.lightShimmerBox}`} />
+              <div className={skeletonStyles.metaSkeleton}>
+                <div className={`${skeletonStyles.categorySkeleton} ${skeletonStyles.lightShimmerBox}`} />
+                <div className={`${skeletonStyles.titleSkeletonCard} ${skeletonStyles.lightShimmerBox}`} />
+                <div className={`${skeletonStyles.locationSkeleton} ${skeletonStyles.lightShimmerBox}`} />
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+    )
+  }
+
+  if (projects.length === 0) {
+    return (
+      <section className={styles.gridSection}>
+        <div style={{ textAlign: 'center', padding: '6rem 1rem', color: '#64748b' }}>
+          <p style={{ fontSize: '1.1rem', fontFamily: 'var(--font-outfit), sans-serif' }}>
+            No architectural projects found in this category.
+          </p>
+        </div>
+      </section>
+    )
   }
 
   return (
