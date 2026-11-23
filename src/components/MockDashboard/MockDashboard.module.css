@@ -30,17 +30,17 @@
 }
 
 .brandLogo {
-  width: 28px;
-  height: 28px;
+  width: 32px;
+  height: 32px;
   border-radius: 6px;
-  background: linear-gradient(135deg, #c5a880, #8a7350);
+  background: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 700;
-  font-size: 14px;
-  color: #000;
-  letter-spacing: -0.5px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  flex-shrink: 0;
+  padding: 3px;
+  overflow: hidden;
 }
 
 .brandText {

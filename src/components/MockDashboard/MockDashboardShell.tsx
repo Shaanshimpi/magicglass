@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
+import Image from 'next/image'
 import styles from './MockDashboard.module.css'
 import { ConceptACommandCenter } from './ConceptACommandCenter'
 import { ConceptBEditorialStudio } from './ConceptBEditorialStudio'
@@ -15,7 +16,15 @@ export const MockDashboardShell: React.FC = () => {
       {/* Top Header & Switcher Navigation */}
       <header className={styles.topNav}>
         <div className={styles.brandTitle}>
-          <div className={styles.brandLogo}>MG</div>
+          <div className={styles.brandLogo}>
+            <Image
+              src="/icon-192.png"
+              alt="Magic Glass"
+              width={24}
+              height={24}
+              style={{ objectFit: 'contain' }}
+            />
+          </div>
           <div>
             <div className={styles.brandText}>Magic Glass CMS Admin</div>
             <div style={{ fontSize: '11px', color: '#64748b' }}>Interactive Mock Dashboard Showcase</div>

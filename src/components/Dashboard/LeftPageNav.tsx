@@ -2,6 +2,8 @@
 
 import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import Image from 'next/image'
+import Link from 'next/link'
 import styles from './Dashboard.module.css'
 import { ProductCreateModal } from './ProductCreateModal'
 import { ALL_PRODUCTS } from '@/components/ProductsCollection/products.data'
@@ -197,13 +199,21 @@ export const LeftPageNav: React.FC<LeftPageNavProps> = ({
   return (
     <>
       <aside className={styles.leftSidebar} data-lenis-prevent>
-        <div className={styles.brandHeader}>
-          <div className={styles.logoBadge}>MG</div>
+        <Link href="/" className={styles.brandHeader} title="Back to Magic Glass Website">
+          <div className={styles.logoBadge}>
+            <Image
+              src="/icon-192.png"
+              alt="Magic Glass"
+              width={26}
+              height={26}
+              className={styles.logoBadgeImg}
+            />
+          </div>
           <div>
             <div className={styles.brandName}>Magic Glass CMS</div>
             <div style={{ fontSize: '11px', color: '#64748b' }}>PostgreSQL Live Engine</div>
           </div>
-        </div>
+        </Link>
 
         {/* 1. Form Submissions */}
         <div className={styles.sectionGroupTitle}>Submissions</div>

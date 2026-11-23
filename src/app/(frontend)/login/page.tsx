@@ -3,6 +3,7 @@
 import React, { useState, useEffect, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
+import Image from 'next/image'
 import styles from '../staff-login/StaffLogin.module.css'
 import { validateEmail } from '@/lib/formValidation'
 import {
@@ -154,7 +155,16 @@ function LoginFormContent() {
       {/* Main Glass Card */}
       <div className={styles.card}>
         <div className={styles.cardHeader}>
-          <div className={styles.brandLogoWrap}>MG</div>
+          <Link href="/" className={styles.brandLogoWrap} title="Back to Magic Glass Homepage">
+            <Image
+              src="/images/logo.png"
+              alt="Magic Glass Logo"
+              width={160}
+              height={44}
+              priority
+              className={styles.brandLogoImg}
+            />
+          </Link>
           <h1 className={styles.title}>Staff & Management Login</h1>
           <p className={styles.subtitle}>
             Sign in to access the Magic Glass Live CMS Dashboard and production controls.
