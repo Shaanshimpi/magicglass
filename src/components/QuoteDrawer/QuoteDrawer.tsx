@@ -62,12 +62,25 @@ export const QuoteDrawer: React.FC<QuoteDrawerProps> = ({ isOpen, onClose, cmsDa
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [touched, setTouched] = useState<Record<string, boolean>>({})
 
+  const handleClose = React.useCallback(() => {
+    if (submitted) {
+      setSubmitted(false)
+      setFormState({ fullName: '', companyName: '', email: '', phone: '', message: '' })
+      setSelectedTypes([glassTypes[0] || 'DGU Insulated'])
+      setSelectedCat(categories[0] || 'Commercial Facade')
+      setErrors({})
+      setTouched({})
+      setErrorMessage(null)
+    }
+    onClose()
+  }, [submitted, categories, glassTypes, onClose])
+
   // Lock body scroll and stop Lenis while drawer is open, enable ESC key close
   useEffect(() => {
     if (!isOpen) return
 
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose()
+      if (e.key === 'Escape') handleClose()
     }
 
     const prevOverflow = document.body.style.overflow
@@ -86,7 +99,7 @@ export const QuoteDrawer: React.FC<QuoteDrawerProps> = ({ isOpen, onClose, cmsDa
         lenis.start()
       }
     }
-  }, [isOpen, onClose])
+  }, [isOpen, handleClose])
 
   const validateField = (name: string, value: string) => {
     let errorMsg = ''
@@ -193,13 +206,9 @@ export const QuoteDrawer: React.FC<QuoteDrawerProps> = ({ isOpen, onClose, cmsDa
       }
 
       setSubmitted(true)
-      setTimeout(() => {
-        setSubmitted(false)
-        setFormState({ fullName: '', companyName: '', email: '', phone: '', message: '' })
-        setErrors({})
-        setTouched({})
-        onClose()
-      }, 3500)
+      setFormState({ fullName: '', companyName: '', email: '', phone: '', message: '' })
+      setErrors({})
+      setTouched({})
     } catch (err: any) {
       console.error('Quote submission error:', err)
       setErrorMessage(err.message || 'Unable to transmit quote request. Please try again.')
@@ -213,7 +222,7 @@ export const QuoteDrawer: React.FC<QuoteDrawerProps> = ({ isOpen, onClose, cmsDa
       {/* Slide-out Drawer Overlay & Panel */}
       <div
         className={`${styles.drawerOverlay} ${isOpen ? styles.drawerOverlayOpen : ''}`}
-        onClick={onClose}
+        onClick={handleClose}
         data-lenis-prevent
       >
         <div
@@ -230,30 +239,30 @@ export const QuoteDrawer: React.FC<QuoteDrawerProps> = ({ isOpen, onClose, cmsDa
               </div>
               <h3 className={styles.drawerTitle}>Request Technical Quote</h3>
             </div>
-            <button type="button" className={styles.closeBtn} onClick={onClose} aria-label="Close quote drawer">
+            <button type="button" className={styles.closeBtn} onClick={handleClose} aria-label="Close quote drawer">
               &times;
             </button>
           </div>
 
           {submitted ? (
-            <div style={{ padding: '4rem 0', textAlign: 'center' }}>
+            <div style={{ padding: '4rem 1.5rem', textAlign: 'center' }}>
               <div
                 className="base-title"
-                style={{ color: 'var(--color-crimson)', marginBottom: '1rem' }}
+                style={{ color: 'var(--color-crimson)', marginBottom: '1rem', fontWeight: 600 }}
               >
                 ◆ INQUIRY TRANSMITTED
               </div>
-              <h4 style={{ fontSize: '1.5rem', marginBottom: '1rem', color: 'var(--color-cream)' }}>
+              <h4 style={{ fontSize: '1.65rem', marginBottom: '1rem', color: '#0f172a', fontWeight: 600 }}>
                 Thank you for your request.
               </h4>
-              <p style={{ color: '#cbd5e1', fontSize: '0.95rem', lineHeight: '1.6', maxWidth: '420px', margin: '0 auto 2rem' }}>
+              <p style={{ color: '#0f172a', fontSize: '1rem', lineHeight: '1.65', maxWidth: '440px', margin: '0 auto 2.5rem', fontWeight: 500 }}>
                 {submissionNotice}
               </p>
               <button
                 type="button"
                 className={styles.submitBtn}
-                onClick={onClose}
-                style={{ maxWidth: '200px', margin: '0 auto' }}
+                onClick={handleClose}
+                style={{ maxWidth: '220px', margin: '0 auto', display: 'block' }}
               >
                 CLOSE DRAWER
               </button>
