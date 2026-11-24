@@ -40,13 +40,33 @@ export async function GET(req: Request) {
           collection: slug as any,
           limit: 200,
         })
-        if (slug === 'projects' && Array.isArray(result.docs)) {
-          data = [...result.docs].sort((a: any, b: any) => {
-            const orderA = typeof a.order === 'number' && a.order > 0 ? a.order : 9999
-            const orderB = typeof b.order === 'number' && b.order > 0 ? b.order : 9999
-            if (orderA !== orderB) return orderA - orderB
-            return (a.id || 0) - (b.id || 0)
-          })
+        if (slug === 'projects') {
+          if (Array.isArray(result.docs) && result.docs.length > 0) {
+            data = [...result.docs].sort((a: any, b: any) => {
+              const orderA = typeof a.order === 'number' && a.order > 0 ? a.order : 9999
+              const orderB = typeof b.order === 'number' && b.order > 0 ? b.order : 9999
+              if (orderA !== orderB) return orderA - orderB
+              return (a.id || 0) - (b.id || 0)
+            })
+          } else {
+            // Fallback to mock projects if DB query returns empty
+            const mockProjects = (await import('@/data/projects_mock.json')).default
+            data = mockProjects.map((p: any, idx: number) => ({
+              id: p.id || p.slug,
+              slug: p.slug || p.id,
+              title: p.title,
+              category: p.category,
+              developer: p.developer || '',
+              location: p.location || '',
+              application: p.application || '',
+              glassDescription: p.glassDescription || '',
+              areaSqMtr: p.areaSqMtr || 0,
+              imageUrl: p.image || '/images/projects/balmoral-by-riverside.jpg',
+              heroFeatured: Boolean(p.heroFeatured),
+              tagline: p.tagline || '',
+              order: idx + 1,
+            }))
+          }
         } else {
           data = result.docs
         }

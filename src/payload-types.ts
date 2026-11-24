@@ -280,6 +280,10 @@ export interface Project {
   slug: string;
   title: string;
   category: string;
+  /**
+   * Sequence order for display (1, 2, 3...)
+   */
+  order?: number | null;
   developer?: string | null;
   location?: string | null;
   application?: string | null;
@@ -528,6 +532,7 @@ export interface ProjectsSelect<T extends boolean = true> {
   slug?: T;
   title?: T;
   category?: T;
+  order?: T;
   developer?: T;
   location?: T;
   application?: T;

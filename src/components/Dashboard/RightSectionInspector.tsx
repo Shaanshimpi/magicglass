@@ -140,9 +140,29 @@ export const RightSectionInspector: React.FC<RightSectionInspectorProps> = ({
       if (activePage.cmsSlug === 'projects' && activePage.cmsType === 'collection') {
         const res = await fetch('/api/cms/get?type=collection&slug=projects')
         const json = await res.json()
-        if (json.success && Array.isArray(json.data)) {
+        if (json.success && Array.isArray(json.data) && json.data.length > 0) {
           setProjectsList(json.data)
           setData(json.data)
+        } else {
+          // If API returns empty or error, fallback to local projects mock
+          const fallback = (await import('@/data/projects_mock.json')).default
+          const list = fallback.map((p: any, idx: number) => ({
+            id: p.id || p.slug,
+            slug: p.slug || p.id,
+            title: p.title,
+            category: p.category,
+            developer: p.developer || '',
+            location: p.location || '',
+            application: p.application || '',
+            glassDescription: p.glassDescription || '',
+            areaSqMtr: p.areaSqMtr || 0,
+            imageUrl: p.image || '/images/projects/balmoral-by-riverside.jpg',
+            heroFeatured: Boolean(p.heroFeatured),
+            tagline: p.tagline || '',
+            order: idx + 1,
+          }))
+          setProjectsList(list)
+          setData(list)
         }
       } else {
         const itemSlugParam = activePage.itemSlug ? `&itemSlug=${activePage.itemSlug}` : ''
@@ -157,7 +177,32 @@ export const RightSectionInspector: React.FC<RightSectionInspectorProps> = ({
         }
       }
     } catch (err: any) {
-      setFeedback({ type: 'error', message: err.message || 'Network error fetching data' })
+      if (activePage.cmsSlug === 'projects' && activePage.cmsType === 'collection') {
+        try {
+          const fallback = (await import('@/data/projects_mock.json')).default
+          const list = fallback.map((p: any, idx: number) => ({
+            id: p.id || p.slug,
+            slug: p.slug || p.id,
+            title: p.title,
+            category: p.category,
+            developer: p.developer || '',
+            location: p.location || '',
+            application: p.application || '',
+            glassDescription: p.glassDescription || '',
+            areaSqMtr: p.areaSqMtr || 0,
+            imageUrl: p.image || '/images/projects/balmoral-by-riverside.jpg',
+            heroFeatured: Boolean(p.heroFeatured),
+            tagline: p.tagline || '',
+            order: idx + 1,
+          }))
+          setProjectsList(list)
+          setData(list)
+        } catch {
+          setFeedback({ type: 'error', message: err.message || 'Network error fetching data' })
+        }
+      } else {
+        setFeedback({ type: 'error', message: err.message || 'Network error fetching data' })
+      }
     } finally {
       setLoading(false)
     }
