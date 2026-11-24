@@ -717,10 +717,18 @@ export async function getProjectsCmsData() {
     if (payload) {
       const res = await payload.find({
         collection: 'projects',
-        limit: 100,
+        limit: 200,
+        sort: 'order',
       })
       if (res.docs && res.docs.length > 0) {
-        return res.docs.map((doc: any) => ({
+        const sortedDocs = [...res.docs].sort((a: any, b: any) => {
+          const orderA = typeof a.order === 'number' && a.order > 0 ? a.order : 9999
+          const orderB = typeof b.order === 'number' && b.order > 0 ? b.order : 9999
+          if (orderA !== orderB) return orderA - orderB
+          return (a.id || 0) - (b.id || 0)
+        })
+
+        return sortedDocs.map((doc: any) => ({
           id: doc.slug,
           title: doc.title,
           category: doc.category,
@@ -732,6 +740,7 @@ export async function getProjectsCmsData() {
           image: getMediaUrl(doc.image, doc.imageUrl) || getProjectFallbackImage({ id: doc.slug, title: doc.title }),
           heroFeatured: Boolean(doc.heroFeatured),
           tagline: doc.tagline || '',
+          order: typeof doc.order === 'number' ? doc.order : 0,
         }))
       }
     }

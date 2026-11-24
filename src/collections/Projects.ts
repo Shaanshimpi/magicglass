@@ -18,6 +18,15 @@ export const Projects: CollectionConfig = {
     },
     { name: 'title', type: 'text', required: true },
     { name: 'category', type: 'text', required: true },
+    {
+      name: 'order',
+      type: 'number',
+      defaultValue: 0,
+      admin: {
+        description: 'Sequence order for display (1, 2, 3...)',
+      },
+      index: true,
+    },
     { name: 'developer', type: 'text' },
     { name: 'location', type: 'text' },
     { name: 'application', type: 'text' },

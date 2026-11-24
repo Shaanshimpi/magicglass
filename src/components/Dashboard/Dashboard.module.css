@@ -675,6 +675,43 @@
   width: 100%;
 }
 
+.projectsSequencingNotice {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: rgba(197, 168, 128, 0.08);
+  border: 1px dashed rgba(197, 168, 128, 0.35);
+  border-radius: 6px;
+  margin-bottom: 12px;
+  font-size: 12px;
+  color: #cbd5e1;
+}
+
+.sequencingNoticeText {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.reorderingStatusBadge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: #fbbf24;
+  font-weight: 600;
+}
+
+.spinIcon {
+  animation: spinAnim 1s linear infinite;
+}
+
+@keyframes spinAnim {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
 .projectCardItem {
   background: #0d1522;
   border: 1px solid rgba(255, 255, 255, 0.12);
@@ -689,6 +726,93 @@
 .projectCardItem:hover {
   border-color: rgba(197, 168, 128, 0.5);
   background: #111c2e;
+}
+
+.projectCardItem.isDragging {
+  opacity: 0.35;
+  border-color: #c5a880 !important;
+  border-style: dashed !important;
+  transform: scale(0.99);
+}
+
+.projectCardItem.dragOverTop {
+  border-top: 3px solid #38bdf8 !important;
+  box-shadow: 0 -6px 16px rgba(56, 189, 248, 0.35);
+  transform: translateY(-2px);
+}
+
+.projectCardItem.dragOverBottom {
+  border-bottom: 3px solid #38bdf8 !important;
+  box-shadow: 0 6px 16px rgba(56, 189, 248, 0.35);
+  transform: translateY(2px);
+}
+
+.dragHandle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #64748b;
+  cursor: grab;
+  padding: 6px 4px;
+  border-radius: 4px;
+  transition: all 0.15s ease;
+  flex-shrink: 0;
+}
+
+.dragHandle:hover {
+  color: #c5a880;
+  background: rgba(197, 168, 128, 0.15);
+}
+
+.dragHandle:active {
+  cursor: grabbing;
+}
+
+.projectSeqBadge {
+  font-family: var(--font-mono, monospace);
+  font-size: 11px;
+  font-weight: 700;
+  color: #94a3b8;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 4px;
+  padding: 3px 6px;
+  min-width: 28px;
+  text-align: center;
+  flex-shrink: 0;
+  letter-spacing: 0.5px;
+}
+
+.seqStepButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.seqStepBtn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #94a3b8;
+  border-radius: 3px;
+  padding: 1px 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  line-height: 1;
+}
+
+.seqStepBtn:hover:not(:disabled) {
+  color: #f8fafc;
+  background: rgba(197, 168, 128, 0.25);
+  border-color: #c5a880;
+}
+
+.seqStepBtn:disabled {
+  opacity: 0.25;
+  cursor: not-allowed;
 }
 
 .projectCardHeader {

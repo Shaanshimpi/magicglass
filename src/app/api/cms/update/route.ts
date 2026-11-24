@@ -44,6 +44,36 @@ export async function POST(req: Request) {
         id: targetId,
       })
       resultRecord = { deleted: true, id: targetId }
+    } else if (action === 'reorder') {
+      // High-performance reordering for collections (e.g. project sequencing)
+      const orderList = body.orderList as Array<{ slug?: string; id?: any; order: number }>
+      if (!Array.isArray(orderList) || !resolvedSlug) {
+        return NextResponse.json({ success: false, error: 'Missing orderList or slug for reordering' }, { status: 400 })
+      }
+
+      const allExisting = await payload.find({
+        collection: resolvedSlug as any,
+        limit: 500,
+      })
+      const existingMap = new Map<string, any>()
+      for (const doc of allExisting.docs) {
+        if (doc.slug) existingMap.set(doc.slug, doc)
+        if (doc.id) existingMap.set(String(doc.id), doc)
+      }
+
+      const updatePromises = orderList.map(async (entry) => {
+        const doc = (entry.slug ? existingMap.get(entry.slug) : null) || (entry.id ? existingMap.get(String(entry.id)) : null)
+        if (!doc) return null
+        if (doc.order === entry.order) return doc
+        return payload.update({
+          collection: resolvedSlug as any,
+          id: doc.id,
+          data: { order: entry.order },
+        })
+      })
+
+      const reorderedDocs = (await Promise.all(updatePromises)).filter(Boolean)
+      resultRecord = { reordered: true, count: reorderedDocs.length }
     } else if (action === 'create') {
       if (resolvedType !== 'collection' || !data) {
         return NextResponse.json({ success: false, error: 'Creating requires a collection type and valid data' }, { status: 400 })
@@ -65,26 +95,30 @@ export async function POST(req: Request) {
         })
       } else if (resolvedType === 'collection') {
         if (Array.isArray(data)) {
-          // Batch update array of collection items (e.g. projects list)
-          const updatedItems = []
-          for (const item of data) {
-            const itemSlugVal = item.slug
-            if (itemSlugVal) {
-              const existing = await payload.find({
-                collection: resolvedSlug as any,
-                where: { slug: { equals: itemSlugVal } },
-                limit: 1,
-              })
-              if (existing.docs.length > 0) {
-                const u = await payload.update({
-                  collection: resolvedSlug as any,
-                  id: existing.docs[0].id,
-                  data: item,
-                })
-                updatedItems.push(u)
-              }
-            }
+          // Optimized batch update array of collection items (e.g. projects list)
+          const allExisting = await payload.find({
+            collection: resolvedSlug as any,
+            limit: 500,
+          })
+          const existingMap = new Map<string, any>()
+          for (const doc of allExisting.docs) {
+            if (doc.slug) existingMap.set(doc.slug, doc)
           }
+
+          const updatePromises = data.map(async (item) => {
+            const itemSlugVal = item.slug
+            if (!itemSlugVal) return null
+            const existing = existingMap.get(itemSlugVal)
+            if (!existing) return null
+
+            return payload.update({
+              collection: resolvedSlug as any,
+              id: existing.id,
+              data: item,
+            })
+          })
+
+          const updatedItems = (await Promise.all(updatePromises)).filter(Boolean)
           resultRecord = updatedItems
         } else {
           let targetId = id || data.id

@@ -40,7 +40,16 @@ export async function GET(req: Request) {
           collection: slug as any,
           limit: 200,
         })
-        data = result.docs
+        if (slug === 'projects' && Array.isArray(result.docs)) {
+          data = [...result.docs].sort((a: any, b: any) => {
+            const orderA = typeof a.order === 'number' && a.order > 0 ? a.order : 9999
+            const orderB = typeof b.order === 'number' && b.order > 0 ? b.order : 9999
+            if (orderA !== orderB) return orderA - orderB
+            return (a.id || 0) - (b.id || 0)
+          })
+        } else {
+          data = result.docs
+        }
       }
     } else {
       return NextResponse.json({ success: false, error: 'Invalid type' }, { status: 400 })

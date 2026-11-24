@@ -27,35 +27,35 @@ export const Footer: React.FC<FooterProps> = ({ cmsData }) => {
   const mainNav = cmsData?.mainNavLinks?.length
     ? cmsData.mainNavLinks
     : [
-        { label: 'About', href: '/about' },
-        { label: 'Products', href: '/products' },
-        { label: 'Toughened Glass', href: '/products/toughened-glass' },
-        { label: 'Industry Solution', href: '/industry-solution' },
-        { label: 'Infrastructure', href: '/infrastructure' },
-        { label: 'Projects', href: '/projects' },
-        { label: 'Contact Us', href: '/contact-us' },
-      ]
+      { label: 'About', href: '/about' },
+      { label: 'Products', href: '/products' },
+      { label: 'Toughened Glass', href: '/products/toughened-glass' },
+      { label: 'Industry Solution', href: '/industry-solution' },
+      { label: 'Infrastructure', href: '/infrastructure' },
+      { label: 'Projects', href: '/projects' },
+      { label: 'Contact Us', href: '/contact-us' },
+    ]
 
   const glassSolutions = cmsData?.glassSolutionsLinks?.length
     ? cmsData.glassSolutionsLinks
     : [
-        { label: 'Toughened Glass', href: '/products/toughened-glass' },
-        { label: 'DGU (Insulated Glass)', href: '/products/insulated-glass-dgu' },
-        { label: 'Sentry Laminated Glass', href: '/products/sentry-laminated-glass' },
-        { label: 'Acoustic Lami Glass', href: '/products/acoustic-lami-glass' },
-        { label: 'High Performance LOW-E Glass', href: '/products/high-performance-low-e-glass' },
-        { label: 'SKN-Ultra High-Performance Glass', href: '/products/skn-ultra-high-performance-glass' },
-        { label: 'Ceramic Glass', href: '/products/ceramic-glass' },
-        { label: 'Fire & Safety Glass', href: '/products/fire-safety-glass' },
-      ]
+      { label: 'Toughened Glass', href: '/products/toughened-glass' },
+      { label: 'DGU (Insulated Glass)', href: '/products/insulated-glass-dgu' },
+      { label: 'Sentry Laminated Glass', href: '/products/sentry-laminated-glass' },
+      { label: 'Acoustic Lami Glass', href: '/products/acoustic-lami-glass' },
+      { label: 'High Performance LOW-E Glass', href: '/products/high-performance-low-e-glass' },
+      { label: 'SKN-Ultra High-Performance Glass', href: '/products/skn-ultra-high-performance-glass' },
+      { label: 'Ceramic Glass', href: '/products/ceramic-glass' },
+      { label: 'Fire & Safety Glass', href: '/products/fire-safety-glass' },
+    ]
 
   const directConnect = cmsData?.directConnectLinks?.length
     ? cmsData.directConnectLinks
     : [
-        { label: 'WhatsApp Sales Chat →', href: 'https://wa.me/917774017900', type: 'whatsapp' },
-        { label: 'Call: +91-7774017900', href: 'tel:+917774017900', type: 'phone' },
-        { label: 'sales@magicglass.co.in', href: 'mailto:sales@magicglass.co.in', type: 'email' },
-      ]
+      { label: 'WhatsApp Sales Chat →', href: 'https://wa.me/917774017900', type: 'whatsapp' },
+      { label: 'Call: +91-7774017900', href: 'tel:+917774017900', type: 'phone' },
+      { label: 'sales@magicglass.co.in', href: 'mailto:sales@magicglass.co.in', type: 'email' },
+    ]
 
   const copyrightText =
     cmsData?.copyrightText ||

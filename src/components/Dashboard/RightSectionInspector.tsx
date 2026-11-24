@@ -20,7 +20,21 @@ import {
   FiSearch,
   FiStar,
   FiX,
+  FiArrowUp,
+  FiArrowDown,
+  FiRefreshCw,
 } from 'react-icons/fi'
+
+const DragHandleIcon = () => (
+  <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor">
+    <circle cx="5" cy="3" r="1.5" />
+    <circle cx="11" cy="3" r="1.5" />
+    <circle cx="5" cy="8" r="1.5" />
+    <circle cx="11" cy="8" r="1.5" />
+    <circle cx="5" cy="13" r="1.5" />
+    <circle cx="11" cy="13" r="1.5" />
+  </svg>
+)
 
 interface RightSectionInspectorProps {
   activePage: PageRoute
@@ -71,6 +85,12 @@ export const RightSectionInspector: React.FC<RightSectionInspectorProps> = ({
   const [projectSearchQuery, setProjectSearchQuery] = useState<string>('')
   const [expandedProjectId, setExpandedProjectId] = useState<string | null>(null)
   const [isProjectCreateModalOpen, setIsProjectCreateModalOpen] = useState<boolean>(false)
+  const [draggedProjectSlug, setDraggedProjectSlug] = useState<string | null>(null)
+  const [dragOverProjectSlug, setDragOverProjectSlug] = useState<string | null>(null)
+  const [dragDropPosition, setDragDropPosition] = useState<'top' | 'bottom' | null>(null)
+  const [isDraggingActive, setIsDraggingActive] = useState<boolean>(false)
+  const [isReordering, setIsReordering] = useState<boolean>(false)
+  const dragEndTimerRef = React.useRef<any>(null)
 
   const toggleSection = (sec: string) => {
     setOpenSections((prev) => ({ ...prev, [sec]: !prev[sec] }))
@@ -261,6 +281,122 @@ export const RightSectionInspector: React.FC<RightSectionInspectorProps> = ({
     updated[idx] = { ...updated[idx], [field]: val }
     setProjectsList(updated)
     setData(updated)
+  }
+
+  const handleReorderProjects = async (
+    draggedSlug: string,
+    targetSlug: string,
+    position: 'top' | 'bottom'
+  ) => {
+    if (draggedSlug === targetSlug) return
+    const fromIdx = projectsList.findIndex((p) => p.slug === draggedSlug)
+    const toIdx = projectsList.findIndex((p) => p.slug === targetSlug)
+    if (fromIdx === -1 || toIdx === -1 || fromIdx === toIdx) return
+
+    const list = [...projectsList]
+    const [draggedItem] = list.splice(fromIdx, 1)
+
+    let insertIdx = list.findIndex((p) => p.slug === targetSlug)
+    if (position === 'bottom') {
+      insertIdx += 1
+    }
+    list.splice(insertIdx, 0, draggedItem)
+
+    const updatedWithOrder = list.map((item, idx) => ({
+      ...item,
+      order: idx + 1,
+    }))
+
+    setProjectsList(updatedWithOrder)
+    setData(updatedWithOrder)
+
+    // Auto-save reordered sequence to database
+    setIsReordering(true)
+    setFeedback({ type: 'success', message: 'Saving new project sequence...' })
+    try {
+      const res = await fetch('/api/cms/update', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'reorder',
+          type: 'collection',
+          slug: 'projects',
+          orderList: updatedWithOrder.map((p, idx) => ({
+            slug: p.slug,
+            id: p.id,
+            order: idx + 1,
+          })),
+          pathToRevalidate: '/projects',
+        }),
+      })
+      const json = await res.json()
+      if (json.success) {
+        setFeedback({
+          type: 'success',
+          message: `Sequence updated! Moved "${draggedItem.title}" to position #${insertIdx + 1}.`,
+        })
+        onRefreshIframe()
+      } else {
+        setFeedback({ type: 'error', message: json.error || 'Failed to save reordered sequence' })
+      }
+    } catch (err: any) {
+      setFeedback({ type: 'error', message: err.message || 'Error updating sequence' })
+    } finally {
+      setIsReordering(false)
+    }
+  }
+
+  const handleMoveProjectByOne = async (slug: string, direction: -1 | 1) => {
+    const currentIdx = projectsList.findIndex((p) => p.slug === slug)
+    if (currentIdx === -1) return
+    const targetIdx = currentIdx + direction
+    if (targetIdx < 0 || targetIdx >= projectsList.length) return
+
+    const list = [...projectsList]
+    const [moved] = list.splice(currentIdx, 1)
+    list.splice(targetIdx, 0, moved)
+
+    const updatedWithOrder = list.map((item, idx) => ({
+      ...item,
+      order: idx + 1,
+    }))
+
+    setProjectsList(updatedWithOrder)
+    setData(updatedWithOrder)
+
+    setIsReordering(true)
+    setFeedback({ type: 'success', message: `Saving position for "${moved.title}"...` })
+    try {
+      const res = await fetch('/api/cms/update', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'reorder',
+          type: 'collection',
+          slug: 'projects',
+          orderList: updatedWithOrder.map((p, idx) => ({
+            slug: p.slug,
+            id: p.id,
+            order: idx + 1,
+          })),
+          pathToRevalidate: '/projects',
+        }),
+      })
+      const json = await res.json()
+      if (json.success) {
+        setFeedback({
+          type: 'success',
+          message: `Position updated! "${moved.title}" is now #${targetIdx + 1}.`,
+        })
+        onRefreshIframe()
+      } else {
+        setFeedback({ type: 'error', message: json.error || 'Failed to save position' })
+      }
+    } catch (err: any) {
+      setFeedback({ type: 'error', message: err.message || 'Error updating position' })
+    } finally {
+      setIsReordering(false)
+    }
   }
 
   const handleSaveSingleProject = async (project: any) => {
@@ -1042,6 +1178,21 @@ export const RightSectionInspector: React.FC<RightSectionInspectorProps> = ({
                   </div>
                 </div>
 
+                <div className={styles.projectsSequencingNotice}>
+                  <div className={styles.sequencingNoticeText}>
+                    <span>✥</span>
+                    <span>
+                      <strong>Sequencing:</strong> Drag project cards or use arrows to reorder how projects appear across the website.
+                    </span>
+                  </div>
+                  {isReordering && (
+                    <span className={styles.reorderingStatusBadge}>
+                      <FiRefreshCw className={styles.spinIcon} size={11} />
+                      Saving order...
+                    </span>
+                  )}
+                </div>
+
                 <div className={styles.projectsListScroll}>
                   {projectsList
                     .filter((p) => {
@@ -1056,13 +1207,106 @@ export const RightSectionInspector: React.FC<RightSectionInspectorProps> = ({
                       return matchCat && matchSearch
                     })
                     .map((project, pIdx) => {
+                      const masterIdx = projectsList.findIndex((p) => p.slug === project.slug)
+                      const actualIdx = masterIdx !== -1 ? masterIdx : pIdx
                       const isExpanded = expandedProjectId === project.slug || expandedProjectId === String(pIdx)
+                      const sequenceNum = project.order || (actualIdx + 1)
+                      const isDragging = draggedProjectSlug === project.slug
+                      const isDragOver = dragOverProjectSlug === project.slug
+
                       return (
-                        <div key={project.slug || pIdx} className={styles.projectCardItem}>
+                        <div
+                          key={project.slug || pIdx}
+                          className={`${styles.projectCardItem} ${isDragging ? styles.isDragging : ''} ${
+                            isDragOver && dragDropPosition === 'top' ? styles.dragOverTop : ''
+                          } ${isDragOver && dragDropPosition === 'bottom' ? styles.dragOverBottom : ''}`}
+                          draggable={!isExpanded}
+                          onDragStart={(e) => {
+                            if (isExpanded) return
+                            e.dataTransfer.setData('text/plain', project.slug)
+                            e.dataTransfer.effectAllowed = 'move'
+                            setDraggedProjectSlug(project.slug)
+                            setIsDraggingActive(true)
+                          }}
+                          onDragOver={(e) => {
+                            e.preventDefault()
+                            e.dataTransfer.dropEffect = 'move'
+                            if (draggedProjectSlug && draggedProjectSlug !== project.slug) {
+                              const rect = e.currentTarget.getBoundingClientRect()
+                              const offset = e.clientY - rect.top
+                              const position = offset < rect.height / 2 ? 'top' : 'bottom'
+                              setDragOverProjectSlug(project.slug)
+                              setDragDropPosition(position)
+                            }
+                          }}
+                          onDragLeave={(e) => {
+                            if (!e.currentTarget.contains(e.relatedTarget as Node)) {
+                              if (dragOverProjectSlug === project.slug) {
+                                setDragOverProjectSlug(null)
+                                setDragDropPosition(null)
+                              }
+                            }
+                          }}
+                          onDrop={(e) => {
+                            e.preventDefault()
+                            const draggedSlug = draggedProjectSlug || e.dataTransfer.getData('text/plain')
+                            if (draggedSlug && draggedSlug !== project.slug) {
+                              handleReorderProjects(draggedSlug, project.slug, dragDropPosition || 'bottom')
+                            }
+                            setDraggedProjectSlug(null)
+                            setDragOverProjectSlug(null)
+                            setDragDropPosition(null)
+                          }}
+                          onDragEnd={() => {
+                            setDraggedProjectSlug(null)
+                            setDragOverProjectSlug(null)
+                            setDragDropPosition(null)
+                            if (dragEndTimerRef.current) clearTimeout(dragEndTimerRef.current)
+                            dragEndTimerRef.current = setTimeout(() => {
+                              setIsDraggingActive(false)
+                            }, 120)
+                          }}
+                        >
                           <div
                             className={styles.projectCardHeader}
-                            onClick={() => setExpandedProjectId(isExpanded ? null : project.slug || String(pIdx))}
+                            onClick={() => {
+                              if (isDraggingActive) return
+                              setExpandedProjectId(isExpanded ? null : project.slug || String(pIdx))
+                            }}
                           >
+                            <div
+                              className={styles.dragHandle}
+                              title="Drag to reorder sequence"
+                              onClick={(e) => e.stopPropagation()}
+                            >
+                              <DragHandleIcon />
+                            </div>
+
+                            <span className={styles.projectSeqBadge} title={`Display Sequence #${sequenceNum}`}>
+                              #{sequenceNum}
+                            </span>
+
+                            <div className={styles.seqStepButtons} onClick={(e) => e.stopPropagation()}>
+                              <button
+                                type="button"
+                                className={styles.seqStepBtn}
+                                disabled={actualIdx <= 0 || isReordering}
+                                title="Move sequence up"
+                                onClick={() => handleMoveProjectByOne(project.slug, -1)}
+                              >
+                                <FiArrowUp size={11} />
+                              </button>
+                              <button
+                                type="button"
+                                className={styles.seqStepBtn}
+                                disabled={actualIdx >= projectsList.length - 1 || isReordering}
+                                title="Move sequence down"
+                                onClick={() => handleMoveProjectByOne(project.slug, 1)}
+                              >
+                                <FiArrowDown size={11} />
+                              </button>
+                            </div>
+
                             <div className={styles.projectThumbnail}>
                               {/* eslint-disable-next-line @next/next/no-img-element */}
                               <img
@@ -1117,7 +1361,7 @@ export const RightSectionInspector: React.FC<RightSectionInspectorProps> = ({
                                     checked={Boolean(project.heroFeatured)}
                                     onChange={(e) =>
                                       handleProjectFieldChange(
-                                        pIdx,
+                                        actualIdx,
                                         'heroFeatured',
                                         e.target.checked
                                       )
@@ -1140,7 +1384,7 @@ export const RightSectionInspector: React.FC<RightSectionInspectorProps> = ({
                                   value={project.tagline || ''}
                                   placeholder="e.g. Balmoral Riverside — Pune's Grand Luxury Facade"
                                   onChange={(e) =>
-                                    handleProjectFieldChange(pIdx, 'tagline', e.target.value)
+                                    handleProjectFieldChange(actualIdx, 'tagline', e.target.value)
                                   }
                                 />
                               </div>
@@ -1151,7 +1395,7 @@ export const RightSectionInspector: React.FC<RightSectionInspectorProps> = ({
                                   type="text"
                                   className={styles.inputControl}
                                   value={project.title || ''}
-                                  onChange={(e) => handleProjectFieldChange(pIdx, 'title', e.target.value)}
+                                  onChange={(e) => handleProjectFieldChange(actualIdx, 'title', e.target.value)}
                                 />
                               </div>
 
@@ -1161,7 +1405,7 @@ export const RightSectionInspector: React.FC<RightSectionInspectorProps> = ({
                                   <select
                                     className={styles.inputControl}
                                     value={project.category || 'Commercial'}
-                                    onChange={(e) => handleProjectFieldChange(pIdx, 'category', e.target.value)}
+                                    onChange={(e) => handleProjectFieldChange(actualIdx, 'category', e.target.value)}
                                   >
                                     <option value="Commercial">Commercial</option>
                                     <option value="Residential">Residential</option>
@@ -1176,7 +1420,7 @@ export const RightSectionInspector: React.FC<RightSectionInspectorProps> = ({
                                     type="text"
                                     className={styles.inputControl}
                                     value={project.developer || ''}
-                                    onChange={(e) => handleProjectFieldChange(pIdx, 'developer', e.target.value)}
+                                    onChange={(e) => handleProjectFieldChange(actualIdx, 'developer', e.target.value)}
                                   />
                                 </div>
                               </div>
@@ -1188,7 +1432,7 @@ export const RightSectionInspector: React.FC<RightSectionInspectorProps> = ({
                                     type="text"
                                     className={styles.inputControl}
                                     value={project.location || ''}
-                                    onChange={(e) => handleProjectFieldChange(pIdx, 'location', e.target.value)}
+                                    onChange={(e) => handleProjectFieldChange(actualIdx, 'location', e.target.value)}
                                   />
                                 </div>
                                 <div className={styles.fieldGroup}>
@@ -1197,7 +1441,7 @@ export const RightSectionInspector: React.FC<RightSectionInspectorProps> = ({
                                     type="number"
                                     className={styles.inputControl}
                                     value={project.areaSqMtr || ''}
-                                    onChange={(e) => handleProjectFieldChange(pIdx, 'areaSqMtr', Number(e.target.value))}
+                                    onChange={(e) => handleProjectFieldChange(actualIdx, 'areaSqMtr', Number(e.target.value))}
                                   />
                                 </div>
                               </div>
@@ -1208,7 +1452,7 @@ export const RightSectionInspector: React.FC<RightSectionInspectorProps> = ({
                                   type="text"
                                   className={styles.inputControl}
                                   value={project.application || ''}
-                                  onChange={(e) => handleProjectFieldChange(pIdx, 'application', e.target.value)}
+                                  onChange={(e) => handleProjectFieldChange(actualIdx, 'application', e.target.value)}
                                 />
                               </div>
 
@@ -1218,13 +1462,13 @@ export const RightSectionInspector: React.FC<RightSectionInspectorProps> = ({
                                   type="text"
                                   className={styles.inputControl}
                                   value={project.glassDescription || ''}
-                                  onChange={(e) => handleProjectFieldChange(pIdx, 'glassDescription', e.target.value)}
+                                  onChange={(e) => handleProjectFieldChange(actualIdx, 'glassDescription', e.target.value)}
                                 />
                               </div>
 
                               {renderMediaControl(
                                 'Project Showcase Asset',
-                                `${pIdx}.imageUrl`,
+                                `${actualIdx}.imageUrl`,
                                 project.imageUrl || project.image?.url || ''
                               )}
 

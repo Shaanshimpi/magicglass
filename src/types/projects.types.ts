@@ -12,4 +12,5 @@ export interface ProjectItem {
   image: string
   heroFeatured: boolean
   tagline: string
+  order?: number
 }
