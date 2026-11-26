@@ -23,6 +23,8 @@ import {
   FiArrowUp,
   FiArrowDown,
   FiRefreshCw,
+  FiLoader,
+  FiCheck,
 } from 'react-icons/fi'
 
 const DragHandleIcon = () => (
@@ -95,6 +97,9 @@ export const RightSectionInspector: React.FC<RightSectionInspectorProps> = ({
   const [dragDropPosition, setDragDropPosition] = useState<'top' | 'bottom' | null>(null)
   const [isDraggingActive, setIsDraggingActive] = useState<boolean>(false)
   const [isReordering, setIsReordering] = useState<boolean>(false)
+  const [savingProjectSlug, setSavingProjectSlug] = useState<string | null>(null)
+  const [savedProjectSlug, setSavedProjectSlug] = useState<string | null>(null)
+  const [deletingProjectSlug, setDeletingProjectSlug] = useState<string | null>(null)
   const dragEndTimerRef = React.useRef<any>(null)
 
   const toggleSection = (sec: string) => {
@@ -860,6 +865,9 @@ export const RightSectionInspector: React.FC<RightSectionInspectorProps> = ({
   }
 
   const handleSaveSingleProject = async (project: any) => {
+    if (!project?.slug) return
+    setSavingProjectSlug(project.slug)
+    setFeedback(null)
     try {
       const res = await fetch('/api/cms/update', {
         method: 'POST',
@@ -875,18 +883,23 @@ export const RightSectionInspector: React.FC<RightSectionInspectorProps> = ({
       })
       const json = await res.json()
       if (json.success) {
+        setSavedProjectSlug(project.slug)
         setFeedback({ type: 'success', message: `Project "${project.title}" saved live!` })
+        setTimeout(() => setSavedProjectSlug(null), 3000)
         onRefreshIframe()
       } else {
         setFeedback({ type: 'error', message: json.error || 'Failed to save project' })
       }
     } catch (err: any) {
       setFeedback({ type: 'error', message: err.message || 'Error updating project' })
+    } finally {
+      setSavingProjectSlug(null)
     }
   }
 
   const handleDeleteProject = async (slug: string, title: string) => {
     if (!confirm(`Are you sure you want to delete project "${title}"?`)) return
+    setDeletingProjectSlug(slug)
     try {
       const res = await fetch('/api/cms/update', {
         method: 'POST',
@@ -904,9 +917,13 @@ export const RightSectionInspector: React.FC<RightSectionInspectorProps> = ({
         setFeedback({ type: 'success', message: `Project "${title}" deleted.` })
         fetchData()
         onRefreshIframe()
+      } else {
+        setFeedback({ type: 'error', message: json.error || 'Failed to delete' })
       }
     } catch (err: any) {
       setFeedback({ type: 'error', message: err.message || 'Failed to delete' })
+    } finally {
+      setDeletingProjectSlug(null)
     }
   }
 
@@ -930,7 +947,7 @@ export const RightSectionInspector: React.FC<RightSectionInspectorProps> = ({
             onClick={handleSave}
             disabled={isSaving || loading}
           >
-            <FiSave />
+            {isSaving ? <FiLoader className={styles.spinIcon} /> : <FiSave />}
             {isSaving ? 'Publishing...' : 'Save & Publish Live'}
           </button>
         </div>
@@ -2067,18 +2084,58 @@ export const RightSectionInspector: React.FC<RightSectionInspectorProps> = ({
                                 <button
                                   type="button"
                                   className={styles.deleteIconBtn}
-                                  style={{ padding: '6px 12px', width: 'auto', display: 'flex', gap: 6, alignItems: 'center' }}
+                                  style={{
+                                    padding: '6px 12px',
+                                    width: 'auto',
+                                    display: 'flex',
+                                    gap: 6,
+                                    alignItems: 'center',
+                                    opacity: deletingProjectSlug === project.slug ? 0.6 : 1,
+                                    cursor: deletingProjectSlug === project.slug ? 'not-allowed' : 'pointer',
+                                  }}
+                                  disabled={deletingProjectSlug === project.slug}
                                   onClick={() => handleDeleteProject(project.slug, project.title)}
                                 >
-                                  <FiTrash2 size={13} /> Delete Project
+                                  {deletingProjectSlug === project.slug ? (
+                                    <FiLoader className={styles.spinIcon} size={13} />
+                                  ) : (
+                                    <FiTrash2 size={13} />
+                                  )}
+                                  {deletingProjectSlug === project.slug ? 'Deleting...' : 'Delete Project'}
                                 </button>
                                 <button
                                   type="button"
                                   className={styles.publishBtn}
-                                  style={{ width: 'auto', padding: '6px 16px', fontSize: '12px' }}
+                                  style={{
+                                    width: 'auto',
+                                    padding: '6px 16px',
+                                    fontSize: '12px',
+                                    display: 'inline-flex',
+                                    alignItems: 'center',
+                                    gap: 6,
+                                    opacity: savingProjectSlug === project.slug ? 0.75 : 1,
+                                    cursor: savingProjectSlug === project.slug ? 'not-allowed' : 'pointer',
+                                    background: savedProjectSlug === project.slug ? '#10b981' : undefined,
+                                    borderColor: savedProjectSlug === project.slug ? '#10b981' : undefined,
+                                    color: savedProjectSlug === project.slug ? '#ffffff' : undefined,
+                                    transition: 'all 0.2s ease',
+                                  }}
+                                  disabled={savingProjectSlug === project.slug}
                                   onClick={() => handleSaveSingleProject(project)}
                                 >
-                                  Save Project
+                                  {savingProjectSlug === project.slug ? (
+                                    <>
+                                      <FiLoader className={styles.spinIcon} size={13} />
+                                      Saving...
+                                    </>
+                                  ) : savedProjectSlug === project.slug ? (
+                                    <>
+                                      <FiCheck size={13} />
+                                      Saved Live!
+                                    </>
+                                  ) : (
+                                    'Save Project'
+                                  )}
                                 </button>
                               </div>
                             </div>

@@ -3,6 +3,30 @@ import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import { revalidatePath } from 'next/cache'
 
+// Helper to sanitize collection data before updating or inserting into Payload CMS
+function sanitizeCollectionData(item: any): any {
+  if (!item || typeof item !== 'object') return item
+  const clean = { ...item }
+  delete clean.id
+  delete clean.createdAt
+  delete clean.updatedAt
+
+  // Convert populated upload relation objects to ID or null
+  const relKeys = ['image', 'heroImage', 'facilityImage', 'bgImage', 'logo', 'featuredImage', 'portrait', 'avatar']
+  for (const key of relKeys) {
+    if (clean[key] !== undefined) {
+      if (clean[key] && typeof clean[key] === 'object') {
+        clean[key] = clean[key].id || null
+      } else if (typeof clean[key] === 'string' && isNaN(Number(clean[key]))) {
+        // If someone passed a string URL directly in the upload relation field, clear it
+        clean[key] = null
+      }
+    }
+  }
+
+  return clean
+}
+
 export async function POST(req: Request) {
   try {
     const body = await req.json()
@@ -109,20 +133,33 @@ export async function POST(req: Request) {
             const itemSlugVal = item.slug
             if (!itemSlugVal) return null
             const existing = existingMap.get(itemSlugVal)
-            if (!existing) return null
+            const sanitizedItem = sanitizeCollectionData(item)
 
-            return payload.update({
-              collection: resolvedSlug as any,
-              id: existing.id,
-              data: item,
-            })
+            if (existing) {
+              return payload.update({
+                collection: resolvedSlug as any,
+                id: existing.id,
+                data: sanitizedItem,
+              })
+            } else {
+              return payload.create({
+                collection: resolvedSlug as any,
+                data: {
+                  ...sanitizedItem,
+                  slug: itemSlugVal,
+                },
+              })
+            }
           })
 
           const updatedItems = (await Promise.all(updatePromises)).filter(Boolean)
           resultRecord = updatedItems
         } else {
-          let targetId = id || data.id
-          if (!targetId && resolvedItemSlug) {
+          const sanitized = sanitizeCollectionData(data)
+          let targetId: any = null
+
+          // Prioritize lookup by unique slug if available
+          if (resolvedItemSlug) {
             const found = await payload.find({
               collection: resolvedSlug as any,
               where: { slug: { equals: resolvedItemSlug } },
@@ -132,17 +169,36 @@ export async function POST(req: Request) {
               targetId = found.docs[0].id
             }
           }
+
+          // If not found by slug, fallback to numeric id if valid
           if (!targetId) {
+            const rawId = id || data.id
+            if (typeof rawId === 'number' || (typeof rawId === 'string' && /^\d+$/.test(rawId))) {
+              targetId = Number(rawId)
+            }
+          }
+
+          if (targetId) {
+            resultRecord = await payload.update({
+              collection: resolvedSlug as any,
+              id: targetId,
+              data: sanitized,
+            })
+          } else if (resolvedItemSlug || data.slug) {
+            // Document doesn't exist in DB yet (e.g. from mock fallback) - upsert by creating it!
+            resultRecord = await payload.create({
+              collection: resolvedSlug as any,
+              data: {
+                ...sanitized,
+                slug: resolvedItemSlug || data.slug,
+              },
+            })
+          } else {
             return NextResponse.json(
               { success: false, error: 'Collection update requires document id or valid itemSlug' },
               { status: 400 }
             )
           }
-          resultRecord = await payload.update({
-            collection: resolvedSlug as any,
-            id: targetId,
-            data,
-          })
         }
       } else {
         return NextResponse.json({ success: false, error: 'Invalid update type' }, { status: 400 })
