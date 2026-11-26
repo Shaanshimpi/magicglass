@@ -115,17 +115,32 @@ export const ClientLayoutShell: React.FC<ClientLayoutShellProps> = ({
     }
   }, [isLoaded])
 
-  // Preserve custom standalone layout for dashboard, mock-dashboard, color-options, staff-login, or admin routes
+  // Preserve custom standalone layout for dashboard, mock-dashboard, color-options, hero demos, staff-login, or admin routes
   const isSpecialRoute =
     pathname?.startsWith('/dashboard') ||
     pathname?.startsWith('/mock-dashboard') ||
     pathname?.startsWith('/color-options') ||
+    pathname?.startsWith('/demo-hero-options') ||
+    pathname?.startsWith('/hero-options') ||
     pathname?.startsWith('/staff-login') ||
     pathname?.startsWith('/login') ||
     pathname?.startsWith('/admin')
 
   if (isSpecialRoute) {
-    return <>{children}</>
+    return (
+      <LayoutContext.Provider
+        value={{
+          isQuoteOpen,
+          openQuoteDrawer,
+          closeQuoteDrawer,
+          isLoaded: true,
+          setLoaded: handleLoaderComplete,
+        }}
+      >
+        {children}
+        <QuoteDrawer isOpen={isQuoteOpen} onClose={closeQuoteDrawer} cmsData={quoteDrawerCmsData} />
+      </LayoutContext.Provider>
+    )
   }
 
   return (
