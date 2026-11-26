@@ -13,7 +13,7 @@ interface PdpClientContentProps {
   relatedProducts?: PdpRelatedProductItem[]
 }
 
-export const PdpClientContent: React.FC<PdpClientContentProps> = ({
+export const PdpBodyContent: React.FC<PdpClientContentProps> = ({
   product,
   featuredProjects,
   relatedProducts,
@@ -35,14 +35,7 @@ export const PdpClientContent: React.FC<PdpClientContentProps> = ({
       : undefined
 
   return (
-    <div style={{ paddingTop: '70px', backgroundColor: 'var(--color-black)', color: 'var(--color-taupe)' }}>
-      <PdpHero
-        indexNumber={product.indexNumber}
-        title={product.title}
-        subheading={product.subheading}
-        category={product.category}
-        heroImage={product.heroImage}
-      />
+    <>
       <PdpGeneralInfo
         introSummary={product.introSummary}
         secondaryText={product.secondaryText}
@@ -57,6 +50,29 @@ export const PdpClientContent: React.FC<PdpClientContentProps> = ({
       <PdpRelatedProducts
         products={productsList}
         relatedIds={product.relatedProductIds}
+      />
+    </>
+  )
+}
+
+export const PdpClientContent: React.FC<PdpClientContentProps> = ({
+  product,
+  featuredProjects,
+  relatedProducts,
+}) => {
+  return (
+    <div style={{ paddingTop: '70px', backgroundColor: 'var(--color-black)', color: 'var(--color-taupe)' }}>
+      <PdpHero
+        indexNumber={product.indexNumber}
+        title={product.title}
+        subheading={product.subheading}
+        category={product.category}
+        heroImage={product.heroImage}
+      />
+      <PdpBodyContent
+        product={product}
+        featuredProjects={featuredProjects}
+        relatedProducts={relatedProducts}
       />
     </div>
   )
