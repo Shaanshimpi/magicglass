@@ -52,8 +52,8 @@ export const TrustBanner: React.FC<TrustBannerProps> = ({ cmsData }) => {
             <Image
               src={logoSrc}
               alt={partner.name}
-              width={200}
-              height={90}
+              width={260}
+              height={110}
               className={styles.partnerLogo}
               unoptimized={logoSrc.startsWith('http')}
             />

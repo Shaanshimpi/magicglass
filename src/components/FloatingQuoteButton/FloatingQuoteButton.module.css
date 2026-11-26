@@ -42,6 +42,64 @@
   box-shadow: 0 0 6px rgba(255, 255, 255, 0.9);
 }
 
+.bouncingJump {
+  animation: scaleAndBounce 2.2s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+  transform-origin: center bottom;
+  will-change: transform, box-shadow;
+}
+
+.bouncingJump:hover {
+  animation-play-state: paused;
+  transform: translateY(-2px) scale(1.04);
+}
+
+.bouncingJump:active {
+  animation-play-state: paused;
+  transform: translateY(0) scale(0.98);
+}
+
+@keyframes scaleAndBounce {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+    box-shadow: 0 6px 20px rgba(0, 180, 216, 0.35);
+  }
+  /* Primary Jump & Scale Up */
+  18% {
+    transform: translateY(-18px) scale(1.1);
+    box-shadow: 0 20px 35px rgba(0, 180, 216, 0.55), 0 0 22px rgba(0, 212, 255, 0.4);
+  }
+  /* Land back to base */
+  32% {
+    transform: translateY(0) scale(1);
+    box-shadow: 0 6px 20px rgba(0, 180, 216, 0.35);
+  }
+  /* Secondary gentle bounce & scale */
+  44% {
+    transform: translateY(-7px) scale(1.04);
+    box-shadow: 0 12px 24px rgba(0, 180, 216, 0.45), 0 0 12px rgba(0, 212, 255, 0.25);
+  }
+  /* Return to base */
+  56% {
+    transform: translateY(0) scale(1);
+    box-shadow: 0 6px 20px rgba(0, 180, 216, 0.35);
+  }
+  /* Tertiary micro settle */
+  65% {
+    transform: translateY(-2px) scale(1.01);
+  }
+  /* Rest at base until next cycle */
+  72%, 100% {
+    transform: translateY(0) scale(1);
+    box-shadow: 0 6px 20px rgba(0, 180, 216, 0.35);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bouncingJump {
+    animation: none;
+  }
+}
+
 @media (max-width: 768px) {
   .floatingContainer {
     right: 0.85rem;

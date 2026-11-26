@@ -8,6 +8,7 @@
   z-index: 9999;
   overflow: hidden;
   pointer-events: all;
+  background-color: #0b1012;
 }
 
 .svgCurtain {
@@ -66,10 +67,20 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 1.75rem;
+  gap: 1.25rem;
   opacity: 0;
-  transform: translateY(50px);
+  transform: translateY(30px);
   will-change: transform, opacity;
+}
+
+.brandKicker {
+  font-family: var(--font-outfit), sans-serif;
+  font-size: clamp(0.95rem, 1.8vw, 1.35rem);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.7);
+  text-transform: uppercase;
+  text-align: center;
 }
 
 .brandTitle {
@@ -97,15 +108,25 @@
 }
 
 .centerLogoSvg {
-  height: 68px;
+  height: 96px;
   width: auto;
-  max-width: min(320px, 85vw);
-  aspect-ratio: 310 / 155;
+  aspect-ratio: 76 / 94;
   object-fit: contain;
   overflow: visible;
   display: block;
-  filter: drop-shadow(0 4px 20px rgba(0, 0, 0, 0.5));
+  filter: drop-shadow(0 0 24px rgba(227, 0, 22, 0.4));
   will-change: transform, opacity, filter;
+}
+
+.brandWordmark {
+  font-family: var(--font-mono), monospace;
+  font-size: clamp(0.75rem, 1.2vw, 0.92rem);
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.9);
+  padding-left: 0.3em;
+  text-align: center;
 }
 
 .counterBox {
@@ -167,8 +188,7 @@
     padding: 2rem 1.5rem;
   }
   .centerLogoSvg {
-    height: 48px;
-    max-width: min(240px, 80vw);
+    height: 72px;
     object-fit: contain;
   }
   .ringWrapper {

@@ -126,11 +126,13 @@
 
 .featuredCardImage img {
   object-fit: cover;
-  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), filter 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, filter;
 }
 
 .featuredCard:hover .featuredCardImage img {
-  transform: scale(1.06);
+  transform: scale(1.08);
+  filter: blur(8px);
 }
 
 .featuredCardOverlay {
@@ -142,14 +144,12 @@
 }
 
 .featuredCard:hover .featuredCardOverlay {
-  background: linear-gradient(
-    180deg,
-    rgba(15, 23, 42, 0.12) 0%,
-    rgba(10, 16, 26, 0.48) 45%,
-    rgba(10, 16, 26, 0.85) 100%
-  );
-  backdrop-filter: blur(12px) saturate(160%);
-  -webkit-backdrop-filter: blur(12px) saturate(160%);
+  background: linear-gradient(180deg,
+      rgba(0, 0, 0, 0.25) 0%,
+      rgba(0, 0, 0, 0.55) 45%,
+      rgba(0, 0, 0, 0.90) 100%);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .featuredBadge {
@@ -186,10 +186,11 @@
 .featuredCategoryLabel {
   font-family: var(--font-mono), monospace;
   font-size: 0.675rem;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--color-crimson);
+  color: #38bdf8;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
 }
 
 .featuredTitle {
@@ -207,15 +208,15 @@
   overflow: hidden;
   transform: translateY(12px);
   transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-              max-height 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-              margin 0.35s ease;
+    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    max-height 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    margin 0.35s ease;
   pointer-events: none;
 }
 
 .featuredCard:hover .featuredHoverDetails {
   opacity: 1;
-  max-height: 140px;
+  max-height: 240px;
   transform: translateY(0);
   margin-top: 0.5rem;
   pointer-events: auto;
@@ -396,7 +397,7 @@
 }
 
 .productCard:hover .productItemTitle {
-  color: var(--color-crimson, #e20714);
+  color: #0369a1;
 }
 
 /* -------------------------------------------------------------------------- */

@@ -102,15 +102,21 @@ const PRESET_MEDIA_LIBRARY: MediaItem[] = [
 
 interface MediaPickerModalProps {
   isOpen: boolean
-  currentValue: string
+  currentValue?: string
+  currentValues?: string[]
+  multiple?: boolean
   onSelect: (url: string) => void
+  onSelectMultiple?: (urls: string[]) => void
   onClose: () => void
 }
 
 export const MediaPickerModal: React.FC<MediaPickerModalProps> = ({
   isOpen,
   currentValue,
+  currentValues,
+  multiple = false,
   onSelect,
+  onSelectMultiple,
   onClose,
 }) => {
   const [activeCategory, setActiveCategory] = useState<string>('All')
@@ -119,10 +125,20 @@ export const MediaPickerModal: React.FC<MediaPickerModalProps> = ({
   const [hoveredUrl, setHoveredUrl] = useState<string | null>(null)
   const [dynamicMedia, setDynamicMedia] = useState<MediaItem[]>([])
   const [isUploading, setIsUploading] = useState<boolean>(false)
+  const [selectedUrls, setSelectedUrls] = useState<string[]>([])
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
     if (!isOpen) return
+    setCustomUrlInput(currentValue || '')
+    if (multiple) {
+      const initial = currentValues && currentValues.length > 0
+        ? currentValues
+        : (currentValue ? [currentValue] : [])
+      setSelectedUrls(initial)
+    } else {
+      setSelectedUrls(currentValue ? [currentValue] : [])
+    }
     fetch('/api/media')
       .then((res) => res.json())
       .then((data) => {
@@ -136,7 +152,7 @@ export const MediaPickerModal: React.FC<MediaPickerModalProps> = ({
         }
       })
       .catch((err) => console.warn('Could not load dynamic media in picker:', err))
-  }, [isOpen])
+  }, [isOpen, multiple, currentValue, currentValues])
 
   const handleQuickUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
@@ -153,16 +169,18 @@ export const MediaPickerModal: React.FC<MediaPickerModalProps> = ({
       })
       const data = await res.json()
       if (data.success && data.item) {
-        setDynamicMedia((prev) => [
-          {
-            name: data.item.name || data.item.filename,
-            url: data.item.url,
-            category: data.item.category || 'General',
-          },
-          ...prev,
-        ])
-        onSelect(data.item.url)
-        onClose()
+        const newItem: MediaItem = {
+          name: data.item.name || data.item.filename,
+          url: data.item.url,
+          category: data.item.category || 'General',
+        }
+        setDynamicMedia((prev) => [newItem, ...prev])
+        if (multiple) {
+          setSelectedUrls((prev) => (prev.includes(data.item.url) ? prev : [...prev, data.item.url]))
+        } else {
+          onSelect(data.item.url)
+          onClose()
+        }
       }
     } catch (err) {
       console.error('Failed to quick upload:', err)
@@ -193,17 +211,56 @@ export const MediaPickerModal: React.FC<MediaPickerModalProps> = ({
   ]
 
   const filteredMedia = allMedia.filter((item) => {
+    const itemCat = (item.category || '').toLowerCase()
+    const activeCat = activeCategory.toLowerCase()
     const matchesCategory =
-      activeCategory === 'All' || item.category?.toLowerCase() === activeCategory.toLowerCase()
+      activeCategory === 'All' ||
+      itemCat === activeCat ||
+      (activeCategory === 'Heroes' && itemCat.includes('hero')) ||
+      (activeCategory === 'Uploads' && itemCat.includes('upload')) ||
+      (activeCategory === 'Industries' && (itemCat.includes('industr') || itemCat.includes('infrastruct')))
     const matchesSearch =
       item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       item.url.toLowerCase().includes(searchQuery.toLowerCase())
     return matchesCategory && matchesSearch
   })
 
-  const handleSelect = (url: string) => {
-    onSelect(url)
+  const handleTileClick = (url: string) => {
+    if (multiple) {
+      setSelectedUrls((prev) => {
+        if (prev.includes(url)) {
+          return prev.filter((u) => u !== url)
+        } else {
+          return [...prev, url]
+        }
+      })
+    } else {
+      onSelect(url)
+      onClose()
+    }
+  }
+
+  const handleApplyMultiple = () => {
+    if (onSelectMultiple) {
+      onSelectMultiple(selectedUrls)
+    } else if (onSelect && selectedUrls.length > 0) {
+      onSelect(selectedUrls[0])
+    }
     onClose()
+  }
+
+  const handleAddCustomUrl = () => {
+    const trimmed = customUrlInput.trim()
+    if (!trimmed) return
+    if (multiple) {
+      if (!selectedUrls.includes(trimmed)) {
+        setSelectedUrls((prev) => [...prev, trimmed])
+      }
+      setCustomUrlInput('')
+    } else {
+      onSelect(trimmed)
+      onClose()
+    }
   }
 
   return (
@@ -266,32 +323,58 @@ export const MediaPickerModal: React.FC<MediaPickerModalProps> = ({
             </div>
             <div>
               <div style={{ fontSize: '15px', fontWeight: 600, color: '#f8fafc', letterSpacing: '-0.01em' }}>
-                Media Library & Visual Assets
+                {multiple ? 'Multi-Image Media Selection' : 'Media Library & Visual Assets'}
               </div>
               <div style={{ fontSize: '12px', color: '#94a3b8' }}>
-                Select an image from the library or specify a custom path
+                {multiple
+                  ? `Click items to toggle selection (${selectedUrls.length} selected). Then click Apply Selection.`
+                  : 'Select an image from the library or specify a custom path'}
               </div>
             </div>
           </div>
-          <button
-            onClick={onClose}
-            style={{
-              background: 'rgba(255, 255, 255, 0.05)',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
-              color: '#94a3b8',
-              cursor: 'pointer',
-              fontSize: '18px',
-              width: 32,
-              height: 32,
-              borderRadius: 6,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              transition: 'all 0.2s ease',
-            }}
-          >
-            <FiX />
-          </button>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            {multiple && (
+              <button
+                type="button"
+                onClick={handleApplyMultiple}
+                style={{
+                  padding: '7px 18px',
+                  borderRadius: '6px',
+                  border: 'none',
+                  background: 'linear-gradient(135deg, #c5a880, #9f825b)',
+                  color: '#000',
+                  fontWeight: 600,
+                  fontSize: '12px',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 6,
+                  boxShadow: '0 2px 8px rgba(197, 168, 128, 0.35)',
+                }}
+              >
+                <FiCheck strokeWidth={3} /> Apply Selection ({selectedUrls.length})
+              </button>
+            )}
+            <button
+              onClick={onClose}
+              style={{
+                background: 'rgba(255, 255, 255, 0.05)',
+                border: '1px solid rgba(255, 255, 255, 0.08)',
+                color: '#94a3b8',
+                cursor: 'pointer',
+                fontSize: '18px',
+                width: 32,
+                height: 32,
+                borderRadius: 6,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                transition: 'all 0.2s ease',
+              }}
+            >
+              <FiX />
+            </button>
+          </div>
         </div>
 
         {/* Search & Category Filter Pills */}
@@ -423,13 +506,18 @@ export const MediaPickerModal: React.FC<MediaPickerModalProps> = ({
           }}
         >
           {filteredMedia.map((item) => {
-            const isSelected = currentValue === item.url
+            const isSelected = multiple
+              ? selectedUrls.includes(item.url)
+              : currentValue === item.url
+            const selectedOrder = multiple && isSelected
+              ? selectedUrls.indexOf(item.url) + 1
+              : null
             const isHovered = hoveredUrl === item.url
 
             return (
               <div
                 key={item.url}
-                onClick={() => handleSelect(item.url)}
+                onClick={() => handleTileClick(item.url)}
                 onMouseEnter={() => setHoveredUrl(item.url)}
                 onMouseLeave={() => setHoveredUrl(null)}
                 style={{
@@ -473,10 +561,10 @@ export const MediaPickerModal: React.FC<MediaPickerModalProps> = ({
                       transition: 'transform 0.3s ease',
                       transform: isHovered ? 'scale(1.05)' : 'scale(1)',
                     }}
-                    unoptimized={item.url.startsWith('http')}
+                    unoptimized={true}
                   />
 
-                  {/* Selected Checkmark Badge */}
+                  {/* Selected Checkmark / Order Badge */}
                   {isSelected && (
                     <div
                       style={{
@@ -485,17 +573,22 @@ export const MediaPickerModal: React.FC<MediaPickerModalProps> = ({
                         right: 6,
                         background: '#c5a880',
                         color: '#000',
-                        width: 22,
+                        padding: multiple ? '2px 7px' : '0',
+                        width: multiple ? 'auto' : 22,
                         height: 22,
-                        borderRadius: '50%',
+                        borderRadius: multiple ? '11px' : '50%',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
+                        gap: 3,
                         boxShadow: '0 2px 6px rgba(0, 0, 0, 0.6)',
                         zIndex: 3,
+                        fontSize: '11px',
+                        fontWeight: 700,
                       }}
                     >
-                      <FiCheck size={13} strokeWidth={3} />
+                      <FiCheck size={12} strokeWidth={3} />
+                      {multiple && <span>#{selectedOrder}</span>}
                     </div>
                   )}
                 </div>
@@ -543,6 +636,12 @@ export const MediaPickerModal: React.FC<MediaPickerModalProps> = ({
               placeholder="/images/example.jpg or https://..."
               value={customUrlInput}
               onChange={(e) => setCustomUrlInput(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  e.preventDefault()
+                  handleAddCustomUrl()
+                }
+              }}
               style={{
                 flex: 1,
                 padding: '8px 12px',
@@ -554,26 +653,50 @@ export const MediaPickerModal: React.FC<MediaPickerModalProps> = ({
                 outline: 'none',
               }}
             />
+            <button
+              type="button"
+              onClick={handleAddCustomUrl}
+              disabled={!customUrlInput.trim()}
+              style={{
+                padding: '8px 14px',
+                borderRadius: '6px',
+                border: '1px solid rgba(255, 255, 255, 0.15)',
+                background: 'rgba(255, 255, 255, 0.06)',
+                color: '#f8fafc',
+                fontWeight: 500,
+                fontSize: '12px',
+                cursor: customUrlInput.trim() ? 'pointer' : 'not-allowed',
+                opacity: customUrlInput.trim() ? 1 : 0.5,
+                whiteSpace: 'nowrap',
+              }}
+            >
+              {multiple ? '+ Add to Selection' : 'Apply URL'}
+            </button>
           </div>
-          <button
-            type="button"
-            onClick={() => handleSelect(customUrlInput)}
-            disabled={!customUrlInput.trim()}
-            style={{
-              padding: '8px 18px',
-              borderRadius: '6px',
-              border: 'none',
-              background: 'linear-gradient(135deg, #c5a880, #9f825b)',
-              color: '#000',
-              fontWeight: 600,
-              fontSize: '12px',
-              cursor: customUrlInput.trim() ? 'pointer' : 'not-allowed',
-              opacity: customUrlInput.trim() ? 1 : 0.5,
-              transition: 'opacity 0.2s ease',
-            }}
-          >
-            Apply URL
-          </button>
+
+          {multiple && (
+            <button
+              type="button"
+              onClick={handleApplyMultiple}
+              style={{
+                padding: '8px 20px',
+                borderRadius: '6px',
+                border: 'none',
+                background: 'linear-gradient(135deg, #c5a880, #9f825b)',
+                color: '#000',
+                fontWeight: 600,
+                fontSize: '12px',
+                cursor: 'pointer',
+                whiteSpace: 'nowrap',
+                display: 'flex',
+                alignItems: 'center',
+                gap: 6,
+                boxShadow: '0 2px 8px rgba(197, 168, 128, 0.4)',
+              }}
+            >
+              <FiCheck strokeWidth={3} /> Apply Selection ({selectedUrls.length} Photos)
+            </button>
+          )}
         </div>
       </div>
     </div>

@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { ProjectsHero } from '@/components/Projects/ProjectsHero'
 import { ProjectsFilterNav } from '@/components/Projects/ProjectsFilterNav'
 import { ProjectsGrid } from '@/components/Projects/ProjectsGrid'
@@ -20,11 +20,96 @@ export function ProjectsClientContent({
   heroProjects,
   trustBannerData,
 }: ProjectsClientContentProps) {
-  const { openQuoteDrawer } = useLayoutContext()
+  const { openQuoteDrawer, isLoaded } = useLayoutContext()
   const [activeCategory, setActiveCategory] = useState<ProjectCategory>('ALL')
   const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(null)
+  const [highlightedProjectId, setHighlightedProjectId] = useState<string | null>(null)
 
   const projects = initialProjects
+
+  // Hash Navigation Handler: Smooth scroll & highlight project when URL has a hash (e.g. #pune-airport)
+  useEffect(() => {
+    let scrollTimeout: NodeJS.Timeout
+    let highlightTimeout: NodeJS.Timeout
+
+    const handleHashNavigation = () => {
+      if (typeof window === 'undefined') return
+      const rawHash = window.location.hash ? window.location.hash.replace(/^#/, '').trim() : ''
+      if (!rawHash) return
+
+      // Look up target project by id, slug, or kebab-case title
+      const target = projects.find(
+        (p: any) =>
+          (p.id && p.id.toLowerCase() === rawHash.toLowerCase()) ||
+          (p.slug && p.slug.toLowerCase() === rawHash.toLowerCase()) ||
+          (p.title && p.title.toLowerCase().replace(/[^a-z0-9]+/g, '-') === rawHash.toLowerCase())
+      )
+
+      if (target) {
+        // Ensure category filter does not hide the target project
+        setActiveCategory((currentCategory) => {
+          if (
+            currentCategory !== 'ALL' &&
+            target.category.toLowerCase() !== currentCategory.toLowerCase()
+          ) {
+            return 'ALL'
+          }
+          return currentCategory
+        })
+
+        setHighlightedProjectId(target.id)
+
+        // Multiple timed scroll passes to ensure accuracy during page hydration and image loading
+        let attempts = 0
+        const maxAttempts = 15
+
+        const tryScroll = () => {
+          attempts++
+          const el =
+            document.getElementById(target.id) ||
+            document.querySelector(`[data-project-id="${target.id}"]`)
+
+          if (el) {
+            const headerOffset = 110 // Fixed navbar height + comfortable padding
+            const elementPosition = el.getBoundingClientRect().top
+            const offsetPosition = elementPosition + window.pageYOffset - headerOffset
+
+            window.scrollTo({
+              top: Math.max(0, offsetPosition),
+              behavior: attempts <= 2 ? 'smooth' : 'auto',
+            })
+
+            // Refinement pass after 350ms in case hero carousel or layout shifted
+            if (attempts <= 2) {
+              scrollTimeout = setTimeout(tryScroll, 350)
+            }
+          } else if (attempts < maxAttempts) {
+            scrollTimeout = setTimeout(tryScroll, 100)
+          }
+        }
+
+        // Run after DOM frame ready
+        requestAnimationFrame(() => {
+          scrollTimeout = setTimeout(tryScroll, 120)
+        })
+
+        // Auto remove highlight aura after 5 seconds
+        clearTimeout(highlightTimeout)
+        highlightTimeout = setTimeout(() => {
+          setHighlightedProjectId(null)
+        }, 5000)
+      }
+    }
+
+    handleHashNavigation()
+    window.addEventListener('hashchange', handleHashNavigation)
+
+    return () => {
+      window.removeEventListener('hashchange', handleHashNavigation)
+      clearTimeout(scrollTimeout)
+      clearTimeout(highlightTimeout)
+    }
+  }, [projects, isLoaded])
 
   const filteredProjects =
     activeCategory === 'ALL'
@@ -57,6 +142,7 @@ export function ProjectsClientContent({
       <ProjectsGrid
         projects={filteredProjects}
         onSelectProject={(project) => setSelectedProject(project)}
+        highlightedProjectId={highlightedProjectId}
       />
 
       <TrustBanner cmsData={trustBannerData} />

@@ -12,6 +12,14 @@ export interface IndustryItem {
   description: string
 }
 
+export interface PdpRelatedProductItem {
+  id: string
+  title: string
+  heroImage: string
+  category?: string
+  subheading?: string
+}
+
 export interface PdpProductDetail {
   id: string
   indexNumber: string
@@ -30,6 +38,8 @@ export interface PdpProductDetail {
   industries?: IndustryItem[]
   sliderImages: Array<string | PdpLinkedProject>
   relatedProductIds: [string, string]
+  relatedProducts?: PdpRelatedProductItem[]
+  featuredProjects?: PdpLinkedProject[]
 }
 
 export const PDP_MOCK_DATA: Record<string, PdpProductDetail> = {

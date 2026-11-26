@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="47.338 130.247 125 125" width="125" height="125">
+  <rect x="47.338" y="130.247" width="125" height="125" rx="26" fill="#0b1012" />
+  <!-- White Wing of M -->
+  <path style="fill:#ffffff;fill-rule:evenodd" d="m 115.1734,186.0385 v 18.0232 l 17.0469,-14.0949 v 29.5015 h 14.2783 v -57.852 z" />
+  <!-- Red Geometric Facet of M -->
+  <path style="fill:#e30016;fill-rule:evenodd" d="m 83.8103,161.6163 v 57.852 h 14.2705 v -29.5015 l 17.0926,14.0949 v 16.0854 l -41.9953,18.3055 v -91.4117 l 41.9953,19.0679 v 19.9296 z" />
+</svg>

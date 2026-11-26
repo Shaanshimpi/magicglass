@@ -305,6 +305,7 @@ export const ProductsCollection: React.FC<ProductsCollectionProps> = ({ cmsData 
                       alt={product.title}
                       fill
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 30vw"
+                      loading="lazy"
                       unoptimized={Boolean(product.image?.startsWith('http'))}
                     />
                   </div>

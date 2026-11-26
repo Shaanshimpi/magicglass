@@ -5,6 +5,8 @@ export interface PdpLinkedProject {
   location?: string
   category?: string
   slug?: string
+  glassDescription?: string
+  application?: string
 }
 
 export const AUTHENTIC_PROJECTS_REGISTRY: Record<string, PdpLinkedProject> = {
@@ -181,7 +183,11 @@ export function resolveProjectInfo(
 
   // If already an object with title provided explicitly
   if (typeof item === 'object') {
-    const rawSrc = item.src || item.imageUrl || item.image?.url || ''
+    const rawSrc =
+      item.src ||
+      item.imageUrl ||
+      (typeof item.image === 'string' ? item.image : item.image?.url) ||
+      ''
     const rawTitle = item.title
 
     if (rawTitle && rawTitle.trim() && rawTitle !== 'MAGIC GLASS INSTALLATION') {
@@ -191,7 +197,7 @@ export function resolveProjectInfo(
         developer: item.developer,
         location: item.location,
         category: item.category || 'Featured Project',
-        slug: item.slug,
+        slug: item.slug || item.id || rawTitle.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-'),
       }
     }
     // Otherwise fallback to resolving from src / slug

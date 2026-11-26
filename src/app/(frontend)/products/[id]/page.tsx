@@ -9,6 +9,8 @@ interface ProductDetailPageProps {
   params: Promise<{ id: string }> | { id: string }
 }
 
+export const revalidate = 3600 // Cache static generation with 1h ISR
+
 export async function generateStaticParams() {
   return Object.keys(PDP_MOCK_DATA).map((id) => ({
     id,
@@ -75,6 +77,12 @@ export default async function ProductDetailPage({
     notFound()
   }
 
-  return <PdpClientContent product={product} />
+  return (
+    <PdpClientContent
+      product={product}
+      featuredProjects={product.featuredProjects || product.sliderImages}
+      relatedProducts={product.relatedProducts}
+    />
+  )
 }
 

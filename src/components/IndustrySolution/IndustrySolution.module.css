@@ -189,12 +189,15 @@
 
 .imageWrapper img {
   object-fit: cover;
-  transition: transform 0.8s var(--ease-fluid, cubic-bezier(0.16, 1, 0.3, 1));
+  transition: transform 0.8s var(--ease-fluid, cubic-bezier(0.16, 1, 0.3, 1)), filter 0.8s var(--ease-fluid, cubic-bezier(0.16, 1, 0.3, 1));
+  will-change: transform, filter;
 }
 
 .collectionCard:hover img,
+.orderedCard:hover img,
 .cardActive img {
-  transform: scale(1.06);
+  transform: scale(1.08);
+  filter: blur(8px);
 }
 
 .cardOverlay {
@@ -246,26 +249,20 @@
   transform: scale(0.9);
 }
 
-/* Desktop Hover Text Details Overlay - Frosted Glassmorphism with complete content visibility */
+/* Desktop Hover Text Details Overlay - Optical Depth-of-Field Blur */
 .hoverDetailsOverlay {
   position: absolute;
   inset: 0;
   z-index: 10;
   background: linear-gradient(
-    155deg,
-    rgba(255, 255, 255, 0.14) 0%,
-    rgba(15, 23, 42, 0.42) 35%,
-    rgba(10, 16, 26, 0.70) 100%
+    180deg,
+    rgba(0, 0, 0, 0.25) 0%,
+    rgba(0, 0, 0, 0.55) 45%,
+    rgba(0, 0, 0, 0.90) 100%
   );
-  backdrop-filter: blur(24px) saturate(180%) brightness(0.92);
-  -webkit-backdrop-filter: blur(24px) saturate(180%) brightness(0.92);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-top: 1px solid rgba(255, 255, 255, 0.38);
-  border-left: 1px solid rgba(255, 255, 255, 0.26);
-  box-shadow: 
-    inset 0 1px 1px 0 rgba(255, 255, 255, 0.35),
-    inset 0 -1px 1px 0 rgba(0, 0, 0, 0.25),
-    0 20px 45px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   padding: 2.25rem 2rem 2rem 2rem;
   display: flex;
   flex-direction: column;
@@ -366,22 +363,26 @@
 }
 
 .collectionCard:hover .hoverDetailsOverlay,
+.orderedCard:hover .hoverDetailsOverlay,
 .cardActive .hoverDetailsOverlay {
   opacity: 1;
   pointer-events: auto;
 }
 
 .collectionCard:hover .hoverContent,
+.orderedCard:hover .hoverContent,
 .cardActive .hoverContent {
   transform: translateY(0);
 }
 
 .collectionCard:hover .cardMainTitle,
+.orderedCard:hover .cardMainTitle,
 .cardActive .cardMainTitle {
   opacity: 0;
 }
 
 .collectionCard:hover .cardOverlay,
+.orderedCard:hover .cardOverlay,
 .cardActive .cardOverlay {
   opacity: 0.15;
 }
@@ -454,6 +455,13 @@
 
 .mobileTileImage {
   object-fit: cover;
+  transition: transform 0.6s ease, filter 0.6s ease;
+  will-change: transform, filter;
+}
+
+.mobileTileCard.tapped .mobileTileImage {
+  transform: scale(1.08);
+  filter: blur(8px);
 }
 
 .mobileCardMainTitle {
@@ -487,26 +495,20 @@
   letter-spacing: 0.12em;
 }
 
-/* Mobile Interactive Detail Overlay (Toggles on Tap) */
+/* Mobile Interactive Detail Overlay (Toggles on Tap) - Optical Depth-of-Field Blur */
 .mobileHoverDetailsOverlay {
   position: absolute;
   inset: 0;
   z-index: 10;
   background: linear-gradient(
-    155deg,
-    rgba(255, 255, 255, 0.14) 0%,
-    rgba(15, 23, 42, 0.45) 35%,
-    rgba(10, 16, 26, 0.72) 100%
+    180deg,
+    rgba(0, 0, 0, 0.25) 0%,
+    rgba(0, 0, 0, 0.55) 45%,
+    rgba(0, 0, 0, 0.90) 100%
   );
-  backdrop-filter: blur(24px) saturate(180%) brightness(0.92);
-  -webkit-backdrop-filter: blur(24px) saturate(180%) brightness(0.92);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-top: 1px solid rgba(255, 255, 255, 0.35);
-  border-left: 1px solid rgba(255, 255, 255, 0.25);
-  box-shadow: 
-    inset 0 1px 1px 0 rgba(255, 255, 255, 0.35),
-    inset 0 -1px 1px 0 rgba(0, 0, 0, 0.25),
-    0 20px 45px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 12px;
   padding: 1.75rem 1.5rem;
   display: flex;
@@ -541,5 +543,168 @@
     font-size: clamp(0.75rem, 3.2vw, 1rem);
     letter-spacing: 0.12em;
     margin-bottom: 0.5rem;
+  }
+}
+
+/* ========================================================================== */
+/* ORDERED GRID LAYOUT (Conventional, Responsive Grid with Multi-Image Cards) */
+/* ========================================================================== */
+.orderedSection {
+  padding: 5rem 0 10rem 0;
+  background-color: var(--color-black, #0b1012);
+  color: var(--color-taupe, #a0aab0);
+  width: 100%;
+}
+
+.introRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 3rem;
+  margin-bottom: 4rem;
+}
+
+.introParagraph {
+  font-family: var(--font-outfit), sans-serif;
+  font-size: clamp(1.1rem, 1.5vw, 1.35rem);
+  line-height: 1.65;
+  color: var(--color-taupe, #a0aab0);
+  max-width: 780px;
+}
+
+.orderedGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2.5rem;
+  width: 100%;
+  align-items: start;
+}
+
+.orderedCardWrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.orderedCard {
+  width: 100% !important;
+  height: 520px !important;
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  background-color: #12181b;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.orderedCard:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+.orderedCard .imageWrapper {
+  width: 100% !important;
+  height: 100% !important;
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.carouselSlideTrack {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+  transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+.carouselSlideItem {
+  position: relative;
+  flex: 0 0 100%;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.carouselSlideItem img {
+  object-fit: cover;
+  transition: transform 0.8s var(--ease-fluid, cubic-bezier(0.16, 1, 0.3, 1)), filter 0.8s var(--ease-fluid, cubic-bezier(0.16, 1, 0.3, 1));
+  will-change: transform, filter;
+}
+
+.orderedCard:hover .carouselSlideItem img,
+.cardActive .carouselSlideItem img {
+  transform: scale(1.08);
+  filter: blur(8px);
+}
+
+.carouselNavBelow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 0.85rem;
+  margin-left: auto;
+  margin-right: auto;
+  width: fit-content;
+  background: rgba(14, 20, 24, 0.9);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  padding: 0.35rem 0.85rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  transition: border-color 0.25s ease, background-color 0.25s ease;
+}
+
+.carouselNavBelow:hover {
+  border-color: rgba(255, 255, 255, 0.35);
+  background: rgba(20, 28, 34, 0.95);
+}
+
+.carouselArrowBtn {
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  font-size: 1.35rem;
+  line-height: 1;
+  padding: 0 0.35rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.carouselArrowBtn:hover {
+  transform: scale(1.25);
+  color: var(--color-crimson, #00b4d8);
+}
+
+.carouselCounter {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #ffffff;
+  letter-spacing: 0.1em;
+  padding: 0 0.25rem;
+}
+
+@media (max-width: 900px) {
+  .introRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2rem;
+    margin-bottom: 2.5rem;
+  }
+  .orderedGrid {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+  }
+  .orderedCard {
+    height: 420px !important;
   }
 }

@@ -80,6 +80,16 @@ export const Products: CollectionConfig = {
       ],
     },
     {
+      name: 'relatedProducts',
+      type: 'relationship',
+      relationTo: 'products',
+      hasMany: true,
+      maxRows: 4,
+      admin: {
+        description: 'Select other relevant products to recommend at the bottom of this product page.',
+      },
+    },
+    {
       name: 'relatedProductSlugs',
       type: 'array',
       fields: [{ name: 'slug', type: 'text', required: true }],

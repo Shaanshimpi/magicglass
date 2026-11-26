@@ -77,7 +77,12 @@ export const RightSectionInspector: React.FC<RightSectionInspectorProps> = ({
   })
 
   // Media Picker state
-  const [pickerTarget, setPickerTarget] = useState<{ fieldPath: string; currentValue: string } | null>(null)
+  const [pickerTarget, setPickerTarget] = useState<{
+    fieldPath: string
+    currentValue: string
+    isMultiple?: boolean
+    currentValues?: string[]
+  } | null>(null)
 
   // Project Portfolio state
   const [projectsList, setProjectsList] = useState<any[]>([])
@@ -131,11 +136,35 @@ export const RightSectionInspector: React.FC<RightSectionInspectorProps> = ({
     }
   }
 
+  // Available Projects Portfolio state for Relation Selectors
+  const [availableProjects, setAvailableProjects] = useState<any[]>([])
+
+  const fetchAvailableProjects = async () => {
+    try {
+      const res = await fetch('/api/cms/get?type=collection&slug=projects')
+      const json = await res.json()
+      if (json.success && Array.isArray(json.data) && json.data.length > 0) {
+        setAvailableProjects(json.data)
+      } else {
+        const fallback = (await import('@/data/projects_mock.json')).default
+        setAvailableProjects(fallback)
+      }
+    } catch {
+      try {
+        const fallback = (await import('@/data/projects_mock.json')).default
+        setAvailableProjects(fallback)
+      } catch {
+        // ignore
+      }
+    }
+  }
+
   // Fetch CMS data whenever activePage changes
   const fetchData = async () => {
     setLoading(true)
     setFeedback(null)
     fetchAvailableProducts()
+    fetchAvailableProjects()
     try {
       if (activePage.cmsSlug === 'projects' && activePage.cmsType === 'collection') {
         const res = await fetch('/api/cms/get?type=collection&slug=projects')
@@ -219,10 +248,32 @@ export const RightSectionInspector: React.FC<RightSectionInspectorProps> = ({
       const keys = path.split('.')
       let current = clone
       for (let i = 0; i < keys.length - 1; i++) {
-        if (!current[keys[i]]) current[keys[i]] = {}
-        current = current[keys[i]]
+        const k = keys[i]
+        const nextK = keys[i + 1]
+        if (!current[k]) {
+          current[k] = !isNaN(Number(nextK)) ? [] : {}
+        }
+        current = current[k]
       }
-      current[keys[keys.length - 1]] = val
+      const lastKey = keys[keys.length - 1]
+      current[lastKey] = val
+
+      // If updating an ImageUrl field, clear the companion upload relation field so it doesn't shadow the new URL
+      const companionMap: Record<string, string> = {
+        heroImageUrl: 'heroImage',
+        facilityImageUrl: 'facilityImage',
+        bgImageUrl: 'bgImage',
+        imageUrl: 'image',
+        featuredImageUrl: 'featuredImage',
+        portraitUrl: 'portrait',
+        avatarUrl: 'avatar',
+        logoUrl: 'logo',
+        src: 'image',
+      }
+      if (companionMap[lastKey] && current[companionMap[lastKey]] !== undefined) {
+        current[companionMap[lastKey]] = null
+      }
+
       return clone
     })
 
@@ -276,15 +327,379 @@ export const RightSectionInspector: React.FC<RightSectionInspectorProps> = ({
   }
 
   // Helper for MediaPicker
-  const openMediaPicker = (fieldPath: string, currentValue: string) => {
-    setPickerTarget({ fieldPath, currentValue })
+  const openMediaPicker = (
+    fieldPath: string,
+    currentValue: string,
+    isMultiple = false,
+    currentValues: string[] = []
+  ) => {
+    setPickerTarget({ fieldPath, currentValue, isMultiple, currentValues })
   }
 
   const handleMediaSelect = (selectedUrl: string) => {
     if (pickerTarget) {
-      handleFieldChange(pickerTarget.fieldPath, selectedUrl)
+      // 1. Projects portfolio single-item showcase asset
+      if (
+        pickerTarget.fieldPath.startsWith('projects.') ||
+        /^\d+\.(imageUrl|image)$/.test(pickerTarget.fieldPath) ||
+        (activePage.cmsSlug === 'projects' && pickerTarget.fieldPath.endsWith('.imageUrl'))
+      ) {
+        let targetIdx = -1
+        if (pickerTarget.fieldPath.startsWith('projects.')) {
+          const slug = pickerTarget.fieldPath.replace(/^projects\./, '').replace(/\.(imageUrl|image)$/, '')
+          targetIdx = projectsList.findIndex((p) => p.slug === slug)
+        } else if (/^\d+\.(imageUrl|image)$/.test(pickerTarget.fieldPath)) {
+          targetIdx = parseInt(pickerTarget.fieldPath.split('.')[0], 10)
+        }
+
+        if (targetIdx >= 0 && targetIdx < projectsList.length) {
+          const updated = [...projectsList]
+          updated[targetIdx] = {
+            ...updated[targetIdx],
+            imageUrl: selectedUrl,
+            image: null,
+          }
+          setProjectsList(updated)
+          setData(updated)
+          setPickerTarget(null)
+          return
+        }
+      }
+
+      if (pickerTarget.fieldPath.includes('.__append_image__')) {
+        const parts = pickerTarget.fieldPath.split('.')
+        const fieldName = parts[0]
+        const idx = parseInt(parts[1], 10)
+        if (!isNaN(idx) && Array.isArray(data?.[fieldName])) {
+          const updated = [...data[fieldName]]
+          const existing = updated[idx] || {}
+          const currentList = Array.isArray(existing.images) && existing.images.length > 0
+            ? existing.images.map((im: any) => typeof im === 'string' ? im : im.imageUrl || im.image?.url || '').filter(Boolean)
+            : (existing.imageUrl ? [existing.imageUrl] : [])
+          if (!currentList.includes(selectedUrl)) {
+            currentList.push(selectedUrl)
+          }
+          updated[idx] = {
+            ...existing,
+            imageUrl: currentList[0] || '',
+            image: null,
+            images: currentList.map((u: string) => ({ imageUrl: u, image: null })),
+          }
+          handleFieldChange(fieldName, updated)
+        }
+      } else if (pickerTarget.fieldPath.includes('.images.') && pickerTarget.fieldPath.includes('.imageUrl')) {
+        const parts = pickerTarget.fieldPath.split('.')
+        const fieldName = parts[0]
+        const idx = parseInt(parts[1], 10)
+        const imgIdx = parseInt(parts[3], 10)
+        if (!isNaN(idx) && !isNaN(imgIdx) && Array.isArray(data?.[fieldName])) {
+          const updated = [...data[fieldName]]
+          const existing = updated[idx] || {}
+          const currentList = Array.isArray(existing.images) && existing.images.length > 0
+            ? existing.images.map((im: any) => typeof im === 'string' ? im : im.imageUrl || im.image?.url || '').filter(Boolean)
+            : (existing.imageUrl ? [existing.imageUrl] : [])
+          currentList[imgIdx] = selectedUrl
+          updated[idx] = {
+            ...existing,
+            imageUrl: currentList[0] || '',
+            image: null,
+            images: currentList.map((u: string) => ({ imageUrl: u, image: null })),
+          }
+          handleFieldChange(fieldName, updated)
+        }
+      } else {
+        handleFieldChange(pickerTarget.fieldPath, selectedUrl)
+      }
       setPickerTarget(null)
     }
+  }
+
+  const handleMediaSelectMultiple = (selectedUrls: string[]) => {
+    if (pickerTarget) {
+      if (pickerTarget.fieldPath.includes('.__multi_images__')) {
+        const parts = pickerTarget.fieldPath.split('.')
+        const fieldName = parts[0]
+        const idx = parseInt(parts[1], 10)
+        if (!isNaN(idx) && Array.isArray(data?.[fieldName])) {
+          const updated = [...data[fieldName]]
+          const existing = updated[idx] || {}
+          updated[idx] = {
+            ...existing,
+            imageUrl: selectedUrls[0] || '',
+            image: null,
+            images: selectedUrls.map((u) => ({ imageUrl: u, image: null })),
+          }
+          handleFieldChange(fieldName, updated)
+        }
+      } else if (pickerTarget.fieldPath === 'sliderImages.__multi_append__') {
+        const existing = Array.isArray(data?.sliderImages) ? [...data.sliderImages] : []
+        const pool = projectsList.length > 0 ? projectsList : availableProjects
+        selectedUrls.forEach((url) => {
+          const matchedProj = pool.find((p: any) =>
+            (p.imageUrl && p.imageUrl === url) || (p.image?.url && p.image.url === url)
+          )
+          if (matchedProj) {
+            existing.push({
+              slug: matchedProj.slug || matchedProj.id,
+              title: matchedProj.title || '',
+              developer: matchedProj.developer || '',
+              location: matchedProj.location || '',
+              category: matchedProj.category || '',
+              src: url,
+            })
+          } else {
+            existing.push({
+              title: '',
+              developer: '',
+              location: '',
+              category: '',
+              src: url,
+            })
+          }
+        })
+        handleFieldChange('sliderImages', existing)
+      } else if (pickerTarget.fieldPath === 'galleryImages.__multi_append__') {
+        const existing = Array.isArray(data?.galleryImages) ? [...data.galleryImages] : []
+        selectedUrls.forEach((url) => {
+          existing.push({
+            title: 'APPLICATION',
+            src: url,
+          })
+        })
+        handleFieldChange('galleryImages', existing)
+      } else {
+        handleFieldChange(pickerTarget.fieldPath, selectedUrls)
+      }
+      setPickerTarget(null)
+    }
+  }
+
+  // Helper to render a multi-image picker and gallery manager for cards
+  const renderMultiMediaControl = (
+    label: string,
+    itemIdx: number,
+    item: any,
+    fieldName = 'industries'
+  ) => {
+    const currentImages: string[] = []
+    if (Array.isArray(item.images) && item.images.length > 0) {
+      item.images.forEach((im: any) => {
+        const u = typeof im === 'string' ? im : im?.imageUrl || im?.image?.url || ''
+        if (u && !currentImages.includes(u)) currentImages.push(u)
+      })
+    }
+    if (currentImages.length === 0 && (item.imageUrl || item.image?.url)) {
+      currentImages.push(item.imageUrl || item.image?.url)
+    }
+
+    const updateItemImages = (newImagesList: string[]) => {
+      const updated = [...(data?.[fieldName] || [])]
+      const existing = updated[itemIdx] || {}
+      updated[itemIdx] = {
+        ...existing,
+        imageUrl: newImagesList[0] || '',
+        image: null,
+        images: newImagesList.map((u) => ({ imageUrl: u, image: null })),
+      }
+      handleFieldChange(fieldName, updated)
+    }
+
+    const handleRemoveImage = (imgIdx: number) => {
+      const next = currentImages.filter((_, i) => i !== imgIdx)
+      updateItemImages(next)
+    }
+
+    const handleMoveImage = (fromIdx: number, toIdx: number) => {
+      if (toIdx < 0 || toIdx >= currentImages.length) return
+      const next = [...currentImages]
+      const [moved] = next.splice(fromIdx, 1)
+      next.splice(toIdx, 0, moved)
+      updateItemImages(next)
+    }
+
+    return (
+      <div className={styles.fieldGroup} style={{ marginTop: '14px', marginBottom: '14px' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+          <div>
+            <label className={styles.fieldLabel} style={{ margin: 0, fontWeight: 600, color: '#f1f5f9' }}>
+              {label}
+            </label>
+            <div style={{ fontSize: '11px', color: '#94a3b8', marginTop: '2px' }}>
+              {currentImages.length > 1
+                ? `✓ ${currentImages.length} images selected (multi-image carousel active)`
+                : currentImages.length === 1
+                ? '1 image selected (add more to enable card carousel)'
+                : 'No image selected'}
+            </div>
+          </div>
+          <button
+            type="button"
+            className={styles.actionIconBtn}
+            onClick={() =>
+              openMediaPicker(
+                `${fieldName}.${itemIdx}.__multi_images__`,
+                currentImages[0] || '',
+                true,
+                currentImages
+              )
+            }
+            style={{ padding: '4px 10px', fontSize: '11px', display: 'flex', alignItems: 'center', gap: '5px' }}
+          >
+            <FiFolder size={12} /> Choose Multiple
+          </button>
+        </div>
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+          {currentImages.map((imgUrl, imgIdx) => (
+            <div
+              key={imgIdx}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '10px',
+                padding: '6px 10px',
+                background: 'rgba(255, 255, 255, 0.03)',
+                border: imgIdx === 0 ? '1px solid rgba(197, 168, 128, 0.35)' : '1px solid rgba(255, 255, 255, 0.08)',
+                borderRadius: '8px',
+              }}
+            >
+              <div
+                style={{
+                  width: '40px',
+                  height: '40px',
+                  borderRadius: '6px',
+                  overflow: 'hidden',
+                  position: 'relative',
+                  flexShrink: 0,
+                  background: '#1e293b',
+                }}
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={imgUrl}
+                  alt={`Photo ${imgIdx + 1}`}
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                />
+              </div>
+
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                  <span
+                    style={{
+                      fontSize: '10px',
+                      fontWeight: 700,
+                      padding: '1px 6px',
+                      borderRadius: '4px',
+                      background: imgIdx === 0 ? 'rgba(197, 168, 128, 0.2)' : 'rgba(255, 255, 255, 0.08)',
+                      color: imgIdx === 0 ? '#c5a880' : '#94a3b8',
+                    }}
+                  >
+                    {imgIdx === 0 ? '★ Primary Cover' : `Slide ${imgIdx + 1}`}
+                  </span>
+                </div>
+                <div
+                  style={{
+                    fontSize: '11px',
+                    color: '#94a3b8',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    whiteSpace: 'nowrap',
+                    marginTop: '2px',
+                  }}
+                  title={imgUrl}
+                >
+                  {imgUrl}
+                </div>
+              </div>
+
+              <div style={{ display: 'flex', alignItems: 'center', gap: '4px', flexShrink: 0 }}>
+                {imgIdx > 0 && (
+                  <button
+                    type="button"
+                    title="Move up"
+                    onClick={() => handleMoveImage(imgIdx, imgIdx - 1)}
+                    style={{
+                      background: 'none',
+                      border: 'none',
+                      color: '#94a3b8',
+                      cursor: 'pointer',
+                      padding: '3px 5px',
+                      fontSize: '11px',
+                    }}
+                  >
+                    ▲
+                  </button>
+                )}
+                {imgIdx < currentImages.length - 1 && (
+                  <button
+                    type="button"
+                    title="Move down"
+                    onClick={() => handleMoveImage(imgIdx, imgIdx + 1)}
+                    style={{
+                      background: 'none',
+                      border: 'none',
+                      color: '#94a3b8',
+                      cursor: 'pointer',
+                      padding: '3px 5px',
+                      fontSize: '11px',
+                    }}
+                  >
+                    ▼
+                  </button>
+                )}
+                <button
+                  type="button"
+                  className={styles.mediaPickBtn}
+                  onClick={() =>
+                    openMediaPicker(
+                      `${fieldName}.${itemIdx}.images.${imgIdx}.imageUrl`,
+                      imgUrl
+                    )
+                  }
+                  style={{ padding: '3px 8px', fontSize: '11px' }}
+                >
+                  <FiFolder size={11} /> Replace
+                </button>
+                <button
+                  type="button"
+                  className={styles.deleteIconBtn}
+                  onClick={() => handleRemoveImage(imgIdx)}
+                  title="Remove image"
+                  style={{ padding: '3px 6px' }}
+                >
+                  <FiTrash2 size={12} />
+                </button>
+              </div>
+            </div>
+          ))}
+
+          <button
+            type="button"
+            onClick={() => {
+              openMediaPicker(`${fieldName}.${itemIdx}.__append_image__`, '')
+            }}
+            style={{
+              padding: '6px 12px',
+              background: 'rgba(255, 255, 255, 0.03)',
+              border: '1px dashed rgba(255, 255, 255, 0.15)',
+              borderRadius: '6px',
+              color: '#c5a880',
+              fontSize: '11px',
+              fontWeight: 500,
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '6px',
+              marginTop: '4px',
+              transition: 'all 0.2s ease',
+            }}
+          >
+            <FiPlus size={12} /> + Add Another Photo
+          </button>
+        </div>
+      </div>
+    )
   }
 
   // Helper to render a visual image picker control
@@ -523,9 +938,8 @@ export const RightSectionInspector: React.FC<RightSectionInspectorProps> = ({
         {/* Feedback Alert */}
         {feedback && (
           <div
-            className={`${styles.feedbackToast} ${
-              feedback.type === 'success' ? styles.toastSuccess : styles.toastError
-            }`}
+            className={`${styles.feedbackToast} ${feedback.type === 'success' ? styles.toastSuccess : styles.toastError
+              }`}
           >
             {feedback.type === 'success' ? <FiCheckCircle /> : <FiAlertCircle />}
             <span>{feedback.message}</span>
@@ -781,7 +1195,12 @@ export const RightSectionInspector: React.FC<RightSectionInspectorProps> = ({
                   )}
                 </div>
 
-                {/* 04. APPLICATIONS GALLERY */}
+                {/* =========================================================================
+                    TEMPORARILY COMMENTED OUT: Removed from frontend PDP layout
+                    04. Glass Applications Gallery (galleryTitle, galleryImages)
+                    To restore, uncomment this block.
+                    ========================================================================= */}
+                {/*
                 <div className={styles.accordionCard}>
                   <div className={styles.accordionHeader} onClick={() => toggleSection('gallery')}>
                     <span className={styles.accordionTitle}>04. Glass Applications Gallery</span>
@@ -802,17 +1221,29 @@ export const RightSectionInspector: React.FC<RightSectionInspectorProps> = ({
                       <div style={{ marginTop: 12 }}>
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
                           <label className={styles.fieldLabel} style={{ margin: 0 }}>Application Cards</label>
-                          <button
-                            type="button"
-                            className={styles.actionIconBtn}
-                            onClick={() => {
-                              const existing = Array.isArray(data?.galleryImages) ? [...data.galleryImages] : []
-                              existing.push({ title: 'NEW APPLICATION', src: '/images/products/details/partitions.png' })
-                              handleFieldChange('galleryImages', existing)
-                            }}
-                          >
-                            <FiPlus size={12} /> Add Card
-                          </button>
+                          <div style={{ display: 'flex', gap: 6 }}>
+                            <button
+                              type="button"
+                              className={styles.actionIconBtn}
+                              onClick={() => {
+                                openMediaPicker('galleryImages.__multi_append__', '', true, [])
+                              }}
+                              style={{ display: 'flex', alignItems: 'center', gap: 5 }}
+                            >
+                              <FiFolder size={12} /> Choose Multiple
+                            </button>
+                            <button
+                              type="button"
+                              className={styles.actionIconBtn}
+                              onClick={() => {
+                                const existing = Array.isArray(data?.galleryImages) ? [...data.galleryImages] : []
+                                existing.push({ title: 'NEW APPLICATION', src: '/images/products/details/partitions.png' })
+                                handleFieldChange('galleryImages', existing)
+                              }}
+                            >
+                              <FiPlus size={12} /> Add Card
+                            </button>
+                          </div>
                         </div>
                         {Array.isArray(data?.galleryImages) &&
                           data.galleryImages.map((gItem: any, gIdx: number) => (
@@ -851,112 +1282,201 @@ export const RightSectionInspector: React.FC<RightSectionInspectorProps> = ({
                     </div>
                   )}
                 </div>
+                */}
 
-                {/* 05. DISCOVER ARCHITECTURAL SLIDER */}
+                {/* 04. FEATURED INSTALLATIONS SLIDER (RELATION-BASED) */}
                 <div className={styles.accordionCard}>
                   <div className={styles.accordionHeader} onClick={() => toggleSection('discover')}>
-                    <span className={styles.accordionTitle}>05. Discover Architectural Slider</span>
+                    <span className={styles.accordionTitle}>04. Featured Installations Slider</span>
                     {openSections.discover ? <FiChevronUp /> : <FiChevronDown />}
                   </div>
                   {openSections.discover && (
                     <div className={styles.accordionBody}>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                        <label className={styles.fieldLabel} style={{ margin: 0 }}>Featured Installation Slider Images</label>
-                        <button
-                          type="button"
-                          className={styles.actionIconBtn}
-                          onClick={() => {
-                            const existing = Array.isArray(data?.sliderImages) ? [...data.sliderImages] : []
-                            existing.push({ src: '/images/hero-bg.jpg' })
-                            handleFieldChange('sliderImages', existing)
-                          }}
-                        >
-                          <FiPlus size={12} /> Add Image
-                        </button>
+                        <label className={styles.fieldLabel} style={{ margin: 0 }}>Featured Installation Slides</label>
+                        <div style={{ display: 'flex', gap: 6 }}>
+                          <button
+                            type="button"
+                            className={styles.actionIconBtn}
+                            onClick={() => {
+                              openMediaPicker('sliderImages.__multi_append__', '', true, [])
+                            }}
+                            style={{ display: 'flex', alignItems: 'center', gap: 5 }}
+                          >
+                            <FiFolder size={12} /> Choose Multiple
+                          </button>
+                          <button
+                            type="button"
+                            className={styles.actionIconBtn}
+                            onClick={() => {
+                              const existing = Array.isArray(data?.sliderImages) ? [...data.sliderImages] : []
+                              const pool = projectsList.length > 0 ? projectsList : availableProjects
+                              const firstProj = pool[0]
+                              if (firstProj) {
+                                existing.push({
+                                  slug: firstProj.slug || firstProj.id,
+                                  title: firstProj.title || '',
+                                  developer: firstProj.developer || '',
+                                  location: firstProj.location || '',
+                                  category: firstProj.category || '',
+                                  src: firstProj.imageUrl || firstProj.image?.url || firstProj.image || '/images/hero-bg.jpg',
+                                })
+                              } else {
+                                existing.push({ src: '/images/hero-bg.jpg' })
+                              }
+                              handleFieldChange('sliderImages', existing)
+                            }}
+                          >
+                            <FiPlus size={12} /> Add Installation
+                          </button>
+                        </div>
                       </div>
 
                       {Array.isArray(data?.sliderImages) &&
-                        data.sliderImages.map((sItem: any, sIdx: number) => (
-                          <div key={sIdx} style={{ padding: '8px 10px', background: '#0e1726', borderRadius: 6, marginBottom: 8, border: '1px solid rgba(255,255,255,0.06)' }}>
-                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
-                              <span style={{ fontSize: '11px', color: '#c5a880', fontWeight: 600 }}>Slider Slide {sIdx + 1}</span>
-                              <button
-                                type="button"
-                                className={styles.deleteIconBtn}
-                                style={{ padding: '3px 6px' }}
-                                onClick={() => {
-                                  const updated = data.sliderImages.filter((_: any, i: number) => i !== sIdx)
-                                  handleFieldChange('sliderImages', updated)
-                                }}
-                              >
-                                <FiTrash2 size={12} />
-                              </button>
-                            </div>
-                            <div className={styles.fieldGroup}>
-                              <label className={styles.fieldLabel}>Linked Project Title</label>
-                              <input
-                                type="text"
-                                className={styles.inputControl}
-                                value={typeof sItem === 'string' ? '' : sItem.title || ''}
-                                onChange={(e) => {
-                                  const updated = [...data.sliderImages]
-                                  updated[sIdx] = {
-                                    ...(typeof sItem === 'string' ? { src: sItem } : sItem),
-                                    title: e.target.value,
-                                  }
-                                  handleFieldChange('sliderImages', updated)
-                                }}
-                                placeholder="e.g. Balmoral by Riverside"
-                              />
-                            </div>
-                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
+                        data.sliderImages.map((sItem: any, sIdx: number) => {
+                          const pool = projectsList.length > 0 ? projectsList : availableProjects
+                          const currentSlug = typeof sItem === 'object' ? (sItem.slug || sItem.id || '') : ''
+                          const matchedProject = pool.find((p: any) =>
+                            (currentSlug && (p.slug === currentSlug || p.id === currentSlug)) ||
+                            (sItem?.title && p.title && p.title.trim().toLowerCase() === sItem.title.trim().toLowerCase())
+                          )
+
+                          return (
+                            <div key={sIdx} style={{ padding: '12px', background: '#0e1726', borderRadius: 8, marginBottom: 12, border: '1px solid rgba(255,255,255,0.06)' }}>
+                              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
+                                <span style={{ fontSize: '11px', color: '#c5a880', fontWeight: 600 }}>
+                                  Slide {sIdx + 1} {matchedProject ? `• ${matchedProject.title}` : ''}
+                                </span>
+                                <button
+                                  type="button"
+                                  className={styles.deleteIconBtn}
+                                  style={{ padding: '3px 6px' }}
+                                  onClick={() => {
+                                    const updated = data.sliderImages.filter((_: any, i: number) => i !== sIdx)
+                                    handleFieldChange('sliderImages', updated)
+                                  }}
+                                  title="Remove slide"
+                                >
+                                  <FiTrash2 size={12} />
+                                </button>
+                              </div>
+
+                              {/* Project Relation Dropdown */}
+                              <div className={styles.fieldGroup} style={{ marginBottom: 10 }}>
+                                <label className={styles.fieldLabel} style={{ color: '#60a5fa', fontWeight: 600, display: 'flex', justifyContent: 'space-between' }}>
+                                  <span>Select from Projects Portfolio</span>
+                                  {matchedProject && (
+                                    <span style={{ fontSize: '10px', color: '#10b981', fontWeight: 500 }}>
+                                      ✓ Linked: <code>{matchedProject.slug || matchedProject.id}</code>
+                                    </span>
+                                  )}
+                                </label>
+                                <select
+                                  className={styles.productCatalogSelectControl}
+                                  value={matchedProject?.slug || matchedProject?.id || currentSlug || ''}
+                                  onChange={(e) => {
+                                    const selectedSlug = e.target.value
+                                    const chosen = pool.find((p: any) => p.slug === selectedSlug || p.id === selectedSlug)
+                                    const updated = [...data.sliderImages]
+                                    if (chosen) {
+                                      updated[sIdx] = {
+                                        ...(typeof sItem === 'string' ? {} : sItem),
+                                        slug: chosen.slug || chosen.id,
+                                        title: chosen.title || '',
+                                        developer: chosen.developer || '',
+                                        location: chosen.location || '',
+                                        category: chosen.category || '',
+                                        src: chosen.imageUrl || chosen.image?.url || chosen.image || (typeof sItem === 'object' ? sItem.src : sItem) || '',
+                                      }
+                                    } else {
+                                      updated[sIdx] = {
+                                        ...(typeof sItem === 'string' ? { src: sItem } : sItem),
+                                        slug: '',
+                                      }
+                                    }
+                                    handleFieldChange('sliderImages', updated)
+                                  }}
+                                >
+                                  <option value="">-- Choose Project Record --</option>
+                                  {pool.map((p: any) => (
+                                    <option key={p.slug || p.id} value={p.slug || p.id}>
+                                      {p.title} {p.category ? `• ${p.category}` : ''} {p.location ? `(${p.location})` : ''}
+                                    </option>
+                                  ))}
+                                </select>
+                              </div>
+
                               <div className={styles.fieldGroup}>
-                                <label className={styles.fieldLabel}>Developer</label>
+                                <label className={styles.fieldLabel}>Display Title</label>
                                 <input
                                   type="text"
                                   className={styles.inputControl}
-                                  value={typeof sItem === 'string' ? '' : sItem.developer || ''}
+                                  value={typeof sItem === 'string' ? '' : sItem.title || ''}
                                   onChange={(e) => {
                                     const updated = [...data.sliderImages]
                                     updated[sIdx] = {
                                       ...(typeof sItem === 'string' ? { src: sItem } : sItem),
-                                      developer: e.target.value,
+                                      title: e.target.value,
                                     }
                                     handleFieldChange('sliderImages', updated)
                                   }}
-                                  placeholder="e.g. Kasturi Builder"
+                                  placeholder="e.g. Balmoral by Riverside"
                                 />
                               </div>
-                              <div className={styles.fieldGroup}>
-                                <label className={styles.fieldLabel}>Location</label>
-                                <input
-                                  type="text"
-                                  className={styles.inputControl}
-                                  value={typeof sItem === 'string' ? '' : sItem.location || ''}
-                                  onChange={(e) => {
-                                    const updated = [...data.sliderImages]
-                                    updated[sIdx] = {
-                                      ...(typeof sItem === 'string' ? { src: sItem } : sItem),
-                                      location: e.target.value,
-                                    }
-                                    handleFieldChange('sliderImages', updated)
-                                  }}
-                                  placeholder="e.g. Baner, Pune"
-                                />
+                              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
+                                <div className={styles.fieldGroup}>
+                                  <label className={styles.fieldLabel}>Developer</label>
+                                  <input
+                                    type="text"
+                                    className={styles.inputControl}
+                                    value={typeof sItem === 'string' ? '' : sItem.developer || ''}
+                                    onChange={(e) => {
+                                      const updated = [...data.sliderImages]
+                                      updated[sIdx] = {
+                                        ...(typeof sItem === 'string' ? { src: sItem } : sItem),
+                                        developer: e.target.value,
+                                      }
+                                      handleFieldChange('sliderImages', updated)
+                                    }}
+                                    placeholder="e.g. Kasturi Builder"
+                                  />
+                                </div>
+                                <div className={styles.fieldGroup}>
+                                  <label className={styles.fieldLabel}>Location</label>
+                                  <input
+                                    type="text"
+                                    className={styles.inputControl}
+                                    value={typeof sItem === 'string' ? '' : sItem.location || ''}
+                                    onChange={(e) => {
+                                      const updated = [...data.sliderImages]
+                                      updated[sIdx] = {
+                                        ...(typeof sItem === 'string' ? { src: sItem } : sItem),
+                                        location: e.target.value,
+                                      }
+                                      handleFieldChange('sliderImages', updated)
+                                    }}
+                                    placeholder="e.g. Baner, Pune"
+                                  />
+                                </div>
                               </div>
+                              {renderMediaControl(
+                                `Slide Image ${sIdx + 1}`,
+                                `sliderImages.${sIdx}.src`,
+                                typeof sItem === 'string' ? sItem : sItem.src || sItem.image?.url || ''
+                              )}
                             </div>
-                            {renderMediaControl(
-                              `Slide Image ${sIdx + 1}`,
-                              `sliderImages.${sIdx}.src`,
-                              typeof sItem === 'string' ? sItem : sItem.src || sItem.image?.url || ''
-                            )}
-                          </div>
-                        ))}
+                          )
+                        })}
                     </div>
                   )}
                 </div>
 
-                {/* 06. INDUSTRY SECTOR FOCUS */}
+                {/* =========================================================================
+                    TEMPORARILY COMMENTED OUT: Removed from frontend PDP layout
+                    06. Sector Focus / Our Industry (industries)
+                    To restore, uncomment this block.
+                    ========================================================================= */}
+                {/*
                 <div className={styles.accordionCard}>
                   <div className={styles.accordionHeader} onClick={() => toggleSection('industries')}>
                     <span className={styles.accordionTitle}>06. Sector Focus / Our Industry</span>
@@ -1037,55 +1557,82 @@ export const RightSectionInspector: React.FC<RightSectionInspectorProps> = ({
                     </div>
                   )}
                 </div>
+                */}
 
-                {/* 07. RELATED PRODUCTS */}
+                {/* 05. RELATED PRODUCTS NAVIGATION (RELATION-BASED) */}
                 <div className={styles.accordionCard}>
                   <div className={styles.accordionHeader} onClick={() => toggleSection('related')}>
-                    <span className={styles.accordionTitle}>07. Related Products Navigation</span>
+                    <span className={styles.accordionTitle}>05. Related Products Navigation</span>
                     {openSections.related ? <FiChevronUp /> : <FiChevronDown />}
                   </div>
                   {openSections.related && (
                     <div className={styles.accordionBody}>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                        <label className={styles.fieldLabel} style={{ margin: 0 }}>Related Product Slugs</label>
+                        <label className={styles.fieldLabel} style={{ margin: 0 }}>Linked Related Products</label>
                         <button
                           type="button"
                           className={styles.actionIconBtn}
                           onClick={() => {
                             const existing = Array.isArray(data?.relatedProductSlugs) ? [...data.relatedProductSlugs] : []
-                            existing.push({ slug: 'clear-glass' })
-                            handleFieldChange('relatedProductSlugs', existing)
+                            const existingSlugs = existing.map((r: any) => typeof r === 'string' ? r : r.slug)
+                            const selectable = availableProducts.filter(
+                              (p: any) => (p.slug || p.id) !== activePage.itemSlug
+                            )
+                            const nextUnselected = selectable.find((p: any) => !existingSlugs.includes(p.slug || p.id))
+                            const slugToUse = nextUnselected ? (nextUnselected.slug || nextUnselected.id) : (selectable[0]?.slug || selectable[0]?.id || '')
+                            if (slugToUse) {
+                              existing.push({ slug: slugToUse })
+                              handleFieldChange('relatedProductSlugs', existing)
+                            }
                           }}
                         >
                           <FiPlus size={12} /> Add Related
                         </button>
                       </div>
                       {Array.isArray(data?.relatedProductSlugs) &&
-                        data.relatedProductSlugs.map((rItem: any, rIdx: number) => (
-                          <div key={rIdx} style={{ display: 'flex', gap: 6, marginBottom: 6 }}>
-                            <input
-                              type="text"
-                              className={styles.inputControl}
-                              value={typeof rItem === 'string' ? rItem : rItem.slug || ''}
-                              onChange={(e) => {
-                                const updated = [...data.relatedProductSlugs]
-                                updated[rIdx] = { slug: e.target.value }
-                                handleFieldChange('relatedProductSlugs', updated)
-                              }}
-                              placeholder="e.g. insulated-glass-dgu, laminated-glass"
-                            />
-                            <button
-                              type="button"
-                              className={styles.deleteIconBtn}
-                              onClick={() => {
-                                const updated = data.relatedProductSlugs.filter((_: any, i: number) => i !== rIdx)
-                                handleFieldChange('relatedProductSlugs', updated)
-                              }}
-                            >
-                              <FiTrash2 size={13} />
-                            </button>
-                          </div>
-                        ))}
+                        data.relatedProductSlugs.map((rItem: any, rIdx: number) => {
+                          const currentSlug = typeof rItem === 'string' ? rItem : (rItem.slug || '')
+                          const selectable = availableProducts.filter(
+                            (p: any) => (p.slug || p.id) !== activePage.itemSlug
+                          )
+
+                          return (
+                            <div key={rIdx} style={{ display: 'flex', gap: 8, marginBottom: 8, alignItems: 'center' }}>
+                              <div style={{ flex: 1 }}>
+                                <select
+                                  className={styles.productCatalogSelectControl}
+                                  value={currentSlug}
+                                  onChange={(e) => {
+                                    const updated = [...data.relatedProductSlugs]
+                                    updated[rIdx] = { slug: e.target.value }
+                                    handleFieldChange('relatedProductSlugs', updated)
+                                  }}
+                                >
+                                  <option value="" disabled>-- Select a Related Product --</option>
+                                  {selectable.map((prod: any) => {
+                                    const pSlug = prod.slug || prod.id
+                                    return (
+                                      <option key={pSlug} value={pSlug}>
+                                        {prod.title} {prod.category ? `(${prod.category})` : ''}
+                                      </option>
+                                    )
+                                  })}
+                                </select>
+                              </div>
+                              <button
+                                type="button"
+                                className={styles.deleteIconBtn}
+                                onClick={() => {
+                                  const updated = data.relatedProductSlugs.filter((_: any, i: number) => i !== rIdx)
+                                  handleFieldChange('relatedProductSlugs', updated)
+                                }}
+                                title="Remove related product"
+                              >
+                                <FiTrash2 size={13} />
+                              </button>
+                            </div>
+                          )
+                        })}
                     </div>
                   )}
                 </div>
@@ -1262,9 +1809,8 @@ export const RightSectionInspector: React.FC<RightSectionInspectorProps> = ({
                       return (
                         <div
                           key={project.slug || pIdx}
-                          className={`${styles.projectCardItem} ${isDragging ? styles.isDragging : ''} ${
-                            isDragOver && dragDropPosition === 'top' ? styles.dragOverTop : ''
-                          } ${isDragOver && dragDropPosition === 'bottom' ? styles.dragOverBottom : ''}`}
+                          className={`${styles.projectCardItem} ${isDragging ? styles.isDragging : ''} ${isDragOver && dragDropPosition === 'top' ? styles.dragOverTop : ''
+                            } ${isDragOver && dragDropPosition === 'bottom' ? styles.dragOverBottom : ''}`}
                           draggable={!isExpanded}
                           onDragStart={(e) => {
                             if (isExpanded) return
@@ -1513,7 +2059,7 @@ export const RightSectionInspector: React.FC<RightSectionInspectorProps> = ({
 
                               {renderMediaControl(
                                 'Project Showcase Asset',
-                                `${actualIdx}.imageUrl`,
+                                `projects.${project.slug}.imageUrl`,
                                 project.imageUrl || project.image?.url || ''
                               )}
 
@@ -1902,10 +2448,11 @@ export const RightSectionInspector: React.FC<RightSectionInspectorProps> = ({
                                 }}
                               />
                             </div>
-                            {renderMediaControl(
-                              `Visual Showcase Image`,
-                              `industries.${iIdx}.imageUrl`,
-                              ind.imageUrl || ind.image?.url || ''
+                            {renderMultiMediaControl(
+                              `Visual Showcase Photos (Multi-Image)`,
+                              iIdx,
+                              ind,
+                              'industries'
                             )}
                           </div>
                         ))}
@@ -2019,10 +2566,11 @@ export const RightSectionInspector: React.FC<RightSectionInspectorProps> = ({
                                 }}
                               />
                             </div>
-                            {renderMediaControl(
-                              `Machinery Photo`,
-                              `industries.${mIdx}.imageUrl`,
-                              mach.imageUrl || mach.image?.url || ''
+                            {renderMultiMediaControl(
+                              `Machinery Photos (Multi-Image)`,
+                              mIdx,
+                              mach,
+                              'industries'
                             )}
                           </div>
                         ))}
@@ -2700,13 +3248,41 @@ export const RightSectionInspector: React.FC<RightSectionInspectorProps> = ({
                               }}
                               placeholder="Partner Name (e.g. Godrej Properties)"
                             />
+                            <div
+                              onClick={() => openMediaPicker(`trustBanner.partners.${pIdx}.logoUrl`, partner.logoUrl || '')}
+                              title={partner.logoUrl || 'No logo chosen - click to choose'}
+                              style={{
+                                width: 36,
+                                height: 36,
+                                borderRadius: 6,
+                                border: '1px solid rgba(255, 255, 255, 0.1)',
+                                background: '#111827',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                cursor: 'pointer',
+                                overflow: 'hidden',
+                                flexShrink: 0,
+                              }}
+                            >
+                              {partner.logoUrl ? (
+                                /* eslint-disable-next-line @next/next/no-img-element */
+                                <img
+                                  src={partner.logoUrl}
+                                  alt={partner.name || 'Partner Logo'}
+                                  style={{ width: '100%', height: '100%', objectFit: 'contain', padding: 2 }}
+                                />
+                              ) : (
+                                <FiImage size={14} color="#64748b" />
+                              )}
+                            </div>
                             <button
                               type="button"
                               className={styles.mediaPickBtn}
                               style={{ width: 'auto', padding: '6px 10px', height: '36px' }}
                               onClick={() => openMediaPicker(`trustBanner.partners.${pIdx}.logoUrl`, partner.logoUrl || '')}
                             >
-                              <FiFolder size={12} /> Logo
+                              <FiFolder size={12} /> {partner.logoUrl ? 'Change' : 'Logo'}
                             </button>
                             <button
                               type="button"
@@ -3029,7 +3605,10 @@ export const RightSectionInspector: React.FC<RightSectionInspectorProps> = ({
       <MediaPickerModal
         isOpen={Boolean(pickerTarget)}
         currentValue={pickerTarget?.currentValue || ''}
+        currentValues={pickerTarget?.currentValues || []}
+        multiple={Boolean(pickerTarget?.isMultiple)}
         onSelect={handleMediaSelect}
+        onSelectMultiple={handleMediaSelectMultiple}
         onClose={() => setPickerTarget(null)}
       />
 

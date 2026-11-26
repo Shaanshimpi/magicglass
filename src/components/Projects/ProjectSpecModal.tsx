@@ -110,10 +110,10 @@ export const ProjectSpecModal: React.FC<ProjectSpecModalProps> = ({
                 <span className={styles.specValue}>{project.glassDescription}</span>
               </div>
 
-              {project.areaSqMtr && (
+              {Boolean(project.areaSqMtr && Number(project.areaSqMtr) > 0) && (
                 <div className={styles.specItem}>
                   <span className={styles.specLabel}>Glazing Volume</span>
-                  <span className={styles.specValue}>{project.areaSqMtr.toLocaleString()} Sq. Mtr</span>
+                  <span className={styles.specValue}>{Number(project.areaSqMtr).toLocaleString()} Sq. Mtr</span>
                 </div>
               )}
             </div>

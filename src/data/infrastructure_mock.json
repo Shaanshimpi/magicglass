@@ -18,6 +18,7 @@
       "title": "Cutting & Processing",
       "subtitle": "PRECISION CNC GLASS CUTTING",
       "image": "/images/infrastructure/cutting.jpg",
+      "images": ["/images/infrastructure/cutting.jpg"],
       "specs": "Dual CNC Cutting Lines & Automatic Loading Bridges (Full Backup Redundancy)",
       "description": "Our processing floor operates dual automated CNC glass cutting lines equipped with automatic loading bridges and dedicated backup cutting tables.\n\nThis redundant configuration guarantees 100% operational continuity during scheduled maintenance and volume surges, eliminating single points of failure from raw float cutting through precision edge processing."
     },
@@ -26,6 +27,7 @@
       "title": "Toughening Plant",
       "subtitle": "FORCED CONVECTION FURNACE",
       "image": "/images/infrastructure/toughening.jpg",
+      "images": ["/images/infrastructure/toughening.jpg"],
       "objectPosition": "right center",
       "specs": "Twin Forced-Convection Furnaces & Dedicated Generator Backup",
       "description": "Our tempering infrastructure features twin advanced forced-convection furnaces, providing immediate contingency load rerouting and eliminating production bottlenecks.\n\nBacked by dedicated uninterrupted power supply (UPS), industrial diesel generators, and redundant high-pressure air compressor banks, our furnaces safeguard critical air-quench cycles against any power or equipment interruption."
@@ -35,6 +37,7 @@
       "title": "Lamination & Cleanroom",
       "subtitle": "PVB & SENTRYGLAS® LAMINATING",
       "image": "/images/infrastructure/lamination.jpg",
+      "images": ["/images/infrastructure/lamination.jpg"],
       "specs": "Cleanroom Autoclave & Vacuum Bag Lamination (Max 4000 × 2500 mm)",
       "description": "Our dust-free, climate-controlled cleanroom facilities feature high-pressure autoclave lines and specialized vacuum bag lamination (up to 4000 × 2500 mm), ensuring flawless bonding of PVB, EVA, and SentryGlas® interlayers.\n\nThis dual-method capability guarantees high-impact security glass for prestigious architectural facades and oversized structural installations."
     },
@@ -43,6 +46,7 @@
       "title": "Double Glazing (DGU)",
       "subtitle": "INSULATED GLASS MANUFACTURING",
       "image": "/images/infrastructure/dgu.jpg",
+      "images": ["/images/infrastructure/dgu.jpg"],
       "specs": "Robotic DGU Sealing Line (Max 3600 × 2400 mm) & ≥90% Argon Gas Filling",
       "description": "Equipped with automated robotic DGU assembly lines handling units up to 3600 × 2400 mm, we provide precision dual structural silicone sealing and high-concentration argon gas filling (≥90% per EN 1279).\n\nEngineered to withstand harsh environmental conditions while drastically reducing building HVAC energy load."
     },
@@ -51,6 +55,7 @@
       "title": "Quality Control Center",
       "subtitle": "COMPREHENSIVE QUALITY ASSURANCE",
       "image": "/images/infrastructure/quality-lab.jpg",
+      "images": ["/images/infrastructure/quality-lab.jpg"],
       "specs": "Rigorous End-to-End Testing & International Standards",
       "description": "From raw material inception to final dispatch, every glass unit undergoes stringent multi-stage inspection.\n\nOur commitment to quality ensures every pane delivered meets international safety and architectural standards."
     }

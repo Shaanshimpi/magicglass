@@ -11,9 +11,15 @@ interface ProjectsGridProps {
   projects: ProjectItem[]
   onSelectProject: (project: ProjectItem) => void
   isLoading?: boolean
+  highlightedProjectId?: string | null
 }
 
-export const ProjectsGrid: React.FC<ProjectsGridProps> = ({ projects, onSelectProject, isLoading = false }) => {
+export const ProjectsGrid: React.FC<ProjectsGridProps> = ({
+  projects,
+  onSelectProject,
+  isLoading = false,
+  highlightedProjectId = null,
+}) => {
   const [imageErrorCounts, setImageErrorCounts] = useState<Record<string, number>>({})
 
   const handleImageError = (id: string) => {
@@ -66,10 +72,14 @@ export const ProjectsGrid: React.FC<ProjectsGridProps> = ({ projects, onSelectPr
             imgSrc = '/images/projects/the-oberoi-nariman-point.jpg'
           }
 
+          const isHighlighted = highlightedProjectId === project.id
+
           return (
             <div
               key={project.id}
-              className={styles.gridItem}
+              id={project.id}
+              data-project-id={project.id}
+              className={`${styles.gridItem} ${isHighlighted ? styles.highlightedItem : ''}`}
               onClick={() => onSelectProject(project)}
               role="button"
               tabIndex={0}

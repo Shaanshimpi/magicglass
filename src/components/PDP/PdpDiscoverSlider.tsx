@@ -136,10 +136,11 @@ export const PdpDiscoverSlider: React.FC<PdpDiscoverSliderProps> = ({
       >
         {activeImages.map((rawItem, index) => {
           const project = resolveProjectInfo(rawItem)
+          const projectHref = project.slug ? `/projects#${project.slug}` : '/projects'
           return (
             <div key={index} className={styles.slideCard}>
               <Link
-                href="/projects"
+                href={projectHref}
                 className={styles.cardLinkWrapper}
                 title={`View ${project.title} in Projects Portfolio`}
               >

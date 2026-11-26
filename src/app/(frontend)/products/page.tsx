@@ -7,6 +7,8 @@ export const metadata = {
   description: 'Explore our complete range of architectural glass systems: Toughened, Insulated DGU, Sentry Laminated, Solar Control Low-E, and Ceramic Fritted Glass.',
 }
 
+export const revalidate = 3600 // Cache static generation with 1h ISR
+
 export default async function ProductsPage() {
   const cmsData = await getProductsPageCmsData()
   return (

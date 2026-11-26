@@ -101,6 +101,7 @@ export const PdpScrubbedImage: React.FC<PdpScrubbedImageProps> = ({
         fill
         className={styles.scrubbedImage}
         sizes="(max-width: 768px) 100vw, 600px"
+        loading="lazy"
         onError={handleError}
         unoptimized={imgSrc.startsWith('http://')}
       />

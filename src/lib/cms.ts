@@ -4,7 +4,8 @@ import contactUsMock from '@/data/contact_us_mock.json'
 import industrySolutionsMock from '@/data/industry_solutions_mock.json'
 import infrastructureMock from '@/data/infrastructure_mock.json'
 import projectsMock from '@/data/projects_mock.json'
-import { PDP_MOCK_DATA, PdpProductDetail } from '@/components/PDP/pdpData'
+import { PDP_MOCK_DATA, PdpProductDetail, PdpRelatedProductItem } from '@/components/PDP/pdpData'
+import { resolveProjectInfo, PdpLinkedProject } from '@/components/PDP/pdpProjectsRegistry'
 import {
   CATEGORIES_INFO,
   ALL_PRODUCTS,
@@ -51,15 +52,31 @@ const KNOWN_IMAGE_CASING_MAP: Record<string, string> = {
 // Extract string URL from Payload media upload or fallback string
 export function getMediaUrl(mediaField: any, fallbackUrl?: string): string {
   let url = ''
-  if (fallbackUrl && fallbackUrl.includes('?')) {
-    // If fallbackUrl contains explicit cache-busting query params, prioritize it
-    url = fallbackUrl
-  } else if (typeof mediaField === 'string' && mediaField.length > 0) {
-    url = mediaField
-  } else if (mediaField && typeof mediaField === 'object' && mediaField.url) {
-    url = mediaField.url
+
+  const mediaUrl =
+    typeof mediaField === 'string'
+      ? mediaField
+      : mediaField && typeof mediaField === 'object' && mediaField.url
+      ? mediaField.url
+      : ''
+
+  const candidateUrl = typeof fallbackUrl === 'string' ? fallbackUrl.trim() : ''
+
+  // Known static placeholder defaults that should yield to an authentic uploaded mediaField if present
+  const staticDefaults = new Set([
+    '/images/logo.png',
+    '/images/FINAL_LOGO_WHITE.svg',
+    '/images/hero-bg.jpg',
+    '/images/prod-structural.jpg',
+  ])
+
+  if (candidateUrl && (!mediaUrl || !staticDefaults.has(candidateUrl))) {
+    // If candidateUrl is provided and is an actual chosen URL (not just a static placeholder overriding a real upload)
+    url = candidateUrl
+  } else if (mediaUrl) {
+    url = mediaUrl
   } else {
-    url = fallbackUrl || ''
+    url = candidateUrl || ''
   }
 
   if (url && KNOWN_IMAGE_CASING_MAP[url]) {
@@ -635,13 +652,171 @@ export async function getProductsPageCmsData() {
 }
 
 // ----------------------------------------------------
+// All Products Basic Info (for PDP Related Products)
+// ----------------------------------------------------
+export async function getAllProductsBasicCmsData(): Promise<PdpRelatedProductItem[]> {
+  try {
+    const payload = await getPayloadClient()
+    if (payload) {
+      const res = await payload.find({
+        collection: 'products',
+        limit: 100,
+      })
+      if (res.docs && res.docs.length > 0) {
+        return res.docs.map((doc: any) => ({
+          id: doc.slug,
+          title: doc.title,
+          category: doc.category,
+          subheading: doc.subheading || '',
+          heroImage: getMediaUrl(doc.heroImage, doc.heroImageUrl || '/images/prod-structural.jpg'),
+        }))
+      }
+    }
+  } catch (err) {
+    console.warn('Failed to fetch products for relations:', err)
+  }
+
+  // Fallback to ALL_PRODUCTS
+  return ALL_PRODUCTS.map((p: any) => ({
+    id: p.id,
+    title: p.title,
+    category: p.categoryLabel || p.category,
+    subheading: p.badgeText || '',
+    heroImage: p.image || '/images/prod-structural.jpg',
+  }))
+}
+
+// Helper to match a raw slider item against authentic projects collection
+function matchProjectRecord(item: any, allProjects: any[]): PdpLinkedProject {
+  const rawSrc =
+    item.src ||
+    item.imageUrl ||
+    (typeof item.image === 'string' ? item.image : item.image?.url) ||
+    ''
+  const rawTitle = (item.title || '').trim().toLowerCase()
+  const rawSlug = (item.slug || '').trim().toLowerCase()
+
+  const matched = allProjects.find((p: any) => {
+    if (!p) return false
+    const pSlug = (p.id || p.slug || '').toLowerCase()
+    const pTitle = (p.title || '').toLowerCase()
+    if (rawSlug && (pSlug === rawSlug || pSlug.includes(rawSlug) || rawSlug.includes(pSlug))) return true
+    if (rawTitle && (pTitle === rawTitle || pTitle.includes(rawTitle) || rawTitle.includes(pTitle))) return true
+    if (rawSrc && (p.image === rawSrc || p.image?.includes(rawSrc) || (pSlug && rawSrc.includes(pSlug)))) return true
+    return false
+  })
+
+  if (matched) {
+    return {
+      slug: matched.id || matched.slug,
+      title: matched.title || item.title,
+      developer: matched.developer || item.developer || '',
+      location: matched.location || item.location || '',
+      category: matched.category || item.category || 'Featured Project',
+      src: matched.image || rawSrc || '/images/projects/balmoral-by-riverside.jpg',
+      glassDescription: matched.glassDescription,
+      application: matched.application,
+    }
+  }
+
+  return resolveProjectInfo(item)
+}
+
+function findRelatedProjectsForProduct(
+  productTitle: string,
+  productCategory: string,
+  allProjects: any[]
+): PdpLinkedProject[] {
+  const pTitle = (productTitle || '').toLowerCase()
+
+  const keywords: string[] = []
+  if (pTitle.includes('toughen') || pTitle.includes('hs ') || pTitle.includes('heat soaked')) {
+    keywords.push('toughened', 'safety', 'tempered', 'heat strengthened', '12mm')
+  }
+  if (pTitle.includes('laminat') || pTitle.includes('pvb') || pTitle.includes('sentry') || pTitle.includes('acoustic')) {
+    keywords.push('laminated', 'pvb', 'sentry', 'acoustic', '13.52')
+  }
+  if (pTitle.includes('dgu') || pTitle.includes('insulat')) {
+    keywords.push('dgu', 'insulated', 'double glazed', 'skn')
+  }
+  if (pTitle.includes('low-e') || pTitle.includes('reflect') || pTitle.includes('skn')) {
+    keywords.push('low-e', 'skn', 'solar', 'st 750', 'st 408', 'hd grey')
+  }
+  if (pTitle.includes('ceramic') || pTitle.includes('frosted') || pTitle.includes('mirror')) {
+    keywords.push('ceramic', 'frosted', 'decorative', 'fritted', 'mirror')
+  }
+  if (keywords.length === 0) {
+    keywords.push(pTitle.split(' ')[0])
+  }
+
+  const matched = allProjects.filter((proj: any) => {
+    const text = `${proj.glassDescription || ''} ${proj.application || ''} ${proj.title || ''} ${proj.tagline || ''}`.toLowerCase()
+    return keywords.some((kw) => text.includes(kw))
+  })
+
+  const selected = (matched.length > 0 ? matched : allProjects).slice(0, 4)
+  return selected.map((p: any) => ({
+    slug: p.id || p.slug,
+    title: p.title,
+    developer: p.developer || '',
+    location: p.location || '',
+    category: p.category || 'Featured Project',
+    src: p.image || '/images/projects/balmoral-by-riverside.jpg',
+    glassDescription: p.glassDescription,
+    application: p.application,
+  }))
+}
+
+function resolveRelatedProductsForProduct(
+  currentSlug: string,
+  rawRelatedSlugs: string[],
+  allProducts: PdpRelatedProductItem[]
+): PdpRelatedProductItem[] {
+  const normCurrent = resolveCanonicalSlug(currentSlug)
+
+  const otherProducts = allProducts.filter(
+    (p) => p.id !== currentSlug && resolveCanonicalSlug(p.id) !== normCurrent
+  )
+
+  const matches: PdpRelatedProductItem[] = []
+
+  if (rawRelatedSlugs && rawRelatedSlugs.length > 0) {
+    for (const rSlug of rawRelatedSlugs) {
+      const normR = resolveCanonicalSlug(rSlug)
+      const found = otherProducts.find(
+        (p) => p.id === rSlug || resolveCanonicalSlug(p.id) === normR
+      )
+      if (found && !matches.some((m) => m.id === found.id)) {
+        matches.push(found)
+      }
+    }
+  }
+
+  if (matches.length < 2) {
+    for (const p of otherProducts) {
+      if (!matches.some((m) => m.id === p.id)) {
+        matches.push(p)
+      }
+      if (matches.length >= 2) break
+    }
+  }
+
+  return matches.slice(0, 4)
+}
+
+// ----------------------------------------------------
 // Products & PDP Collection
 // ----------------------------------------------------
 export async function getPdpProductCmsData(slug: string): Promise<PdpProductDetail | null> {
   const canonicalSlug = resolveCanonicalSlug(slug)
 
   try {
-    const payload = await getPayloadClient()
+    const [payload, allProjects, allBasicProducts] = await Promise.all([
+      getPayloadClient(),
+      getProjectsCmsData(),
+      getAllProductsBasicCmsData(),
+    ])
+
     if (payload) {
       const res = await payload.find({
         collection: 'products',
@@ -650,6 +825,26 @@ export async function getPdpProductCmsData(slug: string): Promise<PdpProductDeta
       })
       if (res.docs && res.docs.length > 0) {
         const item: any = res.docs[0]
+
+        // Enrich slider project installations with authentic projects records
+        let enrichedSliderProjects: PdpLinkedProject[] = []
+        if (item.sliderImages && Array.isArray(item.sliderImages) && item.sliderImages.length > 0) {
+          enrichedSliderProjects = item.sliderImages.map((s: any) => matchProjectRecord(s, allProjects))
+        } else {
+          enrichedSliderProjects = findRelatedProjectsForProduct(item.title, item.category, allProjects)
+        }
+
+        // Enrich related products with authentic products records
+        const rawRelatedSlugs: string[] = [
+          ...(Array.isArray(item.relatedProducts)
+            ? item.relatedProducts.map((p: any) => (typeof p === 'object' && p !== null ? p.slug || p.id : p)).filter(Boolean)
+            : []),
+          ...(Array.isArray(item.relatedProductSlugs)
+            ? item.relatedProductSlugs.map((r: any) => r.slug || r).filter(Boolean)
+            : []),
+        ]
+        const resolvedRelatedProducts = resolveRelatedProductsForProduct(canonicalSlug, rawRelatedSlugs, allBasicProducts)
+
         return {
           id: item.slug,
           indexNumber: item.indexNumber || '01',
@@ -685,27 +880,52 @@ export async function getPdpProductCmsData(slug: string): Promise<PdpProductDeta
             description: ind.description,
             image: getMediaUrl(ind.image, ind.imageUrl),
           })),
-          sliderImages:
-            item.sliderImages?.map((s: any) => ({
-              src: getMediaUrl(s.image, s.src),
-              title: s.title,
-              developer: s.developer,
-              location: s.location,
-              category: s.category,
-            })) || [],
-          relatedProductIds: item.relatedProductSlugs?.map((r: any) => r.slug || r) || [
-            'toughened-glass',
-            'insulated-glass-dgu',
+          sliderImages: enrichedSliderProjects,
+          featuredProjects: enrichedSliderProjects,
+          relatedProducts: resolvedRelatedProducts,
+          relatedProductIds: [
+            (resolvedRelatedProducts[0]?.id || 'clear-glass') as string,
+            (resolvedRelatedProducts[1]?.id || 'hs-glass') as string,
           ],
         }
       }
     }
   } catch (err) {
-    console.warn(`PDP product fetch failed for slug '${slug}', using mock fallback:`, err)
+    console.warn(`PDP product fetch failed for slug '${slug}', using dynamic fallback:`, err)
   }
 
-  // Fallback to local PDP mock data using canonical key
-  return PDP_MOCK_DATA[canonicalSlug] || null
+  // Fallback to local PDP mock data using canonical key, enriched with projects & products relations
+  const fallbackMock = PDP_MOCK_DATA[canonicalSlug]
+  if (!fallbackMock) return null
+
+  try {
+    const [allProjects, allBasicProducts] = await Promise.all([
+      getProjectsCmsData(),
+      getAllProductsBasicCmsData(),
+    ])
+
+    const enrichedSliderProjects = (fallbackMock.sliderImages || []).map((s: any) =>
+      matchProjectRecord(s, allProjects)
+    )
+    const resolvedRelatedProducts = resolveRelatedProductsForProduct(
+      canonicalSlug,
+      fallbackMock.relatedProductIds || [],
+      allBasicProducts
+    )
+
+    return {
+      ...fallbackMock,
+      sliderImages: enrichedSliderProjects,
+      featuredProjects: enrichedSliderProjects,
+      relatedProducts: resolvedRelatedProducts,
+      relatedProductIds: [
+        (resolvedRelatedProducts[0]?.id || fallbackMock.relatedProductIds[0] || 'clear-glass') as string,
+        (resolvedRelatedProducts[1]?.id || fallbackMock.relatedProductIds[1] || 'hs-glass') as string,
+      ],
+    }
+  } catch {
+    return fallbackMock
+  }
 }
 
 // ----------------------------------------------------
@@ -843,14 +1063,23 @@ export async function getIndustrySolutionCmsData() {
             subheading: data.hero?.subheading || industrySolutionsMock.page.subheading,
             introDescription: industrySolutionsMock.page.introDescription,
           },
-          industries: data.industries.map((ind: any) => ({
-            id: ind.id,
-            title: ind.title,
-            subtitle: ind.subtitle || '',
-            image: getMediaUrl(ind.image, ind.imageUrl),
-            specs: ind.specs || '',
-            description: ind.description || '',
-          })),
+          industries: data.industries.map((ind: any) => {
+            const mainImg = getMediaUrl(ind.image, ind.imageUrl)
+            const multiImgs =
+              Array.isArray(ind.images) && ind.images.length > 0
+                ? Array.from(new Set(ind.images.map((img: any) => typeof img === 'string' ? img : getMediaUrl(img?.image, img?.imageUrl)).filter(Boolean) as string[]))
+                : (mainImg ? [mainImg] : [])
+
+            return {
+              id: ind.id,
+              title: ind.title,
+              subtitle: ind.subtitle || '',
+              image: mainImg,
+              images: multiImgs,
+              specs: ind.specs || '',
+              description: ind.description || '',
+            }
+          }),
         }
       }
     }
@@ -884,15 +1113,24 @@ export async function getInfrastructureCmsData() {
             subheading: data.hero?.subheading || infrastructureMock.page.subheading,
             introDescription: infrastructureMock.page.introDescription,
           },
-          industries: data.industries.map((item: any) => ({
-            id: item.id,
-            title: item.title,
-            subtitle: item.subtitle || '',
-            image: getMediaUrl(item.image, item.imageUrl),
-            objectPosition: item.objectPosition || (item.id === 'toughening-plant' ? 'right center' : undefined),
-            specs: item.specs || '',
-            description: item.description || '',
-          })),
+          industries: data.industries.map((item: any) => {
+            const mainImg = getMediaUrl(item.image, item.imageUrl)
+            const multiImgs =
+              Array.isArray(item.images) && item.images.length > 0
+                ? Array.from(new Set(item.images.map((img: any) => typeof img === 'string' ? img : getMediaUrl(img?.image, img?.imageUrl)).filter(Boolean) as string[]))
+                : (mainImg ? [mainImg] : [])
+
+            return {
+              id: item.id,
+              title: item.title,
+              subtitle: item.subtitle || '',
+              image: mainImg,
+              images: multiImgs,
+              objectPosition: item.objectPosition || (item.id === 'toughening-plant' ? 'right center' : undefined),
+              specs: item.specs || '',
+              description: item.description || '',
+            }
+          }),
         }
       }
     }

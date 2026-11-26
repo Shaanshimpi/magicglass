@@ -95,9 +95,13 @@ export const ClientLayoutShell: React.FC<ClientLayoutShellProps> = ({
     } else {
       document.body.style.overflow = ''
       document.documentElement.style.overflow = ''
-      window.scrollTo(0, 0)
+      if (!window.location.hash) {
+        window.scrollTo(0, 0)
+      }
       if (lenis) {
-        lenis.scrollTo(0, { immediate: true })
+        if (!window.location.hash) {
+          lenis.scrollTo(0, { immediate: true })
+        }
         lenis.start()
       }
     }

@@ -29,6 +29,17 @@ export const IndustrySolutionPageGlobal: GlobalConfig = {
         { name: 'description', type: 'textarea' },
         { name: 'image', type: 'upload', relationTo: 'media' },
         { name: 'imageUrl', type: 'text' },
+        {
+          name: 'images',
+          type: 'array',
+          fields: [
+            { name: 'image', type: 'upload', relationTo: 'media' },
+            { name: 'imageUrl', type: 'text' },
+          ],
+          admin: {
+            description: 'Add multiple images for this industry. When multiple images are provided, navigation arrows appear on the card.',
+          },
+        },
       ],
     },
   ],

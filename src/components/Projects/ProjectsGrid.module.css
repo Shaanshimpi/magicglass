@@ -36,6 +36,36 @@
 .gridItem {
   position: relative;
   cursor: pointer;
+  scroll-margin-top: 120px;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.highlightedItem {
+  z-index: 10;
+  transform: translateY(-4px);
+}
+
+.highlightedItem .imageWrapper {
+  box-shadow: 
+    0 0 0 3px #0284c7,
+    0 0 28px rgba(2, 132, 199, 0.55),
+    0 16px 36px rgba(0, 0, 0, 0.5);
+  animation: pulseHighlight 2s ease-in-out infinite alternate;
+}
+
+@keyframes pulseHighlight {
+  0% {
+    box-shadow: 
+      0 0 0 3px #0284c7,
+      0 0 16px rgba(2, 132, 199, 0.35),
+      0 12px 28px rgba(0, 0, 0, 0.4);
+  }
+  100% {
+    box-shadow: 
+      0 0 0 4px #38bdf8,
+      0 0 34px rgba(56, 189, 248, 0.7),
+      0 20px 45px rgba(0, 0, 0, 0.55);
+  }
 }
 
 .imageWrapper {
@@ -53,25 +83,27 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), filter 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, filter;
 }
 
 .gridItem:hover .cardImage {
-  transform: scale(1.06);
+  transform: scale(1.08);
+  filter: blur(8px);
 }
 
 .hoverOverlay {
   position: absolute;
   inset: 0;
   background: linear-gradient(
-    155deg,
-    rgba(255, 255, 255, 0.12) 0%,
-    rgba(15, 23, 42, 0.32) 40%,
-    rgba(10, 16, 26, 0.58) 100%
+    180deg,
+    rgba(0, 0, 0, 0.25) 0%,
+    rgba(0, 0, 0, 0.55) 45%,
+    rgba(0, 0, 0, 0.85) 100%
   );
-  backdrop-filter: blur(12px) saturate(160%);
-  -webkit-backdrop-filter: blur(12px) saturate(160%);
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   opacity: 0;
   display: flex;
   align-items: center;
@@ -90,14 +122,10 @@
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: #ffffff;
-  background: rgba(255, 255, 255, 0.18);
-  backdrop-filter: blur(16px) saturate(180%);
-  -webkit-backdrop-filter: blur(16px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  border-top: 1px solid rgba(255, 255, 255, 0.5);
-  box-shadow: 
-    inset 0 1px 1px 0 rgba(255, 255, 255, 0.35),
-    0 8px 24px rgba(0, 0, 0, 0.35);
+  background: rgba(11, 16, 18, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   padding: 0.65rem 1.4rem;
   border-radius: 6px;
   transform: translateY(10px);

@@ -1,24 +1,38 @@
 'use client'
 
 import React from 'react'
-import { PdpProductDetail } from './pdpData'
+import { PdpProductDetail, PdpRelatedProductItem } from './pdpData'
 import { PdpHero } from './PdpHero'
 import { PdpGeneralInfo } from './PdpGeneralInfo'
-import { PdpMasonryGallery } from './PdpMasonryGallery'
 import { PdpDiscoverSlider } from './PdpDiscoverSlider'
-import { PdpImageSlider } from './PdpImageSlider'
 import { PdpRelatedProducts } from './PdpRelatedProducts'
-import { PdpInquiryForm } from './PdpInquiryForm'
-import { useLayoutContext } from '@/components/Shell/ClientLayoutShell'
 
 interface PdpClientContentProps {
   product: PdpProductDetail
+  featuredProjects?: any[]
+  relatedProducts?: PdpRelatedProductItem[]
 }
 
 export const PdpClientContent: React.FC<PdpClientContentProps> = ({
   product,
+  featuredProjects,
+  relatedProducts,
 }) => {
-  const { openQuoteDrawer } = useLayoutContext()
+  const sliderImages =
+    featuredProjects && featuredProjects.length > 0
+      ? featuredProjects
+      : product.featuredProjects && product.featuredProjects.length > 0
+      ? product.featuredProjects
+      : product.sliderImages && product.sliderImages.length > 0
+      ? product.sliderImages
+      : undefined
+
+  const productsList =
+    relatedProducts && relatedProducts.length > 0
+      ? relatedProducts
+      : product.relatedProducts && product.relatedProducts.length > 0
+      ? product.relatedProducts
+      : undefined
 
   return (
     <div style={{ paddingTop: '70px', backgroundColor: 'var(--color-black)', color: 'var(--color-taupe)' }}>
@@ -36,23 +50,13 @@ export const PdpClientContent: React.FC<PdpClientContentProps> = ({
         characteristics={product.characteristics}
         specs={product.specs}
       />
-      <PdpMasonryGallery
-        images={product.galleryImages}
-        title={product.galleryTitle || 'Glass Applications'}
-        imageItems={product.galleryImageItems}
-      />
       <PdpDiscoverSlider
-        images={product.sliderImages}
+        images={sliderImages}
         title="Featured Installations"
       />
-      <PdpImageSlider
-        industryItems={product.industries}
-        title="Our Industry"
-      />
-      <PdpRelatedProducts relatedIds={product.relatedProductIds} />
-      <PdpInquiryForm
-        productTitle={product.title}
-        onOpenQuoteDrawer={openQuoteDrawer}
+      <PdpRelatedProducts
+        products={productsList}
+        relatedIds={product.relatedProductIds}
       />
     </div>
   )

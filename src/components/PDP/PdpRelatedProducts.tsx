@@ -5,31 +5,44 @@ import Link from 'next/link'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import styles from './PdpRelatedProducts.module.css'
-import { PDP_MOCK_DATA, PdpProductDetail } from './pdpData'
+import { PDP_MOCK_DATA, PdpRelatedProductItem } from './pdpData'
 import { PdpScrubbedImage } from './PdpScrubbedImage'
 
 interface PdpRelatedProductsProps {
-  relatedIds: [string, string]
+  products?: PdpRelatedProductItem[]
+  relatedIds?: [string, string] | string[]
 }
 
 export const PdpRelatedProducts: React.FC<PdpRelatedProductsProps> = ({
-  relatedIds,
+  products,
+  relatedIds = ['clear-glass', 'hs-glass'],
 }) => {
   const sectionRef = useRef<HTMLElement>(null)
 
-  const relatedProducts = relatedIds
-    .map((id) => {
-      if (PDP_MOCK_DATA[id]) return PDP_MOCK_DATA[id]
-      return {
-        id,
-        title: id
-          .split('-')
-          .map((s) => s.charAt(0).toUpperCase() + s.slice(1))
-          .join(' '),
-        heroImage: '/images/prod-structural.jpg',
-      }
-    })
-    .filter(Boolean)
+  const relatedProducts: PdpRelatedProductItem[] =
+    products && products.length > 0
+      ? products
+      : (relatedIds || [])
+          .map((id) => {
+            if (PDP_MOCK_DATA[id]) {
+              return {
+                id: PDP_MOCK_DATA[id].id,
+                title: PDP_MOCK_DATA[id].title,
+                heroImage: PDP_MOCK_DATA[id].heroImage,
+                category: PDP_MOCK_DATA[id].category,
+                subheading: PDP_MOCK_DATA[id].subheading,
+              }
+            }
+            return {
+              id,
+              title: id
+                .split('-')
+                .map((s) => s.charAt(0).toUpperCase() + s.slice(1))
+                .join(' '),
+              heroImage: '/images/prod-structural.jpg',
+            }
+          })
+          .filter(Boolean)
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger)

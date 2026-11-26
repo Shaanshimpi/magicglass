@@ -262,6 +262,10 @@ export interface Product {
         id?: string | null;
       }[]
     | null;
+  /**
+   * Select other relevant products to recommend at the bottom of this product page.
+   */
+  relatedProducts?: (number | Product)[] | null;
   relatedProductSlugs?:
     | {
         slug: string;
@@ -515,6 +519,7 @@ export interface ProductsSelect<T extends boolean = true> {
         src?: T;
         id?: T;
       };
+  relatedProducts?: T;
   relatedProductSlugs?:
     | T
     | {
@@ -955,6 +960,16 @@ export interface IndustrySolutionPage {
         description?: string | null;
         image?: (number | null) | Media;
         imageUrl?: string | null;
+        /**
+         * Add multiple images for this industry. When multiple images are provided, navigation arrows appear on the card.
+         */
+        images?:
+          | {
+              image?: (number | null) | Media;
+              imageUrl?: string | null;
+              id?: string | null;
+            }[]
+          | null;
       }[]
     | null;
   updatedAt?: string | null;
@@ -983,6 +998,16 @@ export interface InfrastructurePage {
         description?: string | null;
         image?: (number | null) | Media;
         imageUrl?: string | null;
+        /**
+         * Add multiple images for this facility. When multiple images are provided, navigation arrows appear on the card.
+         */
+        images?:
+          | {
+              image?: (number | null) | Media;
+              imageUrl?: string | null;
+              id?: string | null;
+            }[]
+          | null;
       }[]
     | null;
   updatedAt?: string | null;
@@ -1417,6 +1442,13 @@ export interface IndustrySolutionPageSelect<T extends boolean = true> {
         description?: T;
         image?: T;
         imageUrl?: T;
+        images?:
+          | T
+          | {
+              image?: T;
+              imageUrl?: T;
+              id?: T;
+            };
       };
   updatedAt?: T;
   createdAt?: T;
@@ -1447,6 +1479,13 @@ export interface InfrastructurePageSelect<T extends boolean = true> {
         description?: T;
         image?: T;
         imageUrl?: T;
+        images?:
+          | T
+          | {
+              image?: T;
+              imageUrl?: T;
+              id?: T;
+            };
       };
   updatedAt?: T;
   createdAt?: T;
