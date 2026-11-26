@@ -97,25 +97,29 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: transparent;
-  padding: 0;
-  border-radius: 0;
-  border: none;
-  box-shadow: none;
   width: 100%;
-  max-width: 100%;
-  overflow: visible;
 }
 
-.centerLogoSvg {
-  height: 96px;
+.headerLogoPod {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.55rem 1.6rem;
+  background: rgba(255, 255, 255, 0.96);
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.4), 0 0 30px rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(12px);
+  will-change: transform, opacity;
+  transition: transform 0.3s ease;
+}
+
+.headerLogoImg {
+  height: clamp(38px, 5vw, 52px);
   width: auto;
-  aspect-ratio: 76 / 94;
+  max-width: clamp(170px, 25vw, 240px);
   object-fit: contain;
-  overflow: visible;
   display: block;
-  filter: drop-shadow(0 0 24px rgba(227, 0, 22, 0.4));
-  will-change: transform, opacity, filter;
 }
 
 .brandWordmark {
@@ -187,9 +191,12 @@
   .loaderContent {
     padding: 2rem 1.5rem;
   }
-  .centerLogoSvg {
-    height: 72px;
-    object-fit: contain;
+  .headerLogoPod {
+    padding: 0.45rem 1.3rem;
+  }
+  .headerLogoImg {
+    height: 32px;
+    max-width: 145px;
   }
   .ringWrapper {
     width: 56px;

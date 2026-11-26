@@ -1,12 +1,14 @@
 'use client'
 
 import React, { useEffect, useRef, useState } from 'react'
+import Image from 'next/image'
 import gsap from 'gsap'
 import styles from './Loader.module.css'
 
 interface LoaderProps {
   onComplete: () => void
   cmsData?: {
+    logo?: string
     loaderBrandTag?: string
     loaderBrandTitle?: string
     loaderStatusText?: string
@@ -17,6 +19,7 @@ interface LoaderProps {
 export const Loader: React.FC<LoaderProps> = ({ onComplete, cmsData }) => {
   const brandTag = cmsData?.loaderBrandTag || '◆ MAGIC GLASS'
   const brandTitle = cmsData?.loaderBrandTitle || "It's not just glass It's"
+  const logoSrc = cmsData?.logo || '/images/logo.png'
   const statusText = cmsData?.loaderStatusText || 'INITIALIZING EXPERIENCE'
   const estYear = cmsData?.loaderEstYear || 'EST. 2006'
   const [progress, setProgress] = useState(0)
@@ -26,8 +29,7 @@ export const Loader: React.FC<LoaderProps> = ({ onComplete, cmsData }) => {
   const tagRef = useRef<HTMLDivElement>(null)
   const counterRef = useRef<HTMLDivElement>(null)
   const circleRef = useRef<SVGCircleElement>(null)
-  const logoSvgRef = useRef<SVGSVGElement>(null)
-  const redEmblemRef = useRef<SVGPathElement>(null)
+  const logoPodRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -98,10 +100,10 @@ export const Loader: React.FC<LoaderProps> = ({ onComplete, cmsData }) => {
 
       // Awwwards Non-Scroll Kinetic Logo Animations:
       // 1. Initial Scale & Elastic Entrance Reveal
-      if (logoSvgRef.current) {
+      if (logoPodRef.current) {
         gsap.fromTo(
-          logoSvgRef.current,
-          { scale: 0.82, opacity: 0, y: 30 },
+          logoPodRef.current,
+          { scale: 0.85, opacity: 0, y: 25 },
           {
             scale: 1,
             opacity: 1,
@@ -113,25 +115,13 @@ export const Loader: React.FC<LoaderProps> = ({ onComplete, cmsData }) => {
         )
 
         // 2. Ambient Levitation Floating Loop
-        gsap.to(logoSvgRef.current, {
-          y: -8,
+        gsap.to(logoPodRef.current, {
+          y: -6,
           duration: 1.8,
           ease: 'sine.inOut',
           repeat: -1,
           yoyo: true,
           delay: 1.3,
-        })
-      }
-
-      // 3. Ambient Red Brand Emblem Pulse Glow
-      if (redEmblemRef.current) {
-        gsap.to(redEmblemRef.current, {
-          filter: 'drop-shadow(0 0 16px rgba(230, 57, 70, 0.85))',
-          duration: 1.3,
-          ease: 'sine.inOut',
-          repeat: -1,
-          yoyo: true,
-          delay: 0.5,
         })
       }
 
@@ -176,35 +166,21 @@ export const Loader: React.FC<LoaderProps> = ({ onComplete, cmsData }) => {
           <span>{estYear}</span>
         </div>
 
-        {/* Center Kinetic Editorial Title & Prominent Centered M Logo */}
+        {/* Center Kinetic Editorial Title & Prominent Centered Header Logo */}
         <div ref={titleRef} className={styles.titleBox}>
           {brandTitle && <span className={styles.brandKicker}>{brandTitle}</span>}
-          <div className={styles.centerLogoWrapper}>
-            <svg
-              ref={logoSvgRef}
-              viewBox="71.8 145.7 76 94"
-              preserveAspectRatio="xMidYMid meet"
-              className={styles.centerLogoSvg}
-              xmlns="http://www.w3.org/2000/svg"
-              aria-label="Magic Glass M Logo"
-              style={{ objectFit: 'contain', overflow: 'visible' }}
-            >
-              <g id="m-emblem">
-                {/* White Wing of M */}
-                <path
-                  style={{ fill: '#ffffff', fillRule: 'evenodd' }}
-                  d="m 115.1734,186.0385 v 18.0232 l 17.0469,-14.0949 v 29.5015 h 14.2783 v -57.852 z"
-                />
-                {/* Red Geometric Facet of M */}
-                <path
-                  ref={redEmblemRef}
-                  style={{ fill: '#e63946', fillRule: 'evenodd' }}
-                  d="m 83.8103,161.6163 v 57.852 h 14.2705 v -29.5015 l 17.0926,14.0949 v 16.0854 l -41.9953,18.3055 v -91.4117 l 41.9953,19.0679 v 19.9296 z"
-                />
-              </g>
-            </svg>
+          <div ref={logoPodRef} className={styles.centerLogoWrapper}>
+            <div className={styles.headerLogoPod}>
+              <Image
+                src={logoSrc}
+                alt="Magic Glass Logo"
+                width={200}
+                height={65}
+                className={styles.headerLogoImg}
+                priority
+              />
+            </div>
           </div>
-          <div className={styles.brandWordmark}>MAGIC GLASS</div>
         </div>
 
         {/* Bottom Circular Progress Indicator & Monospaced Number */}
