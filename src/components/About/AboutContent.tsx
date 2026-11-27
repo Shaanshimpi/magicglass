@@ -43,21 +43,21 @@ const WHY_MAGIC_GLASS = [
 const LEADERSHIP = [
   {
     name: 'Manik Kodre',
-    role: 'Managing Director & Founder',
+    role: 'Chairman',
     image: '/images/about/manik-kodre.png',
-    bio: 'Meet Manik Kodre, the visionary Managing Director and founder of Magic Glass. With roots in farming, he recognized the limitless potential of toughened glass in the modern world, founding our company in 2006. Under his leadership, Magic Glass has grown into a dominant force in Pune’s retail market and expanded swiftly, meeting surging demand in 2014. Manik’s strategic acumen and unwavering belief in the potential of toughened glass have propelled us to unprecedented heights, forging partnerships with major corporations across India and shaping our journey of excellence.',
+    bio: 'With a vision for growth, innovation and excellence, Manik Kodre has been instrumental in shaping the journey of Magic Glass. Under his leadership, the company has continually evolved, strengthening its manufacturing capabilities and embracing advanced technology to meet the increasingly sophisticated demands of the glass industry. Driven by a commitment to quality, precision and customer satisfaction, Magic Glass has built a strong reputation and established lasting partnerships with leading businesses across India. Today, the company continues to invest in state-of-the-art infrastructure and cutting-edge manufacturing capabilities, positioning itself to meet the evolving needs of modern architecture and high-performance glass applications.',
   },
   {
     name: 'Anup Kodre',
-    role: 'Director (Marketing & Finance)',
+    role: 'Managing Director',
     image: '/images/about/anup-kodre.png',
-    bio: 'Anup’s innate talent for marketing and finance, paired with his strong presence, eloquent communication, and visionary leadership, has been instrumental in Magic Glass’ rise in the Indian glass industry. Anup’s strategic acumen has strengthened our relationships with key stakeholders, expanding Magic Glass’s influence beyond Pune and Maharashtra to neighboring states. His expertise in marketing, finance, strategy, and business development continues to drive our success story. He holds an MBA (Finance) from the Sydney Institute of Technology.',
+    bio: 'Anup Kodre’s innate talent for marketing and finance, coupled with his strong presence, eloquent communication and visionary leadership, has played a significant role in shaping the growth of Magic Glass. His strategic acumen and ability to cultivate strong relationships with key stakeholders have helped expand the company’s presence beyond Pune and Maharashtra into neighbouring states. With expertise in marketing, finance, strategy and business development, Anup continues to play an integral role in driving the company’s growth and strengthening its position in the Indian glass industry. He holds an MBA in Finance from the Sydney Institute of Technology.',
   },
   {
     name: 'Nitish Kodre',
-    role: 'Director (Operations & R&D)',
+    role: 'Director - Manufacturing & Operations',
     image: '/images/about/nitish-kodre.png',
-    bio: 'Nitish, a holder of a master’s degree in architecture from Kingston University London, embraced his role in the family enterprise right after completing his education. Taking the reins of production and operations, Nitish envisioned a pursuit of perfection, efficiency, and world-class glass quality. His dedication led him to extensively study machinery, glass processes, and production lines. Collaborating with diverse companies, he set new benchmarks for quality standards and operational efficiency. His meticulous planning and analysis of production lines have culminated in the establishment of a seamless, end-to-end production journey.',
+    bio: 'Holding a Master’s degree in Architecture from Kingston University London, Nitish Kodre joined the family business upon completing his education, bringing with him a vision for manufacturing excellence, efficiency and world-class glass quality. Overseeing the company\'s manufacturing operations, he has been instrumental in driving process optimisation, technological advancement and continuous improvement across the factory. With a keen interest in machinery, glass processing technologies and manufacturing systems, he continually explores new innovations and approaches to enhance production capabilities, quality and efficiency. Through meticulous planning, analytical thinking and a commitment to innovation, he has helped develop a streamlined, end-to-end manufacturing process while continually advancing the company\'s operational capabilities and manufacturing standards.',
   },
 ]
 
